@@ -5,8 +5,6 @@ on: [push, pull_request] # Will trigger whenever a push is made to the branch, r
 jobs:
   run_unit_tests:
     runs-on: ubuntu-latest # Running on this OS, if we need it changed lmk
-    env:
-      ACTIONS_URL: ${{ $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID }}
     steps:
       - uses: actions/checkout@v2 # Checkout repo to remote machine
       - name: Set up OpenJDK13 
@@ -51,7 +49,7 @@ jobs:
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
                               "color": "${{env.TEST_OUTCOME}}",
-                              "url": "${{ env.ACTIONS_URL }}"
+                              "url": "${{ https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID }}"
                             }]'
         uses: Ilshidur/action-discord@master
         with:
