@@ -32,10 +32,15 @@ jobs:
         env:
           GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is 
 
-      - name: Set test output
-        if: always()
+      - name: Set test output for success
+        if: always() && steps.tests.conclusion == 'success'
         run: |
-          echo "TEST_OUTCOME=${{steps.tests.conclusion == 'success'}}" >> $GITHUB_ENV
+          echo "TEST_OUTCOME=3066993" >> $GITHUB_ENV
+
+      - name: Set test output for failure
+        if: always() && steps.tests.conclusion != 'success'
+        run: |
+          echo "TEST_OUTCOME=15158332" >> $GITHUB_ENV
 
       - name: Discord notification
         if: always() #&& github.ref == 'refs/heads/main' # Always run when on main
@@ -44,7 +49,7 @@ jobs:
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
-                              "color": ${{ TEST_OUTCOME && 3066993 || 15158332 }}
+                              "color": ${{$TEST_OUTCOME}}
                             }]'
         uses: Ilshidur/action-discord@master
         with:
