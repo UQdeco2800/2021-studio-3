@@ -6,7 +6,7 @@ jobs:
   run_unit_tests:
     runs-on: ubuntu-latest # Running on this OS, if we need it changed lmk
     env:
-      ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+      ACTIONS_URL: ${{ $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID }}
     steps:
       - uses: actions/checkout@v2 # Checkout repo to remote machine
       - name: Set up OpenJDK13 
