@@ -35,7 +35,7 @@ jobs:
         env:
           GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is 
 
-      - name: Set test output for success
+      - name: Set test output for success # Both of these numbers are int codes for red and green respectively; the Discord API uses these for some reason
         if: always() && steps.tests.conclusion == 'success'
         run: |
           echo "TEST_OUTCOME=3066993" >> $GITHUB_ENV
