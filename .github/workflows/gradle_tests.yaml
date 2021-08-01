@@ -51,9 +51,10 @@ jobs:
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
                               "color": "${{env.TEST_OUTCOME}}"
                             }]'
+          ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Unit Tests reported **${{steps.tests.conclusion}}**! [View this run](${{$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID}})'
+          args: 'Unit Tests reported **${{steps.tests.conclusion}}**! [View this run]($ACTIONS_URL)'
 
       - name: Cleanup Gradle Cache
         if: always()
