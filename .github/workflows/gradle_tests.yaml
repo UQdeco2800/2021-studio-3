@@ -48,8 +48,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
-                              "description": "Commit message: ```${{ github.event.head_commit.message }}```\n[View this run](${{ env.ACTIONS_URL }})",
-                              "color": "${{env.TEST_OUTCOME}}"
+                              "description": "Commit message: ```${{ github.event.head_commit.message }}```",
+                              "color": "${{env.TEST_OUTCOME}}",
+                              "url": ${{ env.ACTIONS_URL }}
                             }]'
           ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         uses: Ilshidur/action-discord@master
