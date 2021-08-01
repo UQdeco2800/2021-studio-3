@@ -33,14 +33,14 @@ jobs:
           GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is 
 
       - name: Discord notification
-        #if: always() && github.ref == 'refs/heads/main' # Always run when on main
+        if: always() #&& github.ref == 'refs/heads/main' # Always run when on main
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
-                              "color": ${{ fromJSON('[15158332, 3066993]')[steps.tests.conclusion == 'success'] }}
-                            }]''
+                              "color": ${{ success() && 3066993 || 15158332 }}
+                            }]'
         uses: Ilshidur/action-discord@master
         with:
           args: 'Unit Tests reported **${{steps.tests.conclusion}}**!'
