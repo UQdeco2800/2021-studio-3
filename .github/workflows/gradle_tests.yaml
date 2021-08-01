@@ -36,10 +36,11 @@ jobs:
         if: always() #&& github.ref == 'refs/heads/main' # Always run when on main
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TEST_OUTCOME: ${{ steps.tests.conclusion == 'success' }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
-                              "color": ${{ success() && 3066993 || 15158332 }}
+                              "color": ${{ TEST_OUTCOME && 3066993 || 15158332 }}
                             }]'
         uses: Ilshidur/action-discord@master
         with:
