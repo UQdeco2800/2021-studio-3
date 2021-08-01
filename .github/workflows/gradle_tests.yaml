@@ -48,13 +48,13 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
-                              "description": "Commit message: ```${{ github.event.head_commit.message }}```",
+                              "description": "Commit message: ```${{ github.event.head_commit.message }}```\n[View this run](${{ env.ACTIONS_URL }})",
                               "color": "${{env.TEST_OUTCOME}}"
                             }]'
           ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Unit Tests reported **${{steps.tests.conclusion}}**! [View this run]({{ ACTIONS_URL }})'
+          args: 'Unit Tests reported **${{steps.tests.conclusion}}**!'
 
       - name: Cleanup Gradle Cache
         if: always()
