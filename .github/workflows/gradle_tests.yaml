@@ -5,14 +5,15 @@ on: [push, pull_request] # Will trigger whenever a push is made to the branch, r
 jobs:
   run_unit_tests:
     runs-on: ubuntu-latest # Running on this OS, if we need it changed lmk
-
+    env:
+      ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
     steps:
       - uses: actions/checkout@v2 # Checkout repo to remote machine
       - name: Set up OpenJDK13 
         uses: actions/setup-java@v1
         with:
           java-version: '13'
-
+    
       - name: Cache Gradle packages # Allows us to reuse packages between runs
         uses: actions/cache@v2 # If the files specified in key change we dump old cache else re-use
         with:
@@ -52,7 +53,6 @@ jobs:
                               "color": "${{env.TEST_OUTCOME}}",
                               "url": "${{ env.ACTIONS_URL }}"
                             }]'
-          ACTIONS_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         uses: Ilshidur/action-discord@master
         with:
           args: 'Unit Tests reported **${{steps.tests.conclusion}}**!'
