@@ -33,12 +33,12 @@ jobs:
           GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is 
 
       - name: Discord notification
-        if: always() && github.ref == 'refs/heads/main' # Always run when on main
+        #if: always() && github.ref == 'refs/heads/main' # Always run when on main
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
-                              "description": "Commit message: ```${{ github.event.head_commit.message }}```",
+                              "description": "Commit message: ```github.event.head_commit.message```",
                             }]'
         uses: Ilshidur/action-discord@master
         with:
