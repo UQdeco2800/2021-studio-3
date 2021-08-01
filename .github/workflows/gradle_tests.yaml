@@ -49,7 +49,7 @@ jobs:
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
                               "color": "${{env.TEST_OUTCOME}}",
-                              "url": "${{ https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID }}"
+                              "url": "https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
                             }]'
         uses: Ilshidur/action-discord@master
         with:
