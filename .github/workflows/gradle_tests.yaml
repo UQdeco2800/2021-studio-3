@@ -11,7 +11,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '13'
-    
+
+      - name: Set Actions URL # We don't have a better way of grabbing this due to the discord settings not being executed in the bash env
+        run: |
+          echo "ACTIONS_URL=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_ENV
+
       - name: Cache Gradle packages # Allows us to reuse packages between runs
         uses: actions/cache@v2 # If the files specified in key change we dump old cache else re-use
         with:
@@ -49,7 +53,7 @@ jobs:
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
                               "color": "${{env.TEST_OUTCOME}}",
-                              "url": "https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+                              "url": "${{ env.ACTIONS_URL }}"
                             }]'
         uses: Ilshidur/action-discord@master
         with:
