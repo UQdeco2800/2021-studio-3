@@ -53,7 +53,7 @@ jobs:
                             }]'
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Unit Tests reported **${{steps.tests.conclusion}}**! [View this run]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)'
+          args: 'Unit Tests reported **${{steps.tests.conclusion}}**! [View this run](${{$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID}})'
 
       - name: Cleanup Gradle Cache
         if: always()
