@@ -38,7 +38,8 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
-                              "description": "Commit message:"
+                              "description": "Commit message:",
+                              "color": 14177041
                             }]'
         uses: Ilshidur/action-discord@master
         with:
