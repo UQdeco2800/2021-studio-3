@@ -49,7 +49,7 @@ jobs:
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
-                              "color": ${{TEST_OUTCOME}}
+                              "color": $TEST_OUTCOME
                             }]'
         uses: Ilshidur/action-discord@master
         with:
