@@ -32,11 +32,15 @@ jobs:
         env:
           GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is 
 
+      - name: Set test output
+        if: always()
+        run: |
+          echo "TEST_OUTCOME=${{steps.tests.conclusion == 'success'}}" >> $GITHUB_ENV
+
       - name: Discord notification
         if: always() #&& github.ref == 'refs/heads/main' # Always run when on main
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TEST_OUTCOME: ${{ steps.tests.conclusion == 'success' }}
           DISCORD_EMBEDS: '[{
                               "title": "Build Information",
                               "description": "Commit message: ```${{ github.event.head_commit.message }}```",
