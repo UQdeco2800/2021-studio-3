@@ -22,7 +22,7 @@ public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -37,7 +37,10 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+          "images/surface.png",
+          "images/underground.png",
+          "images/sky.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -63,12 +66,12 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
+    //spawnTrees();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
+    //spawnGhosts();
+    //spawnGhostKing();
 
-    playMusic();
+    //playMusic();
   }
 
   private void displayUI() {
@@ -81,7 +84,7 @@ public class ForestGameArea extends GameArea {
   private void spawnTerrain() {
     // Background terrain
 
-    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
+    terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
@@ -101,18 +104,19 @@ public class ForestGameArea extends GameArea {
     // Top
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y/2),
+        new GridPoint2(0, tileBounds.y),
         false,
         false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, tileBounds.y/4), false, false);
+            //change a wall with high:10
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 9), false, false);
   }
 
   private void spawnTrees() {
     //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(0, 10);
-    GridPoint2 maxPos = new GridPoint2(30, 10);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     for (int i = 0; i < NUM_TREES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);

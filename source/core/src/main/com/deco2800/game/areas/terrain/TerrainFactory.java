@@ -80,9 +80,28 @@ public class TerrainFactory {
         TextureRegion hexRocks =
             new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
         return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
+      case SIDE_SCROLL_ER:
+        TextureRegion surface =
+                new TextureRegion(resourceService.getAsset("images/surface.png", Texture.class));
+        TextureRegion underground =
+                new TextureRegion(resourceService.getAsset("images/underground.png", Texture.class));
+        TextureRegion sky =
+                new TextureRegion(resourceService.getAsset("images/sky.png", Texture.class));
+        TextureRegion tree =
+                new TextureRegion(resourceService.getAsset("images/tree.png", Texture.class));
+        return createSideScrollTerrain(0.5f, surface, underground, sky, tree);
       default:
         return null;
     }
+  }
+
+  //A new terrain with side sroll-er
+  private TerrainComponent createSideScrollTerrain(
+          float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
+    GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
+    TiledMap tiledMap = createSideScrollTiles(tilePixelSize, surface, underground, sky, tree);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
 
   private TerrainComponent createForestDemoTerrain(
@@ -106,6 +125,30 @@ public class TerrainFactory {
     }
   }
 
+  //A new tile with side sroll-er
+  private TiledMap createSideScrollTiles(
+          GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
+    TiledMap tiledMap = new TiledMap();
+    TerrainTile surfaceTile = new TerrainTile(surface);
+    TerrainTile undergroundTile = new TerrainTile(underground);
+    TerrainTile skyTile = new TerrainTile(sky);
+    TerrainTile treeTile = new TerrainTile(tree);
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+
+    // Create base grass
+    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(30, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(30, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(30, 30), skyTile);
+
+    // Add some grass and rocks
+    //fillTilesAtRandomWithRange(layer, new GridPoint2(0, 9), new GridPoint2(30, 9), treeTile, 5);
+    //fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
+
+    tiledMap.getLayers().add(layer);
+    return tiledMap;
+  }
+
+  //this is the place that control the place that spawning the background
   private TiledMap createForestDemoTiles(
       GridPoint2 tileSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
     TiledMap tiledMap = new TiledMap();
@@ -115,8 +158,9 @@ public class TerrainFactory {
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
-    fillTiles(layer, MAP_SIZE, grassTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(30, 10), grassTile);
 
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(30, 30), rockTile);
     // Add some grass and rocks
     fillTilesAtRandom(layer, MAP_SIZE, grassTuftTile, TUFT_TILE_COUNT);
     fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
@@ -134,6 +178,27 @@ public class TerrainFactory {
       GridPoint2 tilePos = RandomUtils.random(min, max);
       Cell cell = layer.getCell(tilePos.x, tilePos.y);
       cell.setTile(tile);
+    }
+  }
+
+  //
+  private static void fillTilesAtRandomWithRange(
+          TiledMapTileLayer layer, GridPoint2 min, GridPoint2 max, TerrainTile tile, int amount) {
+
+    for (int i = 0; i < amount; i++) {
+      GridPoint2 tilePos = RandomUtils.random(min, max);
+      Cell cell = layer.getCell(tilePos.x, tilePos.y);
+      cell.setTile(tile);
+    }
+  }
+
+  private static void fillTilesAt(TiledMapTileLayer layer, GridPoint2 minPos, GridPoint2 maxPos, TerrainTile tile) {
+    for (int x = minPos.x; x < maxPos.x; x++) {
+      for (int y = minPos.y; y < maxPos.y; y++) {
+        Cell cell = new Cell();
+        cell.setTile(tile);
+        layer.setCell(x, y, cell);
+      }
     }
   }
 
@@ -155,6 +220,7 @@ public class TerrainFactory {
   public enum TerrainType {
     FOREST_DEMO,
     FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
+    FOREST_DEMO_HEX,
+    SIDE_SCROLL_ER
   }
 }
