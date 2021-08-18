@@ -77,8 +77,10 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+
   private void spawnTerrain() {
     // Background terrain
+
     terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
     spawnEntity(new Entity().addComponent(terrain));
 
@@ -99,17 +101,18 @@ public class ForestGameArea extends GameArea {
     // Top
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
+        new GridPoint2(0, tileBounds.y/2),
         false,
         false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, tileBounds.y/4), false, false);
   }
 
   private void spawnTrees() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    //need to change it to the horizon view
+    GridPoint2 minPos = new GridPoint2(0, 10);
+    GridPoint2 maxPos = new GridPoint2(30, 10);
 
     for (int i = 0; i < NUM_TREES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
@@ -119,12 +122,14 @@ public class ForestGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
+    //need to change it to the horizon view
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
 
   private void spawnGhosts() {
+    //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
@@ -136,6 +141,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnGhostKing() {
+    //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
