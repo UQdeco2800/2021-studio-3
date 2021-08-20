@@ -71,7 +71,7 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
     //spawnGhostKing();
 
-    //playMusic();
+    playMusic();
   }
 
   private void displayUI() {

@@ -140,10 +140,6 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(30, 9), undergroundTile);
     fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(30, 30), skyTile);
 
-    // Add some grass and rocks
-    //fillTilesAtRandomWithRange(layer, new GridPoint2(0, 9), new GridPoint2(30, 9), treeTile, 5);
-    //fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
-
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
