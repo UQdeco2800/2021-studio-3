@@ -12,6 +12,8 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
+  private boolean sprinting = false;
+
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -26,24 +28,29 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyDown(int keycode) {
     switch (keycode) {
-      case Keys.W:
-        walkDirection.add(Vector2Utils.UP);
-        triggerWalkEvent();
-        return true;
       case Keys.A:
+        if (sprinting){
+          walkDirection.add(Vector2Utils.LEFT);
+          walkDirection.add(Vector2Utils.LEFT);
+          triggerWalkEvent();
+          return true;
+        }
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
         return true;
-      case Keys.S:
-        walkDirection.add(Vector2Utils.DOWN);
-        triggerWalkEvent();
-        return true;
       case Keys.D:
+        if (sprinting){
+          walkDirection.add(Vector2Utils.RIGHT);
+          walkDirection.add(Vector2Utils.RIGHT);
+          triggerWalkEvent();
+          return true;
+        }
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
-      case Keys.SPACE:
-        entity.getEvents().trigger("attack");
+      case Keys.SHIFT_LEFT:
+        triggerSprintEvent(true);
+        sprinting = true;
         return true;
       default:
         return false;
@@ -59,21 +66,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyUp(int keycode) {
     switch (keycode) {
-      case Keys.W:
-        walkDirection.sub(Vector2Utils.UP);
-        triggerWalkEvent();
-        return true;
       case Keys.A:
         walkDirection.sub(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
-      case Keys.S:
-        walkDirection.sub(Vector2Utils.DOWN);
+        if (sprinting){
+          walkDirection.sub(Vector2Utils.LEFT);
+        }
         triggerWalkEvent();
         return true;
       case Keys.D:
         walkDirection.sub(Vector2Utils.RIGHT);
+        if (sprinting){
+          walkDirection.sub(Vector2Utils.RIGHT);
+        }
         triggerWalkEvent();
+        return true;
+      case Keys.SHIFT_LEFT:
+        triggerSprintEvent(false);
+        sprinting = false;
         return true;
       default:
         return false;
@@ -85,6 +94,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("walkStop");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
+    }
+  }
+
+  private void triggerSprintEvent(boolean sprinting) {
+    if (walkDirection.epsilonEquals(Vector2.Zero)) {
+      entity.getEvents().trigger("walkStop");
+    } else {
+      entity.getEvents().trigger("sprint", walkDirection, sprinting);
     }
   }
 }

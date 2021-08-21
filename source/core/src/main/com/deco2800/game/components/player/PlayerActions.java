@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -13,7 +14,6 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
@@ -24,6 +24,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("sprint", this::sprint);
   }
 
   @Override
@@ -50,6 +51,29 @@ public class PlayerActions extends Component {
   void walk(Vector2 direction) {
     this.walkDirection = direction;
     moving = true;
+  }
+
+  /**
+   * Handles player sprinting
+   * @param direction the direction the player is moving in
+   * @param sprinting true if the player is beginning a sprint, false otherwise
+   */
+  void sprint(Vector2 direction, boolean sprinting){
+      entity.getEvents().trigger("updateSprint", 40);
+      if (direction.x > 0){
+        if (sprinting){
+          this.walkDirection.add(Vector2Utils.RIGHT);
+        } else {
+          this.walkDirection.sub(Vector2Utils.RIGHT);
+        }
+      }
+      if (direction.x < 0){
+        if (sprinting){
+          this.walkDirection.add(Vector2Utils.LEFT);
+        } else {
+          this.walkDirection.sub(Vector2Utils.LEFT);
+        }
+      }
   }
 
   /**

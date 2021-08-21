@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -14,8 +15,10 @@ import com.deco2800.game.ui.UIComponent;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
+  Table table2;
   private Image heartImage;
   private Label healthLabel;
+  private Label sprintLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -24,8 +27,8 @@ public class PlayerStatsDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
   }
 
   /**
@@ -47,9 +50,21 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
+    int sprint = entity.getComponent(SprintComponent.class).getSprint();
+    CharSequence sprintText = String.format("Sprint: %d", sprint);
+    sprintLabel = new Label(sprintText, skin, "large");
+
+
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel);
     stage.addActor(table);
+
+    table2 = new Table();
+    table2.top().left();
+    table2.setFillParent(true);
+    table2.padTop(100f).padLeft(5f);
+    table2.add(sprintLabel);
+    stage.addActor(table2);
   }
 
   @Override
@@ -66,10 +81,16 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
+  public void updateSprintLevelUI(int sprintLevel){
+    CharSequence text = String.format("Sprint: %d", sprintLevel);
+    sprintLabel.setText(text);
+  }
+
   @Override
   public void dispose() {
     super.dispose();
     heartImage.remove();
     healthLabel.remove();
+    sprintLabel.remove();
   }
 }
