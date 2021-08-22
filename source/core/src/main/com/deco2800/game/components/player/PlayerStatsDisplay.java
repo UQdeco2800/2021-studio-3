@@ -59,6 +59,8 @@ public class PlayerStatsDisplay extends UIComponent {
     table.add(healthLabel);
     stage.addActor(table);
 
+    //new table to add sprint label
+    //not sure how to add sprint label below health label in same table
     table2 = new Table();
     table2.top().left();
     table2.setFillParent(true);
@@ -81,6 +83,10 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
+  /**
+   * updates the players sprint on the UI
+   * @param sprintLevel player's sprint
+   */
   public void updateSprintLevelUI(int sprintLevel){
     CharSequence text = String.format("Sprint: %d", sprintLevel);
     sprintLabel.setText(text);

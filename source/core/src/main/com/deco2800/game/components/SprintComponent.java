@@ -4,12 +4,9 @@ import com.badlogic.gdx.utils.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.deco2800.game.utils.*;
 
 /**
- * Component used to store information related to combat such as health, attack, etc. Any entities
- * which engage it combat should have an instance of this class registered. This class can be
- * extended for more specific combat needs.
+ * Component used to store information related to the players sprint
  */
 public class SprintComponent extends Component {
 
@@ -42,7 +39,7 @@ public class SprintComponent extends Component {
     /**
      * Sets the entity's sprint. Sprint has a minimum bound of 0.
      *
-     * @param sprint health
+     * @param sprint sprint
      */
     public void setSprint(int sprint) {
         this.sprint = Math.max(sprint, 0);
@@ -52,14 +49,18 @@ public class SprintComponent extends Component {
     }
 
     /**
-     * Adds to the player's health. The amount added can be negative.
+     * removes sprint.
      *
-     * @param sprint health to add
+     * @param sprint sprint to remove
      */
     public void removeSprint(int sprint) {
         setSprint(this.sprint - sprint);
     }
 
+    /**
+     * adds sprint
+     * @param sprint sprint to add
+     */
     public void addSprint(int sprint) {
         setSprint(this.sprint + sprint);
     }

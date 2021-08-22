@@ -61,13 +61,17 @@ public class PlayerActions extends Component {
    */
   void sprint(Vector2 direction, boolean sprinting){
       if (direction.x > 0){
+        //if the player is moving right
         if (sprinting){
+          //if sprint was called on keyDown, increase speed
           this.walkDirection.add(Vector2Utils.RIGHT);
         } else {
+          //player has stopped sprinting, subtract speed
           this.walkDirection.sub(Vector2Utils.RIGHT);
         }
       }
       if (direction.x < 0){
+        //if the player is moving left
         if (sprinting){
           this.walkDirection.add(Vector2Utils.LEFT);
         } else {
