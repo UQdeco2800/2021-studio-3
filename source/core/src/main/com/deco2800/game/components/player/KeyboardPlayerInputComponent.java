@@ -3,8 +3,12 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
+
+
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
@@ -12,7 +16,30 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean sprinting = false;
+  private boolean isSprinting = false;
+  private boolean firstSprint = true;
+
+
+  public Timer timer = new Timer();
+
+
+  public Timer.Task removeSprint = new Timer.Task() {
+    @Override
+    public void run() {
+      entity.getComponent(SprintComponent.class).removeSprint(1);
+      if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+        if (walkDirection.x > 1){
+          walkDirection.sub(Vector2Utils.RIGHT);
+        }
+        if (walkDirection.x < -1){
+          walkDirection.sub(Vector2Utils.LEFT);
+        }
+        timer.stop();
+        isSprinting = false;
+      }
+    }
+  };
+
 
 
   public KeyboardPlayerInputComponent() {
@@ -27,9 +54,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
+
     switch (keycode) {
       case Keys.A:
-        if (sprinting){
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
           walkDirection.add(Vector2Utils.LEFT);
           walkDirection.add(Vector2Utils.LEFT);
           triggerWalkEvent();
@@ -39,7 +67,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.D:
-        if (sprinting){
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
           walkDirection.add(Vector2Utils.RIGHT);
           walkDirection.add(Vector2Utils.RIGHT);
           triggerWalkEvent();
@@ -49,8 +77,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.SHIFT_LEFT:
+        if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+          return true;
+        }
+        timer.start();
+        if (firstSprint){
+          firstSprint = false;
+          timer.scheduleTask(removeSprint, 0.1f, 0.03f);
+        }
         triggerSprintEvent(true);
-        sprinting = true;
+        isSprinting = true;
         return true;
       default:
         return false;
@@ -68,21 +104,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     switch (keycode) {
       case Keys.A:
         walkDirection.sub(Vector2Utils.LEFT);
-        if (sprinting){
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
           walkDirection.sub(Vector2Utils.LEFT);
         }
         triggerWalkEvent();
         return true;
       case Keys.D:
         walkDirection.sub(Vector2Utils.RIGHT);
-        if (sprinting){
+        if ( entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
           walkDirection.sub(Vector2Utils.RIGHT);
         }
         triggerWalkEvent();
         return true;
       case Keys.SHIFT_LEFT:
+        timer.stop();
+        //sprintRegenTimer.stop();
+        isSprinting = false;
         triggerSprintEvent(false);
-        sprinting = false;
         return true;
       default:
         return false;
@@ -98,6 +136,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   private void triggerSprintEvent(boolean sprinting) {
+    if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+      return;
+    }
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");
     } else {

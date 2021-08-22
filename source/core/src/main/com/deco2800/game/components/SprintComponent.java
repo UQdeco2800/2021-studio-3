@@ -1,7 +1,10 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.utils.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.deco2800.game.utils.*;
 
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
@@ -10,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SprintComponent extends Component {
 
-    private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
+    private static final Logger logger = LoggerFactory.getLogger(SprintComponent.class);
     private int sprint;
 
 
@@ -33,7 +36,7 @@ public class SprintComponent extends Component {
      * @return entity's sprint
      */
     public int getSprint() {
-        return 80;
+        return sprint;
     }
 
     /**
@@ -53,6 +56,10 @@ public class SprintComponent extends Component {
      *
      * @param sprint health to add
      */
+    public void removeSprint(int sprint) {
+        setSprint(this.sprint - sprint);
+    }
+
     public void addSprint(int sprint) {
         setSprint(this.sprint + sprint);
     }

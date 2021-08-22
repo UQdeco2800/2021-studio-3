@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -59,7 +60,6 @@ public class PlayerActions extends Component {
    * @param sprinting true if the player is beginning a sprint, false otherwise
    */
   void sprint(Vector2 direction, boolean sprinting){
-      entity.getEvents().trigger("updateSprint", 40);
       if (direction.x > 0){
         if (sprinting){
           this.walkDirection.add(Vector2Utils.RIGHT);
