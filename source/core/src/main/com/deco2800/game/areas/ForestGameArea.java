@@ -66,7 +66,7 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    //spawnTrees();
+    spawnTrees();
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -115,9 +115,9 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTrees() {
     //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(0, 10);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
+    GridPoint2 minPos = new GridPoint2(5, 10);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(0, 20);
+    System.out.println(maxPos);
     for (int i = 0; i < NUM_TREES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity tree = ObstacleFactory.createTree();
