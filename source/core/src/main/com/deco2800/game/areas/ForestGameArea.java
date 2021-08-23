@@ -43,7 +43,7 @@ public class ForestGameArea extends GameArea {
           "images/sky.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -66,12 +66,13 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
     player = spawnPlayer();
-    //spawnGhosts();
+    spawnTrees();
+
+//    spawnGhosts();
     //spawnGhostKing();
 
-    playMusic();
+//    playMusic();
   }
 
   private void displayUI() {
@@ -116,8 +117,7 @@ public class ForestGameArea extends GameArea {
   private void spawnTrees() {
     //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(5, 10);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(0, 20);
-    System.out.println(maxPos);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
     for (int i = 0; i < NUM_TREES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity tree = ObstacleFactory.createTree();
