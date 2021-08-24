@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.Gdx;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ public class MainGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainGameActions.class);
   private GdxGame game;
 
+
   public MainGameActions(GdxGame game) {
     this.game = game;
   }
@@ -20,6 +22,7 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+    //entity.getEvents().addListener("pause", this::onPause);
   }
 
   /**
@@ -29,4 +32,12 @@ public class MainGameActions extends Component {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
+
+  /*private void onPause() {
+    logger.info("pausing game");
+    //game.pause();
+    //game.getScreen().pause();
+  }*/
+
+
 }

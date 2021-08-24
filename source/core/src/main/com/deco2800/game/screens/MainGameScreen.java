@@ -1,5 +1,7 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -7,6 +9,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.PauseGameActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -40,9 +43,14 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private ForestGameArea forestGameArea;
+
+
+
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
+
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -66,15 +74,33 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    forestGameArea.create();
+    this.forestGameArea = new ForestGameArea(terrainFactory);
+    this.forestGameArea.create();
+
+
+
   }
 
   @Override
   public void render(float delta) {
-    physicsEngine.update();
-    ServiceLocator.getEntityService().update();
+    /*if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+      if (game.getState() == GdxGame.GameState.PAUSED) {
+        game.setState(GdxGame.GameState.RUNNING);
+      } else {
+        game.setState(GdxGame.GameState.PAUSED);
+      }
+    }*/
+
+    if (game.getState() == GdxGame.GameState.RUNNING) {
+      physicsEngine.update();
+      ServiceLocator.getEntityService().update();
+    }
+    /*physicsEngine.update();
+    ServiceLocator.getEntityService().update();*/
+
+
     renderer.render();
+
   }
 
   @Override
@@ -86,6 +112,9 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+
+
+
   }
 
   @Override
@@ -137,8 +166,12 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+        .addComponent(new TerminalDisplay())
+        .addComponent((new PauseGameActions(this.game)));
+
 
     ServiceLocator.getEntityService().register(ui);
   }
+
+
 }
