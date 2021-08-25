@@ -55,6 +55,14 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Returns the player spawned into this area. Allows upper menus to access
+   * the players' status.
+   * */
+  public Entity getPlayer() {
+    return player;
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
