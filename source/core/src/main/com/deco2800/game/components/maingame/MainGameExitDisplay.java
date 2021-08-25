@@ -50,8 +50,9 @@ public class MainGameExitDisplay extends UIComponent {
               }
             });
 
-    table.add(mainMenuBtn).padTop(10f).padRight(20f);
-    table.add(pauseBtn).padTop(10f).padRight(10f);
+    table.add(pauseBtn).padTop(10f).padRight(20f);
+    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+
 
     stage.addActor(table);
   }
