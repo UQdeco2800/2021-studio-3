@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -14,8 +15,10 @@ import com.deco2800.game.ui.UIComponent;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
+  Table table2;
   private Image heartImage;
   private Label healthLabel;
+  private Label healthLabel2;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -26,6 +29,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateHealth2", this::updatePlayerHealthUI2);
   }
 
   /**
@@ -38,18 +42,35 @@ public class PlayerStatsDisplay extends UIComponent {
     table.setFillParent(true);
     table.padTop(45f).padLeft(5f);
 
+    table2 = new Table();
+    table2.top().left();
+    table2.setFillParent(true);
+    table2.padTop(75f).padLeft(5f);
+
     // Heart image
     float heartSideLength = 30f;
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
 
+    // Heart image2
+    //float heartSideLength2 = 30f;
+    //heartImage2 = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format("Health: %d", health);
+    float position = entity.getComponent(ProgressComponent.class).getProgress();
+    CharSequence healthText = String.format("This is Health: %d", health);
+    CharSequence progressText = String.format("Progress: %.0f %%", position);
     healthLabel = new Label(healthText, skin, "large");
+    healthLabel2 = new Label(progressText, skin, "large");
+
+
 
     table.add(heartImage).size(heartSideLength).pad(5);
-    table.add(healthLabel);
+    table.add(healthLabel).bottom();
+    //table2.add(heartImage2).size(heartSideLength2).pad(5);
+    table2.add(healthLabel2);
     stage.addActor(table);
+    stage.addActor(table2);
   }
 
   @Override
@@ -66,10 +87,16 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
+  public void updatePlayerHealthUI2(int health) {
+    CharSequence text = String.format("Health: %d", health);
+    healthLabel2.setText(text);
+}
+
   @Override
   public void dispose() {
     super.dispose();
     heartImage.remove();
     healthLabel.remove();
+
   }
 }
