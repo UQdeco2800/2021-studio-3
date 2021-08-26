@@ -30,7 +30,7 @@ public class GdxGame extends Game {
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
-    this.gameState = GameState.RUNNING;
+    //this.gameState = GameState.RUNNING;
   }
 
   /**
@@ -92,7 +92,7 @@ public class GdxGame extends Game {
   }
 
   public enum GameState {
-    RUNNING, PAUSED
+    RUNNING, PAUSED, OVER
   }
 
   /**

@@ -42,6 +42,7 @@ public class PlayerLossPopup extends UIComponent {
      * */
     public void onDeath() {
         createUI();
+        game.setState(GdxGame.GameState.OVER);
     }
 
     /**

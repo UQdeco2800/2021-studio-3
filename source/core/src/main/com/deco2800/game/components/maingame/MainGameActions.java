@@ -22,7 +22,6 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
-    //entity.getEvents().addListener("pause", this::onPause);
   }
 
   /**
@@ -33,11 +32,6 @@ public class MainGameActions extends Component {
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
-  /*private void onPause() {
-    logger.info("pausing game");
-    //game.pause();
-    //game.getScreen().pause();
-  }*/
 
 
 }

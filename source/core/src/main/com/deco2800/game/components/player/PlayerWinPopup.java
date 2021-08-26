@@ -74,6 +74,7 @@ public class PlayerWinPopup extends UIComponent {
     public void onCollision(Fixture player, Fixture wall) {
         if (wall == this.getMapFixture()) {
             createUI();
+            game.setState(GdxGame.GameState.OVER);
         }
     }
 

@@ -8,8 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.deco2800.game.components.maingame.PauseGameActions;
+import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
@@ -27,7 +26,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +54,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
 
 
     logger.debug("Initialising main game screen services");
@@ -90,22 +89,11 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    /*if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-      if (game.getState() == GdxGame.GameState.PAUSED) {
-        game.setState(GdxGame.GameState.RUNNING);
-      } else {
-        game.setState(GdxGame.GameState.PAUSED);
-      }
-    }*/
 
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    /*physicsEngine.update();
-    ServiceLocator.getEntityService().update();*/
-
-
     renderer.render();
 
   }
@@ -119,8 +107,6 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
-
-
 
   }
 
@@ -174,7 +160,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new PauseGameActions(this.game))
+        .addComponent(new PauseGamePopUp(this.game))
         .addComponent(new PlayerWinPopup(game, currentMap.getPlayer(), currentMap.getEndMap()))
         .addComponent(new PlayerLossPopup(game, currentMap.getPlayer()));
 

@@ -18,17 +18,33 @@ public class PauseGameActions extends Component {
 
     @Override
     public void create() {
-        entity.getEvents().addListener("pause", this::onPause);
+        entity.getEvents().addListener("resume", this::onResume);
+        entity.getEvents().addListener("homeMenu", this::onHome);
+        entity.getEvents().addListener("replayLevel", this::onReplay);
+
     }
 
-    private void onPause() {
-        logger.info("pausing game");
+
+    private void onResume() {
+        logger.info("resuming game");
         if (game.getState() == GdxGame.GameState.PAUSED) {
             game.setState(GdxGame.GameState.RUNNING);
-
-        } else {
-            game.setState(GdxGame.GameState.PAUSED);
         }
+        entity.getEvents().trigger("continue");
+    }
+
+    /**
+     * Changes the screen to be the main menu screen
+     * */
+    private void onHome(){
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+
+    /**
+     * Refreshes the main game screen. Old screen is disposed of.
+     * */
+    private void onReplay() {
+        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
 }
