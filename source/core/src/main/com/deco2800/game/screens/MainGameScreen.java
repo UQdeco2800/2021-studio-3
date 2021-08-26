@@ -1,12 +1,16 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.*;
+import com.deco2800.game.components.player.PlayerLossPopup;
+import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -22,7 +26,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +43,19 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private ForestGameArea forestGameArea;
+
+
+
+
+  // We know the map is a ForestGameArea
+  // should make more general when new maps are added
+  private ForestGameArea currentMap;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -62,19 +75,27 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-    createUI();
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    forestGameArea.create();
+
+    this.forestGameArea = new ForestGameArea(terrainFactory);
+    this.forestGameArea.create();
+
+
+    this.currentMap = forestGameArea;
+    createUI();
   }
 
   @Override
   public void render(float delta) {
-    physicsEngine.update();
-    ServiceLocator.getEntityService().update();
+
+    if (game.getState() == GdxGame.GameState.RUNNING) {
+      physicsEngine.update();
+      ServiceLocator.getEntityService().update();
+    }
     renderer.render();
+
   }
 
   @Override
@@ -86,6 +107,7 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+
   }
 
   @Override
@@ -137,8 +159,14 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+        .addComponent(new TerminalDisplay())
+        .addComponent(new PauseGamePopUp(this.game))
+        .addComponent(new PlayerWinPopup(game, currentMap.getPlayer(), currentMap.getEndMap()))
+        .addComponent(new PlayerLossPopup(game, currentMap.getPlayer()));
+
 
     ServiceLocator.getEntityService().register(ui);
   }
+
+
 }

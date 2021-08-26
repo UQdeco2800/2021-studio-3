@@ -1,7 +1,5 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -65,6 +63,7 @@ public class PlayerStatsDisplay extends UIComponent {
     pixmap.drawRectangle(0, 0, 3, 1);
     Texture pixmaptex = new Texture(pixmap);
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
+
 
 
     if (health>91 && health <101){
