@@ -13,9 +13,9 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlayerLossDisplay extends UIComponent {
+public class PlayerWinDisplay extends UIComponent {
     /* Debugging */
-    private static final Logger logger = LoggerFactory.getLogger(PlayerLossDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlayerWinDisplay.class);
 
     @Override
     public void create() {
@@ -34,7 +34,7 @@ public class PlayerLossDisplay extends UIComponent {
         table.setFillParent(true);
 
         // Placeholder text for now
-        Label popupLabel = new Label("Better luck next time!", skin,
+        Label popupLabel = new Label("You won!", skin,
                 "large");
         table.add(popupLabel);
         table.row();
@@ -42,13 +42,14 @@ public class PlayerLossDisplay extends UIComponent {
         // Placeholder image / buttons for now
         float menuSize = 100f;
         Image popupMenu = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/ghost_king.png", Texture.class));
+                .getAsset("images/heart.png", Texture.class));
         table.add(popupMenu).size(menuSize).padTop(5f);
 
         /* Create the buttons for the menu */
         TextButton replayButton = new TextButton("Replay", skin);
         TextButton homeMenuButton = new TextButton("Return to Main Menu",
                 skin);
+        TextButton continueButton = new TextButton("Continue", skin);
 
         /* Add triggers when the buttons are pressed */
         homeMenuButton.addListener(
@@ -67,11 +68,21 @@ public class PlayerLossDisplay extends UIComponent {
                     }
                 });
 
+        continueButton.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        entity.getEvents().trigger("continue");
+                    }
+                });
+
         /* Clean up menu & add the buttons*/
         table.row();
         table.add(replayButton).padTop(15f);
         table.row();
         table.add(homeMenuButton).padTop(15f);
+        table.row();
+        table.add(continueButton).padTop(15f);
         stage.addActor(table);
     }
 
@@ -79,4 +90,5 @@ public class PlayerLossDisplay extends UIComponent {
     public void draw(SpriteBatch batch) {
         //
     }
+
 }
