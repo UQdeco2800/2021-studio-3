@@ -49,13 +49,32 @@ public class ForestGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
 
+  /* Player on the map */
   private Entity player;
 
+
+  /* End of this map */
+  private Entity endOfMap;
 
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+  }
+
+  /**
+   * Returns the player spawned into this area. Allows upper menus to access
+   * the players' status.
+   * */
+  public Entity getPlayer() {
+    return player;
+  }
+
+  /**
+   * Returns the end of the current map.
+   * */
+  public Entity getEndMap() {
+    return endOfMap;
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
@@ -95,7 +114,7 @@ public class ForestGameArea extends GameArea {
         ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+        this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
         new GridPoint2(tileBounds.x, 0),
         false,
         false);

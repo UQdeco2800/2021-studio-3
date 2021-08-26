@@ -10,6 +10,8 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseGameActions;
+import com.deco2800.game.components.player.PlayerLossPopup;
+import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -48,6 +50,10 @@ public class MainGameScreen extends ScreenAdapter {
 
 
 
+  // We know the map is a ForestGameArea
+  // should make more general when new maps are added
+  private ForestGameArea currentMap;
+
   public MainGameScreen(GdxGame game) {
     this.game = game;
 
@@ -70,15 +76,16 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-    createUI();
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+
     this.forestGameArea = new ForestGameArea(terrainFactory);
     this.forestGameArea.create();
 
 
-
+    this.currentMap = forestGameArea;
+    createUI();
   }
 
   @Override
@@ -167,7 +174,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent((new PauseGameActions(this.game)));
+        .addComponent(new PauseGameActions(this.game))
+        .addComponent(new PlayerWinPopup(game, currentMap.getPlayer(), currentMap.getEndMap()))
+        .addComponent(new PlayerLossPopup(game, currentMap.getPlayer()));
 
 
     ServiceLocator.getEntityService().register(ui);
