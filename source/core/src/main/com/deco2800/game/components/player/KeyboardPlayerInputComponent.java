@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -18,6 +19,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
+
 
 
   public Timer timer = new Timer();
@@ -60,6 +62,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
           walkDirection.add(Vector2Utils.LEFT);
           walkDirection.add(Vector2Utils.LEFT);
           triggerWalkEvent();
+
           return true;
         }
         walkDirection.add(Vector2Utils.LEFT);
@@ -135,6 +138,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     } else {
       entity.getEvents().trigger("walk", walkDirection);
       entity.getEvents().trigger("startWalkAnimation");
+
     }
   }
 

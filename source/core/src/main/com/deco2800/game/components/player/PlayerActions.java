@@ -1,9 +1,12 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -19,6 +22,10 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
 
+
+
+
+
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -32,6 +39,8 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
+      upgradeProgress();
+
     }
   }
 
@@ -52,6 +61,9 @@ public class PlayerActions extends Component {
   void walk(Vector2 direction) {
     this.walkDirection = direction;
     moving = true;
+
+
+
   }
 
   /**
@@ -65,6 +77,7 @@ public class PlayerActions extends Component {
         if (sprinting){
           //if sprint was called on keyDown, increase speed
           this.walkDirection.add(Vector2Utils.RIGHT);
+
         } else {
           //player has stopped sprinting, subtract speed
           this.walkDirection.sub(Vector2Utils.RIGHT);
@@ -73,6 +86,7 @@ public class PlayerActions extends Component {
       if (direction.x < 0){
         //if the player is moving left
         if (sprinting){
+
           this.walkDirection.add(Vector2Utils.LEFT);
         } else {
           this.walkDirection.sub(Vector2Utils.LEFT);
@@ -87,6 +101,7 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     moving = false;
+
   }
 
   /**
@@ -97,5 +112,10 @@ public class PlayerActions extends Component {
     attackSound.play();
   }
 
+  void upgradeProgress() {
+    if (walkDirection.x > 0) {
+      entity.getComponent(ProgressComponent.class).updateProgress(entity.getPosition().x);
+    }
+  }
 
 }

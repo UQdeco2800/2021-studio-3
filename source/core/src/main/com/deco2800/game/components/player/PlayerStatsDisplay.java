@@ -74,12 +74,12 @@ public class PlayerStatsDisplay extends UIComponent {
     progressLabel = new Label(progressText, skin, "large");
 
     table.add(heartImage).size(heartSideLength).pad(5);
-    table.add(healthLabel);
+    table.add(healthLabel).pad(5);
     stage.addActor(table);
 
     //new table to add sprint label
     //not sure how to add sprint label below health label in same table
-    table2.add(sprintLabel);
+    table2.add(sprintLabel).pad(5);
     stage.addActor(table2);
 
     table3.add(progressLabel);
@@ -111,8 +111,8 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintLabel.setText(text);
   }
 
-  public void updatePlayerProgressUI(int position) {
-    CharSequence text = String.format("Health: %d", position);
+  public void updatePlayerProgressUI(float progress) {
+    CharSequence text = String.format("Progress: %.0f %%", progress);
     progressLabel.setText(text);
   }
 

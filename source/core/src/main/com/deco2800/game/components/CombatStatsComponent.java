@@ -59,6 +59,7 @@ public class CombatStatsComponent extends Component {
    * @param health health to add
    */
   public void addHealth(int health) {
+
     setHealth(this.health + health);
   }
 

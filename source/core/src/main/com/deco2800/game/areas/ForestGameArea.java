@@ -69,6 +69,7 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     player = spawnPlayer();
+    //player.getComponent(ProgressComponent.class).updateProgress(0, terrain.getTileSize());
     spawnTrees();
 
 //    spawnGhosts();
