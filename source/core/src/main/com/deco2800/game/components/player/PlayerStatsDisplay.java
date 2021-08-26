@@ -62,7 +62,7 @@ public class PlayerStatsDisplay extends UIComponent {
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
 
 
-    if (health>91 && health <101){
+    if (health>91 && health <102){
       TextureRegion h100 = new TextureRegion(pixmaptex, 3, 1);
       Texture t100 = new Texture("images/100.png");
       h100.setTexture(t100);
