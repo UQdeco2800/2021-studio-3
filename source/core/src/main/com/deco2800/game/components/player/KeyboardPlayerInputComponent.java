@@ -4,10 +4,14 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
@@ -16,6 +20,31 @@ import org.slf4j.LoggerFactory;
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
+
+  private boolean isSprinting = false; //true if player is currently sprinting
+  private boolean firstSprint = true; //used for starting timer-related stuff
+
+
+  public Timer timer = new Timer();
+  public Timer.Task removeSprint = new Timer.Task() {
+
+    @Override
+    public void run() {
+      entity.getComponent(SprintComponent.class).removeSprint(1);
+      if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+        //if sprint has fully depleted
+        if (walkDirection.x > 1){
+          walkDirection.sub(Vector2Utils.RIGHT);
+        }
+        if (walkDirection.x < -1){
+          walkDirection.sub(Vector2Utils.LEFT);
+        }
+        timer.stop();
+        isSprinting = false;
+      }
+    }
+  };
+
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -29,25 +58,41 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
+
     switch (keycode) {
-      case Keys.W:
-        walkDirection.add(Vector2Utils.UP);
-        triggerWalkEvent();
-        return true;
       case Keys.A:
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
+          //if sprint is active before moving, add twice the speed
+          walkDirection.add(Vector2Utils.LEFT);
+          walkDirection.add(Vector2Utils.LEFT);
+          triggerWalkEvent();
+          return true;
+        }
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
         return true;
-      case Keys.S:
-        walkDirection.add(Vector2Utils.DOWN);
-        triggerWalkEvent();
-        return true;
       case Keys.D:
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
+          //if sprint is active before moving, add twice the speed
+          walkDirection.add(Vector2Utils.RIGHT);
+          walkDirection.add(Vector2Utils.RIGHT);
+          triggerWalkEvent();
+          return true;
+        }
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
-      case Keys.SPACE:
-        entity.getEvents().trigger("attack");
+      case Keys.SHIFT_LEFT:
+        if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+          return true;
+        }
+        timer.start();
+        if (firstSprint){
+          firstSprint = false;
+          timer.scheduleTask(removeSprint, 0.1f, 0.03f);
+        }
+        triggerSprintEvent(true);
+        isSprinting = true;
         return true;
       default:
         return false;
@@ -63,21 +108,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyUp(int keycode) {
     switch (keycode) {
-      case Keys.W:
-        walkDirection.sub(Vector2Utils.UP);
-        triggerWalkEvent();
-        return true;
       case Keys.A:
         walkDirection.sub(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
-      case Keys.S:
-        walkDirection.sub(Vector2Utils.DOWN);
+        //if sprinting, remove additional speed on key up
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
+          walkDirection.sub(Vector2Utils.LEFT);
+        }
         triggerWalkEvent();
         return true;
       case Keys.D:
         walkDirection.sub(Vector2Utils.RIGHT);
+        //if sprinting, remove additional speed on key up
+        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
+          walkDirection.sub(Vector2Utils.RIGHT);
+        }
         triggerWalkEvent();
+        return true;
+      case Keys.SHIFT_LEFT:
+        timer.stop();
+        isSprinting = false;
+        triggerSprintEvent(false);
         return true;
       default:
         return false;
@@ -87,8 +137,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");
+      entity.getEvents().trigger("stopWalkAnimation");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
+      entity.getEvents().trigger("startWalkAnimation");
+    }
+  }
+
+  private void triggerSprintEvent(boolean sprinting) {
+    if (entity.getComponent(SprintComponent.class).getSprint() == 0){
+      return;
+    }
+    if (walkDirection.epsilonEquals(Vector2.Zero)) {
+      entity.getEvents().trigger("walkStop");
+    } else {
+      entity.getEvents().trigger("sprint", walkDirection, sprinting);
     }
   }
 
