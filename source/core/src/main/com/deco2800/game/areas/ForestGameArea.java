@@ -1,10 +1,12 @@
 package com.deco2800.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -129,6 +131,7 @@ public class ForestGameArea extends GameArea {
     //need to change it to the horizon view
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    newPlayer.getComponent(ProgressComponent.class).setPosition(newPlayer.getPosition().x);
     return newPlayer;
   }
 

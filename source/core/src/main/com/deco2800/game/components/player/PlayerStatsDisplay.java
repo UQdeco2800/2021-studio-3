@@ -33,7 +33,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
     entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
-    entity.getEvents().addListener("updateHealth2", this::updatePlayerProgressUI);
+    entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
 
   }
 
