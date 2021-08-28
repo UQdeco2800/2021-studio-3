@@ -3,10 +3,16 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.utils.Timer;
 import com.deco2800.game.components.SprintComponent;
+
+import com.deco2800.game.components.maingame.MainGameActions;
+
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,6 +20,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
+
   //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
@@ -193,6 +200,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("sprint", walkDirection, sprinting);
     }
   }
+
 }
 
 
