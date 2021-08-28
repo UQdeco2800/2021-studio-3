@@ -32,6 +32,7 @@ public class PlayerFactory {
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
 
+
   /**
    * Create a player entity.
    * @return entity
@@ -63,7 +64,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new SprintComponent(100))
-            .addComponent(new ProgressComponent(0))
+            //.addComponent(new ProgressComponent(0, 30))
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
 

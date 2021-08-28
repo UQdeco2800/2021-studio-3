@@ -130,9 +130,12 @@ public class ForestGameArea extends GameArea {
 
   private Entity spawnPlayer() {
     //need to change it to the horizon view
+    float tileSize = terrain.getTileSize();
     Entity newPlayer = PlayerFactory.createPlayer();
+            newPlayer.addComponent(new ProgressComponent(0,
+                    (terrain.getMapBounds(0).x)* tileSize));
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
-    newPlayer.getComponent(ProgressComponent.class).setPosition(newPlayer.getPosition().x);
+    //newPlayer.getComponent(ProgressComponent.class).setPosition(newPlayer.getPosition().x);
     return newPlayer;
   }
 

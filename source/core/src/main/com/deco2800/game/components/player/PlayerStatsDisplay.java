@@ -20,6 +20,7 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table2;
   Table table3;
   private Image heartImage;
+  private Image progressBar;
   private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
@@ -72,7 +73,7 @@ public class PlayerStatsDisplay extends UIComponent {
     float position = entity.getComponent(ProgressComponent.class).getProgress();
     CharSequence progressText = String.format("Progress: %.0f %%", position);
     progressLabel = new Label(progressText, skin, "large");
-
+    progressBar = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel).pad(5);
     stage.addActor(table);
@@ -111,6 +112,10 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintLabel.setText(text);
   }
 
+  /**
+   * Updates the player's level progress on the UI
+   * @param progress player's progress
+   */
   public void updatePlayerProgressUI(float progress) {
     CharSequence text = String.format("Progress: %.0f %%", progress);
     progressLabel.setText(text);
