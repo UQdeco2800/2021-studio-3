@@ -15,8 +15,8 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
-  public final static Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player
-  public final static Vector2 walkDirection = gravity; // Sets gravity on player
+  public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
+  public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
@@ -177,7 +177,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(gravity) && !isJumping) {
-      entity.getEvents().trigger("walkStop");
       entity.getEvents().trigger("stopWalkAnimation");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
@@ -191,11 +190,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
     // Cannot be jumping and sprinting at the same time
     if (!isJumping) {
-      if (walkDirection.epsilonEquals(gravity)) {
-        entity.getEvents().trigger("walkStop");
-      } else {
-        entity.getEvents().trigger("sprint", walkDirection, sprinting);
-      }
+      entity.getEvents().trigger("sprint", walkDirection, sprinting);
     }
   }
 }
