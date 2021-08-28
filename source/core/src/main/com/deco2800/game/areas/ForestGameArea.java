@@ -155,11 +155,23 @@ public class ForestGameArea extends GameArea {
     //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(2, 10);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
-    for (int i = 0; i < NUM_ASTERIODS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity asteriod = ObstacleFactory.createAsteriod();
-      spawnEntityAt(asteriod, randomPos, true, false);
-    }
+
+    GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
+    Entity asteriod1 = ObstacleFactory.createAsteriod();
+    spawnEntityAt(asteriod1, asteriodPosition1, true, false);
+
+    GridPoint2 asteriodPosition2 = new GridPoint2(9, 10);
+    Entity asteriod2 = ObstacleFactory.createAsteriod();
+    spawnEntityAt(asteriod2, asteriodPosition2, true, false);
+
+    GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
+    Entity asteriod3 = ObstacleFactory.createAsteriod();
+    spawnEntityAt(asteriod3, asteriodPosition3, true, false);
+//    for (int i = 0; i < NUM_ASTERIODS; i++) {
+//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+//      Entity asteriod = ObstacleFactory.createAsteriod();
+//      spawnEntityAt(asteriod, randomPos, true, false);
+//    }
   }
 
   private Entity spawnPlayer() {
