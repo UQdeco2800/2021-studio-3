@@ -124,7 +124,6 @@ public class PlayerActions extends Component {
    */
   void upgradeProgress() {
     if (walkDirection.x > 0) {
-      //trial += 1;
       entity.getComponent(ProgressComponent.class).updateProgress(entity.getPosition().x);
 
     }

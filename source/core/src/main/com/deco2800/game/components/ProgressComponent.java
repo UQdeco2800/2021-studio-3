@@ -1,31 +1,27 @@
 package com.deco2800.game.components;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.GridPoint2;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.areas.terrain.TerrainTile;
-import com.deco2800.game.components.gamearea.GameAreaDisplay;
-import com.deco2800.game.ui.UIComponent;
-
 /**
  * Component used to store information related to the player's level completion progress.
  */
 public class ProgressComponent extends Component {
 
 
+  /**variable defining player progress as a percentage*/
   private float progress;
 
+  /**variable defining player position (initially 0)*/
   private float position = 0;
 
+  /**variable used for level size*/
   private final float levelSize;
 
 
-
+  /**
+   * Constructor class for the Progress Component. Takes in a position and a level size that is determined
+   * by the game terrain.
+   * @param position position of the player
+   * @param levelSize size of the level terrain
+   */
   public ProgressComponent(float position, float levelSize) {
     this.levelSize = levelSize;
     setPosition(position);
@@ -46,19 +42,21 @@ public class ProgressComponent extends Component {
       this.position = position;
     } else if (position < 0) {
       this.position = 0;
-
-    }
-
-    if (entity != null) {
-      entity.getEvents().trigger("updateProgress", this.progress);
-
     }
   }
 
+  /**
+   * Getter method for the player position.
+   * @return the position of the player
+   */
   public float getPosition() {
     return position;
   }
 
+  /**
+   * Set's the new progress on the UI once the updateProgress event has been triggered. This occurs
+   * only if the entity has been created (i.e. it is not null)
+    */
   public void setProgress() {
 
     float percentProgress = (float) Math.round((getPosition() / levelSize)*100);
@@ -69,14 +67,26 @@ public class ProgressComponent extends Component {
       this.progress = percentProgress;
     }
 
+    if (entity != null) {
+      entity.getEvents().trigger("updateProgress", this.progress);
+
+    }
   }
 
 
+  /**
+   * Getter method for the progress.
+   * @return the progress to be displayed on the UI.
+   */
   public float getProgress() {
     setProgress();
     return this.progress;
   }
 
+  /**
+   *  function to determine the player's new progress based on an input updated on player movement.
+   * @param position new player position used to update the progress.
+   */
   public void updateProgress(float position) {
 
     if (position / levelSize < 1) {

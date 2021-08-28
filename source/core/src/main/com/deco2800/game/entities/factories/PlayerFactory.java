@@ -64,7 +64,6 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new SprintComponent(100))
-            //.addComponent(new ProgressComponent(0, 30))
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
 
