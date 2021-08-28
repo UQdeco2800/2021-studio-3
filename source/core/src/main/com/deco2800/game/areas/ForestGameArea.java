@@ -111,8 +111,9 @@ public class ForestGameArea extends GameArea {
     // Bottom
     spawnEntityAt(
             //change a wall with high:10
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 9), false, false);
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
   }
+
 
   private void spawnTrees() {
     //need to change it to the horizon view
