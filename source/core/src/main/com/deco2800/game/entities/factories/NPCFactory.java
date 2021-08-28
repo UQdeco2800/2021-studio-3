@@ -21,6 +21,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -88,6 +89,20 @@ public class NPCFactory {
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
+
+//  public static Entity createAttackObstacle(Entity target) {
+//    //Entity attackObstacle = createBaseNPC(target);
+//    GhostKingConfig config = configs.ghostKing;
+//    Entity attackObstacle =
+//            new Entity()
+//                    .addComponent(new PhysicsComponent())
+//                    .addComponent(new ColliderComponent())
+//                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+//                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+//                    .addComponent(new TextureRenderComponent("images/asteroid_fire1.png"))
+//                    .addComponent(new CombatStatsComponent(config.health, config.baseAttack));
+//    return attackObstacle;
+//  }
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.

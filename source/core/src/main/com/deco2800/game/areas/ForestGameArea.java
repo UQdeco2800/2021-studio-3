@@ -43,7 +43,8 @@ public class ForestGameArea extends GameArea {
           "images/surface.png",
           "images/underground.png",
           "images/sky.png",
-          "images/broken_asteriod.png"
+          "images/broken_asteriod.png",
+          "images/asteroid_fire1.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
@@ -93,11 +94,13 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnTrees();
     spawnAsteriod();
+    spawnAsteroidFire();
 
-//    spawnGhosts();
+    //spawnGhosts();
     //spawnGhostKing();
 
 //    playMusic();
+    //spawnAttackObstacle();
   }
 
   private void displayUI() {
@@ -153,19 +156,19 @@ public class ForestGameArea extends GameArea {
 
   private void spawnAsteriod() {
     //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(2, 10);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
+    //GridPoint2 minPos = new GridPoint2(2, 10);
+    //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
 
     GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
-    Entity asteriod1 = ObstacleFactory.createAsteriod();
+    Entity asteriod1 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod1, asteriodPosition1, true, false);
 
     GridPoint2 asteriodPosition2 = new GridPoint2(9, 10);
-    Entity asteriod2 = ObstacleFactory.createAsteriod();
+    Entity asteriod2 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod2, asteriodPosition2, true, false);
 
     GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
-    Entity asteriod3 = ObstacleFactory.createAsteriod();
+    Entity asteriod3 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod3, asteriodPosition3, true, false);
 //    for (int i = 0; i < NUM_ASTERIODS; i++) {
 //      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
@@ -173,6 +176,21 @@ public class ForestGameArea extends GameArea {
 //      spawnEntityAt(asteriod, randomPos, true, false);
 //    }
   }
+
+  private void spawnAsteroidFire() {
+    GridPoint2 pos1 = new GridPoint2(12,10);
+    Entity attackObstacle1 = ObstacleFactory.createAsteroidFree(player);
+    spawnEntityAt(attackObstacle1, pos1, true, true);
+
+    GridPoint2 pos2 = new GridPoint2(19,10);
+    Entity attackObstacle2 = ObstacleFactory.createAsteroidFree(player);
+    spawnEntityAt(attackObstacle2, pos2, true, true);
+
+    GridPoint2 pos3 = new GridPoint2(25,10);
+    Entity attackObstacle3 = ObstacleFactory.createAsteroidFree(player);
+    spawnEntityAt(attackObstacle3, pos3, true, true);
+  }
+
 
   private Entity spawnPlayer() {
     //need to change it to the horizon view
@@ -183,15 +201,21 @@ public class ForestGameArea extends GameArea {
 
   private void spawnGhosts() {
     //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+//    GridPoint2 minPos = new GridPoint2(0, 0);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+//
+//    for (int i = 0; i < NUM_GHOSTS; i++) {
+//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+//      Entity ghost = NPCFactory.createGhost(player);
+//      spawnEntityAt(ghost, randomPos, true, true);
+//    }
 
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity ghost = NPCFactory.createGhost(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
+    GridPoint2 pos = new GridPoint2(12,10);
+    Entity ghost = NPCFactory.createGhost(player);
+    spawnEntityAt(ghost, pos, true, true);
   }
+
+
 
   private void spawnGhostKing() {
     //need to change it to the horizon view
