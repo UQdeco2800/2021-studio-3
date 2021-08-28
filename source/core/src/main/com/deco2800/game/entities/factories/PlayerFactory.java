@@ -1,7 +1,14 @@
 package com.deco2800.game.entities.factories;
 
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
@@ -39,6 +46,22 @@ public class PlayerFactory {
   public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
+    Pixmap pixmap = new Pixmap(3,1, Pixmap.Format.RGBA8888);
+    Texture pixmaptex = new Texture(pixmap);
+    TextureRegion h= new TextureRegion(pixmaptex);
+    AssetManager manager =  new  AssetManager ();
+    manager.load("images/100.png", Texture.class);
+    manager.load("images/90.png", Texture.class);
+    manager.load("images/80.png", Texture.class);
+    manager.load("images/70.png", Texture.class);
+    manager.load("images/60.png", Texture.class);
+    manager.load("images/50.png", Texture.class);
+    manager.load("images/40.png", Texture.class);
+    manager.load("images/30.png", Texture.class);
+    manager.load("images/20.png", Texture.class);
+    manager.load("images/10.png", Texture.class);
+    manager.load("images/00.png", Texture.class);
+    manager.finishLoading();
 
 
 
@@ -61,10 +84,13 @@ public class PlayerFactory {
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
-            .addComponent(new PlayerStatsDisplay())
+
             .addComponent(new SprintComponent(100))
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController());
+            .addComponent(new PlayerAnimationController())
+
+            .addComponent(new PlayerStatsDisplay(manager,h));
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
