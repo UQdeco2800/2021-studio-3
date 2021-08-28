@@ -38,10 +38,12 @@ public class ProgressComponent extends Component {
   public void setPosition(float position) {
     //Will need to create specific case where player has respawned either at 0 or at the level's checkpoint
 
-    if (position > 0 && position >= this.position) {
+    if (position > 0 && position/levelSize <= 1 && position >= this.position) {
       this.position = position;
     } else if (position < 0) {
       this.position = 0;
+    } else if (position == levelSize) {
+        this.position = levelSize;
     }
   }
 
@@ -92,7 +94,7 @@ public class ProgressComponent extends Component {
     if (position / levelSize < 1) {
       setPosition(position);
     } else {
-      setPosition(100);
+      setPosition(levelSize);
     }
     setProgress();
   }
