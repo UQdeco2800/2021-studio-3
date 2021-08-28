@@ -24,15 +24,28 @@ public class ObstacleFactory {
         new Entity()
             .addComponent(new TextureRenderComponent("images/tree.png"))
             .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE));
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
-    tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     tree.getComponent(TextureRenderComponent.class).scaleEntity();
     tree.scaleHeight(2.5f);
-    PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
+    PhysicsUtils.setScaledCollider(tree, 0.5f, 1f);
     return tree;
   }
 
+  public static Entity createAsteriod() {
+    Entity asteriod =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/broken_asteriod.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    asteriod.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    asteriod.getComponent(TextureRenderComponent.class).scaleEntity();
+    asteriod.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(asteriod, 0.5f, 0.5f);
+    return asteriod;
+  }
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
