@@ -1,5 +1,8 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,9 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -22,6 +27,13 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
   private Label healthLabel;
+  AssetManager manager;
+  TextureRegion  textureRegion;
+
+  public PlayerStatsDisplay(AssetManager manager,TextureRegion textureRegion){
+    this.manager = manager;
+    this.textureRegion = textureRegion;
+  }
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -56,82 +68,53 @@ public class PlayerStatsDisplay extends UIComponent {
     table.add(healthLabel);
     stage.addActor(table);
   }
-
   @Override
   public void draw(SpriteBatch batch)  {
-    Pixmap pixmap = new Pixmap(3, 1, Pixmap.Format.RGBA8888);
-    Texture pixmaptex = new Texture(pixmap);
     double health = entity.getComponent(CombatStatsComponent.class).getHealth();
     double hp = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
-    System.out.println(health);
-    System.out.println(entity.getComponent(CombatStatsComponent.class).getMaxHealth());
-    System.out.println(hp);
-
     if (hp>0.9){
-      TextureRegion h100 = new TextureRegion(pixmaptex);
-      Texture t100 = new Texture("images/100.png");
-      h100.setTexture(t100);
-      batch.draw(h100,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/100.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.8 && hp <=0.9){
-      TextureRegion h90 = new TextureRegion(pixmaptex);
-      Texture t90 = new Texture("images/90.png");
-      h90.setTexture(t90);
-      batch.draw(h90,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/90.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.7 && hp <=0.8){
-      TextureRegion h80 = new TextureRegion(pixmaptex);
-      Texture t80 = new Texture("images/80.png");
-      h80.setTexture(t80);
-      batch.draw(h80,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/80.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.6 && hp <=0.7){
-      TextureRegion h70 = new TextureRegion(pixmaptex);
-      Texture t70 = new Texture("images/70.png");
-      h70.setTexture(t70);
-      batch.draw(h70,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/70.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.5 && hp <=0.6){
-      TextureRegion h10 = new TextureRegion(pixmaptex);
-      Texture t10 = new Texture("images/60.png");
-      h10.setTexture(t10);
-      batch.draw(h10,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/60.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.4 && hp <=0.5){
-      TextureRegion h60 = new TextureRegion(pixmaptex);
-      Texture t60 = new Texture("images/50.png");
-      h60.setTexture(t60);
-      batch.draw(h60,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/50.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.3 && hp <=0.4){
-      TextureRegion h50 = new TextureRegion(pixmaptex);
-      Texture t50 = new Texture("images/40.png");
-      h50.setTexture(t50);
-      batch.draw(h50,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/40.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.2 && hp <=0.3){
-      TextureRegion h40 = new TextureRegion(pixmaptex);
-      Texture t40 = new Texture("images/30.png");
-      h40.setTexture(t40);
-      batch.draw(h40,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/30.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.1 && hp <=0.2){
-      TextureRegion h30 = new TextureRegion(pixmaptex);
-      Texture t30 = new Texture("images/20.png");
-      h30.setTexture(t30);
-      batch.draw(h30,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/20.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.0 && hp <=0.1){
-      TextureRegion h20 = new TextureRegion(pixmaptex);
-      Texture t20 = new Texture("images/10.png");
-      h20.setTexture(t20);
-      batch.draw(h20,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/10.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp <=0){
-      TextureRegion h00 = new TextureRegion(pixmaptex);
-      Texture t00 = new Texture("images/00.png");
-      h00.setTexture(t00);
-      batch.draw(h00,entity.getPosition().x-1, entity.getPosition().y+1);
+      textureRegion.setTexture(manager.get("images/00.png", Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
   }
 
