@@ -8,10 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.components.Component;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 
 public class PauseGameDisplay extends UIComponent {
     /* Debugging */
@@ -23,13 +27,14 @@ public class PauseGameDisplay extends UIComponent {
     private TextButton homeMenuButton;
     private Image popupMenu;
     private Label popupLabel;
+    private Array<Object> screenElements = new Array<>();
 
     @Override
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("continue", this::onContinue);
-
+        screenElements.add(popupLabel, popupMenu, replayButton, resumeButton);
+        screenElements.add(homeMenuButton);
     }
 
     /**
@@ -82,6 +87,7 @@ public class PauseGameDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         entity.getEvents().trigger("resume");
+                        //entity.getEvents().trigger("continue");
                     }
                 });
 
@@ -96,17 +102,9 @@ public class PauseGameDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-    /**
-     * Removes the pause button menu when game is resumed.
-     */
-    private void onContinue() {
-        replayButton.remove();
-        resumeButton.remove();
-        homeMenuButton.remove();
-        popupMenu.remove();
-        popupLabel.remove();
+    public Array<Object> getScreenElements() {
+        return screenElements;
     }
-
 
     @Override
     public void draw(SpriteBatch batch) {

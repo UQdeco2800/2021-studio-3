@@ -15,11 +15,12 @@ import org.slf4j.LoggerFactory;
  * Class controlling the pop-up menu which is triggered upon the pressing pause
  * */
 public class PauseGamePopUp extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PauseGamePopUp.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(PauseGamePopUp.class);
 
     /* Allows the game-state to be changed from the pop-up menu */
     private GdxGame game;
-
+    private Entity ui;
 
 
     public PauseGamePopUp(GdxGame game) {
@@ -33,29 +34,36 @@ public class PauseGamePopUp extends UIComponent {
     public void create() {
         super.create();
         entity.getEvents().addListener("pause", this::onPause);
+        entity.getEvents().addListener("continue", this::onContinue);
     }
 
     /**
      * Creates the pop-up menu when the pause button is pressed
      * */
     private void onPause() {
+        logger.info("pausing game");
         if (game.getState() == GdxGame.GameState.RUNNING) {
             game.setState(GdxGame.GameState.PAUSED);
             createUI();
         }
     }
 
-
     /**
      * Creates the UI for the Pause menu.
      * */
     public void createUI() {
         logger.debug("Creating pause game ui");
-        Entity ui = new Entity();
-        ui.addComponent(new PauseGameActions(game))
+        ui = new Entity();
+        ui.addComponent(new PauseGameActions(game, ui))
                 .addComponent(new PauseGameDisplay());
 
         ServiceLocator.getEntityService().register(ui);
+
+    }
+
+    private void onContinue() {
+        logger.debug("game continue");
+        ui.dispose();
     }
 
     @Override
