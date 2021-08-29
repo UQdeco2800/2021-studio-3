@@ -2,6 +2,7 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +18,17 @@ public class PlayerWinActions extends Component {
     /* Lets the win menu change the game screen */
     private GdxGame game;
 
+    /* Lets the win menu access the PopupMenuActions */
+    private Entity mainGameUI;
+
     /**
      * Constructor for the PlayerWinActions
      *
      * @param game the current game.
      * */
-    public PlayerWinActions(GdxGame game) {
+    public PlayerWinActions(GdxGame game, Entity mainGameUI) {
         this.game = game;
+        this.mainGameUI = mainGameUI;
     }
 
     /**
@@ -35,9 +40,9 @@ public class PlayerWinActions extends Component {
         super.create();
 
         entity.getEvents().addListener("replayLevel",
-                entity.getComponent(PopupMenuActions.class)::onReplay);
+                this.mainGameUI.getComponent(PopupMenuActions.class)::onReplay);
         entity.getEvents().addListener("homeMenu",
-                entity.getComponent(PopupMenuActions.class)::onHome);
+                this.mainGameUI.getComponent(PopupMenuActions.class)::onHome);
 
         /* Currently, there is only one level. 'continue' repeats the level. */
         entity.getEvents().addListener("continue", this::onContinue);

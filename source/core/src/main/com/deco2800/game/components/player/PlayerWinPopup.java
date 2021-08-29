@@ -81,7 +81,7 @@ public class PlayerWinPopup extends UIComponent {
         logger.debug("Creating player win ui");
         Entity ui = new Entity();
 
-        ui.addComponent(new PlayerWinActions(game))
+        ui.addComponent(new PlayerWinActions(game, entity))
                 .addComponent(new PlayerWinDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);

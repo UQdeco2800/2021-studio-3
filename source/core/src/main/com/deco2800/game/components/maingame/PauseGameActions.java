@@ -17,10 +17,12 @@ public class PauseGameActions extends Component {
             LoggerFactory.getLogger(PauseGameActions.class);
     private GdxGame game;
     private Entity ui;
+    private Entity mainMenuUI;
 
-    public PauseGameActions(GdxGame game, Entity ui) {
+    public PauseGameActions(GdxGame game, Entity ui, Entity mainMenuUI) {
         this.game = game;
         this.ui = ui;
+        this.mainMenuUI = mainMenuUI;
     }
 
     /**
@@ -30,9 +32,9 @@ public class PauseGameActions extends Component {
     public void create() {
         entity.getEvents().addListener("resume", this::onResume);
         entity.getEvents().addListener("homeMenu",
-                entity.getComponent(PopupMenuActions.class)::onHome);
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onHome);
         entity.getEvents().addListener("replayLevel",
-                entity.getComponent(PopupMenuActions.class)::onReplay);
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplay);
     }
 
     /**

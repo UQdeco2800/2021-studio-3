@@ -2,6 +2,7 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +18,17 @@ public class PlayerLossActions extends Component {
     /* Lets the loss menu change the game screen */
     private GdxGame game;
 
+    /* Lets the loss menu access the PopupMenuActions */
+    private Entity mainMenuUI;
+
     /**
      * Constructor for the PlayerLossActions.
      *
      * @param game the current game.
      * */
-    public PlayerLossActions(GdxGame game) {
+    public PlayerLossActions(GdxGame game, Entity mainMenuUI) {
         this.game = game;
+        this.mainMenuUI = mainMenuUI;
     }
 
     /**
@@ -34,8 +39,8 @@ public class PlayerLossActions extends Component {
     public void create() {
         super.create();
         entity.getEvents().addListener("homeMenu",
-                entity.getComponent(PopupMenuActions.class)::onHome);
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onHome);
         entity.getEvents().addListener("replayLevel",
-                entity.getComponent(PopupMenuActions.class)::onReplay);
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplay);
     }
 }

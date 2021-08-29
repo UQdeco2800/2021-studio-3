@@ -70,7 +70,7 @@ public class PlayerLossPopup extends UIComponent {
         logger.debug("Creating player loss ui");
         Entity ui = new Entity();
 
-        ui.addComponent(new PlayerLossActions(game))
+        ui.addComponent(new PlayerLossActions(game, entity))
                 .addComponent(new PlayerLossDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
