@@ -37,14 +37,25 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
 
-  /* Textures for the Main menu, replay, resume and continue buttons. */
-  // Placeholder hearts for now
-  private static final String[] popupMenuTextures =
-          {"images/heart.png",
-                  "images/heart.png",
-                  "images/heart.png",
-                  "images/heart.png",
-                  "images/heart.png"};
+  /* Textures for the pause menu */
+  private static final String[] pauseMenuTextures =
+          {"images/pauseMenuBackground.png",
+                  "images/pauseRestart.png",
+                  "images/pauseMainMenu.png",
+                  "images/pauseResume.png"};
+
+  /* Textures for the win menu */
+  private static final String[] winMenuTextures =
+          {"images/winMenuBackground.png",
+                  "images/winReplay.png",
+                  "images/winMainMenu.png",
+                  "images/winContinue.png"};
+
+  /* Textures for the loss menu */
+  private static final String[] lossMenuTextures =
+          {"images/lossMenuBackground.png",
+                  "images/lossMainMenu.png",
+                  "images/lossReplay.png"};
 
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
@@ -135,7 +146,11 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
-    resourceService.loadTextures(popupMenuTextures); // Load the textures for the menus
+
+    /* Load the textures for the pop-up menus */
+    resourceService.loadTextures(pauseMenuTextures);
+    resourceService.loadTextures(winMenuTextures);
+    resourceService.loadTextures(lossMenuTextures);
     ServiceLocator.getResourceService().loadAll();
   }
 
