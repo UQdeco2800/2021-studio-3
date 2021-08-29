@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.maingame.PlayerLossActions;
 import com.deco2800.game.components.maingame.PlayerLossDisplay;
+import com.deco2800.game.components.maingame.PopupUIHandler;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -23,9 +24,14 @@ public class PlayerLossPopup extends UIComponent {
     /* Allows the pop-up menu to listen for the players' death */
     private Entity player;
 
-    public PlayerLossPopup(GdxGame game, Entity player) {
+    /* Handler to set up the UI elements of the loss screen */
+    private PopupUIHandler handler;
+
+    public PlayerLossPopup(GdxGame game, Entity player,
+            PopupUIHandler lossHandler) {
         this.game = game;
         this.player = player;
+        this.handler = lossHandler;
     }
 
     /**
@@ -53,7 +59,7 @@ public class PlayerLossPopup extends UIComponent {
         Entity ui = new Entity();
 
         ui.addComponent(new PlayerLossActions(game))
-                .addComponent(new PlayerLossDisplay());
+                .addComponent(new PlayerLossDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
     }

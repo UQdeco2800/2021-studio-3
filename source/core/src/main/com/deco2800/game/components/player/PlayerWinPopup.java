@@ -7,6 +7,7 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.maingame.PlayerWinActions;
 import com.deco2800.game.components.maingame.PlayerWinDisplay;
+import com.deco2800.game.components.maingame.PopupUIHandler;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -33,10 +34,15 @@ public class PlayerWinPopup extends UIComponent {
     /* Lets the buttons change the game screen */
     private GdxGame game;
 
-    public PlayerWinPopup(GdxGame game, GameArea currentMap) {
+    /* Handler to set up the UI elements of the win screen */
+    private PopupUIHandler handler;
+
+    public PlayerWinPopup(GdxGame game, GameArea currentMap,
+            PopupUIHandler winHandler) {
         this.game = game;
         this.player = ((ForestGameArea) currentMap).getPlayer();
         this.endOfMap = ((ForestGameArea) currentMap).getEndMap();
+        this.handler = winHandler;
     }
 
     /**
@@ -61,7 +67,7 @@ public class PlayerWinPopup extends UIComponent {
         Entity ui = new Entity();
 
         ui.addComponent(new PlayerWinActions(game))
-                .addComponent(new PlayerWinDisplay());
+                .addComponent(new PlayerWinDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
     }

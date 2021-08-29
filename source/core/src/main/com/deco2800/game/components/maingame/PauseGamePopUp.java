@@ -2,8 +2,6 @@ package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.maingame.PlayerLossActions;
-import com.deco2800.game.components.maingame.PlayerLossDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -22,9 +20,12 @@ public class PauseGamePopUp extends UIComponent {
     private GdxGame game;
     private Entity ui;
 
+    /* Handler to set up the UI elements of the pause screen */
+    private PopupUIHandler handler;
 
-    public PauseGamePopUp(GdxGame game) {
+    public PauseGamePopUp(GdxGame game, PopupUIHandler pauseHandler) {
         this.game = game;
+        this.handler = pauseHandler;
     }
 
     /**
@@ -54,7 +55,7 @@ public class PauseGamePopUp extends UIComponent {
         logger.debug("Creating pause game ui");
         ui = new Entity();
         ui.addComponent(new PauseGameActions(game, ui))
-                .addComponent(new PauseGameDisplay());
+                .addComponent(new PauseGameDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
 

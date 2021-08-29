@@ -158,6 +158,9 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(pauseMenuTextures);
+    resourceService.unloadAssets(winMenuTextures);
+    resourceService.unloadAssets(lossMenuTextures);
   }
 
   /**
@@ -178,9 +181,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new PauseGamePopUp(this.game))
-        .addComponent(new PlayerWinPopup(this.game, currentMap))
-        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer()));
+        .addComponent(new PauseGamePopUp(this.game, new PopupUIHandler(pauseMenuTextures)))
+        .addComponent(new PlayerWinPopup(this.game, currentMap, new PopupUIHandler(winMenuTextures)))
+        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(), new PopupUIHandler(lossMenuTextures)));
 
 
     ServiceLocator.getEntityService().register(ui);
