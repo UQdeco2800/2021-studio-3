@@ -1,19 +1,20 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.AsteroidFireConfig;
-import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.NPCConfigs;
-import com.deco2800.game.entities.configs.ObstacleConfig;
+import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
 /**
@@ -73,6 +74,27 @@ public class ObstacleFactory {
     //asteroidFire.scaleHeight(1.5f);
     //PhysicsUtils.setScaledCollider(asteroidFire, 1.5f, 0.5f);
     return asteroidFire;
+  }
+
+  public static Entity createRobot(Entity target) {
+    RobotConfig config = configs.robot;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(10f, 0f), 0f));
+    Entity robot =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                    .addComponent(new TextureRenderComponent("images/robot1.png"))
+                    .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+                    .addComponent(aiComponent);
+    robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
+
+    return robot;
+
   }
 
   /**

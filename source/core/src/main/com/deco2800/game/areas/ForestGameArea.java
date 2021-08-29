@@ -44,7 +44,8 @@ public class ForestGameArea extends GameArea {
           "images/underground.png",
           "images/sky.png",
           "images/broken_asteriod.png",
-          "images/asteroid_fire1.png"
+          "images/asteroid_fire1.png",
+          "images/robot1.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
@@ -95,6 +96,7 @@ public class ForestGameArea extends GameArea {
     //spawnTrees();
     spawnAsteriod();
     spawnAsteroidFire();
+    spawnRobot();
 
     //spawnGhosts();
     //spawnGhostKing();
@@ -180,15 +182,21 @@ public class ForestGameArea extends GameArea {
   private void spawnAsteroidFire() {
     GridPoint2 pos1 = new GridPoint2(12,10);
     Entity attackObstacle1 = ObstacleFactory.createAsteroidFree(player);
-    spawnEntityAt(attackObstacle1, pos1, true, true);
+    spawnEntityAt(attackObstacle1, pos1, true, false);
 
     GridPoint2 pos2 = new GridPoint2(19,10);
     Entity attackObstacle2 = ObstacleFactory.createAsteroidFree(player);
-    spawnEntityAt(attackObstacle2, pos2, true, true);
+    spawnEntityAt(attackObstacle2, pos2, true, false);
 
     GridPoint2 pos3 = new GridPoint2(25,10);
     Entity attackObstacle3 = ObstacleFactory.createAsteroidFree(player);
-    spawnEntityAt(attackObstacle3, pos3, true, true);
+    spawnEntityAt(attackObstacle3, pos3, true, false);
+  }
+
+  private void spawnRobot() {
+    GridPoint2 pos1 = new GridPoint2(12, 15);
+    Entity robot1 = ObstacleFactory.createRobot(player);
+    spawnEntityAt(robot1, pos1, true, true);
   }
 
 
