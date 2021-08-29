@@ -32,7 +32,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
-  private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(2,14);
+  private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -128,7 +128,7 @@ public class ForestGameArea extends GameArea {
     //spawnBuilding();
     //spawnTrees();
     //spawnRocks();
-    //spawnPlatform1();
+    spawnPlatform1();
     //spawnPlanet1();
     spawnUFO();
     //spawnAsteroids();
@@ -183,7 +183,8 @@ public class ForestGameArea extends GameArea {
     GridPoint2 minPos = new GridPoint2(2, 20);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ufo = NPCFactory.createUFO(player);
+    //Entity ufo = NPCFactory.createUFO(player);
+    Entity ufo = ObstacleFactory.createUfo(player);
     spawnEntityAt(ufo, randomPos, true, true);
   }
 
@@ -243,11 +244,16 @@ public class ForestGameArea extends GameArea {
   //  }
   //}
 //
-  //private void spawnPlatform1() {
-  //  Entity platform1 = ObstacleFactory.createPlatform1();
-  //  spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
-  //}
-//
+  private void spawnPlatform1() {
+    Entity platform1 = ObstacleFactory.createPlatform1();
+    spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
+
+    GridPoint2 pos2 = new GridPoint2(20, 13);
+    Entity platform2 = ObstacleFactory.createPlatform2();
+    spawnEntityAt(platform2, pos2, true, false);
+  }
+
+
   /**private void spawnAsteroids() {
     GridPoint2 minPos = new GridPoint2(2, 20);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 5);
@@ -304,7 +310,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnRobot() {
-    GridPoint2 pos1 = new GridPoint2(12, 15);
+    GridPoint2 pos1 = new GridPoint2(12, 16);
     Entity robot1 = ObstacleFactory.createRobot(player);
     spawnEntityAt(robot1, pos1, true, true);
   }

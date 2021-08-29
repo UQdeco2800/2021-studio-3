@@ -99,6 +99,26 @@ public class ObstacleFactory {
     return robot;
   }
 
+  public static Entity createUfo(Entity target) {
+    UfoConfig config = configs.ufo;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f));
+    Entity ufo = new Entity()
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new TextureRenderComponent("images/ufo_2.png"))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(aiComponent);
+    ufo.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
+    ufo.getComponent(TextureRenderComponent.class).scaleEntity();
+    ufo.scaleHeight(1f);
+    return ufo;
+
+  }
 
   public static Entity createRock1() {
     Entity rock1 =
@@ -208,7 +228,7 @@ public class ObstacleFactory {
     platform1.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     platform1.getComponent(TextureRenderComponent.class).scaleEntity();
     platform1.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform1, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform1, 0.5f, 0.5f);
     return platform1;
   }
 
