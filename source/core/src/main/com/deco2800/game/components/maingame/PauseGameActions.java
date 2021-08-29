@@ -29,8 +29,10 @@ public class PauseGameActions extends Component {
     @Override
     public void create() {
         entity.getEvents().addListener("resume", this::onResume);
-        entity.getEvents().addListener("homeMenu", this::onHome);
-        entity.getEvents().addListener("replayLevel", this::onReplay);
+        entity.getEvents().addListener("homeMenu",
+                entity.getComponent(PopupMenuActions.class)::onHome);
+        entity.getEvents().addListener("replayLevel",
+                entity.getComponent(PopupMenuActions.class)::onReplay);
     }
 
     /**
@@ -59,19 +61,4 @@ public class PauseGameActions extends Component {
             image.remove();
         }
     }
-
-    /**
-     * Changes the screen to be the main menu screen
-     * */
-    private void onHome(){
-        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
-    }
-
-    /**
-     * Refreshes the main game screen. Old screen is disposed of.
-     * */
-    private void onReplay() {
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-    }
-
 }

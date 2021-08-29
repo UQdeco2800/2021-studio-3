@@ -5,50 +5,51 @@ import com.deco2800.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Handles the actions to take when buttons on the 'Win' pop-up menu are
+ * clicked on.
+ * */
 public class PlayerWinActions extends Component {
     /* Debugging */
-    private static final Logger logger = LoggerFactory.getLogger(PlayerWinActions.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(PlayerWinActions.class);
 
     /* Lets the win menu change the game screen */
     private GdxGame game;
 
+    /**
+     * Constructor for the PlayerWinActions
+     *
+     * @param game the current game.
+     * */
     public PlayerWinActions(GdxGame game) {
         this.game = game;
     }
 
     /**
-     * Adds listeners for button pushes on the menu
+     * Instantiates the PlayerWinActions. Adds listeners for button pushes on
+     * the win pop-up menu.
      * */
     @Override
     public void create() {
         super.create();
-        entity.getEvents().addListener("homeMenu", this::onHome);
-        entity.getEvents().addListener("replayLevel", this::onReplay);
 
-        /* Currently, there is only one level. 'continuing' repeats the level. */
+        entity.getEvents().addListener("replayLevel",
+                entity.getComponent(PopupMenuActions.class)::onReplay);
+        entity.getEvents().addListener("homeMenu",
+                entity.getComponent(PopupMenuActions.class)::onHome);
+
+        /* Currently, there is only one level. 'continue' repeats the level. */
         entity.getEvents().addListener("continue", this::onContinue);
     }
 
     /**
-     * Changes the screen to be the main menu screen
-     * */
-    public void onHome() {
-        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
-    }
-
-    /**
-     * Refreshes the main game screen. Old screen is disposed of.
-     * */
-    public void onReplay() {
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-    }
-
-    /**
-     * Takes the player to the next level.
+     * Called when the user clicks on the Continue button on the Win pop-up
+     * screen. Takes the player to the next level.
      *
      * (Currently, there is only one level, just repeats the level)
      * */
     public void onContinue() {
-        onReplay();
+        entity.getComponent(PopupMenuActions.class).onReplay();
     }
 }

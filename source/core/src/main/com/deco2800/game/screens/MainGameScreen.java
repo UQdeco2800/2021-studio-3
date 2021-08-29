@@ -71,7 +71,6 @@ public class MainGameScreen extends ScreenAdapter {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
-
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
 
@@ -181,9 +180,13 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new PauseGamePopUp(this.game, new PopupUIHandler(pauseMenuTextures)))
-        .addComponent(new PlayerWinPopup(this.game, currentMap, new PopupUIHandler(winMenuTextures)))
-        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(), new PopupUIHandler(lossMenuTextures)));
+        .addComponent(new PauseGamePopUp(this.game,
+                new PopupUIHandler(pauseMenuTextures)))
+        .addComponent(new PlayerWinPopup(this.game, currentMap,
+                new PopupUIHandler(winMenuTextures)))
+        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
+                new PopupUIHandler(lossMenuTextures)))
+        .addComponent(new PopupMenuActions(this.game));
 
 
     ServiceLocator.getEntityService().register(ui);

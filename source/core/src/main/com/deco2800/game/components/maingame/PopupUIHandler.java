@@ -20,9 +20,13 @@ import java.util.ArrayList;
  * */
 public class PopupUIHandler {
     /* Debugging */
-    private static final Logger logger = LoggerFactory.getLogger(PopupUIHandler.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(PopupUIHandler.class);
 
+    /* The background image for the menu */
     private String background;
+
+    /* The buttons on the menu, in order of appearance */
     private String[] buttons;
 
     /**
@@ -83,7 +87,6 @@ public class PopupUIHandler {
         buttonHolder.padTop(padding);
         addButtons(buttonHolder, buttons);
         return buttons;
-
     }
 
     /**
@@ -102,9 +105,12 @@ public class PopupUIHandler {
     /**
      * Handles setting up the on-click actions for the buttons on the menu.
      *
+     * @param buttons the buttons which are on the menu, in order of appearance
      * @param actions the events to trigger when the particular button is
      *                pressed. Must be in the same order as the buttons
      *                placement on the menu itself.
+     * @param entity the entity on which Action classes are listening for
+     *               push-button events.
      * */
     public void setupButtonClicks(ArrayList<Image> buttons, String[] actions,
             Entity entity) {

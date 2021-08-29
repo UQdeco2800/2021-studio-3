@@ -57,7 +57,8 @@ public int getMaxHealth() {
   }
 
   /**
-   * Sets the entity's health. Health has a minimum bound of 0.
+   * Sets the entity's health. Health has a minimum bound of 0. If the
+   * players' health reaches 0, a loss pop-up menu is triggered.
    *
    * @param health health
    */

@@ -23,7 +23,9 @@ import org.slf4j.LoggerFactory;
  * right-scroll is added to the game.
  * */
 public class PlayerWinPopup extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PlayerLossPopup.class);
+    /* Debugging */
+    private static final Logger logger =
+            LoggerFactory.getLogger(PlayerLossPopup.class);
 
     /* The player the menu is listening for collisions on */
     private Entity player;
@@ -31,12 +33,20 @@ public class PlayerWinPopup extends UIComponent {
     /* The end of the map. The menu checks for collisions between the player and this */
     private Entity endOfMap;
 
-    /* Lets the buttons change the game screen */
+    /* Lets the menu change the game screen */
     private GdxGame game;
 
-    /* Handler to set up the UI elements of the win screen */
+    /* Handler to set up the UI elements of the win menu */
     private PopupUIHandler handler;
 
+    /**
+     * Constructor for the PlayerWinPopup
+     *
+     * @param game the current game
+     * @param currentMap the current map (GameArea) that the player is on
+     * @param winHandler a UI handler to set up the UI elements of the win
+     *                   pop-up menu
+     * */
     public PlayerWinPopup(GdxGame game, GameArea currentMap,
             PopupUIHandler winHandler) {
         this.game = game;
@@ -46,12 +56,17 @@ public class PlayerWinPopup extends UIComponent {
     }
 
     /**
-     * Returns the Fixture associated with the end of the map
+     * Allows the right-most wall of the current map to be identified.
+     *
+     * @return the Fixture associated with the end of the map
      * */
     public Fixture getMapFixture() {
         return endOfMap.getComponent(ColliderComponent.class).getFixture();
     }
 
+    /**
+     * Sets up listener to take action when the player collides with an object.
+     * */
     @Override
     public void create() {
         super.create();

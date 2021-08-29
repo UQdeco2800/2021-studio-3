@@ -13,10 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class controlling the pop-up menu which is triggered upon the players' death
+ * Class controlling the pop-up menu which appears when a player dies. A
+ * player is 'dead' if their health reaches 0.
  * */
 public class PlayerLossPopup extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PlayerLossPopup.class);
+    /* Debugging */
+    private static final Logger logger =
+            LoggerFactory.getLogger(PlayerLossPopup.class);
 
     /* Allows the game-state to be changed from the pop-up menu */
     private GdxGame game;
@@ -27,6 +30,14 @@ public class PlayerLossPopup extends UIComponent {
     /* Handler to set up the UI elements of the loss screen */
     private PopupUIHandler handler;
 
+    /**
+     * Constructor for the PlayerLossPopup
+     *
+     * @param game the current game.
+     * @param player the player entity this pop-up pertains to
+     * @param lossHandler a UI handler which sets up UI elements for the loss
+     *                    pop-up menu.
+     * */
     public PlayerLossPopup(GdxGame game, Entity player,
             PopupUIHandler lossHandler) {
         this.game = game;
@@ -35,7 +46,7 @@ public class PlayerLossPopup extends UIComponent {
     }
 
     /**
-     * Set up listener to take action when the player dies
+     * Sets up listener to take action when the player dies
      * */
     @Override
     public void create() {
@@ -44,7 +55,8 @@ public class PlayerLossPopup extends UIComponent {
     }
 
     /**
-     * Creates the pop-up menu when the player's health drops to 0
+     * Creates the loss pop-up menu when the players' health drops to 0. The
+     * game state is set to OVER to cease combat.
      * */
     public void onDeath() {
         createUI();
