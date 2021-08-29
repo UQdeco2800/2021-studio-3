@@ -1,7 +1,5 @@
 package com.deco2800.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -38,15 +36,21 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
+
+  /* Textures for the Main menu, replay, resume and continue buttons. */
+  // Placeholder hearts for now
+  private static final String[] popupMenuTextures =
+          {"images/heart.png",
+                  "images/heart.png",
+                  "images/heart.png",
+                  "images/heart.png",
+                  "images/heart.png"};
+
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private ForestGameArea forestGameArea;
-
-
-
 
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
@@ -78,10 +82,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-
-    this.forestGameArea = new ForestGameArea(terrainFactory);
-    this.forestGameArea.create();
-
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+    forestGameArea.create();
 
     this.currentMap = forestGameArea;
     createUI();
@@ -133,6 +135,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(popupMenuTextures); // Load the textures for the menus
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -161,12 +164,11 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
         .addComponent(new PauseGamePopUp(this.game))
-        .addComponent(new PlayerWinPopup(game, currentMap.getPlayer(), currentMap.getEndMap()))
-        .addComponent(new PlayerLossPopup(game, currentMap.getPlayer()));
+        .addComponent(new PlayerWinPopup(this.game, currentMap))
+        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer()));
 
 
     ServiceLocator.getEntityService().register(ui);
   }
-
 
 }
