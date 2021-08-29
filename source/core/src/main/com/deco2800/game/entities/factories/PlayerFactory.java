@@ -42,14 +42,13 @@ public class PlayerFactory {
 
 
 
-    //---------------------------------
+    //Defining and Adding player related animation here
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/boxBoy.atlas", TextureAtlas.class));
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.startAnimation("float");
-    //---------------------------------
 
     Entity player =
         new Entity()
