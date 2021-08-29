@@ -42,7 +42,7 @@ public class PauseGameActions extends Component {
             game.setState(GdxGame.GameState.RUNNING);
         }
 
-        Array<Object> screenElements =
+        /*Array<Object> screenElements =
                 ui.getComponent(PauseGameDisplay.class).getScreenElements();
         for (Object element: screenElements) {
             if (element.getClass() == Label.class) {
@@ -52,6 +52,11 @@ public class PauseGameActions extends Component {
             } else {
                 ((TextButton) element).remove();
             }
+        }*/
+        Array<Image> screenElements =
+                ui.getComponent(PauseGameDisplay.class).getScreenElements();
+        for (Image image: screenElements) {
+            image.remove();
         }
     }
 
