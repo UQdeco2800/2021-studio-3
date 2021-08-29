@@ -23,6 +23,9 @@ public class PauseGameActions extends Component {
         this.ui = ui;
     }
 
+    /**
+     * Set up listener to take action when buttons on the pause menu are pressed
+     * */
     @Override
     public void create() {
         entity.getEvents().addListener("resume", this::onResume);
@@ -30,7 +33,9 @@ public class PauseGameActions extends Component {
         entity.getEvents().addListener("replayLevel", this::onReplay);
     }
 
-
+    /**
+     * Removes the pop up menu and resumed the game
+     */
     private void onResume() {
         logger.info("resuming game");
         if (game.getState() == GdxGame.GameState.PAUSED) {
@@ -48,8 +53,6 @@ public class PauseGameActions extends Component {
                 ((TextButton) element).remove();
             }
         }
-
-
     }
 
     /**

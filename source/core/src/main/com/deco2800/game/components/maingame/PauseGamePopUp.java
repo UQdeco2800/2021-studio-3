@@ -34,7 +34,6 @@ public class PauseGamePopUp extends UIComponent {
     public void create() {
         super.create();
         entity.getEvents().addListener("pause", this::onPause);
-        entity.getEvents().addListener("continue", this::onContinue);
     }
 
     /**
@@ -59,11 +58,6 @@ public class PauseGamePopUp extends UIComponent {
 
         ServiceLocator.getEntityService().register(ui);
 
-    }
-
-    private void onContinue() {
-        logger.debug("game continue");
-        ui.dispose();
     }
 
     @Override
