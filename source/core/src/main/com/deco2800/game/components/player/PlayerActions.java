@@ -22,13 +22,12 @@ import com.sun.tools.javac.Main;
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
-  private Vector2 walkDirection = Vector2.Zero.cpy();
+  // OLD VARIABLE - private Vector2 walkDirection = Vector2.Zero.cpy();
+  // Sets gravity to 1 m/s for comparing
+  private static final Vector2 gravity = new Vector2 (0, -1f);
+  // Sets player movement and adds gravity of 1 m/s
+  private Vector2 walkDirection = new Vector2 (0, -1f);
   private boolean moving = false;
-
-
-
-
-
 
   @Override
   public void create() {
@@ -67,9 +66,6 @@ public class PlayerActions extends Component {
   void walk(Vector2 direction) {
     this.walkDirection = direction;
     moving = true;
-
-
-
   }
 
   /**
@@ -83,7 +79,6 @@ public class PlayerActions extends Component {
         if (sprinting){
           //if sprint was called on keyDown, increase speed
           this.walkDirection.add(Vector2Utils.RIGHT);
-
         } else {
           //player has stopped sprinting, subtract speed
           this.walkDirection.sub(Vector2Utils.RIGHT);
@@ -92,7 +87,6 @@ public class PlayerActions extends Component {
       if (direction.x < 0){
         //if the player is moving left
         if (sprinting){
-
           this.walkDirection.add(Vector2Utils.LEFT);
         } else {
           this.walkDirection.sub(Vector2Utils.LEFT);
@@ -104,10 +98,9 @@ public class PlayerActions extends Component {
    * Stops the player from walking.
    */
   void stopWalking() {
-    this.walkDirection = Vector2.Zero.cpy();
+    this.walkDirection = gravity;
     updateSpeed();
     moving = false;
-
   }
 
   /**

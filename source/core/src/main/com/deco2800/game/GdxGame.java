@@ -19,6 +19,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private GameState gameState;
 
   @Override
   public void create() {
@@ -29,6 +30,7 @@ public class GdxGame extends Game {
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
+    //this.gameState = GameState.RUNNING;
   }
 
   /**
@@ -77,8 +79,20 @@ public class GdxGame extends Game {
     }
   }
 
+  public void setState(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public GameState getState() {
+    return this.gameState;
+  }
+
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, SETTINGS
+  }
+
+  public enum GameState {
+    RUNNING, PAUSED, OVER
   }
 
   /**

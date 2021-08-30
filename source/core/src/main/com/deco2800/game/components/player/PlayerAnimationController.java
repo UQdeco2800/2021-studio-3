@@ -16,10 +16,22 @@ public class PlayerAnimationController extends Component {
     animator = this.entity.getComponent(AnimationRenderComponent.class);
     entity.getEvents().addListener("startWalkAnimation", this::startAnimateWalk);
     entity.getEvents().addListener("stopWalkAnimation", this::stopAnimateWalk);
+    entity.getEvents().addListener("updatePlayerStatusAnimation", this::updatePlayerStatusAnimation);
   }
 
   void startAnimateWalk() {animator.startAnimation("angry_float");}
 
   void stopAnimateWalk() {animator.startAnimation("float");}
+
+  void updatePlayerStatusAnimation(int health) {
+    if (health <= 90 && health > 50) {
+      System.out.println("i'm good");
+    } else if (health <= 50 && health > 10) {
+      System.out.println("i'm ok");
+    } else if (health == 0){
+      System.out.println("help me!!!!!!!!!");
+    }
+
+  }
 
 }
