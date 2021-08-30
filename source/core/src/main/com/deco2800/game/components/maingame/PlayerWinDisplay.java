@@ -42,7 +42,7 @@ public class PlayerWinDisplay extends UIComponent {
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
-        final String[] actions = {"replayLevel", "homeMenu", "replayLevel"};
+        final String[] actions = {"replayLevel", "homeMenu", "continue"};
         handler.setupButtonClicks(buttons, actions, entity);
 
         // Add to the stage

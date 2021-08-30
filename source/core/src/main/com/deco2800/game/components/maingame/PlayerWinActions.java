@@ -55,6 +55,6 @@ public class PlayerWinActions extends Component {
      * (Currently, there is only one level, just repeats the level)
      * */
     public void onContinue() {
-        entity.getComponent(PopupMenuActions.class).onReplay();
+        this.mainGameUI.getComponent(PopupMenuActions.class).onReplay();
     }
 }
