@@ -80,6 +80,7 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerHealthUI(int health) {
     CharSequence text = String.format("Health: %d", health);
+    entity.getEvents().trigger("updatePlayerStatusAnimation", health);
     healthLabel.setText(text);
   }
 

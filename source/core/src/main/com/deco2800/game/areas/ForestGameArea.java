@@ -69,7 +69,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnTrees();
 
-//    spawnGhosts();
+    spawnGhosts();
     //spawnGhostKing();
 
 //    playMusic();
@@ -135,8 +135,8 @@ public class ForestGameArea extends GameArea {
 
   private void spawnGhosts() {
     //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 minPos = new GridPoint2(5, 10);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
 
     for (int i = 0; i < NUM_GHOSTS; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
