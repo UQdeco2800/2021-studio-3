@@ -129,13 +129,43 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 </thead>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fallingTimer">fallingTimer</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#gravity">gravity</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jumpingTimer">jumpingTimer</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeSprint">removeSprint</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#timer">timer</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sprintTimer">sprintTimer</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startFalling">startFalling</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopFalling">stopFalling</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#walkDirection">walkDirection</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -244,14 +274,50 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="timer">timer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></span>&nbsp;<span class="memberName">timer</span></div>
+<h3><a id="gravity">gravity</a></h3>
+<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">gravity</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="walkDirection">walkDirection</a></h3>
+<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">walkDirection</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="sprintTimer">sprintTimer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></span>&nbsp;<span class="memberName">sprintTimer</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="jumpingTimer">jumpingTimer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></span>&nbsp;<span class="memberName">jumpingTimer</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="fallingTimer">fallingTimer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer</a></span>&nbsp;<span class="memberName">fallingTimer</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="removeSprint">removeSprint</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></span>&nbsp;<span class="memberName">removeSprint</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="startFalling">startFalling</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></span>&nbsp;<span class="memberName">startFalling</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="stopFalling">stopFalling</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Timer.Task.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Timer.Task</a></span>&nbsp;<span class="memberName">stopFalling</span></div>
 </section>
 </li>
 </ul>
