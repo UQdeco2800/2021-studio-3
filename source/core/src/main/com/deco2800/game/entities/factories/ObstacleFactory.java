@@ -45,7 +45,10 @@ public class ObstacleFactory {
     return tree;
   }
 
-
+  /**
+   * Creates a asteroid entity.
+   * @return entity
+   */
   public static Entity createAsteroid() {
     Entity asteroid =
             new Entity()
@@ -60,6 +63,12 @@ public class ObstacleFactory {
     return asteroid;
   }
 
+  /**
+   * Creates a asteroid fire entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
   public static Entity createAsteroidFree(Entity target) {
     //Entity attackObstacle = createBaseNPC(target);
     AsteroidFireConfig config = configs.asteroidFire;
@@ -71,7 +80,6 @@ public class ObstacleFactory {
                     .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
                     .addComponent(new TextureRenderComponent("images/asteroid_fire1.png"))
                     .addComponent(new CombatStatsComponent(config.health, config.baseAttack));
-
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     //asteroidFire.getComponent(TextureRenderComponent.class).scaleEntity();
     //asteroidFire.scaleHeight(1.5f);
@@ -79,6 +87,12 @@ public class ObstacleFactory {
     return asteroidFire;
   }
 
+  /**
+   * Creates a robot entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
   public static Entity createRobot(Entity target) {
     RobotConfig config = configs.robot;
     AITaskComponent aiComponent =
@@ -95,10 +109,15 @@ public class ObstacleFactory {
                     .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                     .addComponent(aiComponent);
     robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-
     return robot;
   }
 
+  /**
+   * Creates a ufo entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
   public static Entity createUfo(Entity target) {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
@@ -120,6 +139,11 @@ public class ObstacleFactory {
 
   }
 
+  /**
+   * Creates a rock entity.
+   *
+   * @return entity
+   */
   public static Entity createRock1() {
     Entity rock1 =
             new Entity()
@@ -134,6 +158,11 @@ public class ObstacleFactory {
     return rock1;
   }
 
+  /**
+   * Creates a rock entity.
+   *
+   * @return entity
+   */
   public static Entity createRock2() {
     Entity rock2 =
             new Entity()
@@ -148,6 +177,11 @@ public class ObstacleFactory {
     return rock2;
   }
 
+  /**
+   * Creates a rock entity.
+   *
+   * @return entity
+   */
   public static Entity createRock3() {
     Entity rock3 =
             new Entity()
@@ -162,6 +196,11 @@ public class ObstacleFactory {
     return rock3;
   }
 
+  /**
+   * Creates a rock entity.
+   *
+   * @return entity
+   */
   public static Entity createRock4() {
     Entity rock4 =
             new Entity()
@@ -176,6 +215,11 @@ public class ObstacleFactory {
     return rock4;
   }
 
+  /**
+   * Creates a rock entity.
+   *
+   * @return entity
+   */
   public static Entity createPlanet1() {
     Entity planet1 =
             new Entity()
@@ -190,6 +234,11 @@ public class ObstacleFactory {
     return planet1;
   }
 
+  /**
+   * Creates a asteroid entity.
+   *
+   * @return entity
+   */
   public static Entity createAsteroid1() {
     Entity asteroid1 =
             new Entity()
@@ -204,6 +253,11 @@ public class ObstacleFactory {
     return asteroid1;
   }
 
+  /**
+   * Creates a asteroid entity.
+   *
+   * @return entity
+   */
   public static Entity createAsteroid2() {
     Entity asteroid2 =
             new Entity()
@@ -218,6 +272,11 @@ public class ObstacleFactory {
     return asteroid2;
   }
 
+  /**
+   * Creates a platform entity.
+   *
+   * @return entity
+   */
   public static Entity createPlatform1() {
     Entity platform1 =
             new Entity()
@@ -232,6 +291,11 @@ public class ObstacleFactory {
     return platform1;
   }
 
+  /**
+   * Creates a platform entity.
+   *
+   * @return entity
+   */
   public static Entity createPlatform2() {
     Entity platform2 =
             new Entity()
@@ -246,6 +310,11 @@ public class ObstacleFactory {
     return platform2;
   }
 
+  /**
+   * Creates a platform entity.
+   *
+   * @return entity
+   */
   public static Entity createPlatform3() {
     Entity platform3 =
             new Entity()
@@ -260,6 +329,11 @@ public class ObstacleFactory {
     return platform3;
   }
 
+  /**
+   * Creates a platform entity.
+   *
+   * @return entity
+   */
   public static Entity createPlatform4() {
     Entity platform4 =
             new Entity()
@@ -274,6 +348,11 @@ public class ObstacleFactory {
     return platform4;
   }
 
+  /**
+   * Creates a platform entity.
+   *
+   * @return entity
+   */
   public static Entity createPlatform5() {
     Entity platform5 =
             new Entity()
@@ -288,6 +367,11 @@ public class ObstacleFactory {
     return platform5;
   }
 
+  /**
+   * Creates a building entity.
+   *
+   * @return entity
+   */
   public static Entity createBuilding1() {
     Entity building1 =
             new Entity()
