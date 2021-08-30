@@ -26,9 +26,9 @@ public class PlayerAnimationController extends Component {
   void updatePlayerStatusAnimation(int health) {
     if (health <= 90 && health > 50) {
       System.out.println("i'm good");
-    } else if (health <= 50 && health > 30) {
+    } else if (health <= 50 && health > 10) {
       System.out.println("i'm ok");
-    } else {
+    } else if (health == 0){
       System.out.println("help me!!!!!!!!!");
     }
 
