@@ -69,7 +69,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnTrees();
 
-    spawnGhosts();
+    //spawnGhosts();
     //spawnGhostKing();
 
 //    playMusic();
