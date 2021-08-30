@@ -71,8 +71,9 @@ public class PlayerFactory {
    */
   public static Entity createPlayer() {
     InputComponent inputComponent =
-            ServiceLocator.getInputService().getInputFactory().createForPlayer();
+        ServiceLocator.getInputService().getInputFactory().createForPlayer();
     load();
+    //Defining and Adding player related animation here
     //---------------------------------
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -80,7 +81,6 @@ public class PlayerFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.startAnimation("float");
-    //---------------------------------
 
     Entity player =
             new Entity()

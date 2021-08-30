@@ -70,7 +70,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         walkDirection.sub(Vector2Utils.UP);
       }
       jumpingTimer.stop();
-      // // Schedules to stop falling and allow user to jump again
+      // Schedules to stop falling and allow user to jump again
       fallingTimer.start();
       fallingTimer.scheduleTask(stopFalling, 1f);
       startFalling.cancel();
@@ -102,7 +102,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyDown(int keycode) {
     switch (keycode) {
-      case Keys.W:
+      case Keys.SPACE:
         if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
           isJumping = true;
           // Adds 4 m/s to upwards movement
@@ -139,18 +139,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.SHIFT_LEFT:
         // Cannot be jumping and sprinting at the same time
-        if (!isJumping) {
-          if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
-            return true;
-          }
-          sprintTimer.start();
-          if (firstSprint) {
-            firstSprint = false;
-            sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
-          }
-          triggerSprintEvent(true);
-          isSprinting = true;
+        //if (!isJumping) {
+        if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
+          return true;
         }
+        sprintTimer.start();
+        if (firstSprint) {
+          firstSprint = false;
+          sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
+        }
+        triggerSprintEvent(true);
+        isSprinting = true;
+        //}
         return true;
       default:
         return false;
@@ -183,11 +183,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.SHIFT_LEFT:
-        if (removeSprint.isScheduled()) {
-          sprintTimer.stop();
-          isSprinting = false;
-          triggerSprintEvent(false);
-        }
+        //if (removeSprint.isScheduled()) {
+        sprintTimer.stop();
+        isSprinting = false;
+        triggerSprintEvent(false);
+        //}
         return true;
       default:
         return false;
@@ -208,9 +208,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       return;
     }
     // Cannot be jumping and sprinting at the same time
-    if (!isJumping) {
+    //if (!isJumping) {
       entity.getEvents().trigger("sprint", walkDirection, sprinting);
-    }
+    //}
   }
 
 
