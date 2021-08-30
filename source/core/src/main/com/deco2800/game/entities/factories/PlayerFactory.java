@@ -1,6 +1,4 @@
 package com.deco2800.game.entities.factories;
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.assets.AssetManager;
@@ -35,19 +33,17 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class PlayerFactory {
   private static final PlayerConfig stats =
-      FileLoader.readClass(PlayerConfig.class, "configs/player.json");
+          FileLoader.readClass(PlayerConfig.class, "configs/player.json");
+  public static Pixmap pixmap = new Pixmap(3,1, Pixmap.Format.RGBA8888);
+  public static Texture pixmaptex = new Texture(pixmap);
+  public static TextureRegion h= new TextureRegion(pixmaptex);
+  public static AssetManager manager =  new  AssetManager ();
 
   /**
-   * Create a player entity.
-   * @return entity
+   * load picture to AssetManager.
+   * @return assetManager
    */
-  public static Entity createPlayer() {
-    InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForPlayer();
-    Pixmap pixmap = new Pixmap(3,1, Pixmap.Format.RGBA8888);
-    Texture pixmaptex = new Texture(pixmap);
-    TextureRegion h= new TextureRegion(pixmaptex);
-    AssetManager manager =  new  AssetManager ();
+  public static AssetManager load(){
     manager.load("images/100.png", Texture.class);
     manager.load("images/90.png", Texture.class);
     manager.load("images/80.png", Texture.class);
@@ -60,9 +56,17 @@ public class PlayerFactory {
     manager.load("images/10.png", Texture.class);
     manager.load("images/00.png", Texture.class);
     manager.finishLoading();
+    return manager;
+  }
 
-
-
+  /**
+   * Create a player entity.
+   * @return entity
+   */
+  public static Entity createPlayer() {
+    InputComponent inputComponent =
+            ServiceLocator.getInputService().getInputFactory().createForPlayer();
+    load();
     //---------------------------------
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -73,19 +77,19 @@ public class PlayerFactory {
     //---------------------------------
 
     Entity player =
-        new Entity()
+            new Entity()
 //            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(new InventoryComponent(stats.gold))
-            .addComponent(inputComponent)
-            .addComponent(new SprintComponent(100))
-            .addComponent(animator)
-            .addComponent(new PlayerAnimationController())
-            .addComponent(new PlayerStatsDisplay(manager,h));
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                    .addComponent(new PlayerActions())
+                    .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+                    .addComponent(new InventoryComponent(stats.gold))
+                    .addComponent(inputComponent)
+                    .addComponent(new SprintComponent(100))
+                    .addComponent(animator)
+                    .addComponent(new PlayerAnimationController())
+                    .addComponent(new PlayerStatsDisplay(manager,h));
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
