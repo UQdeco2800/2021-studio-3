@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -152,20 +152,35 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,java.util.ArrayList)">addButtons</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
-java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;&nbsp;buttons)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,java.util.ArrayList,float)">addButtons</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
+java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;&nbsp;buttons,
+float&nbsp;betweenPadding)</code></th>
 <td class="colLast">
 <div class="block">Adds the buttons to the pop-up menu.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBackground()">getBackground</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Retrieve the filepath for the current UI background.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code>java.lang.String[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getButtons()">getButtons</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Retrieve the file paths for the current UI buttons</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setupBackground(com.badlogic.gdx.scenes.scene2d.ui.Table)">setupBackground</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;backgroundFrame)</code></th>
 <td class="colLast">
 <div class="block">Places the background texture of the menu onto the menu.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setupButtonClicks(java.util.ArrayList,java.lang.String%5B%5D,com.deco2800.game.entities.Entity)">setupButtonClicks</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;&nbsp;buttons,
 java.lang.String[]&nbsp;actions,
@@ -174,10 +189,11 @@ java.lang.String[]&nbsp;actions,
 <div class="block">Handles setting up the on-click actions for the buttons on the menu.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setupButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,float)">setupButtons</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
-float&nbsp;padding)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setupButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,float,float)">setupButtons</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
+float&nbsp;upperPadding,
+float&nbsp;betweenPadding)</code></th>
 <td class="colLast">
 <div class="block">Creates the buttons for the pop-up menu, and places them on the
  background in order</div>
@@ -244,17 +260,23 @@ float&nbsp;padding)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setupButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,float)">setupButtons</a></h3>
+<h3><a id="setupButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,float,float)">setupButtons</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;</span>&nbsp;<span class="memberName">setupButtons</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
-float&nbsp;padding)</span></div>
+float&nbsp;upperPadding,
+float&nbsp;betweenPadding)</span></div>
 <div class="block">Creates the buttons for the pop-up menu, and places them on the
  background in order</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>buttonHolder</code> - the Table holding the buttons for the menu</dd>
-<dd><code>padding</code> - the amount of padding to put above the uppermost button.
-                This will vary depending on the spacing you want on your
-                background, or how large the background header text is.</dd>
+<dd><code>upperPadding</code> - the amount of padding to put above the uppermost
+                     button. This will vary depending on the spacing you
+                     want on your background, or how large the background
+                     header text is.</dd>
+<dd><code>betweenPadding</code> - the amount of padding to put between each
+                       individual button (starting beneath the uppermost
+                       button). This will vary depending on how close
+                       together you would like your buttons to be.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a list of the buttons to which actions will be added</dd>
 </dl>
@@ -262,14 +284,17 @@ float&nbsp;padding)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,java.util.ArrayList)">addButtons</a></h3>
+<h3><a id="addButtons(com.badlogic.gdx.scenes.scene2d.ui.Table,java.util.ArrayList,float)">addButtons</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addButtons</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a>&nbsp;buttonHolder,
-java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;&nbsp;buttons)</span></div>
+java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Image.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Image</a>&gt;&nbsp;buttons,
+float&nbsp;betweenPadding)</span></div>
 <div class="block">Adds the buttons to the pop-up menu.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>buttonHolder</code> - the Table holding the buttons for the menu</dd>
 <dd><code>buttons</code> - the buttons to be added to the menu</dd>
+<dd><code>betweenPadding</code> - the amount of padding to put between the buttons
+                       on the menu</dd>
 </dl>
 </section>
 </li>
@@ -288,6 +313,28 @@ java.lang.String[]&nbsp;actions,
                 placement on the menu itself.</dd>
 <dd><code>entity</code> - the entity on which Action classes are listening for
                push-button events.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getBackground()">getBackground</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getBackground</span>()</div>
+<div class="block">Retrieve the filepath for the current UI background.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the filepath for the background</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getButtons()">getButtons</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String[]</span>&nbsp;<span class="memberName">getButtons</span>()</div>
+<div class="block">Retrieve the file paths for the current UI buttons</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a string array holding the file paths for the buttons</dd>
 </dl>
 </section>
 </li>
