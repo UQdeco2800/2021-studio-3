@@ -1,112 +1,66 @@
 package com.deco2800.game.components.maingame;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.services.ServiceLocator;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+
 
 public class PauseGameDisplay extends UIComponent {
     /* Debugging */
     private static final Logger logger = LoggerFactory.getLogger(PauseGameDisplay.class);
     private static final float Z_INDEX = 2f;
-    private Table table;
-    private TextButton replayButton;
-    private TextButton resumeButton;
-    private TextButton homeMenuButton;
-    private Image popupMenu;
-    private Label popupLabel;
+    private Array<Image> screenElements = new Array<>();
+    private PopupUIHandler handler;
+
+    public PauseGameDisplay(PopupUIHandler handler) {
+        this.handler = handler;
+    }
 
     @Override
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("continue", this::onContinue);
-
     }
 
     /**
-     * Creates the visualisation for the menu, and triggers the buttons when
-     * pushed
+     * Creates the visualisation for the menu, including creating the
+     * background texture and adding the buttons.
      * */
     private void addActors() {
-        /* Create initial table */
-        Table table = new Table();
-        table.center();
-        table.setFillParent(true);
+        // Create the background image
+        Table backgroundFrame = new Table();
+        Image background = handler.setupBackground(backgroundFrame);
 
-        // Placeholder text for now
-        popupLabel = new Label("Game Paused", skin,
-                "large");
-        table.add(popupLabel);
-        table.row();
+        // Create buttons from the images
+        Table buttonHolder = new Table();
+        ArrayList<Image> buttons =
+                handler.setupButtons(buttonHolder, 125);
 
-        // Placeholder image / buttons for now
-        float menuSize = 100f;
-        popupMenu = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/ghost_king.png", Texture.class));
-        table.add(popupMenu).size(menuSize).padTop(5f);
+        // Set up actions to trigger for this menu.
+        // These must be in order of the buttons on the menu.
+        final String[] actions = {"replayLevel", "homeMenu", "resume"};
+        handler.setupButtonClicks(buttons, actions, entity);
 
-        /* Create the buttons for the menu */
-        resumeButton = new TextButton("Resume", skin);
-        replayButton = new TextButton("Replay", skin);
-        homeMenuButton = new TextButton("Return to Main Menu",
-                skin);
+        // Gather images to close the menu
+        screenElements.add(background);
+        for (Image image : buttons) {
+            screenElements.add(image);
+        }
 
-        /* Add triggers when the buttons are pressed */
-        homeMenuButton.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        entity.getEvents().trigger("homeMenu");
-                    }
-                });
-
-        replayButton.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        entity.getEvents().trigger("replayLevel");
-                    }
-                });
-
-        resumeButton.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        entity.getEvents().trigger("resume");
-                    }
-                });
-
-
-        /* Clean up menu & add the buttons*/
-        table.row();
-        table.add(resumeButton).padTop(15f);
-        table.row();
-        table.add(replayButton).padTop(15f);
-        table.row();
-        table.add(homeMenuButton).padTop(15f);
-        stage.addActor(table);
+        // Add to the stage
+        stage.addActor(backgroundFrame);
+        stage.addActor(buttonHolder);
     }
 
-    /**
-     * Removes the pause button menu when game is resumed.
-     */
-    private void onContinue() {
-        replayButton.remove();
-        resumeButton.remove();
-        homeMenuButton.remove();
-        popupMenu.remove();
-        popupLabel.remove();
+    public Array<Image> getScreenElements() {
+        return screenElements;
     }
-
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -120,7 +74,6 @@ public class PauseGameDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        table.clear();
         super.dispose();
     }
 }

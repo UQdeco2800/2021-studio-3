@@ -30,7 +30,9 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
 
+
     entity.getEvents().addListener("sprint", this::sprint);
+
 
 
 

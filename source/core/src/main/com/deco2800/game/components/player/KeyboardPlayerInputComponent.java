@@ -4,10 +4,15 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
+
 import com.badlogic.gdx.utils.Timer;
 import com.deco2800.game.components.SprintComponent;
 
 import com.deco2800.game.components.maingame.MainGameActions;
+
+import com.deco2800.game.components.maingame.MainGameActions;
+import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.SprintComponent;
 
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -21,9 +26,15 @@ import org.slf4j.LoggerFactory;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
 
+
   //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
+
+  //private final Vector2 walkDirection = Vector2.Zero.cpy();
+  private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
+
+
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
@@ -76,6 +87,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       stopFalling.cancel();
     }
   };
+
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -200,6 +212,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("sprint", walkDirection, sprinting);
     }
   }
+
 
 }
 

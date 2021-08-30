@@ -3,8 +3,11 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.maingame.PlayerWinActions;
 import com.deco2800.game.components.maingame.PlayerWinDisplay;
+import com.deco2800.game.components.maingame.PopupUIHandler;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -20,7 +23,9 @@ import org.slf4j.LoggerFactory;
  * right-scroll is added to the game.
  * */
 public class PlayerWinPopup extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PlayerLossPopup.class);
+    /* Debugging */
+    private static final Logger logger =
+            LoggerFactory.getLogger(PlayerLossPopup.class);
 
     /* The player the menu is listening for collisions on */
     private Entity player;
@@ -28,22 +33,40 @@ public class PlayerWinPopup extends UIComponent {
     /* The end of the map. The menu checks for collisions between the player and this */
     private Entity endOfMap;
 
-    /* Lets the buttons change the game screen */
+    /* Lets the menu change the game screen */
     private GdxGame game;
 
-    public PlayerWinPopup(GdxGame game, Entity player, Entity endOfMap) {
+    /* Handler to set up the UI elements of the win menu */
+    private PopupUIHandler handler;
+
+    /**
+     * Constructor for the PlayerWinPopup
+     *
+     * @param game the current game
+     * @param currentMap the current map (GameArea) that the player is on
+     * @param winHandler a UI handler to set up the UI elements of the win
+     *                   pop-up menu
+     * */
+    public PlayerWinPopup(GdxGame game, GameArea currentMap,
+            PopupUIHandler winHandler) {
         this.game = game;
-        this.player = player;
-        this.endOfMap = endOfMap;
+        this.player = ((ForestGameArea) currentMap).getPlayer();
+        this.endOfMap = ((ForestGameArea) currentMap).getEndMap();
+        this.handler = winHandler;
     }
 
     /**
-     * Returns the Fixture associated with the end of the map
+     * Allows the right-most wall of the current map to be identified.
+     *
+     * @return the Fixture associated with the end of the map
      * */
     public Fixture getMapFixture() {
         return endOfMap.getComponent(ColliderComponent.class).getFixture();
     }
 
+    /**
+     * Sets up listener to take action when the player collides with an object.
+     * */
     @Override
     public void create() {
         super.create();
@@ -58,8 +81,8 @@ public class PlayerWinPopup extends UIComponent {
         logger.debug("Creating player win ui");
         Entity ui = new Entity();
 
-        ui.addComponent(new PlayerWinActions(game))
-                .addComponent(new PlayerWinDisplay());
+        ui.addComponent(new PlayerWinActions(game, entity))
+                .addComponent(new PlayerWinDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
     }

@@ -17,6 +17,8 @@ import com.deco2800.game.components.CombatStatsComponent;
 
 import com.deco2800.game.components.SprintComponent;
 
+import com.deco2800.game.components.SprintComponent;
+
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
@@ -75,11 +77,9 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
-
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
-
 
 
     table.add(heartImage).size(heartSideLength).pad(5);

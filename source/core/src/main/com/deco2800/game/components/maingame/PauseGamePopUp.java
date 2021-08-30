@@ -2,8 +2,6 @@ package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.maingame.PlayerLossActions;
-import com.deco2800.game.components.maingame.PlayerLossDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -15,15 +13,19 @@ import org.slf4j.LoggerFactory;
  * Class controlling the pop-up menu which is triggered upon the pressing pause
  * */
 public class PauseGamePopUp extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PauseGamePopUp.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(PauseGamePopUp.class);
 
     /* Allows the game-state to be changed from the pop-up menu */
     private GdxGame game;
+    private Entity ui;
 
+    /* Handler to set up the UI elements of the pause screen */
+    private PopupUIHandler handler;
 
-
-    public PauseGamePopUp(GdxGame game) {
+    public PauseGamePopUp(GdxGame game, PopupUIHandler pauseHandler) {
         this.game = game;
+        this.handler = pauseHandler;
     }
 
     /**
@@ -39,23 +41,24 @@ public class PauseGamePopUp extends UIComponent {
      * Creates the pop-up menu when the pause button is pressed
      * */
     private void onPause() {
+        logger.info("pausing game");
         if (game.getState() == GdxGame.GameState.RUNNING) {
             game.setState(GdxGame.GameState.PAUSED);
             createUI();
         }
     }
 
-
     /**
      * Creates the UI for the Pause menu.
      * */
     public void createUI() {
         logger.debug("Creating pause game ui");
-        Entity ui = new Entity();
-        ui.addComponent(new PauseGameActions(game))
-                .addComponent(new PauseGameDisplay());
+        ui = new Entity();
+        ui.addComponent(new PauseGameActions(game, ui, entity))
+                .addComponent(new PauseGameDisplay(handler));
 
         ServiceLocator.getEntityService().register(ui);
+
     }
 
     @Override
