@@ -39,7 +39,7 @@ public class PlayerLossDisplay extends UIComponent {
         // Create buttons from the images
         Table buttonHolder = new Table();
         ArrayList<Image> buttons =
-                handler.setupButtons(buttonHolder, 200);
+                handler.setupButtons(buttonHolder, 115, 35);
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.

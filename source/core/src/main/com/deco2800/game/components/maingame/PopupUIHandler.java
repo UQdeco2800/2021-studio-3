@@ -67,12 +67,18 @@ public class PopupUIHandler {
      * background in order
      *
      * @param buttonHolder the Table holding the buttons for the menu
-     * @param padding the amount of padding to put above the uppermost button.
-     *                This will vary depending on the spacing you want on your
-     *                background, or how large the background header text is.
+     * @param upperPadding the amount of padding to put above the uppermost
+     *                     button. This will vary depending on the spacing you
+     *                     want on your background, or how large the background
+     *                     header text is.
+     * @param betweenPadding the amount of padding to put between each
+     *                       individual button (starting beneath the uppermost
+     *                       button). This will vary depending on how close
+     *                       together you would like your buttons to be.
      * @return a list of the buttons to which actions will be added
      * */
-    public ArrayList<Image> setupButtons(Table buttonHolder, float padding) {
+    public ArrayList<Image> setupButtons(Table buttonHolder, float upperPadding,
+            float betweenPadding) {
         buttonHolder.center();
         buttonHolder.setFillParent(true);
 
@@ -84,8 +90,8 @@ public class PopupUIHandler {
         }
 
         // Add padding to push buttons down
-        buttonHolder.padTop(padding);
-        addButtons(buttonHolder, buttons);
+        buttonHolder.padTop(upperPadding);
+        addButtons(buttonHolder, buttons, betweenPadding);
         return buttons;
     }
 
@@ -94,10 +100,13 @@ public class PopupUIHandler {
      *
      * @param buttonHolder the Table holding the buttons for the menu
      * @param buttons the buttons to be added to the menu
+     * @param betweenPadding the amount of padding to put between the buttons
+     *                       on the menu
      * */
-    public void addButtons(Table buttonHolder, ArrayList<Image> buttons) {
+    public void addButtons(Table buttonHolder, ArrayList<Image> buttons,
+            float betweenPadding) {
         for (Image image : buttons) {
-            buttonHolder.add(image).padBottom(5f);
+            buttonHolder.add(image).padBottom(betweenPadding);
             buttonHolder.row();
         }
     }
@@ -125,5 +134,23 @@ public class PopupUIHandler {
                 }
             } );
         }
+    }
+
+    /**
+     * Retrieve the filepath for the current UI background.
+     *
+     * @return the filepath for the background
+     * */
+    public String getBackground() {
+        return this.background;
+    }
+
+    /**
+     * Retrieve the file paths for the current UI buttons
+     *
+     * @return a string array holding the file paths for the buttons
+     * */
+    public String[] getButtons() {
+        return this.buttons;
     }
 }
