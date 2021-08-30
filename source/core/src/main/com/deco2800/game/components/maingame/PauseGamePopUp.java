@@ -35,16 +35,16 @@ public class PauseGamePopUp extends UIComponent {
     public void create() {
         super.create();
         entity.getEvents().addListener("pause", this::onPause);
+        entity.getEvents().addListener("pause", this::createUI);
     }
 
     /**
      * Creates the pop-up menu when the pause button is pressed
      * */
-    private void onPause() {
+    public void onPause() {
         logger.info("pausing game");
         if (game.getState() == GdxGame.GameState.RUNNING) {
             game.setState(GdxGame.GameState.PAUSED);
-            createUI();
         }
     }
 

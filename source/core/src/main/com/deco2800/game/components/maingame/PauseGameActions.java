@@ -40,7 +40,7 @@ public class PauseGameActions extends Component {
     /**
      * Removes the pop up menu and resumed the game
      */
-    private void onResume() {
+    public void onResume() {
         logger.info("resuming game");
         if (game.getState() == GdxGame.GameState.PAUSED) {
             game.setState(GdxGame.GameState.RUNNING);
