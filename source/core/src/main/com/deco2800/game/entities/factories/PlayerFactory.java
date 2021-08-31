@@ -59,6 +59,7 @@ public class PlayerFactory {
     manager.load("images/20.png", Texture.class);
     manager.load("images/10.png", Texture.class);
     manager.load("images/00.png", Texture.class);
+    manager.load("images/untouchedCheckpoint.png",Texture.class);
     manager.finishLoading();
 
 

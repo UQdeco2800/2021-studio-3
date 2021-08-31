@@ -24,6 +24,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -41,7 +42,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png",
           "images/surface.png",
           "images/underground.png",
-          "images/sky.png"
+          "images/sky.png",
+          "images/untouchedCheckpoint.png",
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
@@ -59,10 +61,11 @@ public class ForestGameArea extends GameArea {
   /* End of this map */
   private Entity endOfMap;
 
-
-  public ForestGameArea(TerrainFactory terrainFactory) {
+  private int checkpoint;
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
     super();
     this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
   }
 
   /**
@@ -89,11 +92,11 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     player = spawnPlayer();
-    spawnTrees();
+    //spawnTrees();
 
-//    spawnGhosts();
+    spawnGhosts();
     //spawnGhostKing();
-
+    createCheckpoint();
 //    playMusic();
   }
 
@@ -103,6 +106,19 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+  /**
+   * Returns the check point status.
+   * */
+  public int getCheckPointStatus() {
+    return checkpoint;
+  }
+
+  /**
+   * sets the check point status.
+   * */
+  public void setCheckPointStatus(int status) {
+    checkpoint = status;
+  }
 
   private void spawnTerrain() {
     // Background terrain
@@ -150,8 +166,20 @@ public class ForestGameArea extends GameArea {
   private Entity spawnPlayer() {
     //need to change it to the horizon view
     Entity newPlayer = PlayerFactory.createPlayer();
-    spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    if (this.checkpoint == 1) {
+      spawnEntityAt(newPlayer, CHECKPOINT, true, true);
+    } else {
+      spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    }
     return newPlayer;
+  }
+
+  private void createCheckpoint() {
+
+    GridPoint2 checkPoint = new GridPoint2(20, 10);
+    Entity checkpoint = ObstacleFactory.createCheckpoint(player, this);
+    spawnEntityAt(checkpoint, checkPoint, true, false);
+
   }
 
   private void spawnGhosts() {
