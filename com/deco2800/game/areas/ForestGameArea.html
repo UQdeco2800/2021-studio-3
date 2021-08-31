@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -138,7 +138,8 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+int&nbsp;checkpoint)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -179,17 +180,31 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 </td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCheckPointStatus()">getCheckPointStatus</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the check point status.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEndMap()">getEndMap</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the end of the current map.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the player spawned into this area.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCheckPointStatus(int)">setCheckPointStatus</a></span>&#8203;(int&nbsp;status)</code></th>
+<td class="colLast">
+<div class="block">sets the check point status.</div>
 </td>
 </tr>
 </tbody>
@@ -221,8 +236,9 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory)">ForestGameArea</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory)</span></div>
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int)">ForestGameArea</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+int&nbsp;checkpoint)</span></div>
 </section>
 </li>
 </ul>
@@ -259,6 +275,20 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="GameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getCheckPointStatus()">getCheckPointStatus</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getCheckPointStatus</span>()</div>
+<div class="block">Returns the check point status.</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setCheckPointStatus(int)">setCheckPointStatus</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setCheckPointStatus</span>&#8203;(<span class="arguments">int&nbsp;status)</span></div>
+<div class="block">sets the check point status.</div>
 </section>
 </li>
 <li class="blockList">

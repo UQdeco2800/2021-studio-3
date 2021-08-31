@@ -236,6 +236,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/ChaseTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,int,float,float)">ChaseTask(Entity, int, float, float)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/GdxGame.ScreenType.html#CHECKPOINT">CHECKPOINT</a></span> - com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components"><span class="typeNameLink">CheckPointComponent</span></a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
+<dd>
+<div class="block">When this entity touches a valid enemy's hitbox, deal damage to them and apply a knockback.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#%3Cinit%3E(short,com.deco2800.game.areas.ForestGameArea)">CheckPointComponent(short, ForestGameArea)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH">CLASSPATH</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#clear()">clear()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -358,6 +366,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Create the game area in the world.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/Component.html#create()">create()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/Component.html" title="class in com.deco2800.game.components">Component</a></dt>
 <dd>
 <div class="block">Called when the entity is created and registered.</div>
@@ -474,6 +484,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/RenderFactory.html#createCamera()">createCamera()</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/RenderFactory.html" title="class in com.deco2800.game.entities.factories">RenderFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCheckpoint(com.deco2800.game.entities.Entity,com.deco2800.game.areas.ForestGameArea)">createCheckpoint(Entity, ForestGameArea)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>
+<div class="block">Creates a checkpoint entity.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/InputFactory.html#createForPlayer()">createForPlayer()</a></span> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputFactory.html" title="class in com.deco2800.game.input">InputFactory</a></dt>
 <dd>
 <div class="block">Creates an input handler for the player</div>
@@ -870,7 +884,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Forest area for the demo game with trees, a player, and some enemies.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory)">ForestGameArea(TerrainFactory)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int)">ForestGameArea(TerrainFactory, int)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.Settings.html#fps">fps</a></span> - Variable in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.Settings.html" title="class in com.deco2800.game.files">UserSettings.Settings</a></dt>
 <dd>
@@ -951,6 +965,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getCenterPosition()">getCenterPosition()</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get the entity's center position</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Returns the check point status.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getComponent(java.lang.Class)">getComponent(Class&lt;T&gt;)</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
@@ -1424,6 +1442,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Blocking call to load all assets.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/GdxGame.html#loadCheckPoint(com.deco2800.game.GdxGame.ScreenType)">loadCheckPoint(GdxGame.ScreenType)</a></span> - Method in class com.deco2800.game.<a href="com/deco2800/game/GdxGame.html" title="class in com.deco2800.game">GdxGame</a></dt>
+<dd>
+<div class="block">Sets the game's screen to a new screen of the provided type.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ResourceService.html#loadForMillis(int)">loadForMillis(int)</a></span> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
 <dd>
 <div class="block">Loads assets for the specified duration in milliseconds.</div>
@@ -1481,6 +1503,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">The game screen containing the main game.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)">MainGameScreen(GdxGame)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,int)">MainGameScreen(GdxGame, int)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/mainmenu/MainMenuActions.html" title="class in com.deco2800.game.components.mainmenu"><span class="typeNameLink">MainMenuActions</span></a> - Class in <a href="com/deco2800/game/components/mainmenu/package-summary.html">com.deco2800.game.components.mainmenu</a></dt>
 <dd>
@@ -1809,7 +1833,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Handles actions for the buttons pushed on the win, loss and pause pop-up
  menus when the actions are the same across the screens.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/PopupMenuActions.html#%3Cinit%3E(com.deco2800.game.GdxGame)">PopupMenuActions(GdxGame)</a></span> - Constructor for class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/PopupMenuActions.html" title="class in com.deco2800.game.components.maingame">PopupMenuActions</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/PopupMenuActions.html#%3Cinit%3E(com.deco2800.game.GdxGame,com.deco2800.game.areas.ForestGameArea)">PopupMenuActions(GdxGame, ForestGameArea)</a></span> - Constructor for class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/PopupMenuActions.html" title="class in com.deco2800.game.components.maingame">PopupMenuActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/PopupUIHandler.html" title="class in com.deco2800.game.components.maingame"><span class="typeNameLink">PopupUIHandler</span></a> - Class in <a href="com/deco2800/game/components/maingame/package-summary.html">com.deco2800.game.components.maingame</a></dt>
 <dd>
@@ -2086,6 +2110,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsComponent.html#setBodyType(com.badlogic.gdx.physics.box2d.BodyDef.BodyType)">setBodyType(BodyDef.BodyType)</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.html" title="class in com.deco2800.game.physics.components">PhysicsComponent</a></dt>
 <dd>
 <div class="block">Set body type</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus(int)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">sets the check point status.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#setClosed()">setClosed()</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>
