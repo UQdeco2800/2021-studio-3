@@ -16,7 +16,11 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
-  private Vector2 walkDirection = Vector2.Zero.cpy();
+  // OLD VARIABLE - private Vector2 walkDirection = Vector2.Zero.cpy();
+  // Sets gravity to 1 m/s for comparing
+  private static final Vector2 gravity = new Vector2 (0, -1f);
+  // Sets player movement and adds gravity of 1 m/s
+  private Vector2 walkDirection = new Vector2 (0, -1f);
   private boolean moving = false;
 
   @Override
@@ -25,7 +29,12 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+
+
     entity.getEvents().addListener("sprint", this::sprint);
+
+
+
 
   }
 
@@ -85,7 +94,7 @@ public class PlayerActions extends Component {
    * Stops the player from walking.
    */
   void stopWalking() {
-    this.walkDirection = Vector2.Zero.cpy();
+    this.walkDirection = gravity;
     updateSpeed();
     moving = false;
   }

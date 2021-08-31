@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.CombatStatsComponent;
@@ -66,6 +67,26 @@ public class NPCFactory {
   }
 
   /**
+   * Creates a ufo entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createUFO(Entity target) {
+    Entity ufo = createBaseNPC(target);
+    BaseEntityConfig config = configs.ghost;
+
+    ufo
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/ufo_2.png"));
+
+    ufo.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.DynamicBody);
+    ufo.getComponent(TextureRenderComponent.class).scaleEntity();
+    ufo.scaleHeight(1f);
+    return ufo;
+  }
+
+  /**
    * Creates a ghost king entity.
    *
    * @param target entity to chase
@@ -91,6 +112,20 @@ public class NPCFactory {
     return ghostKing;
   }
 
+//  public static Entity createAttackObstacle(Entity target) {
+//    //Entity attackObstacle = createBaseNPC(target);
+//    GhostKingConfig config = configs.ghostKing;
+//    Entity attackObstacle =
+//            new Entity()
+//                    .addComponent(new PhysicsComponent())
+//                    .addComponent(new ColliderComponent())
+//                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+//                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+//                    .addComponent(new TextureRenderComponent("images/asteroid_fire1.png"))
+//                    .addComponent(new CombatStatsComponent(config.health, config.baseAttack));
+//    return attackObstacle;
+//  }
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
@@ -99,8 +134,8 @@ public class NPCFactory {
   private static Entity createBaseNPC(Entity target) {
     AITaskComponent aiComponent =
         new AITaskComponent()
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f));
+            .addTask(new WanderTask(new Vector2(3f, 0f), 1f));
+            //.addTask(new ChaseTask(target, 10, 3f, 4f));
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())

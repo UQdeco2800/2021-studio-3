@@ -1,0 +1,14 @@
+{
+  "asteroidFire": {
+    "health": 100,
+    "baseAttack": 10
+  },
+  "robot": {
+    "health": 100,
+    "baseAttack": 20
+  },
+  "ufo": {
+    "health": 100,
+    "baseAttack": 25
+  }
+}

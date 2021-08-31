@@ -14,10 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.CombatStatsComponent;
+
 import com.deco2800.game.components.SprintComponent;
+
+import com.deco2800.game.components.SprintComponent;
+
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.rendering.TextureRenderComponent;
+
 import com.deco2800.game.screens.MainGameScreen;
+
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -29,7 +35,9 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table2;
   private Image heartImage;
   private Label healthLabel;
+
   private Label sprintLabel;
+
   AssetManager manager;
   TextureRegion  textureRegion;
 
@@ -68,6 +76,7 @@ public class PlayerStatsDisplay extends UIComponent {
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
+
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
@@ -142,6 +151,7 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerHealthUI(int health) {
     CharSequence text = String.format("Health: %d", health);
+    entity.getEvents().trigger("updatePlayerStatusAnimation", health);
     healthLabel.setText(text);
   }
 
