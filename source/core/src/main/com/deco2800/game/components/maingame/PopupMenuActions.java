@@ -18,6 +18,11 @@ public class PopupMenuActions extends Component {
     private GdxGame game;
     private ForestGameArea area;
     private int checkPointStatus;
+
+    public PopupMenuActions(GdxGame game) {
+        this.game = game;
+    }
+
     public PopupMenuActions(GdxGame game, ForestGameArea area) {
         this.game = game;
         this.area = area;
@@ -36,10 +41,12 @@ public class PopupMenuActions extends Component {
      * Refreshes the main game screen. Old screen is disposed of.
      * */
     public void onReplay() {
+
         if (area.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.CHECKPOINT);
         } else {
             game.setScreen(GdxGame.ScreenType.MAIN_GAME);
         }
     }
+
 }
