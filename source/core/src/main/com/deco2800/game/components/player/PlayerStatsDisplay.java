@@ -46,7 +46,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label sprintLabel;
   private Label progressLabel;
 
-  private Texture levelStart;
   private Texture level10percent;
   private Texture level20percent;
   private Texture level30percent;
@@ -116,7 +115,7 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintLabel = new Label(sprintText, skin, "large");
 
     //Create textures to be changed on update
-    levelStart = new Texture("images/00.png");
+    Texture levelStart = new Texture("images/00.png");
     level10percent = new Texture("images/10.png");
     level20percent = new Texture("images/20.png");
     level30percent = new Texture("images/30.png");
