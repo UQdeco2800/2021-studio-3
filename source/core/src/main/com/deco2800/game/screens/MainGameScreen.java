@@ -92,7 +92,39 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
+    forestGameArea.create();
+
+    this.currentMap = forestGameArea;
+    createUI();
+  }
+
+  public MainGameScreen(GdxGame game, int checkpoint) {
+    this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
+    logger.debug("Initialising main game screen services");
+    ServiceLocator.registerTimeSource(new GameTime());
+
+    PhysicsService physicsService = new PhysicsService();
+    ServiceLocator.registerPhysicsService(physicsService);
+    physicsEngine = physicsService.getPhysics();
+
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(new ResourceService());
+
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+    loadAssets();
+
+    logger.debug("Initialising main game screen entities");
+    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1);
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
@@ -186,7 +218,7 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
-        .addComponent(new PopupMenuActions(this.game));
+        .addComponent(new PopupMenuActions(this.game, this.currentMap));
 
 
     ServiceLocator.getEntityService().register(ui);

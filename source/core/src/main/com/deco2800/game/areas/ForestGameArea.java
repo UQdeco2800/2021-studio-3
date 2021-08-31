@@ -29,6 +29,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
@@ -48,18 +49,8 @@ public class ForestGameArea extends GameArea {
           "images/surface.png",
           "images/underground.png",
           "images/sky.png",
-          "images/00.png",
-          "images/10.png",
-          "images/20.png",
-          "images/30.png",
-          "images/40.png",
-          "images/50.png",
-          "images/60.png",
-          "images/70.png",
-          "images/80.png",
-          "images/90.png",
-          "images/100.png",
-          "images/levelComplete.png",
+          "images/untouchedCheckpoint.png",
+
           "images/broken_asteriod.png",
           "images/asteroid_fire1.png",
           "images/robot1.png",
@@ -95,10 +86,11 @@ public class ForestGameArea extends GameArea {
   /* End of this map */
   private Entity endOfMap;
 
-
-  public ForestGameArea(TerrainFactory terrainFactory) {
+  private int checkpoint;
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
     super();
     this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
   }
 
   /**
@@ -125,6 +117,9 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     player = spawnPlayer();
+    //spawnTrees();
+
+    spawnGhosts();
 
     //spawnTrees();
     spawnAsteriod();
@@ -142,7 +137,7 @@ public class ForestGameArea extends GameArea {
 
     //spawnGhosts();
     //spawnGhostKing();
-
+    createCheckpoint();
 //    playMusic();
     //spawnAttackObstacle();
   }
@@ -153,6 +148,19 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+  /**
+   * Returns the check point status.
+   * */
+  public int getCheckPointStatus() {
+    return checkpoint;
+  }
+
+  /**
+   * sets the check point status.
+   * */
+  public void setCheckPointStatus(int status) {
+    checkpoint = status;
+  }
 
   private void spawnTerrain() {
     // Background terrain
@@ -331,9 +339,21 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    if (this.checkpoint == 1) {
+      spawnEntityAt(newPlayer, CHECKPOINT, true, true);
+    } else {
+      spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    }
     return newPlayer;
   }
 
+  private void createCheckpoint() {
+
+    GridPoint2 checkPoint = new GridPoint2(20, 10);
+    Entity checkpoint = ObstacleFactory.createCheckpoint(player, this);
+    spawnEntityAt(checkpoint, checkPoint, true, false);
+
+  }
 
   private void spawnGhosts() {
     //need to change it to the horizon view

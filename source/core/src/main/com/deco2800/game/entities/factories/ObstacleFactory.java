@@ -3,6 +3,11 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.CheckPointComponent;
+import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.tasks.ChaseTask;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
@@ -399,6 +404,27 @@ public class ObstacleFactory {
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);
     return wall;
+  }
+
+  /**
+   * Creates a checkpoint entity.
+   * @return entity
+   */
+  public static Entity createCheckpoint(Entity target, ForestGameArea area) {
+
+    Entity checkpoint =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new CheckPointComponent(PhysicsLayer.PLAYER, area))
+                    .addComponent(new TextureRenderComponent("images/untouchedCheckpoint.png"));
+
+
+
+    PhysicsUtils.setScaledCollider(checkpoint, 0.9f, 0.4f);
+    return checkpoint;
   }
 
   private ObstacleFactory() {

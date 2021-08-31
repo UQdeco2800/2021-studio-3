@@ -1,0 +1,26 @@
+Walking.png
+size: 400, 1554
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Walking Frame 1
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: -1
+Walking Frame 2
+  rotate: false
+  xy: 0, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: -1
+Walking Frame 3
+  rotate: false
+  xy: 0, 1036
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: -1
