@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -58,6 +57,11 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
+  /* Textures for buffs and debuffs */
+  private static final String[] buffsAndDebuffsTextures =
+          {"images/box_boy.png"};
+
+
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private final GdxGame game;
@@ -67,6 +71,9 @@ public class MainGameScreen extends ScreenAdapter {
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;
+
+  /* Manages buffs & debuffs in the game */
+  private BuffManager buffManager;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
@@ -98,6 +105,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     this.currentMap = forestGameArea;
     createUI();
+    forestGameArea.spawnBuffDebuff(this.buffManager);
   }
 
   public MainGameScreen(GdxGame game, int checkpoint) {
@@ -130,6 +138,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     this.currentMap = forestGameArea;
     createUI();
+    forestGameArea.spawnBuffDebuff(this.buffManager);
   }
 
   @Override
@@ -183,6 +192,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(pauseMenuTextures);
     resourceService.loadTextures(winMenuTextures);
     resourceService.loadTextures(lossMenuTextures);
+    resourceService.loadTextures(buffsAndDebuffsTextures);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -193,6 +203,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(pauseMenuTextures);
     resourceService.unloadAssets(winMenuTextures);
     resourceService.unloadAssets(lossMenuTextures);
+    resourceService.unloadAssets(buffsAndDebuffsTextures);
   }
 
   /**
@@ -219,9 +230,18 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
-        .addComponent(new PopupMenuActions(this.game, this.currentMap));
+        .addComponent(new PopupMenuActions(this.game, this.currentMap))
+        .addComponent(this.buffManager = new BuffManager(this, currentMap));
+
 
 
     ServiceLocator.getEntityService().register(ui);
+  }
+
+  /**
+   * Returns the current game map
+   * */
+  public ForestGameArea getCurrentMap() {
+    return this.currentMap;
   }
 }

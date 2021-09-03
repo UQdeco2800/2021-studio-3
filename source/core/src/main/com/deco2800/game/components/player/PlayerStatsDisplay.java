@@ -1,9 +1,6 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,26 +8,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.deco2800.game.GdxGame;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.CombatStatsComponent;
-
-import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.SprintComponent;
-
-import com.deco2800.game.components.SprintComponent;
-
-import com.deco2800.game.entities.configs.PlayerConfig;
-import com.deco2800.game.rendering.TextureRenderComponent;
-
-import com.deco2800.game.screens.MainGameScreen;
-
-import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import org.w3c.dom.Text;
+
+import java.util.Collection;
 
 
 /**
@@ -62,6 +46,10 @@ public class PlayerStatsDisplay extends UIComponent {
 
   AssetManager manager;
   TextureRegion  textureRegion;
+
+  /* Buff-related UI elements */
+  private CharSequence buffText;
+  private Label buffLabel;
 
   public PlayerStatsDisplay(AssetManager manager,TextureRegion textureRegion){
     this.manager = manager;
@@ -139,6 +127,18 @@ public class PlayerStatsDisplay extends UIComponent {
     table2.add(sprintLabel).pad(5);
     stage.addActor(table2);
 
+    /* Buff-related UI elements */
+    buffText = "Current buffs: \n";
+    buffLabel = new Label(buffText, skin, "large");
+    Table buffTable = new Table();
+
+    // Positioning of UI element
+    buffTable.top().left();
+    buffTable.setFillParent(true);
+    buffTable.padTop(110f).padLeft(5f);
+    buffTable.add(buffLabel);
+    stage.addActor(buffTable);
+
     levelStatus = new Image(levelStart);
     table3.add(levelStatus).size(600, 250);
     table3.add(progressLabel);
@@ -203,6 +203,25 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     entity.getEvents().trigger("updatePlayerStatusAnimation", health);
     healthLabel.setText(text);
+  }
+
+  /**
+   * Updates the players' currently active timed buffs and debuffs on the UI.
+   *
+   * @param buffInfo a collection of BuffInfo's for the currently active timed
+   *                 buffs. Gives the UI access to the name of the buff.
+   * */
+  public void updateBuffDisplay(Collection<BuffInformation> buffInfo) {
+    String text = ((String) this.buffText);
+
+    /* Add the names of currently active buffs */
+    for (BuffInformation info : buffInfo) {
+      String buffName = info.getBuffName();
+      text = text.concat(buffName + "\n");
+    }
+
+    /* Update */
+    buffLabel.setText(text);
   }
 
   /**

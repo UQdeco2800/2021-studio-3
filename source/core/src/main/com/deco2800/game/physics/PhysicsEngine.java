@@ -3,6 +3,7 @@ package com.deco2800.game.physics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.raycast.AllHitCallback;
 import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.physics.raycast.SingleHitCallback;
@@ -10,6 +11,9 @@ import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Process game physics using the Box2D library. See the Box2D documentation for examples or use
@@ -29,6 +33,9 @@ public class PhysicsEngine implements Disposable {
   private final AllHitCallback allHitCallback = new AllHitCallback();
   private float accumulator;
 
+  /* List of entities to be destroyed on the next world step */
+  private List<Entity> toDestroy;
+
   public PhysicsEngine() {
     this(new World(GRAVITY, true), ServiceLocator.getTimeSource());
   }
@@ -37,6 +44,7 @@ public class PhysicsEngine implements Disposable {
     this.world = world;
     world.setContactListener(new PhysicsContactListener());
     this.timeSource = timeSource;
+    this.toDestroy = new ArrayList<>();
   }
 
   public void update() {
@@ -53,6 +61,21 @@ public class PhysicsEngine implements Disposable {
       world.step(PHYSICS_TIMESTEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
       accumulator -= PHYSICS_TIMESTEP;
     }
+
+    /* Destroy the queued entities */
+    for (Entity buff : this.toDestroy) {
+      buff.dispose();
+    }
+    this.toDestroy.clear();
+  }
+
+  /**
+   * Add an entity to the queue to be removed on the next world step.
+   *
+   * @param entity the entity to be destroyed.
+   * */
+  public void addToDestroy(Entity entity) {
+    this.toDestroy.add(entity);
   }
 
   public Body createBody(BodyDef bodyDef) {

@@ -7,7 +7,9 @@ import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -17,6 +19,8 @@ import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -46,6 +50,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
+          "images/box_boy.png",
           "images/surface.png",
           "images/underground.png",
           "images/sky.png",
@@ -81,7 +86,6 @@ public class ForestGameArea extends GameArea {
 
   /* Player on the map */
   private Entity player;
-
 
   /* End of this map */
   private Entity endOfMap;
@@ -381,6 +385,32 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  /**
+   * Spawns buffs or debuffs onto the current map in a random position. Buffs
+   * are spawned on the ground only (not platforms). Buffs can spawn anywhere
+   * across the game map (horizontally). A random buff type is chosen to be
+   * spawned.
+   *
+   * @param manager the BuffManager which will handle the actions, despawning
+   *                and timeout-related functionality of this buff.
+   * */
+  public void spawnBuffDebuff(BuffManager manager) {
+    /* Get a random position based on map bounds */
+    GridPoint2 maxPos = new GridPoint2(terrain.getMapBounds(0).x,
+            PLAYER_SPAWN.y);
+    GridPoint2 randomPos = RandomUtils.random(PLAYER_SPAWN, maxPos);
+
+    /* Pick a random buff */
+    Random randomNumber = new Random();
+    int pick = randomNumber.nextInt(BuffManager.BuffTypes.values().length);
+
+    /* Create and spawn the buff */
+    Entity buff = BuffFactory.createBuff(BuffManager.BuffTypes.values()[pick],
+            manager);
+    spawnEntityAt(buff, randomPos, true, true);
+    logger.info("Just created and spawned a new buff!");
   }
 
   private void playMusic() {
