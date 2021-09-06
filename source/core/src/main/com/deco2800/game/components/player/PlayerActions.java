@@ -1,13 +1,19 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.sun.tools.javac.Main;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -29,12 +35,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-
-
     entity.getEvents().addListener("sprint", this::sprint);
-
-
-
+    entity.getEvents().addListener("newProgress", this::upgradeProgress);
 
   }
 
@@ -42,6 +44,8 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
+      upgradeProgress();
+
     }
   }
 
@@ -107,5 +111,15 @@ public class PlayerActions extends Component {
     attackSound.play();
   }
 
+
+  /**
+   * Upgrades the players level completion progress
+   */
+  void upgradeProgress() {
+    if (walkDirection.x > 0) {
+      entity.getComponent(ProgressComponent.class).updateProgress(entity.getPosition().x);
+
+    }
+  }
 
 }

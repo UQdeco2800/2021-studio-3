@@ -6,14 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 
 
 import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-
 import com.deco2800.game.components.maingame.MainGameActions;
-
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.badlogic.gdx.utils.Timer;
-import com.deco2800.game.components.SprintComponent;
-
+import com.deco2800.game.components.maingame.MainGameActions;import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -44,6 +40,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public Timer fallingTimer = new Timer();
 
   public Timer.Task removeSprint = new Timer.Task() {
+
     @Override
     public void run() {
       entity.getComponent(SprintComponent.class).removeSprint(1);
@@ -101,6 +98,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
+
     switch (keycode) {
       case Keys.SPACE:
         if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
@@ -212,8 +210,4 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("sprint", walkDirection, sprinting);
     //}
   }
-
-
 }
-
-

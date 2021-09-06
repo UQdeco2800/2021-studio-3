@@ -53,6 +53,18 @@ public class GdxGame extends Game {
     }
     setScreen(newScreen(screenType));
   }
+  /**
+   * Sets the game's screen to a new screen of the provided type.
+   * @param screenType screen type
+   */
+  public void loadCheckPoint(ScreenType screenType) {
+    logger.info("Setting game screen to {}", screenType);
+    Screen currentScreen = getScreen();
+    if (currentScreen != null) {
+      currentScreen.dispose();
+    }
+    setScreen(newScreen(screenType));
+  }
 
   @Override
   public void dispose() {
@@ -73,7 +85,9 @@ public class GdxGame extends Game {
         return new MainGameScreen(this);
       case SETTINGS:
         return new SettingsScreen(this);
-      default:
+      case CHECKPOINT:
+        return new MainGameScreen(this, 1);
+        default:
         return null;
     }
   }
@@ -87,7 +101,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS
+    MAIN_MENU, MAIN_GAME, SETTINGS, CHECKPOINT
   }
 
   public enum GameState {

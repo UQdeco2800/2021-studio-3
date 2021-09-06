@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -19,7 +20,6 @@ import java.util.List;
 public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
-
   protected GameArea() {
     areaEntities = new ArrayList<>();
   }

@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerAnimationController;
@@ -28,7 +28,6 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -61,9 +60,12 @@ public class PlayerFactory {
     manager.load("images/20.png", Texture.class);
     manager.load("images/10.png", Texture.class);
     manager.load("images/00.png", Texture.class);
+    manager.load("images/untouchedCheckpoint.png",Texture.class);
     manager.finishLoading();
     return manager;
   }
+
+
 
   /**
    * Create a player entity.
@@ -96,9 +98,18 @@ public class PlayerFactory {
                     .addComponent(new SprintComponent(100))
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
-                    .addComponent(new PlayerStatsDisplay(manager,h));
-
-
+                    .addComponent(new PlayerStatsDisplay(manager,h))
+            .addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+            .addComponent(new PlayerActions())
+            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+            .addComponent(new InventoryComponent(stats.gold))
+            .addComponent(inputComponent)
+            .addComponent(new PlayerStatsDisplay(manager, h))
+            .addComponent(new SprintComponent(100))
+            .addComponent(animator)
+            .addComponent(new PlayerAnimationController());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

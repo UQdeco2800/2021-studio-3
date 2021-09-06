@@ -3,23 +3,20 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.utils.math.GridPoint2Utils;
-import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
-import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.utils.math.GridPoint2Utils;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -32,6 +29,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
@@ -51,11 +49,11 @@ public class ForestGameArea extends GameArea {
           "images/surface.png",
           "images/underground.png",
           "images/sky.png",
+          "images/untouchedCheckpoint.png",
 
           "images/broken_asteriod.png",
           "images/asteroid_fire1.png",
           "images/robot1.png",
-
           "images/rock1.png",
           "images/rock2.png",
           "images/rock3.png",
@@ -88,10 +86,11 @@ public class ForestGameArea extends GameArea {
   /* End of this map */
   private Entity endOfMap;
 
-
-  public ForestGameArea(TerrainFactory terrainFactory) {
+  private int checkpoint;
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
     super();
     this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
   }
 
   /**
@@ -118,6 +117,9 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     player = spawnPlayer();
+    //spawnTrees();
+
+    spawnGhosts();
 
     //spawnTrees();
     spawnAsteriod();
@@ -135,7 +137,7 @@ public class ForestGameArea extends GameArea {
 
     //spawnGhosts();
     //spawnGhostKing();
-
+    createCheckpoint();
 //    playMusic();
     //spawnAttackObstacle();
   }
@@ -146,6 +148,19 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+  /**
+   * Returns the check point status.
+   * */
+  public int getCheckPointStatus() {
+    return checkpoint;
+  }
+
+  /**
+   * sets the check point status.
+   * */
+  public void setCheckPointStatus(int status) {
+    checkpoint = status;
+  }
 
   private void spawnTerrain() {
     // Background terrain
@@ -318,11 +333,27 @@ public class ForestGameArea extends GameArea {
 
   private Entity spawnPlayer() {
     //need to change it to the horizon view
+    float tileSize = terrain.getTileSize();
     Entity newPlayer = PlayerFactory.createPlayer();
-    spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    //Adds the progress component for a new created player
+    newPlayer.addComponent(new ProgressComponent(0,
+            (terrain.getMapBounds(0).x)* tileSize));
+    //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    if (this.checkpoint == 1) {
+      spawnEntityAt(newPlayer, CHECKPOINT, true, true);
+    } else {
+      spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    }
     return newPlayer;
   }
 
+  private void createCheckpoint() {
+
+    GridPoint2 checkPoint = new GridPoint2(20, 10);
+    Entity checkpoint = ObstacleFactory.createCheckpoint(player, this);
+    spawnEntityAt(checkpoint, checkPoint, true, false);
+
+  }
 
   private void spawnGhosts() {
     //need to change it to the horizon view

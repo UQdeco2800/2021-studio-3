@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 public class SprintComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(SprintComponent.class);
-    private int sprint;
+
+    /** The amount of sprint the player has */
+    public int sprint;
 
 
     public SprintComponent(int sprint) {
@@ -21,7 +23,7 @@ public class SprintComponent extends Component {
     /**
      * Returns true if the entity has 0 sprint, otherwise false.
      *
-     * @return is player dead
+     * @return true if player has no sprint, false otherwise
      */
     public Boolean hasNoSprint() {
         return sprint == 0;
