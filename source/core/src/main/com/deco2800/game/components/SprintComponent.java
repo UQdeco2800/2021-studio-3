@@ -15,9 +15,13 @@ public class SprintComponent extends Component {
     /** The amount of sprint the player has */
     public int sprint;
 
+    /** Whether the sprint buff is in effect */
+    private boolean stamina;
+
 
     public SprintComponent(int sprint) {
         setSprint(sprint);
+        stamina = false;
     }
 
     /**
@@ -50,6 +54,14 @@ public class SprintComponent extends Component {
         }
     }
 
+    /**
+     * Sets the players state depending on whether the player has picked up a
+     * sprint buff.
+     * @param stamina stamina
+     */
+    public void setStamina(boolean stamina) {
+        this.stamina = stamina;
+    }
 
     /**
      * removes sprint.
@@ -57,7 +69,9 @@ public class SprintComponent extends Component {
      * @param sprint sprint to remove
      */
     public void removeSprint(int sprint) {
-        setSprint(this.sprint - sprint);
+        if (!this.stamina) {
+            setSprint(this.sprint - sprint);
+        }
     }
 
     /**

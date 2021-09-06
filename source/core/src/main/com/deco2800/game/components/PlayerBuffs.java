@@ -2,6 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -33,7 +34,8 @@ public abstract class PlayerBuffs {
     }
 
     public static void setInfiniteStamina(Entity player) {
-        // Implement the player not losing stamina while sprinting
+        player.getComponent(SprintComponent.class).setSprint(100);
+        player.getComponent(SprintComponent.class).setStamina(true);
     }
 
     public static void setHealthFull(Entity player) {
@@ -63,7 +65,7 @@ public abstract class PlayerBuffs {
     }
 
     public static void noJumping(Entity player) {
-        // Implement making the player unable to jump
+        player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(true);
     }
 
     /**
@@ -114,9 +116,11 @@ public abstract class PlayerBuffs {
 
     public static void makeStaminaFinite(Entity player) {
         // Implement the player losing stamina when they sprint (default)
+        player.getComponent(SprintComponent.class).setStamina(false);
     }
 
     public static void removeNoJumping(Entity player) {
         // Implement allowing the player to jump again (default)
+        player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(false);
     }
 }

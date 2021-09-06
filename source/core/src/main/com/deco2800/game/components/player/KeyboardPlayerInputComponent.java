@@ -34,6 +34,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
+  private boolean noJumping = false;
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();
@@ -85,6 +86,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   };
 
+  public void setNoJumping(boolean noJumping) {
+    this.noJumping = noJumping;
+  }
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -101,7 +105,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     switch (keycode) {
       case Keys.SPACE:
-        if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
+        if (!isJumping && !startFalling.isScheduled() &&
+                !stopFalling.isScheduled() && !noJumping) {
           isJumping = true;
           // Adds 4 m/s to upwards movement
           for (int i = 0; i < 4; i++) {
