@@ -1,5 +1,7 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -7,6 +9,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -134,6 +137,8 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    //reset the camera when 
+    this.currentMap.resetCam(renderer.getCamera());
 
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
