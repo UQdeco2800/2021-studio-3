@@ -49,4 +49,13 @@ public class PopupMenuActions extends Component {
         }
     }
 
+    public void onReplayLoss() {
+        if (area.getCheckPointStatus() == 1) {
+            game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+        } else {
+            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        }
+
+    }
+
 }
