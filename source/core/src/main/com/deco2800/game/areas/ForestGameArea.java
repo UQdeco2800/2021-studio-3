@@ -29,6 +29,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
+  int lives;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -333,13 +334,14 @@ public class ForestGameArea extends GameArea {
 
 
   private Entity spawnPlayer() {
+    lives = 5;
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
     Entity newPlayer = PlayerFactory.createPlayer();
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
-    newPlayer.addComponent(new LivesComponent(5));
+    newPlayer.addComponent(new LivesComponent(lives));
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);

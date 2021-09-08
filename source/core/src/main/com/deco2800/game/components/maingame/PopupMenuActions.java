@@ -6,6 +6,8 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.LivesComponent;
+
 /**
  * Handles actions for the buttons pushed on the win, loss and pause pop-up
  * menus when the actions are the same across the screens.
@@ -50,11 +52,13 @@ public class PopupMenuActions extends Component {
     }
 
     public void onReplayLoss() {
+        area.getPlayer().getComponent(LivesComponent.class).addLives(-1);
         if (area.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.CHECKPOINT);
         } else {
             game.setScreen(GdxGame.ScreenType.MAIN_GAME);
         }
+        //area.getPlayer().getEvents().trigger("livesUpdate", -1);
 
     }
 

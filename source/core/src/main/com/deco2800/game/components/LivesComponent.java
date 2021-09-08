@@ -13,12 +13,14 @@ public class LivesComponent extends Component {
     public LivesComponent(int lives) {
             this.lives = lives;
     }
+/*
 
     @Override
     public void create() {
-        entity.getEvents().addListener("updateLives", this::addLives);
+        entity.getEvents().addListener("livesUpdate", this::addLives);
 
     }
+*/
 
     public int getLives() {
         return lives;
