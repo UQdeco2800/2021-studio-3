@@ -19,6 +19,7 @@ enum State {
 
 public class PlayerStateComponent extends Component {
 
+    public int jumpCount; // Used for keeping track of how many times the player jumped
     public State state;
     public Health health;
 
@@ -64,6 +65,9 @@ public class PlayerStateComponent extends Component {
     }
 
     public void updateState(State state){
+        if (state == State.JUMP){
+            jumpCount++;
+        }
         this.state = state;
     }
 
@@ -77,6 +81,10 @@ public class PlayerStateComponent extends Component {
 
     public Health getHealth(){
         return health;
+    }
+
+    public int getJumpCount(){
+        return jumpCount;
     }
 
 
