@@ -27,19 +27,11 @@ public class LivesComponent extends Component {
     }
 
     public void addLives(int lives) {
-        this.lives+=lives;
-    }
-
-
-    public void livesRemaining() {
         if (lives < 0) {
 
         } else {
-            setLives(lives-1);
+            this.lives += lives;
         }
     }
-
-
-
 
 }
