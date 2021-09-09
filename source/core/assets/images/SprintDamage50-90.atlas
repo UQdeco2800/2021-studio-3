@@ -2,79 +2,79 @@
 SprintDamage50-90.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Sprint(50-90)2
+Sprint(50-90)
   rotate: false
   xy: 2, 48
   size: 1067, 1790
   orig: 1067, 1790
   offset: 0, 0
-  index: -1
-Sprint(50-90)5
+  index: 2
+Sprint(50-90)
   rotate: false
   xy: 1071, 2
   size: 958, 1836
   orig: 958, 1836
   offset: 0, 0
-  index: -1
+  index: 3
 
 SprintDamage50-902.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Sprint(50-90)3
-  rotate: false
-  xy: 1070, 2
-  size: 958, 1836
-  orig: 958, 1836
-  offset: 0, 0
-  index: -1
-Sprint(50-90)7
+Sprint(50-90)
   rotate: false
   xy: 2, 47
   size: 1066, 1791
   orig: 1066, 1791
   offset: 0, 0
-  index: -1
+  index: 7
+Sprint(50-90)
+  rotate: false
+  xy: 1070, 2
+  size: 958, 1836
+  orig: 958, 1836
+  offset: 0, 0
+  index: 5
 
 SprintDamage50-903.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Sprint(50-90)1
-  rotate: false
-  xy: 978, 13
-  size: 971, 1780
-  orig: 971, 1780
-  offset: 0, 0
-  index: -1
-Sprint(50-90)6
+Sprint(50-90)
   rotate: false
   xy: 2, 2
   size: 974, 1791
   orig: 974, 1791
   offset: 0, 0
-  index: -1
+  index: 6
+Sprint(50-90)
+  rotate: false
+  xy: 978, 13
+  size: 971, 1780
+  orig: 971, 1780
+  offset: 0, 0
+  index: 1
 
 SprintDamage50-904.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Sprint(50-90)4
-  rotate: false
-  xy: 975, 56
-  size: 922, 1726
-  orig: 922, 1726
-  offset: 0, 0
-  index: -1
-Sprint(50-90)8
+Sprint(50-90)
   rotate: false
   xy: 2, 2
   size: 971, 1780
   orig: 971, 1780
   offset: 0, 0
-  index: -1
+  index: 8
+Sprint(50-90)
+  rotate: false
+  xy: 975, 56
+  size: 922, 1726
+  orig: 922, 1726
+  offset: 0, 0
+  index: 4

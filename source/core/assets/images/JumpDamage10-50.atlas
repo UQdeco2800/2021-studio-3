@@ -2,91 +2,91 @@
 JumpDamage10-50.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)1
+Jump(10-50)
   rotate: false
   xy: 2, 18
   size: 1171, 1774
   orig: 1171, 1774
   offset: 0, 0
-  index: -1
-Jump(10-50)4
+  index: 1
+Jump(10-50)
   rotate: false
   xy: 1175, 2
   size: 826, 1790
   orig: 826, 1790
   offset: 0, 0
-  index: -1
+  index: 4
 
 JumpDamage10-502.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)7
+Jump(10-50)
   rotate: false
   xy: 2, 2
   size: 1170, 1775
   orig: 1170, 1775
   offset: 0, 0
-  index: -1
+  index: 7
 
 JumpDamage10-503.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)3
-  rotate: false
-  xy: 967, 2
-  size: 1004, 1790
-  orig: 1004, 1790
-  offset: 0, 0
-  index: -1
-Jump(10-50)8
+Jump(10-50)
   rotate: false
   xy: 2, 12
   size: 963, 1780
   orig: 963, 1780
   offset: 0, 0
-  index: -1
+  index: 8
+Jump(10-50)
+  rotate: false
+  xy: 967, 2
+  size: 1004, 1790
+  orig: 1004, 1790
+  offset: 0, 0
+  index: 5
 
 JumpDamage10-504.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)2
+Jump(10-50)
   rotate: false
   xy: 2, 2
   size: 1101, 1796
   orig: 1101, 1796
   offset: 0, 0
-  index: -1
+  index: 2
 
 JumpDamage10-505.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)6
+Jump(10-50)
   rotate: false
   xy: 2, 2
   size: 1092, 1796
   orig: 1092, 1796
   offset: 0, 0
-  index: -1
+  index: 6
 
 JumpDamage10-506.png
 size: 1024, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
-Jump(10-50)5
+Jump(10-50)
   rotate: false
   xy: 2, 2
   size: 1004, 1790
   orig: 1004, 1790
   offset: 0, 0
-  index: -1
+  index: 3
