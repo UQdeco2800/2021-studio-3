@@ -32,31 +32,52 @@ public class PlayerStateComponent extends Component {
     public String getStateAnimation(){
         String animationName;
         if (health == Health.NORMAL){
-            return switch (state) {
-                case STATIONARY -> "normal-stationary";
-                case WALK -> "normal-walk";
-                case SPRINT -> "normal-sprint";
-                case JUMP -> "normal-jump";
-                case SPRINT_JUMP -> "normal-sprint-jump";
-            };
+            switch (state) {
+                case STATIONARY:
+                    return "normal-stationary";
+                case WALK:
+                    return "normal-walk";
+                case SPRINT:
+                    return "normal-sprint";
+                case JUMP:
+                    return "normal-jump";
+                case SPRINT_JUMP:
+                    return "normal-sprint-jump";
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
         else if (health == Health.ROUGH){
-            return switch (state) {
-                case STATIONARY -> "rough-stationary";
-                case WALK -> "rough-walk";
-                case SPRINT -> "rough-sprint";
-                case JUMP -> "rough-jump";
-                case SPRINT_JUMP -> "rough-sprint-jump";
-            };
+            switch (state) {
+                case STATIONARY:
+                    return "rough-stationary";
+                case WALK:
+                    return "rough-walk";
+                case SPRINT:
+                    return "rough-sprint";
+                case JUMP:
+                    return "rough-jump";
+                case SPRINT_JUMP:
+                    return "rough-sprint-jump";
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
         else if (health == Health.DAMAGED){
-            return switch (state) {
-                case STATIONARY -> "damaged-stationary";
-                case WALK -> "damaged-walk";
-                case SPRINT -> "damaged-sprint";
-                case JUMP -> "damaged-jump";
-                case SPRINT_JUMP -> "damaged-sprint-jump";
-            };
+            switch (state) {
+                case STATIONARY:
+                    return "damaged-stationary";
+                case WALK:
+                    return "damaged-walk";
+                case SPRINT:
+                    return "damaged-sprint";
+                case JUMP:
+                    return "damaged-jump";
+                case SPRINT_JUMP:
+                    return "damaged-sprint-jump";
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
         else if (health == Health.DEAD){
             return "dead";
