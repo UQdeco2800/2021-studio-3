@@ -1,0 +1,92 @@
+
+JumpDamage50-90.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)4
+  rotate: false
+  xy: 1183, 2
+  size: 826, 1790
+  orig: 826, 1790
+  offset: 0, 0
+  index: -1
+Jump(50-90)7
+  rotate: false
+  xy: 2, 17
+  size: 1179, 1775
+  orig: 1179, 1775
+  offset: 0, 0
+  index: -1
+
+JumpDamage50-902.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)1
+  rotate: false
+  xy: 2, 2
+  size: 1179, 1774
+  orig: 1179, 1774
+  offset: 0, 0
+  index: -1
+
+JumpDamage50-903.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)3
+  rotate: false
+  xy: 975, 2
+  size: 1004, 1790
+  orig: 1004, 1790
+  offset: 0, 0
+  index: -1
+Jump(50-90)8
+  rotate: false
+  xy: 2, 12
+  size: 971, 1780
+  orig: 971, 1780
+  offset: 0, 0
+  index: -1
+
+JumpDamage50-904.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)2
+  rotate: false
+  xy: 2, 2
+  size: 1093, 1796
+  orig: 1093, 1796
+  offset: 0, 0
+  index: -1
+
+JumpDamage50-905.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)6
+  rotate: false
+  xy: 2, 2
+  size: 1092, 1796
+  orig: 1092, 1796
+  offset: 0, 0
+  index: -1
+
+JumpDamage50-906.png
+size: 1024, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump(50-90)5
+  rotate: false
+  xy: 2, 2
+  size: 1004, 1790
+  orig: 1004, 1790
+  offset: 0, 0
+  index: -1

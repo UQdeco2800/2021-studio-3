@@ -1,0 +1,80 @@
+
+SprintDamage10-50.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Sprint(10-50)2
+  rotate: false
+  xy: 2, 2
+  size: 1067, 1790
+  orig: 1067, 1790
+  offset: 0, 0
+  index: -1
+Sprint(10-50)8
+  rotate: false
+  xy: 1071, 12
+  size: 963, 1780
+  orig: 963, 1780
+  offset: 0, 0
+  index: -1
+
+SprintDamage10-502.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Sprint(10-50)1
+  rotate: false
+  xy: 1070, 13
+  size: 963, 1780
+  orig: 963, 1780
+  offset: 0, 0
+  index: -1
+Sprint(10-50)7
+  rotate: false
+  xy: 2, 2
+  size: 1066, 1791
+  orig: 1066, 1791
+  offset: 0, 0
+  index: -1
+
+SprintDamage10-503.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Sprint(10-50)5
+  rotate: false
+  xy: 920, 2
+  size: 874, 1836
+  orig: 874, 1836
+  offset: 0, 0
+  index: -1
+Sprint(10-50)6
+  rotate: false
+  xy: 2, 47
+  size: 916, 1791
+  orig: 916, 1791
+  offset: 0, 0
+  index: -1
+
+SprintDamage10-504.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Sprint(10-50)3
+  rotate: false
+  xy: 2, 2
+  size: 874, 1836
+  orig: 874, 1836
+  offset: 0, 0
+  index: -1
+Sprint(10-50)4
+  rotate: false
+  xy: 878, 112
+  size: 922, 1726
+  orig: 922, 1726
+  offset: 0, 0
+  index: -1
