@@ -101,60 +101,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     switch (keycode) {
       case Keys.SPACE:
-        if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
-          isJumping = true;
-          // Adds 4 m/s to upwards movement
-          for (int i = 0; i < 4; i++) {
-            walkDirection.add(Vector2Utils.UP);
-          }
-          triggerWalkEvent();
-          jumpingTimer.start();
-          // Schedules to stop jumping and start falling
-          jumpingTimer.scheduleTask(startFalling, 0.3f);
-        }
-        return true;
+        return jump();
       case Keys.A:
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          //if sprint is active before moving, add twice the speed
-          walkDirection.add(Vector2Utils.LEFT);
-          walkDirection.add(Vector2Utils.LEFT);
-          triggerWalkEvent();
-          return true;
-        }
-        walkDirection.add(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
+        return handleKey('A', "DOWN");
       case Keys.D:
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          //if sprint is active before moving, add twice the speed
-          walkDirection.add(Vector2Utils.RIGHT);
-          walkDirection.add(Vector2Utils.RIGHT);
-          triggerWalkEvent();
-          return true;
-        }
-        walkDirection.add(Vector2Utils.RIGHT);
-        triggerWalkEvent();
-        return true;
+        return handleKey('D', "DOWN");
       case Keys.SHIFT_LEFT:
-        // Cannot be jumping and sprinting at the same time
-        //if (!isJumping) {
-        if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
-          return true;
-        }
-        sprintTimer.start();
-        if (firstSprint) {
-          firstSprint = false;
-          sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
-        }
-        triggerSprintEvent(true);
-        isSprinting = true;
-        //}
-        return true;
+          return handleSprint(true);
       default:
         return false;
     }
   }
-
   /**
    * Triggers player events on specific keycodes.
    *
@@ -165,31 +122,68 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Keys.A:
-        walkDirection.sub(Vector2Utils.LEFT);
-        //if sprinting, remove additional speed on key up
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          walkDirection.sub(Vector2Utils.LEFT);
-        }
-        triggerWalkEvent();
-        return true;
+        return handleKey('A', "UP");
       case Keys.D:
-        walkDirection.sub(Vector2Utils.RIGHT);
-        //if sprinting, remove additional speed on key up
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          walkDirection.sub(Vector2Utils.RIGHT);
-        }
-        triggerWalkEvent();
-        return true;
+        return handleKey('D', "UP");
       case Keys.SHIFT_LEFT:
-        //if (removeSprint.isScheduled()) {
-        sprintTimer.stop();
-        isSprinting = false;
-        triggerSprintEvent(false);
-        //}
-        return true;
+        return handleSprint(false);
       default:
         return false;
     }
+  }
+
+  private boolean handleKey(char Key, String keyState){
+    Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
+    //on KeyDown
+    if (keyState.equals("DOWN")){
+      walkDirection.add(direction);
+      if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
+        walkDirection.add(direction);
+      }
+    } else {
+      //on KeyUp
+      walkDirection.sub(direction);
+      if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
+        walkDirection.sub(direction);
+      }
+    }
+    triggerWalkEvent();
+    return true;
+  }
+
+  private boolean handleSprint(boolean keyDown){
+    if (keyDown){
+      if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
+        return true;
+      }
+      sprintTimer.start();
+      if (firstSprint) {
+        firstSprint = false;
+        sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
+      }
+      triggerSprintEvent(true);
+      isSprinting = true;
+      return true;
+    }
+    sprintTimer.stop();
+    isSprinting = false;
+    triggerSprintEvent(false);
+    return true;
+  }
+
+  private boolean jump(){
+    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
+      isJumping = true;
+      // Adds 4 m/s to upwards movement
+      for (int i = 0; i < 4; i++) {
+        walkDirection.add(Vector2Utils.UP);
+      }
+      triggerWalkEvent();
+      jumpingTimer.start();
+      // Schedules to stop jumping and start falling
+      jumpingTimer.scheduleTask(startFalling, 0.3f);
+    }
+    return true;
   }
 
   private void triggerWalkEvent() {
@@ -205,9 +199,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
       return;
     }
-    // Cannot be jumping and sprinting at the same time
-    //if (!isJumping) {
-      entity.getEvents().trigger("sprint", walkDirection, sprinting);
-    //}
+    entity.getEvents().trigger("sprint", walkDirection, sprinting);
   }
 }
