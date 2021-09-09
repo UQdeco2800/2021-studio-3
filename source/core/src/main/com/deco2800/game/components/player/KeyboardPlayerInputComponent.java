@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 import com.badlogic.gdx.utils.Timer;
-import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.deco2800.game.components.maingame.MainGameActions;import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -26,7 +23,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * SPRINT MODIFIER - This can be changed (when buffed, etc.)
    * Change this value to control how fast the player moves whilst under the effect of sprint
    */
-  public static int SPRINT_MODIFIER = 2;
+  public static int SPRINT_MODIFIER = 3;
 
 
   //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
@@ -60,6 +57,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         sprintTimer.stop();
         isSprinting = false;
+        entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       }
     }
   };
@@ -86,6 +84,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     public void run(){
       fallingTimer.stop();
       isJumping = false;
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       triggerWalkEvent();
       stopFalling.cancel();
     }
@@ -109,9 +108,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         return jump();
       case Keys.A:
-        return handleKey('A', "DOWN");
+        return handleWalk('A', "DOWN");
       case Keys.D:
-        return handleKey('D', "DOWN");
+        return handleWalk('D', "DOWN");
       case Keys.SHIFT_LEFT:
           return handleSprint(true);
       default:
@@ -128,9 +127,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Keys.A:
-        return handleKey('A', "UP");
+        return handleWalk('A', "UP");
       case Keys.D:
-        return handleKey('D', "UP");
+        return handleWalk('D', "UP");
       case Keys.SHIFT_LEFT:
         return handleSprint(false);
       default:
@@ -138,15 +137,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   }
 
-  private boolean handleKey(char Key, String keyState){
+  private boolean handleWalk(char Key, String keyState){
     Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
     int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
+    if (scalar == 1){
+      entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
+    }
     if (keyState.equals("DOWN")){
       //on KeyDown
       walkDirection.add(direction.cpy().scl(scalar));
     } else {
       //on KeyUp
       walkDirection.sub(direction.cpy().scl(scalar));
+      entity.getComponent(PlayerStateComponent.class).updateState(State.STATIONARY);
     }
     triggerWalkEvent();
     return true;
@@ -164,10 +167,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       }
       triggerSprintEvent(true);
       isSprinting = true;
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       return true;
     }
     sprintTimer.stop();
     isSprinting = false;
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
     triggerSprintEvent(false);
     return true;
   }
@@ -175,6 +180,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean jump(){
     if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
       isJumping = true;
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement
       for (int i = 0; i < 4; i++) {
         walkDirection.add(Vector2Utils.UP);
@@ -185,6 +191,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       jumpingTimer.scheduleTask(startFalling, 0.3f);
     }
     return true;
+  }
+
+  void changeState(){
+
   }
 
   private void triggerWalkEvent() {

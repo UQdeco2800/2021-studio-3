@@ -14,10 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerAnimationController;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -87,7 +84,6 @@ public class PlayerFactory {
     Entity player =
             new Entity()
 //            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
-
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent())
                     .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -99,17 +95,7 @@ public class PlayerFactory {
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
                     .addComponent(new PlayerStatsDisplay(manager,h))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(new InventoryComponent(stats.gold))
-            .addComponent(inputComponent)
-            .addComponent(new PlayerStatsDisplay(manager, h))
-            .addComponent(new SprintComponent(100))
-            .addComponent(animator)
-            .addComponent(new PlayerAnimationController());
+                    .addComponent(new PlayerStateComponent());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

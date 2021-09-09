@@ -85,11 +85,24 @@ public class PlayerStateComponent extends Component {
         return null;
     }
 
+    public void manage(boolean isJumping, boolean isSprinting){
+        if (isJumping && !isSprinting){
+            updateState(State.JUMP);
+        }
+        else if (!isJumping && isSprinting){
+            updateState(State.SPRINT);
+        }
+        else if (isJumping){
+            updateState(State.SPRINT_JUMP);
+        }
+    }
+
     public void updateState(State state){
         if (state == State.JUMP){
             jumpCount++;
         }
         this.state = state;
+        System.out.println(getStateAnimation());
     }
 
     public State getState(){
