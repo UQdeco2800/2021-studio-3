@@ -22,6 +22,12 @@ import org.slf4j.LoggerFactory;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
 
+  /**
+   * SPRINT MODIFIER - This can be changed (when buffed, etc.)
+   * Change this value to control how fast the player moves whilst under the effect of sprint
+   */
+  public static int SPRINT_MODIFIER = 2;
+
 
   //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
@@ -47,10 +53,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
         //if sprint has fully depleted
         if (walkDirection.x > 1) {
-          walkDirection.sub(Vector2Utils.RIGHT);
+          walkDirection.sub(Vector2Utils.RIGHT.cpy().scl(SPRINT_MODIFIER - 1));
         }
         if (walkDirection.x < -1) {
-          walkDirection.sub(Vector2Utils.LEFT);
+          walkDirection.sub(Vector2Utils.LEFT.cpy().scl(SPRINT_MODIFIER - 1));
         }
         sprintTimer.stop();
         isSprinting = false;
@@ -134,18 +140,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   private boolean handleKey(char Key, String keyState){
     Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
-    //on KeyDown
+    int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
     if (keyState.equals("DOWN")){
-      walkDirection.add(direction);
-      if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting){
-        walkDirection.add(direction);
-      }
+      //on KeyDown
+      walkDirection.add(direction.cpy().scl(scalar));
     } else {
       //on KeyUp
-      walkDirection.sub(direction);
-      if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-        walkDirection.sub(direction);
-      }
+      walkDirection.sub(direction.cpy().scl(scalar));
     }
     triggerWalkEvent();
     return true;
@@ -199,6 +200,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
       return;
     }
-    entity.getEvents().trigger("sprint", walkDirection, sprinting);
+    entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
   }
 }
