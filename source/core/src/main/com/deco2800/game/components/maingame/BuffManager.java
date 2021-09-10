@@ -166,10 +166,11 @@ public class BuffManager extends Component {
                 return;
         }
 
-        // Timed buff stacking is not supported.
+        /* Stack buffs if the same timed buff is collided with */
         for (BuffInformation currentTimed : this.timedBuffs.values()) {
             if (currentTimed.getType() == buffInfo.getType()) {
-                logger.info("A buff of this type is already applied! Ignoring...");
+                /* Increase the duration of the buff */
+                currentTimed.increaseTimeout(buffInfo.getEffectTimeOut());
                 return;
             }
         }

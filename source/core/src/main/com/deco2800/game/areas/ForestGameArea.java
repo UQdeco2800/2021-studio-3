@@ -410,7 +410,7 @@ public class ForestGameArea extends GameArea {
     Entity buff = BuffFactory.createBuff(BuffManager.BuffTypes.values()[pick],
             manager);
     spawnEntityAt(buff, randomPos, true, true);
-    logger.info("Just created and spawned a new buff!");
+    //logger.info("Just created and spawned a new buff!");
   }
 
   private void playMusic() {

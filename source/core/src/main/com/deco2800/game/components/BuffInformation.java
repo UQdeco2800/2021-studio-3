@@ -2,6 +2,7 @@ package com.deco2800.game.components;
 
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Stores information about each buff & debuff created. Each buff / debuff will
@@ -22,14 +23,15 @@ public class BuffInformation extends Component {
     /* The time this buff was created */
     private long timeOfCreation;
 
-    /* How long this buff should remain affecting the player (if timed) */
-    private long effectTimeOut;
-
-    /* When the buff got applied to the player (if timed) */
-    private long timeApplied;
-
     /* How this buff is displayed on the UI */
     private String buffName;
+
+    // Timed buff attributes
+    /* The absolute time this buff should affect the player for */
+    private long effectTimeOut;
+
+    /* When the buff got applied to the player */
+    private long timeApplied;
 
 
     /**
@@ -106,16 +108,16 @@ public class BuffInformation extends Component {
     /**
      * Sets how long the effects of a buff should last on a player.
      *
-     * @param time the amount of time (in milliseconds) that the buff effects
-     *             should last
+     * @param time the absolute amount of time (in milliseconds) that the buff
+     *             effects should last
      * */
     public void setEffectTimeout(long time) {
         this.effectTimeOut = time;
     }
 
     /**
-     * Returns how long the effects of a buff should last on the player
-     * (in milliseconds).
+     * Returns the absolute amount of time that the effects of a buff should
+     * last on the player (in milliseconds).
      * */
     public long getEffectTimeOut() {
         return this.effectTimeOut;
@@ -138,5 +140,29 @@ public class BuffInformation extends Component {
      * */
     public void setTimeApplied(long time) {
         this.timeApplied = time;
+    }
+
+    /**
+     * Returns the amount of time left before this buffs' effects will be
+     * removed from the player.
+     *
+     * @return the relative time that this buff has left, in milliseconds.
+     * */
+    public long getTimeLeft() {
+        /* Get the current time and how long the buff has been active */
+        long currentTime = ServiceLocator.getTimeSource().getTime();
+        long activeFor = currentTime - getTimeApplied();
+
+        return getEffectTimeOut() - activeFor;
+    }
+
+    /**
+     * Increases the amount of time that this buff's effects should last on the
+     * player.
+     *
+     * @param extraTime how much longer the buff should last, in milliseconds.
+     * */
+    public void increaseTimeout(long extraTime) {
+        setEffectTimeout(getEffectTimeOut() + extraTime);
     }
 }

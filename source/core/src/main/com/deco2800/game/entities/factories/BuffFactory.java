@@ -54,7 +54,7 @@ public class BuffFactory {
 
         /* Register this new buff with the buff manager */
         manager.registerBuff(buffInfo);
-        logger.info("New buff registered and created!");
+        //logger.info("New buff registered and created!");
         return buff;
     }
 
