@@ -39,7 +39,7 @@ public class PlayerWinActions extends Component {
     public void create() {
         super.create();
 
-        entity.getEvents().addListener("replayLevel",
+        entity.getEvents().addListener("replayLevelWin",
                 this.mainGameUI.getComponent(PopupMenuActions.class)::onReplay);
         entity.getEvents().addListener("homeMenu",
                 this.mainGameUI.getComponent(PopupMenuActions.class)::onHome);
