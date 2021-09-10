@@ -89,10 +89,23 @@ public class ForestGameArea extends GameArea {
   private Entity endOfMap;
 
   private int checkpoint;
-  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
+
+  private boolean hasDied;
+
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
+    this.hasDied = hasDied;
+
+  }
+
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
+    this.lives = lives;
+
   }
 
   /**
@@ -332,22 +345,35 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(robot1, pos1, true, true);
   }
 
+  public void hasDied(boolean hasDied) {
+    this.hasDied = hasDied;
+
+  }
+
+  public boolean isDead() {
+    return hasDied;
+  }
 
   private Entity spawnPlayer() {
-    lives = 5;
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
     Entity newPlayer = PlayerFactory.createPlayer();
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
-    newPlayer.addComponent(new LivesComponent(lives));
+    newPlayer.addComponent(new LivesComponent(5));
+    lives = newPlayer.getComponent(LivesComponent.class).getLives();
+    if (isDead()) {
+      newPlayer.getComponent(LivesComponent.class).setLives(lives-1);
+    }
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);
     } else {
       spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+
     }
+    //newPlayer.getEvents().trigger("updateLives");
     return newPlayer;
   }
 
