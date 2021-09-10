@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,7 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int maxHealth;
   private int baseAttack;
+  private ForestGameArea area;
 
   public CombatStatsComponent(int health, int baseAttack) {
     setMaxHealth(health);
@@ -63,15 +65,12 @@ public int getMaxHealth() {
    * @param health health
    */
   public void setHealth(int health) {
-    if (health >= 0) {
-      this.health = health;
-    } else {
-      this.health = 0;
-    }
+    this.health = Math.max(health, 0);
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
       if (isDead()) {
         entity.getEvents().trigger("playerDeath");
+
       }
     }
   }

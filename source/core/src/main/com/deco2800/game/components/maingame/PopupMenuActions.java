@@ -45,20 +45,29 @@ public class PopupMenuActions extends Component {
     public void onReplay() {
 
         if (area.getCheckPointStatus() == 1) {
-            game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+            game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
         } else {
             game.setScreen(GdxGame.ScreenType.MAIN_GAME);
         }
     }
 
+    /**
+     * Method actives when user clicks the replay button after dying.
+     */
     public void onReplayLoss() {
+
         if (area.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.CHECKPOINT);
         } else {
             game.setScreen(GdxGame.ScreenType.RESPAWN);
+
         }
+        area.hasDied(true);
     }
 
+    /**
+     * Method actives when user clicks the replay button after winning
+     */
     public void onReplayWin() {
 
             game.setScreen(GdxGame.ScreenType.MAIN_GAME);
