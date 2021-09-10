@@ -342,12 +342,12 @@ public class ForestGameArea extends GameArea {
    */
   public void resetCam(CameraComponent camera) {
     float playerX = player.getPosition().x;
-    float playerY = player.getPosition().y;
-
-    camera.getCamera().update();
 
     System.out.println(playerX);
-    camera.getCamera().translate(playerX - camera.getCamera().position.x, 0,0);
+    if (playerX >= 5 && playerX <= 35) {
+      camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
+      camera.getCamera().update();
+    }
   }
 
   private void loadAssets() {
