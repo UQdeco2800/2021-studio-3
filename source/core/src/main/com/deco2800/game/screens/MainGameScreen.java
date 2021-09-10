@@ -137,7 +137,6 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    //reset the camera when 
     this.currentMap.resetCam(renderer.getCamera());
 
     if (game.getState() == GdxGame.GameState.RUNNING) {
