@@ -52,14 +52,18 @@ public class PopupMenuActions extends Component {
     }
 
     public void onReplayLoss() {
-        area.getPlayer().getComponent(LivesComponent.class).addLives(-1);
         if (area.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.CHECKPOINT);
         } else {
-            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+            game.setScreen(GdxGame.ScreenType.RESPAWN);
         }
-        //area.getPlayer().getEvents().trigger("livesUpdate", -1);
+    }
+
+    public void onReplayWin() {
+
+            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
 
     }
+
 
 }
