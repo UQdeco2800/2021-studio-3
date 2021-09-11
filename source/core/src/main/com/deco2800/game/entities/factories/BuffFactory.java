@@ -92,7 +92,10 @@ public class BuffFactory {
         AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 2f), 0));
         //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f), 0));
 
-        Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture));
+        Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture))
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
+                .addComponent(new PhysicsMovementComponent())
+                .addComponent(buffComponent);
 
 
         /*Entity buffPickup = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))

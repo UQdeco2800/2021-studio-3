@@ -51,6 +51,8 @@ public class BuffManager extends Component {
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
+    private boolean HP;
+
     /**
      * Tracks the different buff types in the game. Add new buff types here.
      *
@@ -108,6 +110,7 @@ public class BuffManager extends Component {
         this.currentBuffs = new LinkedHashMap<>();
         this.timedBuffs = new LinkedHashMap<>();
         this.player = ((ForestGameArea) currentMap).getPlayer();
+        this.HP = false;
     }
 
     /**
@@ -174,8 +177,8 @@ public class BuffManager extends Component {
         switch (type) {
             case B_HP_UP:
                 //buffInfo.setPickup(BuffPickup.positive);
-
-                mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
+                this.HP = true;
+                //mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
 
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
@@ -305,6 +308,11 @@ public class BuffManager extends Component {
      *   most recent one was placed, and places one.
      * */
     public void update() {
+
+        if (HP) {
+            mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
+            HP = false;
+        }
         /* Determine if stationary buffs should be removed from the map */
         List<Entity> timedOutBuffs = new ArrayList<>();
         for (Entity buff : this.currentBuffs.keySet()) {

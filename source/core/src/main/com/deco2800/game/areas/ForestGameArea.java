@@ -422,9 +422,9 @@ public class ForestGameArea extends GameArea {
     //Vector2 target = new Vector2(3f, 0f);
     Entity buffPickup = BuffFactory.createBuffAnimation();
 
-    spawnEntityAt(buffPickup, new GridPoint2(3, 3), true, true);
-    /*spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
-            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);*/
+    //spawnEntityAt(buffPickup, new GridPoint2(3, 3), true, true);
+    spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
+            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);
     logger.info("Just released a buff pickup");
 
   }
