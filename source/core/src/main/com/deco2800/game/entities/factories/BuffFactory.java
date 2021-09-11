@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.BuffInformation;
-import com.deco2800.game.components.BuffTaskComponent;
+
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.tasks.FloatTask;
 import com.deco2800.game.components.tasks.MovementTask;
@@ -86,11 +86,11 @@ public class BuffFactory {
 
     }*/
 
-    public static Entity createBuffAnimation() {
+    public static Entity createBuffAnimation(BuffManager.BuffPickup pickup, BuffManager manager) {
         /* Get the texture for the pickup */
-        String texture = "images/heart.png";
-        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 2f), 0));
-        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f), 0));
+        String texture = manager.getPickupTexture(pickup);
+        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
+        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
 
         Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture))
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))

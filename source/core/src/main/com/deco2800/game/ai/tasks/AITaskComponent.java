@@ -1,6 +1,7 @@
 package com.deco2800.game.ai.tasks;
 
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.tasks.FloatTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,7 @@ public class AITaskComponent extends Component implements TaskRunner {
   private final List<PriorityTask> priorityTasks = new ArrayList<>(2);
   private PriorityTask currentTask;
 
+
   /**
    * Add a priority task to the list of tasks. This task will be run only when it has the highest
    * priority, and can be stopped to run a higher priority task.
@@ -31,6 +33,7 @@ public class AITaskComponent extends Component implements TaskRunner {
     logger.debug("{} Adding task {}", this, task);
     priorityTasks.add(task);
     task.create(this);
+
 
     return this;
   }

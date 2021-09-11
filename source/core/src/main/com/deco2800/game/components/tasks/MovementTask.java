@@ -48,7 +48,6 @@ public class MovementTask extends DefaultTask {
   public void update() {
 
     if (isAtTarget()) {
-      System.out.println("B");
       movementComponent.setMoving(false);
       status = Status.FINISHED;
       logger.debug("Finished moving to {}", target);
@@ -75,7 +74,6 @@ public class MovementTask extends DefaultTask {
   }
 
   private boolean isAtTarget() {
-    //System.out.println(owner.getEntity().getPosition().dst(target) <= stopDistance);
     return owner.getEntity().getPosition().dst(target) <= stopDistance;
   }
 

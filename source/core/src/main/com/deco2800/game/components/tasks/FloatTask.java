@@ -16,20 +16,19 @@ public class FloatTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(FloatTask.class);
 
     private final Vector2 wanderRange;
-    private final float waitTime;
+
     private Vector2 startPos;
     private MovementTask movementTask;
-    private WaitTask waitTask;
-    private Task currentTask;
+
+
 
     /**
      * @param wanderRange Distance in X and Y the entity can move from its position when start() is
      *     called.
-     * @param waitTime How long in seconds to wait between wandering.
      */
-    public FloatTask(Vector2 wanderRange, float waitTime) {
+    public FloatTask(Vector2 wanderRange) {
         this.wanderRange = wanderRange;
-        this.waitTime = waitTime;
+
     }
 
     @Override
@@ -42,49 +41,30 @@ public class FloatTask extends DefaultTask implements PriorityTask {
         super.start();
         startPos = owner.getEntity().getPosition();
 
-        waitTask = new WaitTask(waitTime);
-        waitTask.create(owner);
         movementTask = new MovementTask(getTarget());
         movementTask.create(owner);
 
         movementTask.start();
-        currentTask = movementTask;
 
-        //this.owner.getEntity().getEvents().trigger("wanderStart");
+
+
+    }
+
+    public Status getMovementStatus() {
+        return movementTask.getStatus();
     }
 
     @Override
     public void update() {
-        /*if (currentTask.getStatus() != Status.ACTIVE) {
-            if (currentTask == movementTask) {
-                startWaiting();
-            } else {
-                startMoving();
-            }
-        }*/
-        //System.out.println(getStatus());
-        currentTask.update();
+
+
+        //System.out.println(movementTask.getStatus());
+        movementTask.update();
 
     }
 
-    private void startWaiting() {
-        logger.debug("Starting waiting");
-        swapTask(waitTask);
-    }
 
-    private void startMoving() {
-        logger.debug("Starting moving");
-        movementTask.setTarget(getTarget());
-        swapTask(movementTask);
-    }
 
-    private void swapTask(Task newTask) {
-        if (currentTask != null) {
-            currentTask.stop();
-        }
-        currentTask = newTask;
-        currentTask.start();
-    }
 
     private Vector2 getTarget() {
 

@@ -1,17 +1,21 @@
 package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BuffInformation;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.PlayerBuffs;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +55,25 @@ public class BuffManager extends Component {
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
-    private boolean HP;
+    /* When player picks up HP booster buff */
+    private boolean HPUp;
+
+    /* When player picks up HP debuff */
+    private boolean HPDown;
+
+    private boolean floatOnMapUp;
+
+    private boolean floatOnMapDown;
+
+    Entity buffPickup;
+    Entity buffPickupDown;
+
+    /* Creation time of floating animation when player gains HP from a buff */
+    private long pickupCreationTimeUp;
+
+    /* Creation time of floating animation when player loses HP from a buff */
+    private long pickupCreationTimeDown;
+
 
     /**
      * Tracks the different buff types in the game. Add new buff types here.
@@ -98,6 +120,8 @@ public class BuffManager extends Component {
     private LinkedHashMap<Entity, BuffInformation> timedBuffs;
 
 
+
+
     /**
      * Default constructor for the BuffManager. Sets up rudimentary
      * information.
@@ -110,7 +134,13 @@ public class BuffManager extends Component {
         this.currentBuffs = new LinkedHashMap<>();
         this.timedBuffs = new LinkedHashMap<>();
         this.player = ((ForestGameArea) currentMap).getPlayer();
-        this.HP = false;
+        this.HPUp = false;
+        this.HPDown = false;
+        this.floatOnMapUp = false;
+        this.floatOnMapDown = false;
+        this.buffPickup = new Entity();
+        this.buffPickupDown = new Entity();
+
     }
 
     /**
@@ -176,14 +206,13 @@ public class BuffManager extends Component {
         /* PlayerBuffs functions to call when there is a new instant buff */
         switch (type) {
             case B_HP_UP:
-                //buffInfo.setPickup(BuffPickup.positive);
-                this.HP = true;
-                //mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
-
+                buffInfo.setPickup(BuffPickup.positive);
+                this.HPUp = true;
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
             case D_HP_DOWN:
                 buffInfo.setPickup(BuffPickup.negative);
+                this.HPDown = true;
                 PlayerBuffs.reducePlayerHP(this.player);
                 return;
             case B_FULL_HEAL:
@@ -296,6 +325,7 @@ public class BuffManager extends Component {
         return (ServiceLocator.getTimeSource().getTimeSince(timeOfCreation) >= 10 * SECONDS);
     }
 
+
     @Override
     /**
      * Controls time-sensitive buff behaviour.
@@ -309,10 +339,37 @@ public class BuffManager extends Component {
      * */
     public void update() {
 
-        if (HP) {
-            mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
-            HP = false;
+        if (HPUp) {
+            pickupCreationTimeUp = ServiceLocator.getTimeSource().getTime();
+            buffPickup = mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
+            HPUp = false;
+            floatOnMapUp = true;
         }
+
+        if (floatOnMapUp) {
+            if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTimeUp) >= 2 * SECONDS) {
+                removeBuff(buffPickup);
+                floatOnMapUp = false;
+            }
+        }
+
+        if (HPDown) {
+            pickupCreationTimeDown = ServiceLocator.getTimeSource().getTime();
+            buffPickupDown = mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.negative, this);
+            HPDown = false;
+            floatOnMapDown = true;
+        }
+
+        if (floatOnMapDown) {
+            if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTimeDown) >= 2 * SECONDS) {
+                removeBuff(buffPickupDown);
+                floatOnMapDown = false;
+            }
+        }
+        /*if (buffPickup != null) {
+            removeBuff(buffPickup);
+        }*/
+
         /* Determine if stationary buffs should be removed from the map */
         List<Entity> timedOutBuffs = new ArrayList<>();
         for (Entity buff : this.currentBuffs.keySet()) {
@@ -388,4 +445,6 @@ public class BuffManager extends Component {
         this.currentBuffs.put(info.getBuff(), info);
         this.lastBuffSpawn = info.getTimeOfCreation();
     }
+
+
 }
