@@ -55,6 +55,9 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
+        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 0) {
+            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        }
 
         if (area.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.CHECKPOINT);
@@ -62,7 +65,6 @@ public class PopupMenuActions extends Component {
             game.setScreen(GdxGame.ScreenType.RESPAWN);
 
         }
-        area.hasDied(true);
     }
 
     /**
