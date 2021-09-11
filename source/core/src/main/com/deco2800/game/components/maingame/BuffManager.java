@@ -200,7 +200,7 @@ public class BuffManager extends Component {
      * @param buff the buff which was hit
      * @param buffInfo information about the buff which was hit
      * */
-    private void selectBuffFunctionality(BuffTypes type, Entity buff,
+    public void selectBuffFunctionality(BuffTypes type, Entity buff,
             BuffInformation buffInfo) {
 
         /* PlayerBuffs functions to call when there is a new instant buff */
@@ -220,10 +220,11 @@ public class BuffManager extends Component {
                 return;
         }
 
-        // Timed buff stacking is not supported.
+        /* Stack buffs if the same timed buff is collided with */
         for (BuffInformation currentTimed : this.timedBuffs.values()) {
             if (currentTimed.getType() == buffInfo.getType()) {
-                logger.info("A buff of this type is already applied! Ignoring...");
+                /* Increase the duration of the buff */
+                currentTimed.increaseTimeout(buffInfo.getEffectTimeOut());
                 return;
             }
         }
@@ -446,5 +447,11 @@ public class BuffManager extends Component {
         this.lastBuffSpawn = info.getTimeOfCreation();
     }
 
+    /**
+     * Returns the buffs which are currently sitting on the map.
+     * */
+    public Map<Entity, BuffInformation> getCurrentBuffs() {
+        return this.currentBuffs;
+    }
 
 }

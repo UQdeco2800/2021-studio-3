@@ -416,7 +416,7 @@ public class ForestGameArea extends GameArea {
     Entity buff = BuffFactory.createBuff(BuffManager.BuffTypes.values()[pick],
             manager);
     spawnEntityAt(buff, randomPos, true, true);
-    logger.info("Just created and spawned a new buff!");
+    //logger.info("Just created and spawned a new buff!");
   }
 
   public Entity spawnBuffDebuffPickup(BuffManager.BuffPickup pickup, BuffManager manager) {
@@ -431,16 +431,6 @@ public class ForestGameArea extends GameArea {
   }
 
 
-
-  /*public void spawnBuffDebuffPickup() {
-    Vector2 target = new Vector2(player.getPosition().x, player.getPosition().y + 3);
-    //Vector2 target = new Vector2(3f, 0f);
-    Entity buffPickup = BuffFactory.createBuffAnimation();
-    spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
-            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);
-    logger.info("Just released a buff pickup");
-
-  }*/
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
