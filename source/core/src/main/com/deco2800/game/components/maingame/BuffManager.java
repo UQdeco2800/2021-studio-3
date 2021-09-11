@@ -150,7 +150,7 @@ public class BuffManager extends Component {
      * @param buff the buff which was hit
      * @param buffInfo information about the buff which was hit
      * */
-    private void selectBuffFunctionality(BuffTypes type, Entity buff,
+    public void selectBuffFunctionality(BuffTypes type, Entity buff,
             BuffInformation buffInfo) {
 
         /* PlayerBuffs functions to call when there is a new instant buff */
@@ -358,5 +358,12 @@ public class BuffManager extends Component {
     public void registerBuff(BuffInformation info) {
         this.currentBuffs.put(info.getBuff(), info);
         this.lastBuffSpawn = info.getTimeOfCreation();
+    }
+
+    /**
+     * Returns the buffs which are currently sitting on the map.
+     * */
+    public Map<Entity, BuffInformation> getCurrentBuffs() {
+        return this.currentBuffs;
     }
 }
