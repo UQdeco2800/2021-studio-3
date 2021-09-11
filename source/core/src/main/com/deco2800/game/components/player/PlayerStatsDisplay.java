@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -194,6 +195,11 @@ public class PlayerStatsDisplay extends UIComponent {
       batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
   }
+
+  public Vector2 getPlayerPosition() {
+    return entity.getPosition();
+  }
+
 
   /**
    * Updates the player's health on the ui.

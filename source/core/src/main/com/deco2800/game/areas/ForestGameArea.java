@@ -5,9 +5,12 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.BuffTaskComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -137,6 +140,7 @@ public class ForestGameArea extends GameArea {
     spawnPlatform1();
     //spawnPlanet1();
     spawnUFO();
+    //spawnBuffDebuffPickup();
     //spawnAsteroids();
 
     //spawnGhosts();
@@ -412,6 +416,28 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(buff, randomPos, true, true);
     logger.info("Just created and spawned a new buff!");
   }
+
+  public void spawnBuffDebuffPickup(BuffManager.BuffPickup pickup, BuffManager manager) {
+    Vector2 target = new Vector2(player.getPosition().x, player.getPosition().y + 3);
+    //Vector2 target = new Vector2(3f, 0f);
+    Entity buffPickup = BuffFactory.createBuffAnimation();
+
+    spawnEntityAt(buffPickup, new GridPoint2(3, 3), true, true);
+    /*spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
+            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);*/
+    logger.info("Just released a buff pickup");
+
+  }
+
+  /*public void spawnBuffDebuffPickup() {
+    Vector2 target = new Vector2(player.getPosition().x, player.getPosition().y + 3);
+    //Vector2 target = new Vector2(3f, 0f);
+    Entity buffPickup = BuffFactory.createBuffAnimation();
+    spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
+            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);
+    logger.info("Just released a buff pickup");
+
+  }*/
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);

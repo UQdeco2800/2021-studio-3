@@ -19,6 +19,8 @@ public class BuffInformation extends Component {
     /* The type of this buff */
     private BuffManager.BuffTypes type;
 
+    private BuffManager.BuffPickup pickup;
+
     /* The time this buff was created */
     private long timeOfCreation;
 
@@ -92,6 +94,14 @@ public class BuffInformation extends Component {
      * */
     public BuffManager.BuffTypes getType() {
         return this.type;
+    }
+
+    public BuffManager.BuffPickup getPickup() {
+        return this.pickup;
+    }
+
+    public void setPickup(BuffManager.BuffPickup pickup) {
+        this.pickup = pickup;
     }
 
     /**

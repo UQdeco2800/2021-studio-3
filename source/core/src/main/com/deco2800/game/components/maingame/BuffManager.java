@@ -85,6 +85,10 @@ public class BuffManager extends Component {
         DT_GIANT, DT_NO_JUMP, DT_DOUBLE_DMG
     }
 
+    public enum BuffPickup {
+        positive, negative
+    }
+
     /* The buffs which are currently sitting on the map */
     private LinkedHashMap<Entity, BuffInformation> currentBuffs;
 
@@ -124,7 +128,8 @@ public class BuffManager extends Component {
             case DT_GIANT:
                 return "images/winReplay.png";
             case B_HP_UP:
-                return "images/winMainMenu.png";
+                return "images/heart.png";
+                //return "images/winMainMenu.png";
             case D_HP_DOWN:
                 return "images/winContinue.png";
             case DT_NO_JUMP:
@@ -134,10 +139,22 @@ public class BuffManager extends Component {
             case DT_DOUBLE_DMG:
                 return "images/pauseRestart.png";
             case B_FULL_HEAL:
-                return "images/heart.png";
+                //return "images/heart.png";
+                return "images/winMainMenu.png";
         }
         return "images/box_boy.png"; // Default behaviour
     }
+
+    public String getPickupTexture(BuffPickup pickup) {
+        switch (pickup) {
+            case positive:
+                return "images/heart.png";
+            case negative:
+                return "images/box_boy.png";
+        }
+        return "images/heart.png";
+    }
+
 
     /**
      * Controls which action functions to call upon the player colliding with
@@ -156,9 +173,14 @@ public class BuffManager extends Component {
         /* PlayerBuffs functions to call when there is a new instant buff */
         switch (type) {
             case B_HP_UP:
+                //buffInfo.setPickup(BuffPickup.positive);
+
+                mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
+
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
             case D_HP_DOWN:
+                buffInfo.setPickup(BuffPickup.negative);
                 PlayerBuffs.reducePlayerHP(this.player);
                 return;
             case B_FULL_HEAL:

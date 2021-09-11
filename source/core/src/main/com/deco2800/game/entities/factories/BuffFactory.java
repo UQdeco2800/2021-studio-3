@@ -1,12 +1,19 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.BuffInformation;
+import com.deco2800.game.components.BuffTaskComponent;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.tasks.FloatTask;
+import com.deco2800.game.components.tasks.MovementTask;
+import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -58,4 +65,45 @@ public class BuffFactory {
         return buff;
     }
 
+    /*public static Entity createBuffAnimation(BuffManager.BuffPickup pickup, BuffManager manager,
+                                             Vector2 target) {
+
+        String texture = manager.getPickupTexture(pickup);
+        AITaskComponent buffComponent = new AITaskComponent().addTask(new WanderTask(new Vector2(0f, 3f), 0));
+        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f), 0));
+
+
+
+        Entity buffPickup = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
+                .addComponent(new PhysicsMovementComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new TextureRenderComponent(texture))
+                .addComponent(buffComponent);
+        //buffPickup.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+
+
+        return buffPickup;
+
+    }*/
+
+    public static Entity createBuffAnimation() {
+        /* Get the texture for the pickup */
+        String texture = "images/heart.png";
+        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 2f), 0));
+        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f), 0));
+
+        Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture));
+
+
+        /*Entity buffPickup = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
+                .addComponent(new PhysicsMovementComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new TextureRenderComponent(texture))
+                .addComponent(buffComponent);*/
+        //buffPickup.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+
+
+        return buffPickup;
+
+    }
 }
