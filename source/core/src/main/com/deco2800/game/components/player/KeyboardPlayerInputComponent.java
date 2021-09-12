@@ -30,8 +30,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
 
-  //public State currentState = entity.getComponent(PlayerStateComponent.class).getState();
-
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping

@@ -77,7 +77,8 @@ public class PlayerFactory {
     // Adds Animations that can be used by the player
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas",
+                            TextureAtlas.class));
     animator.addAnimation("normal-stationary", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-walk", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-sprint", 0.1f, Animation.PlayMode.LOOP);
