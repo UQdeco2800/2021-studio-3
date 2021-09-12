@@ -429,6 +429,9 @@ public class BuffManager extends Component {
         this.lastBuffSpawn = info.getTimeOfCreation();
     }
 
+    public Collection<BuffInformation> test(){
+        return this.timedBuffs.values();
+    }
     /**
      * Returns the buffs which are currently sitting on the map.
      * */

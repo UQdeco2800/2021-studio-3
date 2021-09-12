@@ -1,6 +1,10 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
@@ -67,7 +71,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-
+  public static AssetManager manager =  new  AssetManager ();
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;
@@ -102,10 +106,21 @@ public class MainGameScreen extends ScreenAdapter {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
     forestGameArea.create();
-
+    load();
     this.currentMap = forestGameArea;
     createUI();
     forestGameArea.spawnBuffDebuff(this.buffManager);
+  }
+  public static AssetManager load(){
+    manager.load("images/ghostKing.png", Texture.class);
+    manager.load("images/winReplay.png", Texture.class);
+    manager.load("images/winMainMenu.png", Texture.class);
+    manager.load("images/winContinue.png", Texture.class);
+    manager.load("images/pauseRestart.png", Texture.class);
+    manager.load("images/box_boy.png", Texture.class);
+    manager.load("images/heart.png", Texture.class);
+    manager.finishLoading();
+    return manager;
   }
 
   public MainGameScreen(GdxGame game, int checkpoint) {
@@ -223,7 +238,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
+        .addComponent(new TerminalDisplay(manager,currentMap))
         .addComponent(new PauseGamePopUp(this.game,
                 new PopupUIHandler(pauseMenuTextures)))
         .addComponent(new PlayerWinPopup(this.game, currentMap,
