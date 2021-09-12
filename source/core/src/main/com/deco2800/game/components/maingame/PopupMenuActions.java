@@ -34,8 +34,9 @@ public class PopupMenuActions extends Component {
      * Called when a user clicks on the Main Menu button on pop-up screens.
      * Changes the screen to be the main menu screen
      * */
-    public void onHome(){
+    public void onHome() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+        //area.getPlayer().getComponent(LivesComponent.class).resetLives();
     }
 
     /**
@@ -55,16 +56,23 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
-        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 0) {
-            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-        }
+        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1) {
+            onHome();
 
-        if (area.getCheckPointStatus() == 1) {
-            game.setScreen(GdxGame.ScreenType.CHECKPOINT);
         } else {
-            game.setScreen(GdxGame.ScreenType.RESPAWN);
-
+            if (area.getCheckPointStatus() == 1) {
+                game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+            } else {
+                game.setScreen(GdxGame.ScreenType.RESPAWN);
+            }
         }
+    }
+
+    /**
+     * Method actives when user clicks the replay button after dying with no lives left.
+     */
+    public void onReplayLossFinal() {
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
     /**

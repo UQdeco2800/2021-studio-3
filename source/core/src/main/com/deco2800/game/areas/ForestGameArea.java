@@ -29,7 +29,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
-  private static int lives = 5;
+  private static int lives = 1;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -360,11 +360,12 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new LivesComponent(lives));
 
     if (isDead()) {
-      lives-=1;
+      lives -= 1;
       if (lives < 0) {
-        lives = 5;
+        newPlayer.getComponent(LivesComponent.class).resetLives();
+      } else {
+        newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
-      newPlayer.getComponent(LivesComponent.class).setLives(lives);
     }
 
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
@@ -373,7 +374,6 @@ public class ForestGameArea extends GameArea {
     } else {
       spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     }
-    //newPlayer.getEvents().trigger("updateLives");
     return newPlayer;
   }
 
