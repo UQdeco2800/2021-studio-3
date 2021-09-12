@@ -1,68 +1,67 @@
-
-Sprint.png
-size: 2818, 524
+Jump.png
+size: 3220, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Sprint
+Jump
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-Sprint
-  rotate: false
-  xy: 2, 4
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 8
-Sprint
+Jump
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-Sprint
+Jump
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-Sprint
+Jump
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-Sprint
+Jump
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-Sprint
+Jump
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-Sprint
+Jump
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 7
+Jump
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 8
 default
   rotate: false
-  xy: 3800, 0
+  xy: 3200, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
