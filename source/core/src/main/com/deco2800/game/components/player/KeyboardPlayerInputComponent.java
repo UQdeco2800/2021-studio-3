@@ -23,7 +23,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * SPRINT MODIFIER - This can be changed (when buffed, etc.)
    * Change this value to control how fast the player moves whilst under the effect of sprint
    */
-  public static int SPRINT_MODIFIER = 3;
+  public static int SPRINT_MODIFIER = 2;
 
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
@@ -195,6 +195,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   private void triggerSprintEvent(boolean sprinting) {
+    if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
+      return;
+    }
     entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
     entity.getEvents().trigger("playerStatusAnimation");
   }
