@@ -23,9 +23,18 @@ class PlayerBuffsTest {
     @Mock Entity player;
     @Mock BuffInformation buffInfo;
 
+    @Test
+    void increasePlayerHPTest() {
+        CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
+        player.getComponent(CombatStatsComponent.class).hit(combat);
+        assertEquals(80, player.getComponent(CombatStatsComponent.class).getHealth());
+        PlayerBuffs.increasePlayerHP(player);
+        assertEquals(100, player.getComponent(CombatStatsComponent.class).getHealth());
+    }
 
     @Test
-    public void applyInvincibilityTest() {
+    void applyInvincibilityTest() {
         CombatStatsComponent combat = new CombatStatsComponent(100, 20);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
         PlayerBuffs.applyInvincibility(player);
@@ -34,7 +43,7 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void setInfiniteStaminaTest() {
+    void setInfiniteStaminaTest() {
         SprintComponent sprint = new SprintComponent(80);
         when(player.getComponent(SprintComponent.class)).thenReturn(sprint);
         PlayerBuffs.setInfiniteStamina(player);
@@ -43,7 +52,15 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void setHealthFullTest() {
+    void reducePlayerHPTest() {
+        CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
+        PlayerBuffs.reducePlayerHP(player);
+        assertEquals(80, player.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
+    void setHealthFullTest() {
         CombatStatsComponent combat = new CombatStatsComponent(100, 20);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
         player.getComponent(CombatStatsComponent.class).hit(combat);
@@ -53,7 +70,7 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void setDoubleHurtTest() {
+    void setDoubleHurtTest() {
         CombatStatsComponent combat = new CombatStatsComponent(100, 20);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
         PlayerBuffs.setDoubleHurt(player);
@@ -62,12 +79,12 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void setNoJumpingTest() {
+    void setNoJumpingTest() {
 
     }
 
     @Test
-    public void removeInvincibilityTest() {
+    void removeInvincibilityTest() {
         CombatStatsComponent combat = new CombatStatsComponent(100, 20);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combat);
         PlayerBuffs.applyInvincibility(player);
@@ -80,7 +97,7 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void makeStaminaFiniteTest() {
+    void makeStaminaFiniteTest() {
         SprintComponent sprint = new SprintComponent(80);
         when(player.getComponent(SprintComponent.class)).thenReturn(sprint);
         PlayerBuffs.setInfiniteStamina(player);
@@ -93,7 +110,7 @@ class PlayerBuffsTest {
     }
 
     @Test
-    public void removeNoJumpingTest() {
+    void removeNoJumpingTest() {
 
     }
 

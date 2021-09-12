@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class BuffFactoryTest {
     @Mock BuffManager manager;
     @Mock ResourceService resourceService;
-    private String[] textures = {"images/ghostKing.png"};
+    private String[] textures = {"images/ghostKing.png", "images/heart.png"};
 
     /**
      * Test that the construction of buffs interacts with the BuffManager
@@ -39,5 +39,19 @@ class BuffFactoryTest {
 
         /* Ensure the texture was called upon */
         verify(manager).getTexture(BuffManager.BuffTypes.BT_INVIN);
+    }
+
+    @Test
+    void checkCreateBuffPickup() {
+        ServiceLocator.registerResourceService(resourceService);
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        ServiceLocator.getResourceService().loadTextures(textures);
+        when(manager.getPickupTexture(BuffManager.BuffPickup.positive)).thenReturn("images/heart");
+
+        BuffFactory.createBuffAnimation(BuffManager.BuffPickup.positive, manager);
+
+        verify(manager).getPickupTexture(BuffManager.BuffPickup.positive);
     }
 }

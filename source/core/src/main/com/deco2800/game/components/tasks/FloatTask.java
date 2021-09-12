@@ -28,7 +28,6 @@ public class FloatTask extends DefaultTask implements PriorityTask {
      */
     public FloatTask(Vector2 wanderRange) {
         this.wanderRange = wanderRange;
-
     }
 
     @Override
@@ -40,36 +39,18 @@ public class FloatTask extends DefaultTask implements PriorityTask {
     public void start() {
         super.start();
         startPos = owner.getEntity().getPosition();
-
         movementTask = new MovementTask(getTarget());
         movementTask.create(owner);
-
         movementTask.start();
-
-
-
-    }
-
-    public Status getMovementStatus() {
-        return movementTask.getStatus();
     }
 
     @Override
     public void update() {
-
-
-        //System.out.println(movementTask.getStatus());
         movementTask.update();
-
     }
 
-
-
-
     private Vector2 getTarget() {
-
         return new Vector2(startPos.x + wanderRange.x, startPos.y + wanderRange.y);
-
     }
 }
 
