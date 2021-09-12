@@ -70,11 +70,21 @@ public class ForestGameArea extends GameArea {
           "images/platform5.png",
           "images/building_1.png",
           "images/planet1.png",
-          "images/ufo_2.png"
-
+          "images/ufo_2.png",
+          "images/Walking.png",
+          "images/WalkingDamage90-50.png",
+          "images/WalkingDamage50-10.png",
+          "images/Sprint.png",
+          "images/SprintDamage(50-90).png",
+          "images/SprintDamage(10-50).png",
+          "images/Jump.png",
+          "images/JumpDamage(50-90).png",
+          "images/JumpDamage(10-50).png",
+          "images/IdleCharacters.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
+          "images/boxBoy.atlas", "images/PlayerMovementAnimations.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
