@@ -21,7 +21,7 @@ public class PlayerAnimationController extends Component {
 
   void startAnimateWalk() {animator.startAnimation("angry_float");}
 
-  void stopAnimateWalk() {animator.startAnimation("float");}
+  void stopAnimateWalk() {animator.startAnimation("angry_float");}
 
   void updatePlayerStatusAnimation(int health) {
     if (health <= 90 && health > 50) {

@@ -1,0 +1,82 @@
+robot_animation.png
+size: 5418, 2501
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+float
+  rotate: false
+  xy: 116, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 0
+float
+  rotate: false
+  xy: 116, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 0
+float
+  rotate: false
+  xy: 116, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 0
+float
+  rotate: false
+  xy: 950, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 1
+float
+  rotate: false
+  xy: 1784, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 2
+float
+  rotate: false
+  xy: 2618, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 3
+float
+  rotate: false
+  xy: 3452, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 4
+float
+  rotate: false
+  xy: 4286, 0
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 5
+float
+  rotate: false
+  xy: 116, 1079
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 6
+float
+  rotate: false
+  xy: 950, 1079
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 7
+float
+  rotate: false
+  xy: 1785, 1079
+  size: 834, 1140
+  orig: 834, 1140
+  offset: 0, 0
+  index: 8

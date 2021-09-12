@@ -67,11 +67,12 @@ public class ForestGameArea extends GameArea {
           "images/platform5.png",
           "images/building_1.png",
           "images/planet1.png",
-          "images/ufo_2.png"
+          "images/ufo_2.png",
+          "images/rock_platform.png"
 
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -119,7 +120,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnTrees();
 
-    spawnGhosts();
+    //spawnGhosts();
 
     //spawnTrees();
     spawnAsteriod();
@@ -312,15 +313,15 @@ public class ForestGameArea extends GameArea {
 
   private void spawnAsteroidFire() {
     GridPoint2 pos1 = new GridPoint2(12,10);
-    Entity attackObstacle1 = ObstacleFactory.createAsteroidFree(player);
+    Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle1, pos1, true, false);
 
     GridPoint2 pos2 = new GridPoint2(19,10);
-    Entity attackObstacle2 = ObstacleFactory.createAsteroidFree(player);
+    Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle2, pos2, true, false);
 
     GridPoint2 pos3 = new GridPoint2(25,10);
-    Entity attackObstacle3 = ObstacleFactory.createAsteroidFree(player);
+    Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle3, pos3, true, false);
   }
 
