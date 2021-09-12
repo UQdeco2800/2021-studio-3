@@ -93,6 +93,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     this.noJumping = noJumping;
   }
 
+  public boolean getIsJumping() {
+    return this.isJumping;
+  }
+
   public KeyboardPlayerInputComponent() {
     super(5);
   }
@@ -194,7 +198,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
-  private void triggerMovementEvent() {
+  public void triggerMovementEvent() {
     entity.getEvents().trigger("walk", walkDirection);
     entity.getEvents().trigger("playerStatusAnimation");
   }

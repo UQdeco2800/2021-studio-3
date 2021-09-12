@@ -1,7 +1,10 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.Input;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
+import com.deco2800.game.components.player.PlayerStateComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,7 @@ class PlayerBuffsTest {
     //@Mock CombatStatsComponent combat;
     @Mock Entity player;
     @Mock BuffInformation buffInfo;
+    @Mock PlayerStateComponent state;
 
     @Test
     void increasePlayerHPTest() {
@@ -80,7 +84,11 @@ class PlayerBuffsTest {
 
     @Test
     void setNoJumpingTest() {
-
+        KeyboardPlayerInputComponent keyboard = new KeyboardPlayerInputComponent();
+        when(player.getComponent(KeyboardPlayerInputComponent.class)).thenReturn(keyboard);
+        PlayerBuffs.noJumping(player);
+        player.getComponent(KeyboardPlayerInputComponent.class).keyDown(Input.Keys.SPACE);
+        assertEquals(false, player.getComponent(KeyboardPlayerInputComponent.class).getIsJumping());
     }
 
     @Test
@@ -107,11 +115,6 @@ class PlayerBuffsTest {
         PlayerBuffs.removeTimedBuff(buffInfo, player);
         player.getComponent(SprintComponent.class).removeSprint(20);
         assertEquals(80, player.getComponent(SprintComponent.class).getSprint());
-    }
-
-    @Test
-    void removeNoJumpingTest() {
-
     }
 
 }
