@@ -27,6 +27,7 @@ public abstract class PlayerBuffs {
     public static void increasePlayerHP(Entity player) {
         // Implement the player's health increasing once.
         logger.info("Increased the players health!");
+        player.getComponent(CombatStatsComponent.class).addHealth(20);
     }
 
     /**
@@ -57,6 +58,7 @@ public abstract class PlayerBuffs {
     public static void reducePlayerHP(Entity player) {
         // Implement the player's health decreasing once.
         logger.info("Decreased the players' health!");
+        player.getComponent(CombatStatsComponent.class).addHealth(-20);
     }
 
     public static void makePlayerGiant(Entity player) {
