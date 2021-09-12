@@ -118,7 +118,7 @@ public class PlayerStatsDisplay extends UIComponent {
     livesTable = new Table();
     livesTable.top().left();
     livesTable.setFillParent(true);
-    livesTable.padTop(105f).padLeft(5f);
+    livesTable.padTop(115f).padLeft(5f);
 
     // HUD icon images
     float iconSideLength = 30f;
@@ -270,7 +270,7 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerProgressUI(float progress) {
 
-    if (progress % 10 == 0 && progress > 0 || progress > 95) {
+    if (progress % 10 == 0 && progress > 0) {
       CharSequence text = String.format("%.0f %%", progress);
       progressLabel.setText(text);
 

@@ -19,7 +19,7 @@ public class PopupMenuActions extends Component {
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
     private ForestGameArea area;
-    private int checkPointStatus;
+    //private int checkPointStatus;
 
     public PopupMenuActions(GdxGame game) {
         this.game = game;
