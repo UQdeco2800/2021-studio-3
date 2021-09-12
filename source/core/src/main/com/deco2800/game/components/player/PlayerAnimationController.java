@@ -1,10 +1,9 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.RenderComponent;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.components.player.PlayerStateComponent;
 
 /**
  * This class listens to events relevant to a player entity's state and plays the animation when one
@@ -17,19 +16,12 @@ public class PlayerAnimationController extends Component {
   public void create() {
     super.create();
     animator = this.entity.getComponent(AnimationRenderComponent.class);
-    entity.getEvents().addListener("ghostKingAngry", this::startGhostKingAngry);
-    entity.getEvents().addListener("ghostKingFloat", this::startGhostKingFloat);
-    entity.getEvents().addListener("walkAnimation", this::walkAnimation);
-    entity.getEvents().addListener("updatePlayerStatusAnimation", this::updatePlayerStatusAnimation);
+    entity.getEvents().addListener("playerStatusAnimation", this::updatePlayerStatusAnimation);
   }
 
-  void startGhostKingAngry() {animator.startAnimation("angry_float");}
-
-  void startGhostKingFloat() {animator.startAnimation("float");}
-
-  void walkAnimation() {animator.startAnimation("walkRight");}
-
-  void updatePlayerStatusAnimation(int health) {
+  void updatePlayerStatusAnimation() {
+    // Updates the health value in PlayerStateComponent
+    int health = this.entity.getComponent(CombatStatsComponent.class).getHealth();
     if (health <= 90 && health > 50) {
       this.entity.getComponent(PlayerStateComponent.class).updateHealth(Health.ROUGH);
     } else if (health <= 50 && health > 10) {
@@ -38,6 +30,8 @@ public class PlayerAnimationController extends Component {
       this.entity.getComponent(PlayerStateComponent.class).updateHealth(Health.DEAD);
     }
 
+    // Applies the correct animation
+    animator.startAnimation(entity.getComponent(PlayerStateComponent.class).getStateAnimation());
   }
 
 }

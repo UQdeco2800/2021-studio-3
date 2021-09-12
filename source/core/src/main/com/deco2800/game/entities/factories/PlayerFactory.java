@@ -75,24 +75,27 @@ public class PlayerFactory {
     //Defining and Adding player related animation here
     //---------------------------------
     // Adds Animations that can be used by the player
-    // Animations for when the player is standing still/idle
-//    AnimationRenderComponent idleAnimator =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/ghostKing.atlas", TextureAtlas.class));
-//    idleAnimator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-//    idleAnimator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-
-    // Animations for when the player is walking
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/Walking.atlas", TextureAtlas.class));
-    animator.addAnimation("walkRight", 0.2f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-stationary", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-walk", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-sprint", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-jump", 0.3f, Animation.PlayMode.LOOP);
+    //animator.addAnimation("rough-stationary", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-walk", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-sprint", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-jump", 0.3f, Animation.PlayMode.LOOP);
+    //animator.addAnimation("damaged-stationary", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-walk", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-sprint", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-jump", 0.3f, Animation.PlayMode.LOOP);
+
   //  walkAnimator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
 
     // Starts the idle animation
-    animator.startAnimation("float");
+    animator.startAnimation("normal-stationary");
 
     Entity player =
             new Entity()
@@ -103,12 +106,13 @@ public class PlayerFactory {
                     .addComponent(new PlayerActions())
                     .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
                     .addComponent(new InventoryComponent(stats.gold))
+                    .addComponent(new PlayerStateComponent())
                     .addComponent(inputComponent)
                     .addComponent(new SprintComponent(100))
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
-                    .addComponent(new PlayerStatsDisplay(manager,h))
-                    .addComponent(new PlayerStateComponent());
+                    .addComponent(new PlayerStatsDisplay(manager,h));
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

@@ -1,4 +1,3 @@
-
 SprintDamage(10-50).png
 size: 3220, 524
 format: RGBA8888
@@ -62,7 +61,7 @@ Sprint(10-50)
   index: 8
 default
   rotate: false
-  xy: 3200, 0
+  xy: 3220, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0

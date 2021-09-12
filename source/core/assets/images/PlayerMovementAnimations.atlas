@@ -1,0 +1,682 @@
+Walking.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+normal-walk
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-walk
+  rotate: false
+  xy: 400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-walk
+  rotate: false
+  xy: 800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-walk
+  rotate: false
+  xy: 1200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-walk
+  rotate: false
+  xy: 1600, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+WalkingDamage90-50.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rough-walk
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-walk
+  rotate: false
+  xy: 400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-walk
+  rotate: false
+  xy: 800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-walk
+  rotate: false
+  xy: 1200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-walk
+  rotate: false
+  xy: 1600, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+WalkingDamage50-10.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+damaged-walk
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+damaged-walk
+  rotate: false
+  xy: 400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+damaged-walk
+  rotate: false
+  xy: 800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+damaged-walk
+  rotate: false
+  xy: 1200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+damaged-walk
+  rotate: false
+  xy: 1600, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+ghostKing.png
+size: 3600, 1036
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+angry_float
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+angry_float
+  rotate: false
+  xy: 400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+angry_float
+  rotate: false
+  xy: 800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+angry_float
+  rotate: false
+  xy: 1200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+angry_float
+  rotate: false
+  xy: 1600, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+angry_float
+  rotate: false
+  xy: 2000, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+angry_float
+  rotate: false
+  xy: 2400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+angry_float
+  rotate: false
+  xy: 2800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-stationary
+  rotate: false
+  xy: 0, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-stationary
+  rotate: false
+  xy: 400, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-stationary
+  rotate: false
+  xy: 800, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-stationary
+  rotate: false
+  xy: 1200, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-stationary
+  rotate: false
+  xy: 1600, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-stationary
+  rotate: false
+  xy: 2000, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-stationary
+  rotate: false
+  xy: 2400, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+normal-stationary
+  rotate: false
+  xy: 2800, 518
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+
+Sprint.png
+size: 2818, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+normal-sprint
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-sprint
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-sprint
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-sprint
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-sprint
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-sprint
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-sprint
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+normal-sprint
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 2818, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+SprintDamage(50-90).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+rough-sprint
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-sprint
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-sprint
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-sprint
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-sprint
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+rough-sprint
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+rough-sprint
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+rough-sprint
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+SprintDamage(10-50).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+damaged-sprint
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+damaged-sprint
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+damaged-sprint
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+damaged-sprint
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+damaged-sprint
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+damaged-sprint
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+damaged-sprint
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+damaged-sprint
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+Jump.png
+size: 3220, 524
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+normal-jump
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-jump
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-jump
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-jump
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-jump
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-jump
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-jump
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+normal-jump
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+JumpDamage(50-90).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+rough-jump
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-jump
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-jump
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-jump
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-jump
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+rough-jump
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+rough-jump
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+rough-jump
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+JumpDamage(10-50).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+damaged-jump
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+damaged-jump
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+damaged-jump
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+damaged-jump
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+damaged-jump
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+damaged-jump
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+damaged-jump
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+damaged-jump
+  rotate: false
+  xy: 2816, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0

@@ -40,9 +40,8 @@ public class PlayerStateComponent extends Component {
                 case SPRINT:
                     return "normal-sprint";
                 case JUMP:
-                    return "normal-jump";
                 case SPRINT_JUMP:
-                    return "normal-sprint-jump";
+                    return "normal-jump";
                 default:
                     throw new IllegalArgumentException();
             }
@@ -50,15 +49,14 @@ public class PlayerStateComponent extends Component {
         else if (health == Health.ROUGH){
             switch (state) {
                 case STATIONARY:
-                    return "rough-stationary";
+                    return "normal-stationary";
                 case WALK:
                     return "rough-walk";
                 case SPRINT:
                     return "rough-sprint";
                 case JUMP:
-                    return "rough-jump";
                 case SPRINT_JUMP:
-                    return "rough-sprint-jump";
+                    return "rough-jump";
                 default:
                     throw new IllegalArgumentException();
             }
@@ -66,15 +64,14 @@ public class PlayerStateComponent extends Component {
         else if (health == Health.DAMAGED){
             switch (state) {
                 case STATIONARY:
-                    return "damaged-stationary";
+                    return "normal-stationary";
                 case WALK:
                     return "damaged-walk";
                 case SPRINT:
                     return "damaged-sprint";
                 case JUMP:
-                    return "damaged-jump";
                 case SPRINT_JUMP:
-                    return "damaged-sprint-jump";
+                    return "damaged-jump";
                 default:
                     throw new IllegalArgumentException();
             }
@@ -120,7 +117,5 @@ public class PlayerStateComponent extends Component {
     public int getJumpCount(){
         return jumpCount;
     }
-
-
 
 }

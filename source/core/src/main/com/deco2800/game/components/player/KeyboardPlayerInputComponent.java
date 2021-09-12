@@ -25,15 +25,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   public static int SPRINT_MODIFIER = 3;
 
-
-  //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
 
-  //private final Vector2 walkDirection = Vector2.Zero.cpy();
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
 
-  private State currentState = entity.getComponent(PlayerStateComponent.class).getState();
+  //public State currentState = entity.getComponent(PlayerStateComponent.class).getState();
 
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
@@ -86,11 +83,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       fallingTimer.stop();
       isJumping = false;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
-      triggerWalkEvent();
+      triggerMovementEvent();
       stopFalling.cancel();
     }
   };
-
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -104,7 +100,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
-
     switch (keycode) {
       case Keys.SPACE:
         return jump();
@@ -152,7 +147,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       walkDirection.sub(direction.cpy().scl(scalar));
       entity.getComponent(PlayerStateComponent.class).updateState(State.STATIONARY);
     }
-    triggerWalkEvent();
+    triggerMovementEvent();
     return true;
   }
 
@@ -179,15 +174,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   private boolean jump(){
-    if (currentState != State.JUMP && currentState != State.SPRINT_JUMP
-            && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
+    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement
       for (int i = 0; i < 4; i++) {
         walkDirection.add(Vector2Utils.UP);
       }
-      triggerJumpEvent();
+      triggerMovementEvent();
       jumpingTimer.start();
       // Schedules to stop jumping and start falling
       jumpingTimer.scheduleTask(startFalling, 0.3f);
@@ -195,21 +189,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
-  private void triggerWalkEvent() {
-    if (walkDirection.epsilonEquals(gravity) && currentState != State.JUMP && currentState != State.SPRINT_JUMP) {
-      entity.getEvents().trigger("ghostKingFloat");
-    } else {
-      entity.getEvents().trigger("walk", walkDirection);
-      entity.getEvents().trigger("walkAnimation");
-    }
+  private void triggerMovementEvent() {
+    entity.getEvents().trigger("walk", walkDirection);
+    entity.getEvents().trigger("playerStatusAnimation");
   }
 
   private void triggerSprintEvent(boolean sprinting) {
     entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
+    entity.getEvents().trigger("playerStatusAnimation");
   }
 
-  private void triggerJumpEvent() {
-    entity.getEvents().trigger("walk", walkDirection);
-    entity.getEvents().trigger("ghostKingAngry");
-  }
 }
