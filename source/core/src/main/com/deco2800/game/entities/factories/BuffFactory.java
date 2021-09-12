@@ -86,11 +86,16 @@ public class BuffFactory {
 
     }*/
 
+    /**
+     * Creates and returns a floating animation.
+     * @param pickup The type of
+     * @param manager
+     * @return
+     */
     public static Entity createBuffAnimation(BuffManager.BuffPickup pickup, BuffManager manager) {
         /* Get the texture for the pickup */
         String texture = manager.getPickupTexture(pickup);
-        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
-        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
+        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 2f)));
 
         Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture))
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))

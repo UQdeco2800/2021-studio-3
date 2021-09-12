@@ -419,16 +419,25 @@ public class ForestGameArea extends GameArea {
     //logger.info("Just created and spawned a new buff!");
   }
 
+  /**
+   * Spawns a floating animation when a HP buff/debuff is picked up.
+   * Spawns at the player and floats up
+   * @param pickup the type of animation that will be released based on which
+   *               buff is picked up
+   * @param manager the Buff Manger which will handle the actions and despawning
+   *                functionality of the animation
+   * @return the floating animation that is spawned.
+   */
   public Entity spawnBuffDebuffPickup(BuffManager.BuffPickup pickup, BuffManager manager) {
     Entity buffPickup = BuffFactory.createBuffAnimation(pickup, manager);
 
-    spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
-            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);
+    spawnEntityAt(buffPickup, new GridPoint2((int) player.
+            getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
+            (int) player.getComponent(PlayerStatsDisplay.class).
+                    getPlayerPosition().y), true, true);
     logger.info("Just released a buff pickup");
     return buffPickup;
   }
-
-
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
