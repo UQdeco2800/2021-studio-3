@@ -317,14 +317,11 @@ public class ForestGameArea extends GameArea {
 
     if (isDead()) {
       lives -= 1;
-      if (lives < 0) {
-        newPlayer.getComponent(LivesComponent.class).resetLives();
-      }  else {
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
-      }
     } else {
       if(lives < 5 && !isDead()) {
-        newPlayer.getComponent(LivesComponent.class).resetLives();
+        lives = 5;
+        newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
     }
 

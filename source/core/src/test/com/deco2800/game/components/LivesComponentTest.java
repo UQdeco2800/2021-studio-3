@@ -33,14 +33,4 @@ public class LivesComponentTest {
 
     }
 
-    @Test
-    void resetLives() {
-        lives = 9;
-        LivesComponent livesComponent = new LivesComponent(lives);
-        livesComponent.addLives(4);
-        livesComponent.resetLives();
-        assertEquals(5, livesComponent.getLives());
-
-    }
-
 }

@@ -51,11 +51,4 @@ public class LivesComponent extends Component {
         }
     }
 
-    /**
-     * Resets the lives to 5, occurs on restart from menu and on restart from losing 5 lives
-     */
-    public void resetLives() {
-        setLives(5);
-    }
-
 }
