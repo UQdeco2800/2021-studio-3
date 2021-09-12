@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.LivesComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
@@ -31,6 +32,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
+  private static int lives = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -100,10 +102,23 @@ public class ForestGameArea extends GameArea {
   private Entity endOfMap;
 
   private int checkpoint;
-  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
+
+  private boolean hasDied;
+
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
+    this.hasDied = hasDied;
+
+  }
+
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
+    ForestGameArea.lives = lives;
+
   }
 
   /**
@@ -287,6 +302,10 @@ public class ForestGameArea extends GameArea {
   }
 
 
+  public boolean isDead() {
+    return hasDied;
+  }
+
   private Entity spawnPlayer() {
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
@@ -294,6 +313,17 @@ public class ForestGameArea extends GameArea {
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
+    newPlayer.addComponent(new LivesComponent(lives));
+
+    if (isDead()) {
+      lives -= 1;
+      if (lives < 0) {
+        newPlayer.getComponent(LivesComponent.class).resetLives();
+      } else {
+        newPlayer.getComponent(LivesComponent.class).setLives(lives);
+      }
+    }
+
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);

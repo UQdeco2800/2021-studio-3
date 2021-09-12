@@ -12,6 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.*;
+
+import com.deco2800.game.components.SprintComponent;
+
+import com.deco2800.game.entities.configs.PlayerConfig;
+import com.deco2800.game.rendering.TextureRenderComponent;
+
+import com.deco2800.game.screens.MainGameScreen;
+
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -27,11 +37,13 @@ public class PlayerStatsDisplay extends UIComponent {
   
   private Image heartImage;
   private Image levelStatus;
+  Table healthTable;
   private Image livesImage;
 
   private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
+  private Label livesLabel;
 
   private Texture level10percent;
   private Texture level20percent;
@@ -43,7 +55,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level80percent;
   private Texture level90percent;
   private Texture levelComplete;
-
 
 
   AssetManager manager;
@@ -65,18 +76,25 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
-
+    entity.getEvents().addListener("updateLives", this::updateLivesUI);
   }
 
   /**
-   * Creates actors and positions them on the stage using a table.
+   * Creates actors and positions them on the stage using a healthTable.
    * @see Table for positioning options
    */
   private void addActors() {
+
     table = new Table();
     table.top().left();
     table.setFillParent(true);
     table.padTop(45f).padLeft(5f);
+
+    healthTable = new Table();
+    healthTable.top().left();
+    healthTable.setFillParent(true);
+    healthTable.padTop(45f).padLeft(5f);
+
 
     sprintTable = new Table();
     sprintTable.top().left();
@@ -87,6 +105,7 @@ public class PlayerStatsDisplay extends UIComponent {
     progressTable.top();
     progressTable.setFillParent(true);
     progressTable.padTop(25f);
+
     
     livesTable = new Table();
     livesTable.top();
@@ -95,12 +114,24 @@ public class PlayerStatsDisplay extends UIComponent {
     
     // Heart image
     float heartSideLength = 30f;
+
+    livesTable = new Table();
+    livesTable.top().left();
+    livesTable.setFillParent(true);
+    livesTable.padTop(105f).padLeft(5f);
+
+    // HUD icon images
+    float iconSideLength = 30f;
+
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
+
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
+    //Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
@@ -136,10 +167,32 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintTable.add(sprintLabel).pad(5);
     stage.addActor(sprintTable);
 
+    //Lives text
+    int lives = entity.getComponent(LivesComponent.class).getLives();
+    CharSequence livesText = String.format("x%d", lives);
+    livesLabel = new Label(livesText, skin, "large");
+
+    //Adding elements to tables
+    healthTable.add(heartImage).size(iconSideLength).pad(5);
+    healthTable.add(healthLabel).pad(5);
+
+    sprintTable.add(sprintLabel).pad(5);
+
+
     levelStatus = new Image(levelStart);
     progressTable.add(levelStatus).size(600, 250);
     progressTable.add(progressLabel);
+
     stage.addActor(progressTable);
+
+    livesTable.add(livesImage).size(iconSideLength).pad(5);
+    livesTable.add(livesLabel);
+
+    //adding tables to stages
+    stage.addActor(healthTable);
+    stage.addActor(sprintTable);
+    stage.addActor(progressTable);
+    stage.addActor(livesTable);
   }
 
   @Override
@@ -256,6 +309,12 @@ public class PlayerStatsDisplay extends UIComponent {
       }
     }
 
+  }
+
+
+  public void updateLivesUI(int lives) {
+    CharSequence text = String.format("x%d", lives);
+    livesLabel.setText(text);
   }
 
 
