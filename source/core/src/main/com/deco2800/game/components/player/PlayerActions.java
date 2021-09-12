@@ -73,23 +73,23 @@ public class PlayerActions extends Component {
    * @param direction the direction the player is moving in
    * @param sprinting true if the player is beginning a sprint, false otherwise
    */
-  void sprint(Vector2 direction, boolean sprinting){
+  void sprint(Vector2 direction, boolean sprinting, int sprintModifier){
       if (direction.x > 0){
         //if the player is moving right
         if (sprinting){
           //if sprint was called on keyDown, increase speed
-          this.walkDirection.add(Vector2Utils.RIGHT);
+          this.walkDirection.add(Vector2Utils.RIGHT.cpy().scl(sprintModifier-1));
         } else {
           //player has stopped sprinting, subtract speed
-          this.walkDirection.sub(Vector2Utils.RIGHT);
+          this.walkDirection.sub(Vector2Utils.RIGHT.cpy().scl(sprintModifier-1));
         }
       }
       if (direction.x < 0){
         //if the player is moving left
         if (sprinting){
-          this.walkDirection.add(Vector2Utils.LEFT);
+          this.walkDirection.add(Vector2Utils.LEFT.cpy().scl(sprintModifier-1));
         } else {
-          this.walkDirection.sub(Vector2Utils.LEFT);
+          this.walkDirection.sub(Vector2Utils.LEFT.cpy().scl(sprintModifier-1));
         }
       }
   }
