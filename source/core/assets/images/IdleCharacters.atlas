@@ -1,0 +1,33 @@
+IdleCharacters.png
+size: 1015, 462
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Character
+  rotate: false
+  xy: 214, 1
+  size: 265, 431
+  orig: 400, 518
+  offset: 74, 50
+  index: 4
+DamageFrame50-10
+  rotate: false
+  xy: 481, 1
+  size: 265, 431
+  orig: 400, 518
+  offset: 63, 51
+  index: 1
+DamageFrame90-50
+  rotate: false
+  xy: 748, 1
+  size: 266, 430
+  orig: 400, 518
+  offset: 67, 44
+  index: 2
+DeathFrame
+  rotate: true
+  xy: 1, 1
+  size: 460, 211
+  orig: 518, 400
+  offset: 11, 81
+  index: 3
