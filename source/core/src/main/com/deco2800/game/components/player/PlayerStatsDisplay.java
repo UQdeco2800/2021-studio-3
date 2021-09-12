@@ -125,7 +125,7 @@ public class PlayerStatsDisplay extends UIComponent {
     progressLabel = new Label(progressText, skin, "large");
 
     //Lives image
-    livesImage = new Image(ServiceLocator.getResourceService().getAsset("ghost_1.png", Texture.class));
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
 
 
     //Adding elements to each table, subsequently adding them to the stage
