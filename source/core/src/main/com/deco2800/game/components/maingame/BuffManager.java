@@ -129,7 +129,7 @@ public class BuffManager extends Component {
         this.player = ((ForestGameArea) currentMap).getPlayer();
         this.buffPickup = new Entity();
         this.buffPickups.put(BuffPickup.positive, Arrays.asList(0, 0));
-        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0,0));
+        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0, 0));
 
 
     }
@@ -318,7 +318,9 @@ public class BuffManager extends Component {
     }
 
     /**
-     * Handles the float animation after a player
+     * Handles the float animation after a player hits a HP instant buff/debuff.
+     * If the player collides with the buff, a floating animation is spawned onto the map.
+     * Once it's been on the map for 1.5 seconds, it is removed.
      */
     private void spawnPickup() {
         for (BuffPickup pickup: this.buffPickups.keySet()) {
@@ -432,6 +434,7 @@ public class BuffManager extends Component {
     public Collection<BuffInformation> test(){
         return this.timedBuffs.values();
     }
+
     /**
      * Returns the buffs which are currently sitting on the map.
      * */
