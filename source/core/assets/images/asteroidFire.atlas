@@ -1,103 +1,103 @@
-asteroid_animation_2.png
-size: 9366, 7203
+asteroid_animation_3.png
+size: 2440, 2076
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 float
   rotate: false
   xy: 0, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 0
 float
   rotate: false
-  xy: 1615, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 400, 0
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 1
 float
   rotate: false
-  xy: 3230, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 800, 0
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 2
 float
   rotate: false
-  xy: 4845, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 1200, 0
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 3
 float
   rotate: false
-  xy: 6460, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 1600, 0
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 4
 float
   rotate: false
-  xy: 8075, 0
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 2000, 0
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 5
 float
   rotate: false
-  xy: 0, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 0, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 6
 float
   rotate: false
-  xy: 1615, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 400, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 7
 float
   rotate: false
-  xy: 3230, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 800, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 8
 float
   rotate: false
-  xy: 4845, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 1200, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 9
 float
   rotate: false
-  xy: 6460, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 1600, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 10
 float
   rotate: false
-  xy: 8075, 2280
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 2000, 630
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 11
 float
   rotate: false
-  xy: 0, 4560
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 0, 1260
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 12
 float
   rotate: false
-  xy: 1615, 4560
-  size: 1615, 2280
-  orig: 1615, 2280
+  xy: 400, 1260
+  size: 400, 630
+  orig: 400, 630
   offset: 0, 0
   index: 13

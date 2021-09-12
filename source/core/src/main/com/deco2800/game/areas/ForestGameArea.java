@@ -316,7 +316,7 @@ public class ForestGameArea extends GameArea {
     Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle1, pos1, true, false);
 
-    GridPoint2 pos2 = new GridPoint2(19,10);
+    GridPoint2 pos2 = new GridPoint2(17,10);
     Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle2, pos2, true, false);
 
