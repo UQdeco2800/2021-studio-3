@@ -358,4 +358,8 @@ public class BuffManager extends Component {
         this.currentBuffs.put(info.getBuff(), info);
         this.lastBuffSpawn = info.getTimeOfCreation();
     }
+
+    public Collection<BuffInformation> test(){
+        return this.timedBuffs.values();
+    }
 }
