@@ -3,31 +3,31 @@ size: 1015, 462
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Character
+normal-stationary
   rotate: false
   xy: 214, 1
   size: 265, 431
   orig: 400, 518
   offset: 74, 50
-  index: 4
-DamageFrame50-10
+  index: 0
+damaged-stationary
   rotate: false
   xy: 481, 1
   size: 265, 431
   orig: 400, 518
   offset: 63, 51
-  index: 1
-DamageFrame90-50
+  index: 0
+rough-stationary
   rotate: false
   xy: 748, 1
   size: 266, 430
   orig: 400, 518
   offset: 67, 44
-  index: 2
-DeathFrame
+  index: 0
+dead
   rotate: true
   xy: 1, 1
   size: 460, 211
   orig: 518, 400
   offset: 11, 81
-  index: 3
+  index: 0

@@ -142,131 +142,6 @@ default
   offset: 0, 0
   index: 0
 
-ghostKing.png
-size: 3600, 1036
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-angry_float
-  rotate: false
-  xy: 0, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 0
-angry_float
-  rotate: false
-  xy: 400, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 1
-angry_float
-  rotate: false
-  xy: 800, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 2
-angry_float
-  rotate: false
-  xy: 1200, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 3
-angry_float
-  rotate: false
-  xy: 1600, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 4
-angry_float
-  rotate: false
-  xy: 2000, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 5
-angry_float
-  rotate: false
-  xy: 2400, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 6
-angry_float
-  rotate: false
-  xy: 2800, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 7
-default
-  rotate: false
-  xy: 3200, 0
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 0
-normal-stationary
-  rotate: false
-  xy: 0, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 0
-normal-stationary
-  rotate: false
-  xy: 400, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 1
-normal-stationary
-  rotate: false
-  xy: 800, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 2
-normal-stationary
-  rotate: false
-  xy: 1200, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 3
-normal-stationary
-  rotate: false
-  xy: 1600, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 4
-normal-stationary
-  rotate: false
-  xy: 2000, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 5
-normal-stationary
-  rotate: false
-  xy: 2400, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 6
-normal-stationary
-  rotate: false
-  xy: 2800, 518
-  size: 400, 518
-  orig: 400, 518
-  offset: 0, 0
-  index: 7
-
 Sprint.png
 size: 2818, 524
 format: RGBA8888
@@ -679,4 +554,45 @@ default
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
+  index: 0
+
+IdleCharacters.png
+size: 1015, 462
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+normal-stationary
+  rotate: false
+  xy: 214, 1
+  size: 265, 431
+  orig: 400, 518
+  offset: 74, 50
+  index: 0
+damaged-stationary
+  rotate: false
+  xy: 481, 1
+  size: 265, 431
+  orig: 400, 518
+  offset: 63, 51
+  index: 0
+rough-stationary
+  rotate: false
+  xy: 748, 1
+  size: 266, 430
+  orig: 400, 518
+  offset: 67, 44
+  index: 0
+dead
+  rotate: true
+  xy: 1, 1
+  size: 460, 211
+  orig: 518, 400
+  offset: 11, 81
+  index: 0
+default
+  rotate: false
+  xy: 214, 1
+  size: 265, 431
+  orig: 400, 518
+  offset: 74, 50
   index: 0

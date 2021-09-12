@@ -49,7 +49,7 @@ public class PlayerStateComponent extends Component {
         else if (health == Health.ROUGH){
             switch (state) {
                 case STATIONARY:
-                    return "normal-stationary";
+                    return "rough-stationary";
                 case WALK:
                     return "rough-walk";
                 case SPRINT:
@@ -64,7 +64,7 @@ public class PlayerStateComponent extends Component {
         else if (health == Health.DAMAGED){
             switch (state) {
                 case STATIONARY:
-                    return "normal-stationary";
+                    return "damaged-stationary";
                 case WALK:
                     return "damaged-walk";
                 case SPRINT:

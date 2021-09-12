@@ -78,21 +78,19 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-stationary", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-walk", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-sprint", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-jump", 0.3f, Animation.PlayMode.LOOP);
-    //animator.addAnimation("rough-stationary", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-stationary", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("rough-walk", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("rough-sprint", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("rough-jump", 0.3f, Animation.PlayMode.LOOP);
-    //animator.addAnimation("damaged-stationary", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-stationary", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("damaged-walk", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("damaged-sprint", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("damaged-jump", 0.3f, Animation.PlayMode.LOOP);
-
-  //  walkAnimator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("dead", 0.4f, Animation.PlayMode.LOOP);
 
     // Starts the idle animation
     animator.startAnimation("normal-stationary");
