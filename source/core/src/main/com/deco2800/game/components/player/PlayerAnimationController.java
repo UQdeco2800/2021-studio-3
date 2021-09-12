@@ -1,7 +1,10 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.RenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * This class listens to events relevant to a player entity's state and plays the animation when one
@@ -14,14 +17,17 @@ public class PlayerAnimationController extends Component {
   public void create() {
     super.create();
     animator = this.entity.getComponent(AnimationRenderComponent.class);
-    entity.getEvents().addListener("startWalkAnimation", this::startAnimateWalk);
-    entity.getEvents().addListener("stopWalkAnimation", this::stopAnimateWalk);
+    entity.getEvents().addListener("ghostKingAngry", this::startGhostKingAngry);
+    entity.getEvents().addListener("ghostKingFloat", this::startGhostKingFloat);
+    entity.getEvents().addListener("walkAnimation", this::walkAnimation);
     entity.getEvents().addListener("updatePlayerStatusAnimation", this::updatePlayerStatusAnimation);
   }
 
-  void startAnimateWalk() {animator.startAnimation("angry_float");}
+  void startGhostKingAngry() {animator.startAnimation("angry_float");}
 
-  void stopAnimateWalk() {animator.startAnimation("float");}
+  void startGhostKingFloat() {animator.startAnimation("float");}
+
+  void walkAnimation() {animator.startAnimation("walkRight");}
 
   void updatePlayerStatusAnimation(int health) {
     if (health <= 90 && health > 50) {

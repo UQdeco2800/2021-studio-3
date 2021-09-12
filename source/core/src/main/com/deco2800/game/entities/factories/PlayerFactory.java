@@ -74,11 +74,24 @@ public class PlayerFactory {
     load();
     //Defining and Adding player related animation here
     //---------------------------------
+    // Adds Animations that can be used by the player
+    // Animations for when the player is standing still/idle
+//    AnimationRenderComponent idleAnimator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService().getAsset("images/ghostKing.atlas", TextureAtlas.class));
+//    idleAnimator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+//    idleAnimator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+
+    // Animations for when the player is walking
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/boxBoy.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("images/Walking.atlas", TextureAtlas.class));
+    animator.addAnimation("walkRight", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+  //  walkAnimator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
+
+    // Starts the idle animation
     animator.startAnimation("float");
 
     Entity player =

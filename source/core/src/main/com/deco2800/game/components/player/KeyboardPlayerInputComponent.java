@@ -33,6 +33,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   //private final Vector2 walkDirection = Vector2.Zero.cpy();
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
 
+  private State currentState = entity.getComponent(PlayerStateComponent.class).getState();
 
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
@@ -178,14 +179,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   private boolean jump(){
-    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
+    if (currentState != State.JUMP && currentState != State.SPRINT_JUMP
+            && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement
       for (int i = 0; i < 4; i++) {
         walkDirection.add(Vector2Utils.UP);
       }
-      triggerWalkEvent();
+      triggerJumpEvent();
       jumpingTimer.start();
       // Schedules to stop jumping and start falling
       jumpingTimer.scheduleTask(startFalling, 0.3f);
@@ -193,23 +195,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
-  void changeState(){
-
-  }
-
   private void triggerWalkEvent() {
-    if (walkDirection.epsilonEquals(gravity) && !isJumping) {
-      entity.getEvents().trigger("stopWalkAnimation");
+    if (walkDirection.epsilonEquals(gravity) && currentState != State.JUMP && currentState != State.SPRINT_JUMP) {
+      entity.getEvents().trigger("ghostKingFloat");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
-      entity.getEvents().trigger("startWalkAnimation");
+      entity.getEvents().trigger("walkAnimation");
     }
   }
 
   private void triggerSprintEvent(boolean sprinting) {
-    if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
-      return;
-    }
     entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
+  }
+
+  private void triggerJumpEvent() {
+    entity.getEvents().trigger("walk", walkDirection);
+    entity.getEvents().trigger("ghostKingAngry");
   }
 }
