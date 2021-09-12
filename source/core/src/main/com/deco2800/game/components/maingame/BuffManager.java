@@ -1,17 +1,21 @@
 package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BuffInformation;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.PlayerBuffs;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +55,15 @@ public class BuffManager extends Component {
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
+
+    Entity buffPickup;
+
+    /* Creation time of floating animation when player picks up a buff */
+    private long pickupCreationTime;
+
+
+
+
     /**
      * Tracks the different buff types in the game. Add new buff types here.
      *
@@ -85,11 +98,20 @@ public class BuffManager extends Component {
         DT_GIANT, DT_NO_JUMP, DT_DOUBLE_DMG
     }
 
+    public enum BuffPickup {
+        positive, negative
+    }
+
     /* The buffs which are currently sitting on the map */
     private LinkedHashMap<Entity, BuffInformation> currentBuffs;
 
     /* The buffs which are currently applied to the player, on a timer */
     private LinkedHashMap<Entity, BuffInformation> timedBuffs;
+
+
+    private LinkedHashMap<BuffPickup, List<Integer>> buffPickups;
+
+
 
 
     /**
@@ -103,7 +125,13 @@ public class BuffManager extends Component {
         this.mainGame = mainGame;
         this.currentBuffs = new LinkedHashMap<>();
         this.timedBuffs = new LinkedHashMap<>();
+        this.buffPickups = new LinkedHashMap<>();
         this.player = ((ForestGameArea) currentMap).getPlayer();
+        this.buffPickup = new Entity();
+        this.buffPickups.put(BuffPickup.positive, Arrays.asList(0, 0));
+        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0,0));
+
+
     }
 
     /**
@@ -124,7 +152,8 @@ public class BuffManager extends Component {
             case DT_GIANT:
                 return "images/winReplay.png";
             case B_HP_UP:
-                return "images/winMainMenu.png";
+                return "images/heart.png";
+                //return "images/winMainMenu.png";
             case D_HP_DOWN:
                 return "images/winContinue.png";
             case DT_NO_JUMP:
@@ -134,10 +163,22 @@ public class BuffManager extends Component {
             case DT_DOUBLE_DMG:
                 return "images/pauseRestart.png";
             case B_FULL_HEAL:
-                return "images/heart.png";
+                //return "images/heart.png";
+                return "images/winMainMenu.png";
         }
         return "images/box_boy.png"; // Default behaviour
     }
+
+    public String getPickupTexture(BuffPickup pickup) {
+        switch (pickup) {
+            case positive:
+                return "images/heart.png";
+            case negative:
+                return "images/box_boy.png";
+        }
+        return "images/heart.png";
+    }
+
 
     /**
      * Controls which action functions to call upon the player colliding with
@@ -150,15 +191,19 @@ public class BuffManager extends Component {
      * @param buff the buff which was hit
      * @param buffInfo information about the buff which was hit
      * */
-    private void selectBuffFunctionality(BuffTypes type, Entity buff,
+    public void selectBuffFunctionality(BuffTypes type, Entity buff,
             BuffInformation buffInfo) {
 
         /* PlayerBuffs functions to call when there is a new instant buff */
         switch (type) {
             case B_HP_UP:
+                buffInfo.setPickup(BuffPickup.positive);
+                this.buffPickups.get(BuffPickup.positive).set(0, 1);
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
             case D_HP_DOWN:
+                buffInfo.setPickup(BuffPickup.negative);
+                this.buffPickups.get(BuffPickup.negative).set(0, 1);
                 PlayerBuffs.reducePlayerHP(this.player);
                 return;
             case B_FULL_HEAL:
@@ -166,10 +211,11 @@ public class BuffManager extends Component {
                 return;
         }
 
-        // Timed buff stacking is not supported.
+        /* Stack buffs if the same timed buff is collided with */
         for (BuffInformation currentTimed : this.timedBuffs.values()) {
             if (currentTimed.getType() == buffInfo.getType()) {
-                logger.info("A buff of this type is already applied! Ignoring...");
+                /* Increase the duration of the buff */
+                currentTimed.increaseTimeout(buffInfo.getEffectTimeOut());
                 return;
             }
         }
@@ -271,6 +317,24 @@ public class BuffManager extends Component {
         return (ServiceLocator.getTimeSource().getTimeSince(timeOfCreation) >= 10 * SECONDS);
     }
 
+    private void spawnPickup() {
+        for (BuffPickup pickup: this.buffPickups.keySet()) {
+            if (this.buffPickups.get(pickup).get(0) == 1) {
+                pickupCreationTime = ServiceLocator.getTimeSource().getTime();
+                buffPickup = mainGame.getCurrentMap().spawnBuffDebuffPickup(pickup, this);
+                this.buffPickups.get(pickup).set(0, 0);
+                this.buffPickups.get(pickup).set(1, 1);
+            }
+            if (this.buffPickups.get(pickup).get(1) == 1) {
+                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 2 * SECONDS) {
+                    removeBuff(buffPickup);
+                    this.buffPickups.get(pickup).set(1, 0);
+                }
+            }
+        }
+    }
+
+
     @Override
     /**
      * Controls time-sensitive buff behaviour.
@@ -283,6 +347,9 @@ public class BuffManager extends Component {
      *   most recent one was placed, and places one.
      * */
     public void update() {
+
+        spawnPickup();
+
         /* Determine if stationary buffs should be removed from the map */
         List<Entity> timedOutBuffs = new ArrayList<>();
         for (Entity buff : this.currentBuffs.keySet()) {
@@ -362,4 +429,11 @@ public class BuffManager extends Component {
     public Collection<BuffInformation> test(){
         return this.timedBuffs.values();
     }
+    /**
+     * Returns the buffs which are currently sitting on the map.
+     * */
+    public Map<Entity, BuffInformation> getCurrentBuffs() {
+        return this.currentBuffs;
+    }
+
 }

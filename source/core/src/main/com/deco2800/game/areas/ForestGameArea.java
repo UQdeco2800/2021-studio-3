@@ -8,6 +8,9 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.FloatTask;
+import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -91,6 +94,8 @@ public class ForestGameArea extends GameArea {
   private Entity endOfMap;
 
   private int checkpoint;
+
+
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
     super();
     this.terrainFactory = terrainFactory;
@@ -137,6 +142,7 @@ public class ForestGameArea extends GameArea {
     spawnPlatform1();
     //spawnPlanet1();
     spawnUFO();
+    //spawnBuffDebuffPickup();
     //spawnAsteroids();
 
     //spawnGhosts();
@@ -410,8 +416,19 @@ public class ForestGameArea extends GameArea {
     Entity buff = BuffFactory.createBuff(BuffManager.BuffTypes.values()[pick],
             manager);
     spawnEntityAt(buff, randomPos, true, true);
-    logger.info("Just created and spawned a new buff!");
+    //logger.info("Just created and spawned a new buff!");
   }
+
+  public Entity spawnBuffDebuffPickup(BuffManager.BuffPickup pickup, BuffManager manager) {
+    Entity buffPickup = BuffFactory.createBuffAnimation(pickup, manager);
+
+    spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,
+            (int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().y), true, true);
+    logger.info("Just released a buff pickup");
+    return buffPickup;
+  }
+
+
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);

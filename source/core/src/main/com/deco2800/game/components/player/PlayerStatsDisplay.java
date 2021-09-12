@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -195,6 +196,11 @@ public class PlayerStatsDisplay extends UIComponent {
     }
   }
 
+  public Vector2 getPlayerPosition() {
+    return entity.getPosition();
+  }
+
+
   /**
    * Updates the player's health on the ui.
    * @param health player health
@@ -214,10 +220,12 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updateBuffDisplay(Collection<BuffInformation> buffInfo) {
     String text = ((String) this.buffText);
 
-    /* Add the names of currently active buffs */
+    /* Add the names & time remaining of currently active buffs */
     for (BuffInformation info : buffInfo) {
       String buffName = info.getBuffName();
-      text = text.concat(buffName + "\n");
+      double timeRemaining = Math.ceil(info.getTimeLeft() * 0.001);
+
+      text = text.concat(buffName + " " + timeRemaining + "..." + "\n");
     }
 
     /* Update */

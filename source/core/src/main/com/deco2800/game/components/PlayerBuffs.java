@@ -29,6 +29,11 @@ public abstract class PlayerBuffs {
         logger.info("Increased the players health!");
     }
 
+    /**
+     * Applies invincibility to the player.
+     *
+     * @param player the player
+     * */
     public static void applyInvincibility(Entity player) {
         player.getComponent(CombatStatsComponent.class).setInvincibility(true);
     }
@@ -38,6 +43,11 @@ public abstract class PlayerBuffs {
         player.getComponent(SprintComponent.class).setStamina(true);
     }
 
+    /**
+     * Sets the player's health to the max value.
+     *
+     * @param player the player
+     * */
     public static void setHealthFull(Entity player) {
         player.getComponent(CombatStatsComponent.class).setFullHeal();
     }
@@ -50,16 +60,15 @@ public abstract class PlayerBuffs {
     }
 
     public static void makePlayerGiant(Entity player) {
-        // Implement making the player giant
-        // Works (sort of), but isn't great right now since the map is so small.
-
-        /*
-        player.setScale(new Vector2(6,6));
-        player.getComponent(HitboxComponent.class).setAsBox(new Vector2(6,6));
-        */
-
+        //player.setScale(new Vector2(6,6));
+        //player.getComponent(HitboxComponent.class).makeBoundingBox();
     }
 
+    /**
+     * Causes any damage inflicted on the player to be doubled.
+     *
+     * @param player the player.
+     * */
     public static void setDoubleHurt(Entity player) {
         player.getComponent(CombatStatsComponent.class).setDoubleHurt(true);
     }
@@ -102,10 +111,20 @@ public abstract class PlayerBuffs {
 
     /** --- Removing the effects of timed buffs / debuffs --- **/
 
+    /**
+     * Removes invincibility from the player.
+     *
+     * @param player the player.
+     * */
     public static void removeInvincibility(Entity player) {
         player.getComponent(CombatStatsComponent.class).setInvincibility(false);
     }
 
+    /**
+     * Sets all damage inflicted on the player back to it's normal amount.
+     *
+     * @param player the player.
+     * */
     public static void removeDoubleHurt(Entity player) {
         player.getComponent(CombatStatsComponent.class).setDoubleHurt(false);
     }
@@ -115,12 +134,10 @@ public abstract class PlayerBuffs {
     }
 
     public static void makeStaminaFinite(Entity player) {
-        // Implement the player losing stamina when they sprint (default)
         player.getComponent(SprintComponent.class).setStamina(false);
     }
 
     public static void removeNoJumping(Entity player) {
-        // Implement allowing the player to jump again (default)
         player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(false);
     }
 }
