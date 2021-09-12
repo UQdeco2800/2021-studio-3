@@ -420,8 +420,6 @@ public class ForestGameArea extends GameArea {
   }
 
   public Entity spawnBuffDebuffPickup(BuffManager.BuffPickup pickup, BuffManager manager) {
-
-
     Entity buffPickup = BuffFactory.createBuffAnimation(pickup, manager);
 
     spawnEntityAt(buffPickup, new GridPoint2((int) player.getComponent(PlayerStatsDisplay.class).getPlayerPosition().x,

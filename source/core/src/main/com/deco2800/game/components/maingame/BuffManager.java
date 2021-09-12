@@ -55,24 +55,13 @@ public class BuffManager extends Component {
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
-    /* When player picks up HP booster buff */
-    private boolean HPUp;
-
-    /* When player picks up HP debuff */
-    private boolean HPDown;
-
-    private boolean floatOnMapUp;
-
-    private boolean floatOnMapDown;
 
     Entity buffPickup;
-    Entity buffPickupDown;
 
-    /* Creation time of floating animation when player gains HP from a buff */
-    private long pickupCreationTimeUp;
+    /* Creation time of floating animation when player picks up a buff */
+    private long pickupCreationTime;
 
-    /* Creation time of floating animation when player loses HP from a buff */
-    private long pickupCreationTimeDown;
+
 
 
     /**
@@ -120,6 +109,9 @@ public class BuffManager extends Component {
     private LinkedHashMap<Entity, BuffInformation> timedBuffs;
 
 
+    private LinkedHashMap<BuffPickup, List<Integer>> buffPickups;
+
+
 
 
     /**
@@ -133,13 +125,12 @@ public class BuffManager extends Component {
         this.mainGame = mainGame;
         this.currentBuffs = new LinkedHashMap<>();
         this.timedBuffs = new LinkedHashMap<>();
+        this.buffPickups = new LinkedHashMap<>();
         this.player = ((ForestGameArea) currentMap).getPlayer();
-        this.HPUp = false;
-        this.HPDown = false;
-        this.floatOnMapUp = false;
-        this.floatOnMapDown = false;
         this.buffPickup = new Entity();
-        this.buffPickupDown = new Entity();
+        this.buffPickups.put(BuffPickup.positive, Arrays.asList(0, 0));
+        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0,0));
+
 
     }
 
@@ -207,12 +198,12 @@ public class BuffManager extends Component {
         switch (type) {
             case B_HP_UP:
                 buffInfo.setPickup(BuffPickup.positive);
-                this.HPUp = true;
+                this.buffPickups.get(BuffPickup.positive).set(0, 1);
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
             case D_HP_DOWN:
                 buffInfo.setPickup(BuffPickup.negative);
-                this.HPDown = true;
+                this.buffPickups.get(BuffPickup.negative).set(0, 1);
                 PlayerBuffs.reducePlayerHP(this.player);
                 return;
             case B_FULL_HEAL:
@@ -326,6 +317,23 @@ public class BuffManager extends Component {
         return (ServiceLocator.getTimeSource().getTimeSince(timeOfCreation) >= 10 * SECONDS);
     }
 
+    private void spawnPickup() {
+        for (BuffPickup pickup: this.buffPickups.keySet()) {
+            if (this.buffPickups.get(pickup).get(0) == 1) {
+                pickupCreationTime = ServiceLocator.getTimeSource().getTime();
+                buffPickup = mainGame.getCurrentMap().spawnBuffDebuffPickup(pickup, this);
+                this.buffPickups.get(pickup).set(0, 0);
+                this.buffPickups.get(pickup).set(1, 1);
+            }
+            if (this.buffPickups.get(pickup).get(1) == 1) {
+                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 2 * SECONDS) {
+                    removeBuff(buffPickup);
+                    this.buffPickups.get(pickup).set(1, 0);
+                }
+            }
+        }
+    }
+
 
     @Override
     /**
@@ -340,36 +348,7 @@ public class BuffManager extends Component {
      * */
     public void update() {
 
-        if (HPUp) {
-            pickupCreationTimeUp = ServiceLocator.getTimeSource().getTime();
-            buffPickup = mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.positive, this);
-            HPUp = false;
-            floatOnMapUp = true;
-        }
-
-        if (floatOnMapUp) {
-            if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTimeUp) >= 2 * SECONDS) {
-                removeBuff(buffPickup);
-                floatOnMapUp = false;
-            }
-        }
-
-        if (HPDown) {
-            pickupCreationTimeDown = ServiceLocator.getTimeSource().getTime();
-            buffPickupDown = mainGame.getCurrentMap().spawnBuffDebuffPickup(BuffPickup.negative, this);
-            HPDown = false;
-            floatOnMapDown = true;
-        }
-
-        if (floatOnMapDown) {
-            if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTimeDown) >= 2 * SECONDS) {
-                removeBuff(buffPickupDown);
-                floatOnMapDown = false;
-            }
-        }
-        /*if (buffPickup != null) {
-            removeBuff(buffPickup);
-        }*/
+        spawnPickup();
 
         /* Determine if stationary buffs should be removed from the map */
         List<Entity> timedOutBuffs = new ArrayList<>();
