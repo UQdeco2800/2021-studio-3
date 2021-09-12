@@ -18,16 +18,21 @@ import com.deco2800.game.ui.UIComponent;
 import java.util.Collection;
 
 
+
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  Table table2;
-  Table table3;
+  Table sprintTable;
+  Table progressTable;
+  Table livesTable;
+  
   private Image heartImage;
-  private Label healthLabel;
+  private Image levelStatus;
+  private Image livesImage;
 
+  private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
 
@@ -42,7 +47,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level90percent;
   private Texture levelComplete;
 
-  private Image levelStatus;
 
 
   AssetManager manager;
@@ -81,16 +85,21 @@ public class PlayerStatsDisplay extends UIComponent {
     table.setFillParent(true);
     table.padTop(45f).padLeft(5f);
 
-    table2 = new Table();
-    table2.top().left();
-    table2.setFillParent(true);
-    table2.padTop(75f).padLeft(5f);
+    sprintTable = new Table();
+    sprintTable.top().left();
+    sprintTable.setFillParent(true);
+    sprintTable.padTop(75f).padLeft(5f);
 
-    table3 = new Table();
-    table3.top();
-    table3.setFillParent(true);
-    table3.padTop(25f);
-
+    progressTable = new Table();
+    progressTable.top();
+    progressTable.setFillParent(true);
+    progressTable.padTop(25f);
+    
+    livesTable = new Table();
+    livesTable.top();
+    livesTable.setFillParent(true);
+    livesTable.padTop(25f).padLeft(5f);
+    
     // Heart image
     float heartSideLength = 30f;
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
@@ -102,6 +111,7 @@ public class PlayerStatsDisplay extends UIComponent {
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
+
 
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/00.png");
@@ -121,12 +131,17 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence progressText = String.format("%.0f %%", progress);
     progressLabel = new Label(progressText, skin, "large");
 
+    //Lives image
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
+
+
+    //Adding elements to each table, subsequently adding them to the stage
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel).pad(5);
     stage.addActor(table);
 
-    table2.add(sprintLabel).pad(5);
-    stage.addActor(table2);
+    sprintTable.add(sprintLabel).pad(5);
+    stage.addActor(sprintTable);
 
     /* Buff-related UI elements */
     buffText = "Current buffs: \n";
@@ -141,9 +156,9 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(buffTable);
 
     levelStatus = new Image(levelStart);
-    table3.add(levelStatus).size(600, 250);
-    table3.add(progressLabel);
-    stage.addActor(table3);
+    progressTable.add(levelStatus).size(600, 250);
+    progressTable.add(progressLabel);
+    stage.addActor(progressTable);
   }
 
   @Override
@@ -287,7 +302,6 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
   }
-
 
 
   @Override

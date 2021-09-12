@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 import com.badlogic.gdx.utils.Timer;
-import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.deco2800.game.components.maingame.MainGameActions;import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -22,14 +19,18 @@ import org.slf4j.LoggerFactory;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
 
+  /**
+   * SPRINT MODIFIER - This can be changed (when buffed, etc.)
+   * Change this value to control how fast the player moves whilst under the effect of sprint
+   */
+  public static int SPRINT_MODIFIER = 2;
 
-  //OLD VARIABLE - private final Vector2 walkDirection = Vector2.Zero.cpy();
   public final Vector2 gravity = new Vector2(0, -1f); // Value of gravity on player for comparing
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
 
-  //private final Vector2 walkDirection = Vector2.Zero.cpy();
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
 
+  //public State currentState = entity.getComponent(PlayerStateComponent.class).getState();
 
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
@@ -48,13 +49,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
         //if sprint has fully depleted
         if (walkDirection.x > 1) {
-          walkDirection.sub(Vector2Utils.RIGHT);
+          walkDirection.sub(Vector2Utils.RIGHT.cpy().scl(SPRINT_MODIFIER - 1));
         }
         if (walkDirection.x < -1) {
-          walkDirection.sub(Vector2Utils.LEFT);
+          walkDirection.sub(Vector2Utils.LEFT.cpy().scl(SPRINT_MODIFIER - 1));
         }
         sprintTimer.stop();
         isSprinting = false;
+        entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       }
     }
   };
@@ -81,7 +83,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     public void run(){
       fallingTimer.stop();
       isJumping = false;
-      triggerWalkEvent();
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+      triggerMovementEvent();
       stopFalling.cancel();
     }
   };
@@ -102,64 +105,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
-
     switch (keycode) {
       case Keys.SPACE:
-        if (!isJumping && !startFalling.isScheduled() &&
-                !stopFalling.isScheduled() && !noJumping) {
-          isJumping = true;
-          // Adds 4 m/s to upwards movement
-          for (int i = 0; i < 4; i++) {
-            walkDirection.add(Vector2Utils.UP);
-          }
-          triggerWalkEvent();
-          jumpingTimer.start();
-          // Schedules to stop jumping and start falling
-          jumpingTimer.scheduleTask(startFalling, 0.3f);
-        }
-        return true;
+        return jump();
       case Keys.A:
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          //if sprint is active before moving, add twice the speed
-          walkDirection.add(Vector2Utils.LEFT);
-          walkDirection.add(Vector2Utils.LEFT);
-          triggerWalkEvent();
-          return true;
-        }
-        walkDirection.add(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
+        return handleWalk('A', "DOWN");
       case Keys.D:
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          //if sprint is active before moving, add twice the speed
-          walkDirection.add(Vector2Utils.RIGHT);
-          walkDirection.add(Vector2Utils.RIGHT);
-          triggerWalkEvent();
-          return true;
-        }
-        walkDirection.add(Vector2Utils.RIGHT);
-        triggerWalkEvent();
-        return true;
+        return handleWalk('D', "DOWN");
       case Keys.SHIFT_LEFT:
-        // Cannot be jumping and sprinting at the same time
-        //if (!isJumping) {
-        if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
-          return true;
-        }
-        sprintTimer.start();
-        if (firstSprint) {
-          firstSprint = false;
-          sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
-        }
-        triggerSprintEvent(true);
-        isSprinting = true;
-        //}
-        return true;
+          return handleSprint(true);
       default:
         return false;
     }
   }
-
   /**
    * Triggers player events on specific keycodes.
    *
@@ -170,49 +128,83 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Keys.A:
-        walkDirection.sub(Vector2Utils.LEFT);
-        //if sprinting, remove additional speed on key up
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          walkDirection.sub(Vector2Utils.LEFT);
-        }
-        triggerWalkEvent();
-        return true;
+        return handleWalk('A', "UP");
       case Keys.D:
-        walkDirection.sub(Vector2Utils.RIGHT);
-        //if sprinting, remove additional speed on key up
-        if (entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting) {
-          walkDirection.sub(Vector2Utils.RIGHT);
-        }
-        triggerWalkEvent();
-        return true;
+        return handleWalk('D', "UP");
       case Keys.SHIFT_LEFT:
-        //if (removeSprint.isScheduled()) {
-        sprintTimer.stop();
-        isSprinting = false;
-        triggerSprintEvent(false);
-        //}
-        return true;
+        return handleSprint(false);
       default:
         return false;
     }
   }
 
-  private void triggerWalkEvent() {
-    if (walkDirection.epsilonEquals(gravity) && !isJumping) {
-      entity.getEvents().trigger("stopWalkAnimation");
-    } else {
-      entity.getEvents().trigger("walk", walkDirection);
-      entity.getEvents().trigger("startWalkAnimation");
+  private boolean handleWalk(char Key, String keyState){
+    Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
+    int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
+    if (scalar == 1){
+      entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
     }
+    if (keyState.equals("DOWN")){
+      //on KeyDown
+      walkDirection.add(direction.cpy().scl(scalar));
+    } else {
+      //on KeyUp
+      walkDirection.sub(direction.cpy().scl(scalar));
+      entity.getComponent(PlayerStateComponent.class).updateState(State.STATIONARY);
+    }
+    triggerMovementEvent();
+    return true;
+  }
+
+  private boolean handleSprint(boolean keyDown){
+    if (keyDown){
+      if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
+        return true;
+      }
+      sprintTimer.start();
+      if (firstSprint) {
+        firstSprint = false;
+        sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
+      }
+      triggerSprintEvent(true);
+      isSprinting = true;
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+      return true;
+    }
+    sprintTimer.stop();
+    isSprinting = false;
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+    triggerSprintEvent(false);
+    return true;
+  }
+
+  private boolean jump(){
+    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled() && !noJumping) {
+      isJumping = true;
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+      // Adds 4 m/s to upwards movement
+      for (int i = 0; i < 4; i++) {
+        walkDirection.add(Vector2Utils.UP);
+      }
+      triggerMovementEvent();
+      jumpingTimer.start();
+      // Schedules to stop jumping and start falling
+      jumpingTimer.scheduleTask(startFalling, 0.3f);
+    }
+    return true;
+  }
+
+  private void triggerMovementEvent() {
+    entity.getEvents().trigger("walk", walkDirection);
+    entity.getEvents().trigger("playerStatusAnimation");
   }
 
   private void triggerSprintEvent(boolean sprinting) {
     if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
       return;
     }
-    // Cannot be jumping and sprinting at the same time
-    //if (!isJumping) {
-      entity.getEvents().trigger("sprint", walkDirection, sprinting);
-    //}
+    entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
+    entity.getEvents().trigger("playerStatusAnimation");
   }
+
 }
