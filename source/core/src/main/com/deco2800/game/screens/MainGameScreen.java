@@ -123,8 +123,9 @@ public class MainGameScreen extends ScreenAdapter {
     manager.load("images/winMainMenu.png", Texture.class);
     manager.load("images/winContinue.png", Texture.class);
     manager.load("images/doubleHurt.png", Texture.class);
-    manager.load("images/box_boy.png", Texture.class);
+    manager.load("images/infiniteSprint.png", Texture.class);
     manager.load("images/heart.png", Texture.class);
+    manager.load("images/noJumping.png", Texture.class);
     manager.finishLoading();
     return manager;
   }
