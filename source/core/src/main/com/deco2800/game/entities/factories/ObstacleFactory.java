@@ -11,13 +11,21 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
+
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
+
+import com.deco2800.game.components.npc.UfoAnimationController;
+
 import com.deco2800.game.components.tasks.ChaseTask;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 
+
 import com.deco2800.game.components.tasks.WaitTask;
+
+import com.deco2800.game.components.tasks.FallTask;
+
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -193,19 +201,31 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f));
+                    //.addTask(new FallTask(5f));
+                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
+                    .addTask(new ChaseTask(target, 2,2f,2.5f));
+
     Entity ufo = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-            .addComponent(new TextureRenderComponent("images/ufo_2.png"))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(aiComponent);
-    ufo.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-    ufo.getComponent(TextureRenderComponent.class).scaleEntity();
-    ufo.scaleHeight(1f);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
+    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
+
+    ufo.addComponent(animator);
+    ufo.addComponent(new UfoAnimationController());
+
+    ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
+    PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
+    ufo.scaleHeight(3f);
     return ufo;
 
   }
