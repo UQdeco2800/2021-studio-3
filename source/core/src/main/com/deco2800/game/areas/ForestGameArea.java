@@ -51,64 +51,50 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-          "images/surface.png",
-          "images/underground.png",
-          "images/sky.png",
-          "images/untouchedCheckpoint.png",
-
-          "images/broken_asteriod.png",
-          "images/asteroid_fire1.png",
-          "images/robot1.png",
-          "images/rock1.png",
-          "images/rock2.png",
-          "images/rock3.png",
-          "images/rock4.png",
-          "images/asteroid.png",
-          "images/asteroid_2.png",
-          "images/platform1.png",
-          "images/platform2.png",
-          "images/platform3.png",
-          "images/platform4.png",
-          "images/platform5.png",
-          "images/building_1.png",
-          "images/planet1.png",
-          "images/ufo_2.png",
-
-          "images/rock_platform.png",
-          "images/Walking.png",
-          "images/WalkingDamage90-50.png",
-          "images/WalkingDamage50-10.png",
-          "images/Sprint.png",
-          "images/SprintDamage(50-90).png",
-          "images/SprintDamage(10-50).png",
-          "images/Jump.png",
-          "images/JumpDamage(50-90).png",
-          "images/JumpDamage(10-50).png",
-
-          "images/IdleCharacters.png",
-          "images/rock_platform.png",
-          "images/background_stars.png",
-          "images/background_sky.png",
-          "images/background_rock.png",
-          "images/background_star.png",
-          "images/background_surface.png"
-
+    "images/surface.png",
+    "images/underground.png",
+    "images/sky.png",
+    "images/untouchedCheckpoint.png",
+    "images/broken_asteriod.png",
+    "images/asteroid_fire1.png",
+    "images/robot1.png",
+    "images/rock1.png",
+    "images/rock2.png",
+    "images/rock3.png",
+    "images/rock4.png",
+    "images/asteroid.png",
+    "images/asteroid_2.png",
+    "images/platform1.png",
+    "images/platform2.png",
+    "images/platform3.png",
+    "images/platform4.png",
+    "images/platform5.png",
+    "images/building_1.png",
+    "images/planet1.png",
+    "images/ufo_2.png",
+    "images/rock_platform.png",
+    "images/Walking.png",
+    "images/WalkingDamage90-50.png",
+    "images/WalkingDamage50-10.png",
+    "images/Sprint.png",
+    "images/SprintDamage(50-90).png",
+    "images/SprintDamage(10-50).png",
+    "images/Jump.png",
+    "images/JumpDamage(50-90).png",
+    "images/JumpDamage(10-50).png",
+    "images/IdleCharacters.png",
+    "images/rock_platform.png",
+    "images/background_stars.png",
+    "images/background_sky.png",
+    "images/background_rock.png",
+    "images/background_star.png",
+    "images/background_surface.png"
   };
   private static final String[] forestTextureAtlases = {
 
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas", "images/ufo_animation.atlas", "images/boxBoy.atlas", "images/PlayerMovementAnimations.atlas"
-//
-//
-//          "images/Walking.png",
-//          "images/WalkingDamage90-50.png",
-//          "images/WalkingDamage50-10.png",
-//          "images/Sprint.png",
-//          "images/SprintDamage(50-90).png",
-//          "images/SprintDamage(10-50).png",
-//          "images/Jump.png",
-//          "images/JumpDamage(50-90).png",
-//          "images/JumpDamage(10-50).png",
-//          "images/IdleCharacters.png"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
+          "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
+          "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -365,12 +351,6 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(checkpoint, checkPoint, true, false);
 
   }
-
-
-
-
-
-
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
