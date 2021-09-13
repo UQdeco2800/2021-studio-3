@@ -81,6 +81,8 @@ public class BuffFactory {
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(buffComponent);
+        buffPickup.scaleHeight(0.5f);
+        buffPickup.scaleWidth(0.5f);
 
         return buffPickup;
     }

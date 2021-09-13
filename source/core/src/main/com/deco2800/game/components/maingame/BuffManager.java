@@ -325,7 +325,7 @@ public class BuffManager extends Component {
                 this.buffPickups.get(pickup).set(1, 1);
             }
             if (this.buffPickups.get(pickup).get(1) == 1) {
-                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 1.5 * SECONDS) {
+                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 1 * SECONDS) {
                     removeBuff(buffPickup);
                     this.buffPickups.get(pickup).set(1, 0);
                 }
