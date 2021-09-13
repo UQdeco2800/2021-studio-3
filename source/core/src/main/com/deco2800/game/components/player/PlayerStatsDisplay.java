@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.components.*;
 
@@ -26,6 +26,9 @@ import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+
+import java.util.Collection;
+
 
 
 /**
@@ -67,6 +70,10 @@ public class PlayerStatsDisplay extends UIComponent {
   AssetManager manager;
   TextureRegion  textureRegion;
 
+  /* Buff-related UI elements */
+  private CharSequence buffText;
+  private Label buffLabel;
+
   public PlayerStatsDisplay(AssetManager manager,TextureRegion textureRegion){
     this.manager = manager;
     this.textureRegion = textureRegion;
@@ -92,7 +99,13 @@ public class PlayerStatsDisplay extends UIComponent {
    * @see Table for positioning options
    */
   private void addActors() {
+    // Heart image
+    float heartSideLength = 30f;
 
+    // HUD icon images
+    float iconSideLength = 30f;
+
+    /* Tables for UI Elements */
     table = new Table();
     table.top().left();
     table.setFillParent(true);
@@ -123,16 +136,25 @@ public class PlayerStatsDisplay extends UIComponent {
     
     // Heart image
     float heartSideLength = 30f;
+    
+    livesTable = new Table();
+    livesTable.top();
+    livesTable.setFillParent(true);
+    livesTable.padTop(25f).padLeft(5f);
 
     livesTable = new Table();
     livesTable.top().left();
     livesTable.setFillParent(true);
     livesTable.padTop(125f).padLeft(5f);
 
-    // HUD icon images
-    float iconSideLength = 30f;
+    Table buffTable = new Table();
+    buffTable.top().left();
+    buffTable.setFillParent(true);
+    buffTable.padTop(150f).padLeft(5f);
 
+    /* Images for UI */
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
     livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
 
     // Health text
@@ -148,6 +170,21 @@ public class PlayerStatsDisplay extends UIComponent {
     int score = entity.getComponent(ScoreComponent.class).getScore();
     CharSequence scoreText = String.format("score: %d", score);
     scoreLabel = new Label(scoreText, skin, "large");
+    // Buff-related Text
+    buffText = "Current buffs: \n";
+    buffLabel = new Label(buffText, skin, "large");
+    buffTable.add(buffLabel);
+
+    //Progress Text
+    float progress = entity.getComponent(ProgressComponent.class).getProgress();
+    CharSequence progressText = String.format("%.0f %%", progress);
+    progressLabel = new Label(progressText, skin, "large");
+
+    //Lives text
+    int lives = entity.getComponent(LivesComponent.class).getLives();
+    CharSequence livesText = String.format("x%d", lives);
+    livesLabel = new Label(livesText, skin, "large");
+
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/00.png");
     level10percent = new Texture("images/10.png");
@@ -161,14 +198,6 @@ public class PlayerStatsDisplay extends UIComponent {
     level90percent = new Texture("images/90.png");
     levelComplete = new Texture("images/levelComplete.png");
 
-    //Progress Text
-    float progress = entity.getComponent(ProgressComponent.class).getProgress();
-    CharSequence progressText = String.format("%.0f %%", progress);
-    progressLabel = new Label(progressText, skin, "large");
-
-    //Lives image
-    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
-
 
     //Adding elements to each table, subsequently adding them to the stage
     table.add(heartImage).size(heartSideLength).pad(5);
@@ -177,11 +206,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     sprintTable.add(sprintLabel).pad(5);
     stage.addActor(sprintTable);
-
-    //Lives text
-    int lives = entity.getComponent(LivesComponent.class).getLives();
-    CharSequence livesText = String.format("x%d", lives);
-    livesLabel = new Label(livesText, skin, "large");
 
     //Adding elements to tables
     healthTable.add(heartImage).size(iconSideLength).pad(5);
@@ -207,6 +231,7 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(sprintTable);
     stage.addActor(progressTable);
     stage.addActor(livesTable);
+    stage.addActor(buffTable);
   }
 
   @Override
@@ -259,6 +284,11 @@ public class PlayerStatsDisplay extends UIComponent {
     }
   }
 
+  public Vector2 getPlayerPosition() {
+    return entity.getPosition();
+  }
+
+
   /**
    * Updates the player's health on the ui.
    * @param health player health
@@ -267,6 +297,27 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     entity.getEvents().trigger("updatePlayerStatusAnimation", health);
     healthLabel.setText(text);
+  }
+
+  /**
+   * Updates the players' currently active timed buffs and debuffs on the UI.
+   *
+   * @param buffInfo a collection of BuffInfo's for the currently active timed
+   *                 buffs. Gives the UI access to the name of the buff.
+   * */
+  public void updateBuffDisplay(Collection<BuffInformation> buffInfo) {
+    String text = ((String) this.buffText);
+
+    /* Add the names & time remaining of currently active buffs */
+    for (BuffInformation info : buffInfo) {
+      String buffName = info.getBuffName();
+      double timeRemaining = Math.ceil(info.getTimeLeft() * 0.001);
+
+      text = text.concat(buffName + " " + timeRemaining + "..." + "\n");
+    }
+
+    /* Update */
+    buffLabel.setText(text);
   }
 
   /**

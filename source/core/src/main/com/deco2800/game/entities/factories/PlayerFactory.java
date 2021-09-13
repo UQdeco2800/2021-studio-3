@@ -14,7 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.*;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -77,7 +79,8 @@ public class PlayerFactory {
     // Adds Animations that can be used by the player
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas",
+                            TextureAtlas.class));
     animator.addAnimation("normal-stationary", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-walk", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("normal-sprint", 0.1f, Animation.PlayMode.LOOP);

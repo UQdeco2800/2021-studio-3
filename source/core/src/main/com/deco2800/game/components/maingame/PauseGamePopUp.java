@@ -53,11 +53,13 @@ public class PauseGamePopUp extends UIComponent {
      * */
     public void createUI() {
         logger.debug("Creating pause game ui");
-        ui = new Entity();
-        ui.addComponent(new PauseGameActions(game, ui, entity))
-                .addComponent(new PauseGameDisplay(handler));
+        if (game.getState() != GdxGame.GameState.OVER) {
+            ui = new Entity();
+            ui.addComponent(new PauseGameActions(game, ui, entity))
+                    .addComponent(new PauseGameDisplay(handler));
 
-        ServiceLocator.getEntityService().register(ui);
+            ServiceLocator.getEntityService().register(ui);
+        }
 
     }
 
