@@ -60,7 +60,7 @@ public class TerminalDisplay extends UIComponent {
     } else {
       label.setVisible(false);
     }
-    Collection<BuffInformation> buffs = entity.getComponent(BuffManager.class).test();
+    Collection<BuffInformation> buffs = entity.getComponent(BuffManager.class).getTimedBuffs();
     float i = 0f;
     for (BuffInformation buff:buffs) {
       if(Objects.equals(buff.getType().toString(), "BT_INVIN")){
