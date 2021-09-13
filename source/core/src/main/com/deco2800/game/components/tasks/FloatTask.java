@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.ai.tasks.Task;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,8 @@ public class FloatTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(FloatTask.class);
 
     private final Vector2 wanderRange;
-
     private Vector2 startPos;
     private MovementTask movementTask;
-
 
 
     /**

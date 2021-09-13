@@ -58,8 +58,6 @@ public class BuffManager extends Component {
     private long pickupCreationTime;
 
 
-
-
     /**
      * Tracks the different buff types in the game. Add new buff types here.
      *
@@ -126,8 +124,6 @@ public class BuffManager extends Component {
         this.buffPickup = new Entity();
         this.buffPickups.put(BuffPickup.positive, Arrays.asList(0, 0));
         this.buffPickups.put(BuffPickup.negative, Arrays.asList(0, 0));
-
-
     }
 
     /**
@@ -147,33 +143,45 @@ public class BuffManager extends Component {
                 return "images/ghostKing.png";
                 //return "images/invincible.png";
             case B_HP_UP:
-                return "images/heart.png";
-                //return "images/winMainMenu.png";
+                return "images/winMainMenu.png";
+                //return "images/healthIncrease.png";
             case D_HP_DOWN:
                 return "images/winContinue.png";
                 // return "images/healthDecrease.png";
             case DT_NO_JUMP:
                 return "images/box_boy.png";
+                //return "images/noJumping.png";
             case BT_INF_SPRINT:
                 return "images/box_boy.png";
+                //return "images/infiniteSprint.png";
             case DT_DOUBLE_DMG:
                 return "images/pauseRestart.png";
                 // return "images/doubleHurt.png";
             case B_FULL_HEAL:
-                //return "images/heart.png";
-                return "images/winMainMenu.png";
+                return "images/heart.png";
         }
         return "images/box_boy.png"; // Default behaviour
     }
 
+    /**
+     * Returns the texture associated with a particular pickup
+     *
+     * @param pickup the type of pickup the player hit
+     * @return the filepath to the texture for this pickup. This filepath must
+     * be in the MainGameScreens' buffsAndDebuffs String[], or otherwise loaded
+     * by the MainGameScreen, to work.
+     * */
     public String getPickupTexture(BuffPickup pickup) {
         switch (pickup) {
             case positive:
                 return "images/heart.png";
+                //return "images/healthIncrease.png";
             case negative:
                 return "images/box_boy.png";
+                //return "images/healthDecrease.png";
+
         }
-        return "images/heart.png";
+        return "images/heart.png"; // Default behaviour
     }
 
 
@@ -323,7 +331,7 @@ public class BuffManager extends Component {
                 this.buffPickups.get(pickup).set(1, 1);
             }
             if (this.buffPickups.get(pickup).get(1) == 1) {
-                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 1.5 * SECONDS) {
+                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 1 * SECONDS) {
                     removeBuff(buffPickup);
                     this.buffPickups.get(pickup).set(1, 0);
                 }
@@ -423,7 +431,10 @@ public class BuffManager extends Component {
         this.lastBuffSpawn = info.getTimeOfCreation();
     }
 
-    public Collection<BuffInformation> test(){
+    /**
+     * Returns the buffs which are currently affecting the player
+     * */
+    public Collection<BuffInformation> getTimedBuffs(){
         return this.timedBuffs.values();
     }
 
