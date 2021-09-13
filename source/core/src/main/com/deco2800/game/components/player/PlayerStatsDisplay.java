@@ -1,7 +1,9 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -34,19 +36,17 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table2;
   Table table3;
   Table table4;
-  private Image heartImage;
 
-  private Label healthLabel;
-  private Label scoreLabel;
+  Table healthTable;
   Table sprintTable;
   Table progressTable;
   Table livesTable;
-  
+
   private Image heartImage;
   private Image levelStatus;
-  Table healthTable;
   private Image livesImage;
 
+  private Label scoreLabel;
   private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
@@ -84,7 +84,6 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
     entity.getEvents().addListener("updateScore", this::updateScoreUI);
-
     entity.getEvents().addListener("updateLives", this::updateLivesUI);
   }
 
@@ -113,18 +112,14 @@ public class PlayerStatsDisplay extends UIComponent {
     table4 = new Table();
     table4.top().left();
     table4.setFillParent(true);
-    table4.padTop(100f).padLeft(5f);
+    table4.padTop(150f).padLeft(5f);
 
     progressTable = new Table();
     progressTable.top();
     progressTable.setFillParent(true);
     progressTable.padTop(25f);
 
-    
-    livesTable = new Table();
-    livesTable.top();
-    livesTable.setFillParent(true);
-    livesTable.padTop(25f).padLeft(5f);
+
     
     // Heart image
     float heartSideLength = 30f;
@@ -132,7 +127,7 @@ public class PlayerStatsDisplay extends UIComponent {
     livesTable = new Table();
     livesTable.top().left();
     livesTable.setFillParent(true);
-    livesTable.padTop(115f).padLeft(5f);
+    livesTable.padTop(125f).padLeft(5f);
 
     // HUD icon images
     float iconSideLength = 30f;
@@ -153,7 +148,6 @@ public class PlayerStatsDisplay extends UIComponent {
     int score = entity.getComponent(ScoreComponent.class).getScore();
     CharSequence scoreText = String.format("score: %d", score);
     scoreLabel = new Label(scoreText, skin, "large");
-
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/00.png");
     level10percent = new Texture("images/10.png");

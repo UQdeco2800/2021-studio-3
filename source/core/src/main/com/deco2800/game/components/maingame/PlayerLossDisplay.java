@@ -2,6 +2,7 @@ package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -16,9 +17,10 @@ public class PlayerLossDisplay extends UIComponent {
 
     /* Handler to handle the UI elements of the loss menu */
     private PopupUIHandler handler;
-
-    public PlayerLossDisplay(PopupUIHandler handler) {
+    private int score;
+    public PlayerLossDisplay(PopupUIHandler handler, int score) {
         this.handler = handler;
+        this.score = score;
     }
 
     @Override
@@ -46,9 +48,18 @@ public class PlayerLossDisplay extends UIComponent {
         final String[] actions = {"homeMenu", "replayLevelLoss"};
         handler.setupButtonClicks(buttons, actions, entity);
 
+        Table scoreTable = new Table();
+        scoreTable.top().left();
+        scoreTable.setFillParent(true);
+        scoreTable.padTop(400f).padLeft(350f);
+        // Create Score
+        CharSequence scoreText = String.format("SCORE: %d", score);
+        Label scoreLabel = new Label(scoreText, skin, "large");
+        scoreTable.add(scoreLabel);
         // Add to the stage
         stage.addActor(backgroundFrame);
         stage.addActor(buttonHolder);
+        stage.addActor(scoreTable);
     }
 
     @Override
