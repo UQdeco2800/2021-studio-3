@@ -1,5 +1,7 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -7,6 +9,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -58,7 +61,7 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
 
   private final GdxGame game;
   private final Renderer renderer;
@@ -93,14 +96,14 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
     createUI();
   }
 
-  public MainGameScreen(GdxGame game, int checkpoint) {
+  public MainGameScreen(GdxGame game, boolean hasDied) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -125,15 +128,49 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, hasDied);
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
     createUI();
   }
 
+  public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied) {
+    this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
+    logger.debug("Initialising main game screen services");
+    ServiceLocator.registerTimeSource(new GameTime());
+
+    PhysicsService physicsService = new PhysicsService();
+    ServiceLocator.registerPhysicsService(physicsService);
+    physicsEngine = physicsService.getPhysics();
+
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(new ResourceService());
+
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+    loadAssets();
+
+    logger.debug("Initialising main game screen entities");
+    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied);
+    forestGameArea.create();
+
+    this.currentMap = forestGameArea;
+    createUI();
+  }
+
+
   @Override
   public void render(float delta) {
+    this.currentMap.resetCam(renderer.getCamera());
 
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();

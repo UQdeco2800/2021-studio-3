@@ -1,80 +1,69 @@
 
 Sprint.png
-size: 2048, 2048
+size: 2818, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Sprint 2
+Sprint
   rotate: false
-  xy: 2, 48
-  size: 1067, 1790
-  orig: 1067, 1790
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-Sprint 3
+  index: 1
+Sprint
   rotate: false
-  xy: 1071, 2
-  size: 958, 1836
-  orig: 958, 1836
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-
-Sprint2.png
-size: 2048, 2048
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-Sprint 5
+  index: 8
+Sprint
   rotate: false
-  xy: 1070, 2
-  size: 958, 1836
-  orig: 958, 1836
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-Sprint 7
+  index: 2
+Sprint
   rotate: false
-  xy: 2, 47
-  size: 1066, 1791
-  orig: 1066, 1791
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-
-Sprint3.png
-size: 2048, 2048
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-Sprint 1
+  index: 3
+Sprint
   rotate: false
-  xy: 978, 13
-  size: 971, 1780
-  orig: 971, 1780
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-Sprint 8
+  index: 4
+Sprint
   rotate: false
-  xy: 978, 13
-  size: 971, 1780
-  orig: 971, 1780
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-Sprint 6
+  index: 5
+Sprint
   rotate: false
-  xy: 2, 2
-  size: 974, 1791
-  orig: 974, 1791
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
-
-Sprint4.png
-size: 1024, 2048
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-Sprint 4
+  index: 6
+Sprint
   rotate: false
-  xy: 2, 2
-  size: 922, 1726
-  orig: 922, 1726
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
   offset: 0, 0
-  index: -1
+  index: 7
+default
+  rotate: false
+  xy: 3800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0

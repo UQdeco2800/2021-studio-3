@@ -40,7 +40,9 @@ public class PlayerLossActions extends Component {
         super.create();
         entity.getEvents().addListener("homeMenu",
                 this.mainMenuUI.getComponent(PopupMenuActions.class)::onHome);
-        entity.getEvents().addListener("replayLevel",
-                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplay);
+        entity.getEvents().addListener("replayLevelLoss",
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplayLoss);
+        /*entity.getEvents().addListener("replayLossFinal",
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplayLossFinal);*/
     }
 }
