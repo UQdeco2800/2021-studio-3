@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -226,6 +226,21 @@ int&nbsp;lives)</code></th>
 <div class="block">sets the check point status.</div>
 </td>
 </tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a></span>&#8203;(<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
+<td class="colLast">
+<div class="block">Spawns buffs or debuffs onto the current map in a random position.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a></span>&#8203;(<a href="../components/maingame/BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup,
+<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
+<td class="colLast">
+<div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -234,7 +249,7 @@ int&nbsp;lives)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
 <!--   -->
-</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></code></div>
+</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#spawnEntityAtVector(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.Vector2)">spawnEntityAtVector</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -323,6 +338,39 @@ int&nbsp;lives)</span></div>
 <section class="detail">
 <h3><a id="isDead()">isDead</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isDead</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBuffDebuff</span>&#8203;(<span class="arguments"><a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</span></div>
+<div class="block">Spawns buffs or debuffs onto the current map in a random position. Buffs
+ are spawned on the ground only (not platforms). Buffs can spawn anywhere
+ across the game map (horizontally). A random buff type is chosen to be
+ spawned.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>manager</code> - the BuffManager which will handle the actions, despawning
+                and timeout-related functionality of this buff.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">spawnBuffDebuffPickup</span>&#8203;(<span class="arguments"><a href="../components/maingame/BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup,
+<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</span></div>
+<div class="block">Spawns a floating animation when a HP buff/debuff is picked up.
+ Spawns at the player and floats up</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>pickup</code> - the type of animation that will be released based on which
+               buff is picked up</dd>
+<dd><code>manager</code> - the Buff Manger which will handle the actions and despawning
+                functionality of the animation</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the floating animation that is spawned.</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
