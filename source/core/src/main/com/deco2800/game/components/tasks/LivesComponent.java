@@ -1,9 +1,11 @@
-package com.deco2800.game.components;
+package com.deco2800.game.components.tasks;
+
+import com.deco2800.game.components.Component;
 
 /**
  * Component used to store information related to the player's level completion progress.
  */
-public class ProgressComponent extends Component {
+public class LivesComponent extends Component {
 
 
   /**variable defining player progress as a percentage*/
@@ -22,7 +24,7 @@ public class ProgressComponent extends Component {
    * @param position position of the player
    * @param levelSize size of the level terrain
    */
-  public ProgressComponent(float position, float levelSize) {
+  public LivesComponent(float position, float levelSize) {
     this.levelSize = levelSize;
     setPosition(position);
     setProgress();
@@ -56,7 +58,7 @@ public class ProgressComponent extends Component {
   }
 
   /**
-   * Sets the new progress on the UI once the updateProgress event has been triggered. This occurs
+   * Set's the new progress on the UI once the updateProgress event has been triggered. This occurs
    * only if the entity has been created (i.e. it is not null)
     */
   public void setProgress() {

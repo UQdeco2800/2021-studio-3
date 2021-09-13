@@ -1,9 +1,6 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,14 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.deco2800.game.GdxGame;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.CombatStatsComponent;
-
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.*;
 
 import com.deco2800.game.components.SprintComponent;
 
@@ -30,7 +24,6 @@ import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import org.w3c.dom.Text;
 
 
 /**
@@ -38,13 +31,19 @@ import org.w3c.dom.Text;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  Table table2;
-  Table table3;
+  Table sprintTable;
+  Table progressTable;
+  Table livesTable;
+  
   private Image heartImage;
-  private Label healthLabel;
+  private Image levelStatus;
+  Table healthTable;
+  private Image livesImage;
 
+  private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
+  private Label livesLabel;
 
   private Texture level10percent;
   private Texture level20percent;
@@ -56,8 +55,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level80percent;
   private Texture level90percent;
   private Texture levelComplete;
-
-  private Image levelStatus;
 
 
   AssetManager manager;
@@ -79,40 +76,66 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
-
+    entity.getEvents().addListener("updateLives", this::updateLivesUI);
   }
 
   /**
-   * Creates actors and positions them on the stage using a table.
+   * Creates actors and positions them on the stage using a healthTable.
    * @see Table for positioning options
    */
   private void addActors() {
+
     table = new Table();
     table.top().left();
     table.setFillParent(true);
     table.padTop(45f).padLeft(5f);
 
-    table2 = new Table();
-    table2.top().left();
-    table2.setFillParent(true);
-    table2.padTop(75f).padLeft(5f);
+    healthTable = new Table();
+    healthTable.top().left();
+    healthTable.setFillParent(true);
+    healthTable.padTop(45f).padLeft(5f);
 
-    table3 = new Table();
-    table3.top();
-    table3.setFillParent(true);
-    table3.padTop(25f);
 
+    sprintTable = new Table();
+    sprintTable.top().left();
+    sprintTable.setFillParent(true);
+    sprintTable.padTop(75f).padLeft(5f);
+
+    progressTable = new Table();
+    progressTable.top();
+    progressTable.setFillParent(true);
+    progressTable.padTop(25f);
+
+    
+    livesTable = new Table();
+    livesTable.top();
+    livesTable.setFillParent(true);
+    livesTable.padTop(25f).padLeft(5f);
+    
     // Heart image
     float heartSideLength = 30f;
+
+    livesTable = new Table();
+    livesTable.top().left();
+    livesTable.setFillParent(true);
+    livesTable.padTop(115f).padLeft(5f);
+
+    // HUD icon images
+    float iconSideLength = 30f;
+
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
+
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
+    //Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
+
 
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/00.png");
@@ -132,17 +155,44 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence progressText = String.format("%.0f %%", progress);
     progressLabel = new Label(progressText, skin, "large");
 
+    //Lives image
+    livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/ghost_1.png", Texture.class));
+
+
+    //Adding elements to each table, subsequently adding them to the stage
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel).pad(5);
     stage.addActor(table);
 
-    table2.add(sprintLabel).pad(5);
-    stage.addActor(table2);
+    sprintTable.add(sprintLabel).pad(5);
+    stage.addActor(sprintTable);
+
+    //Lives text
+    int lives = entity.getComponent(LivesComponent.class).getLives();
+    CharSequence livesText = String.format("x%d", lives);
+    livesLabel = new Label(livesText, skin, "large");
+
+    //Adding elements to tables
+    healthTable.add(heartImage).size(iconSideLength).pad(5);
+    healthTable.add(healthLabel).pad(5);
+
+    sprintTable.add(sprintLabel).pad(5);
+
 
     levelStatus = new Image(levelStart);
-    table3.add(levelStatus).size(600, 250);
-    table3.add(progressLabel);
-    stage.addActor(table3);
+    progressTable.add(levelStatus).size(600, 250);
+    progressTable.add(progressLabel);
+
+    stage.addActor(progressTable);
+
+    livesTable.add(livesImage).size(iconSideLength).pad(5);
+    livesTable.add(livesLabel);
+
+    //adding tables to stages
+    stage.addActor(healthTable);
+    stage.addActor(sprintTable);
+    stage.addActor(progressTable);
+    stage.addActor(livesTable);
   }
 
   @Override
@@ -220,7 +270,7 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerProgressUI(float progress) {
 
-    if (progress % 10 == 0 && progress > 0 || progress > 95) {
+    if (progress % 10 == 0 && progress > 0) {
       CharSequence text = String.format("%.0f %%", progress);
       progressLabel.setText(text);
 
@@ -259,6 +309,12 @@ public class PlayerStatsDisplay extends UIComponent {
       }
     }
 
+  }
+
+
+  public void updateLivesUI(int lives) {
+    CharSequence text = String.format("x%d", lives);
+    livesLabel.setText(text);
   }
 
 

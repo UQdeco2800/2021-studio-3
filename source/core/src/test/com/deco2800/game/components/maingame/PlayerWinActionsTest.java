@@ -43,7 +43,7 @@ class PlayerWinActionsTest {
         CameraComponent camComponent = camera.getComponent(CameraComponent.class);
 
         TerrainFactory terrainFactory = new TerrainFactory(camComponent);
-        ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
+        ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
         forestGameArea.setCheckPointStatus(0);
         Entity ui = new Entity();
         ui.addComponent(new PopupMenuActions(game, forestGameArea));

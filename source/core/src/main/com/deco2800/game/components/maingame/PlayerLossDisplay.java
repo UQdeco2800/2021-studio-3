@@ -43,7 +43,7 @@ public class PlayerLossDisplay extends UIComponent {
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
-        final String[] actions = {"homeMenu", "replayLevel"};
+        final String[] actions = {"homeMenu", "replayLevelLoss"};
         handler.setupButtonClicks(buttons, actions, entity);
 
         // Add to the stage
