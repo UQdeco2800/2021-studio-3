@@ -5,10 +5,13 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
@@ -85,6 +88,14 @@ class RendererTest {
         new Renderer(cameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
     renderer.render();
     verify(renderService).render(spriteBatch);
+  }
+
+  @Test
+  void shouldMoveCamera() {
+    CameraComponent cameraComponent = makeCameraEntity(camera);
+    ForestGameArea forestGameArea = mock(ForestGameArea.class);
+    forestGameArea.resetCam(cameraComponent);
+    verify(forestGameArea).resetCam(cameraComponent);
   }
 
   private static CameraComponent makeCameraEntity(Camera camera) {
