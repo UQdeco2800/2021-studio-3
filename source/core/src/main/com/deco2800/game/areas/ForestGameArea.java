@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.LivesComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
@@ -34,6 +35,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
+  private static int lives = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -75,6 +77,8 @@ public class ForestGameArea extends GameArea {
           "images/building_1.png",
           "images/planet1.png",
           "images/ufo_2.png",
+
+          "images/rock_platform.png",
           "images/Walking.png",
           "images/WalkingDamage90-50.png",
           "images/WalkingDamage50-10.png",
@@ -84,12 +88,33 @@ public class ForestGameArea extends GameArea {
           "images/Jump.png",
           "images/JumpDamage(50-90).png",
           "images/JumpDamage(10-50).png",
-          "images/IdleCharacters.png"
+
+          "images/IdleCharacters.png",
+          "images/rock_platform.png",
+          "images/background_stars.png",
+          "images/background_sky.png",
+          "images/background_rock.png",
+          "images/background_star.png",
+          "images/background_surface.png"
+
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
-          "images/boxBoy.atlas", "images/PlayerMovementAnimations.atlas"
+
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas", "images/ufo_animation.atlas", "images/boxBoy.atlas", "images/PlayerMovementAnimations.atlas"
+//
+//
+//          "images/Walking.png",
+//          "images/WalkingDamage90-50.png",
+//          "images/WalkingDamage50-10.png",
+//          "images/Sprint.png",
+//          "images/SprintDamage(50-90).png",
+//          "images/SprintDamage(10-50).png",
+//          "images/Jump.png",
+//          "images/JumpDamage(50-90).png",
+//          "images/JumpDamage(10-50).png",
+//          "images/IdleCharacters.png"
   };
+
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -104,11 +129,23 @@ public class ForestGameArea extends GameArea {
 
   private int checkpoint;
 
+  private boolean hasDied;
+  
 
-  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint) {
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
+    this.hasDied = hasDied;
+
+  }
+
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.checkpoint = checkpoint;
+    ForestGameArea.lives = lives;
+
   }
 
   /**
@@ -137,7 +174,8 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnTrees();
 
-    spawnGhosts();
+
+    //spawnGhosts();
 
     //spawnTrees();
     spawnAsteriod();
@@ -274,15 +312,15 @@ public class ForestGameArea extends GameArea {
 
   private void spawnAsteroidFire() {
     GridPoint2 pos1 = new GridPoint2(12,10);
-    Entity attackObstacle1 = ObstacleFactory.createAsteroidFree(player);
+    Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle1, pos1, true, false);
 
-    GridPoint2 pos2 = new GridPoint2(19,10);
-    Entity attackObstacle2 = ObstacleFactory.createAsteroidFree(player);
+    GridPoint2 pos2 = new GridPoint2(17,10);
+    Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle2, pos2, true, false);
 
     GridPoint2 pos3 = new GridPoint2(25,10);
-    Entity attackObstacle3 = ObstacleFactory.createAsteroidFree(player);
+    Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle3, pos3, true, false);
   }
 
@@ -293,6 +331,10 @@ public class ForestGameArea extends GameArea {
   }
 
 
+  public boolean isDead() {
+    return hasDied;
+  }
+
   private Entity spawnPlayer() {
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
@@ -300,6 +342,18 @@ public class ForestGameArea extends GameArea {
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
+    newPlayer.addComponent(new LivesComponent(lives));
+
+    if (isDead()) {
+      lives -= 1;
+        newPlayer.getComponent(LivesComponent.class).setLives(lives);
+    } else {
+      if(lives < 5 && !isDead()) {
+        lives = 5;
+        newPlayer.getComponent(LivesComponent.class).setLives(lives);
+      }
+    }
+
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);
@@ -317,33 +371,11 @@ public class ForestGameArea extends GameArea {
 
   }
 
-  private void spawnGhosts() {
-    //need to change it to the horizon view
-//    GridPoint2 minPos = new GridPoint2(0, 0);
-//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-//
-//    for (int i = 0; i < NUM_GHOSTS; i++) {
-//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-//      Entity ghost = NPCFactory.createGhost(player);
-//      spawnEntityAt(ghost, randomPos, true, true);
-//    }
-
-    GridPoint2 pos = new GridPoint2(12,10);
-    Entity ghost = NPCFactory.createGhost(player);
-    spawnEntityAt(ghost, pos, true, true);
-  }
 
 
 
-  private void spawnGhostKing() {
-    //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createGhostKing(player);
-    spawnEntityAt(ghostKing, randomPos, true, true);
-  }
+
 
   /**
    * Spawns buffs or debuffs onto the current map in a random position. Buffs

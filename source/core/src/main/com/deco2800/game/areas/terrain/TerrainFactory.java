@@ -82,14 +82,14 @@ public class TerrainFactory {
 //        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       case SIDE_SCROLL_ER:
         TextureRegion surface =
-                new TextureRegion(resourceService.getAsset("images/surface.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
         TextureRegion underground =
-                new TextureRegion(resourceService.getAsset("images/underground.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
         TextureRegion sky =
-                new TextureRegion(resourceService.getAsset("images/sky.png", Texture.class));
-        TextureRegion tree =
-                new TextureRegion(resourceService.getAsset("images/tree.png", Texture.class));
-        return createSideScrollTerrain(0.5f, surface, underground, sky, tree);
+                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion star =
+                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        return createSideScrollTerrain(0.5f, surface, underground, sky, star);
       default:
         return null;
     }
@@ -127,18 +127,50 @@ public class TerrainFactory {
 
   //A new tile with side scroll-er
   private TiledMap createSideScrollTiles(
-          GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
+          GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     TiledMap tiledMap = new TiledMap();
     TerrainTile surfaceTile = new TerrainTile(surface);
     TerrainTile undergroundTile = new TerrainTile(underground);
     TerrainTile skyTile = new TerrainTile(sky);
-    TerrainTile treeTile = new TerrainTile(tree);
+    TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
-    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
     fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
-    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 30), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(57, 20), new GridPoint2(58, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(58, 20), new GridPoint2(98, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(98, 20), new GridPoint2(99, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(99, 20), new GridPoint2(100, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 21), new GridPoint2(100, 22), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 22), new GridPoint2(15, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(15, 22), new GridPoint2(16, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(16, 22), new GridPoint2(18, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(18, 22), new GridPoint2(19, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(19, 22), new GridPoint2(31, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(31, 22), new GridPoint2(32, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(32, 22), new GridPoint2(70, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(70, 22), new GridPoint2(72, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(72, 22), new GridPoint2(100, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 23), new GridPoint2(100, 24), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 24), new GridPoint2(5, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(5, 24), new GridPoint2(6, 25), starTile);
+    fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
+
+//    fillTilesAt(layer, new GridPoint2(30, 20), new GridPoint2(32, 22), starTile);
+//    fillTilesAt(layer, new GridPoint2(32, 20), new GridPoint2(50, 22), skyTile);
+//    fillTilesAt(layer, new GridPoint2(50, 20), new GridPoint2(54, 22), starTile);
+//    fillTilesAt(layer, new GridPoint2(54, 20), new GridPoint2(100, 22), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
+//    fillTilesAt(layer, new GridPoint2(10, 21), new GridPoint2(12, 30), starTile);
+//    fillTilesAt(layer, new GridPoint2(12, 21), new GridPoint2(100, 30), skyTile);
+    //fillTilesAt(layer, new GridPoint2(0, 28), new GridPoint2(100, 30), starTile);
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
