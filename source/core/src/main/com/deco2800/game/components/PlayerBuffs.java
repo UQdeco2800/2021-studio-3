@@ -27,7 +27,11 @@ public abstract class PlayerBuffs {
      * @param player the player
      * */
     public static void increasePlayerHP(Entity player) {
-        player.getComponent(CombatStatsComponent.class).addHealth(20);
+        if (player.getComponent(CombatStatsComponent.class).getHealth() >= 80){
+            player.getComponent(CombatStatsComponent.class).setFullHeal();
+        }else{
+            player.getComponent(CombatStatsComponent.class).addHealth(20);
+        }
     }
 
     /**
