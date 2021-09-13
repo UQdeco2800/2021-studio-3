@@ -114,7 +114,6 @@ public int getMaxHealth() {
       } else {
         this.health = 0;
       }
-      this.health = Math.max(health, 0);
       if (entity != null) {
         entity.getEvents().trigger("updateHealth", this.health);
         if (isDead()) {

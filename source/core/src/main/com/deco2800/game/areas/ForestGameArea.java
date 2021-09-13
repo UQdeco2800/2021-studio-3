@@ -130,7 +130,7 @@ public class ForestGameArea extends GameArea {
   private int checkpoint;
 
   private boolean hasDied;
-  
+
 
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
