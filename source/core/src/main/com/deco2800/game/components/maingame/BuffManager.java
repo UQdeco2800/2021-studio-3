@@ -149,6 +149,7 @@ public class BuffManager extends Component {
         switch (type) {
             case BT_INVIN:
                 return "images/ghostKing.png";
+                //return "images/invincible.png";
             case DT_GIANT:
                 return "images/winReplay.png";
             case B_HP_UP:
@@ -156,12 +157,14 @@ public class BuffManager extends Component {
                 //return "images/winMainMenu.png";
             case D_HP_DOWN:
                 return "images/winContinue.png";
+                // return "images/healthDecrease.png";
             case DT_NO_JUMP:
                 return "images/box_boy.png";
             case BT_INF_SPRINT:
                 return "images/box_boy.png";
             case DT_DOUBLE_DMG:
                 return "images/pauseRestart.png";
+                // return "images/doubleHurt.png";
             case B_FULL_HEAL:
                 //return "images/heart.png";
                 return "images/winMainMenu.png";

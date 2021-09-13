@@ -59,7 +59,9 @@ public class MainGameScreen extends ScreenAdapter {
 
   /* Textures for buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
-          {"images/box_boy.png"};
+          {"images/invincible.png",
+                  "images/healthDecrease.png",
+                  "images/doubleHurt.png"};
 
 
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
