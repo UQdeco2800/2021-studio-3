@@ -1,11 +1,8 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.HitboxComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +21,12 @@ public abstract class PlayerBuffs {
 
     /** --- Buffs --- **/
 
+    /**
+     * Increases the players Health by 20
+     *
+     * @param player the player
+     * */
     public static void increasePlayerHP(Entity player) {
-        // Implement the player's health increasing once.
-        logger.info("Increased the players health!");
         player.getComponent(CombatStatsComponent.class).addHealth(20);
     }
 
@@ -39,6 +39,11 @@ public abstract class PlayerBuffs {
         player.getComponent(CombatStatsComponent.class).setInvincibility(true);
     }
 
+    /**
+     * Applies infinite stamina to the player.
+     *
+     * @param player the player
+     * */
     public static void setInfiniteStamina(Entity player) {
         player.getComponent(SprintComponent.class).setSprint(100);
         player.getComponent(SprintComponent.class).setStamina(true);
@@ -55,15 +60,13 @@ public abstract class PlayerBuffs {
 
     /** --- Debuffs --- **/
 
+    /**
+     * Reduces the players health by 20.
+     *
+     * @param player the player.
+     * */
     public static void reducePlayerHP(Entity player) {
-        // Implement the player's health decreasing once.
-        logger.info("Decreased the players' health!");
         player.getComponent(CombatStatsComponent.class).addHealth(-20);
-    }
-
-    public static void makePlayerGiant(Entity player) {
-        //player.setScale(new Vector2(6,6));
-        //player.getComponent(HitboxComponent.class).makeBoundingBox();
     }
 
     /**
@@ -75,6 +78,11 @@ public abstract class PlayerBuffs {
         player.getComponent(CombatStatsComponent.class).setDoubleHurt(true);
     }
 
+    /**
+     * Removes jumping abilities from the player.
+     *
+     * @param player the player
+     * */
     public static void noJumping(Entity player) {
         player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(true);
     }
@@ -95,9 +103,6 @@ public abstract class PlayerBuffs {
             case BT_INVIN:
                 removeInvincibility(player);
                 break;
-            case DT_GIANT:
-                makePlayerNormalSize(player);
-                break;
             case BT_INF_SPRINT:
                 makeStaminaFinite(player);
                 break;
@@ -107,7 +112,6 @@ public abstract class PlayerBuffs {
             case DT_DOUBLE_DMG:
                 removeDoubleHurt(player);
                 break;
-
         }
     }
 
@@ -131,14 +135,20 @@ public abstract class PlayerBuffs {
         player.getComponent(CombatStatsComponent.class).setDoubleHurt(false);
     }
 
-    public static void makePlayerNormalSize(Entity player) {
-        // Implement making the player normal size again (default)
-    }
-
+    /**
+     * Removes infinite stamina from the player
+     *
+     * @param player the player
+     * */
     public static void makeStaminaFinite(Entity player) {
         player.getComponent(SprintComponent.class).setStamina(false);
     }
 
+    /**
+     * Allows the player to jump again.
+     *
+     * @param player the player
+     * */
     public static void removeNoJumping(Entity player) {
         player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(false);
     }

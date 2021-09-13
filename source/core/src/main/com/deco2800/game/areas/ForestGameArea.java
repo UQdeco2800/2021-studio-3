@@ -1,8 +1,6 @@
 package com.deco2800.game.areas;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -12,8 +10,6 @@ import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
-import com.deco2800.game.components.tasks.FloatTask;
-import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.NPCFactory;
