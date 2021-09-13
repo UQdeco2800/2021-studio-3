@@ -1,18 +1,13 @@
 package com.deco2800.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -64,6 +59,7 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
+  /* Textures for the buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
           {"images/invincible.png",
                   "images/healthDecrease.png",
@@ -72,11 +68,11 @@ public class MainGameScreen extends ScreenAdapter {
 
   private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
 
-
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager ();
+
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;

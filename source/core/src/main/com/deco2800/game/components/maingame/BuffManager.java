@@ -1,21 +1,17 @@
 package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.deco2800.game.ai.tasks.AITaskComponent;
-import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BuffInformation;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.PlayerBuffs;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
-import com.deco2800.game.components.tasks.MovementTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
-import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +52,7 @@ public class BuffManager extends Component {
     private long lastBuffSpawn;
 
     /* The floating animation that is released */
-    Entity buffPickup;
+    private Entity buffPickup;
 
     /* Creation time of floating animation when player picks up a buff */
     private long pickupCreationTime;
@@ -95,7 +91,7 @@ public class BuffManager extends Component {
         B_HP_UP, B_FULL_HEAL,
         D_HP_DOWN,
         BT_INVIN, BT_INF_SPRINT,
-        DT_GIANT, DT_NO_JUMP, DT_DOUBLE_DMG
+        DT_NO_JUMP, DT_DOUBLE_DMG
     }
 
     public enum BuffPickup {
@@ -150,8 +146,6 @@ public class BuffManager extends Component {
             case BT_INVIN:
                 return "images/ghostKing.png";
                 //return "images/invincible.png";
-            case DT_GIANT:
-                return "images/winReplay.png";
             case B_HP_UP:
                 return "images/heart.png";
                 //return "images/winMainMenu.png";
@@ -200,12 +194,10 @@ public class BuffManager extends Component {
         /* PlayerBuffs functions to call when there is a new instant buff */
         switch (type) {
             case B_HP_UP:
-                buffInfo.setPickup(BuffPickup.positive);
                 this.buffPickups.get(BuffPickup.positive).set(0, 1);
                 PlayerBuffs.increasePlayerHP(this.player);
                 return;
             case D_HP_DOWN:
-                buffInfo.setPickup(BuffPickup.negative);
                 this.buffPickups.get(BuffPickup.negative).set(0, 1);
                 PlayerBuffs.reducePlayerHP(this.player);
                 return;
@@ -225,9 +217,6 @@ public class BuffManager extends Component {
 
         /* PlayerBuffs functions to call when there is a new time-based buff */
         switch (type) {
-            case DT_GIANT:
-                PlayerBuffs.makePlayerGiant(this.player);
-                break;
             case BT_INVIN:
                 PlayerBuffs.applyInvincibility(this.player);
                 break;
@@ -355,7 +344,7 @@ public class BuffManager extends Component {
      *   most recent one was placed, and places one.
      * */
     public void update() {
-
+        /* Handle spawning pickups when the player hits an instant buff */
         spawnPickup();
 
         /* Determine if stationary buffs should be removed from the map */

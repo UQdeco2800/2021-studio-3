@@ -7,8 +7,6 @@ import com.deco2800.game.components.BuffInformation;
 
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.tasks.FloatTask;
-import com.deco2800.game.components.tasks.MovementTask;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -85,6 +83,5 @@ public class BuffFactory {
                 .addComponent(buffComponent);
 
         return buffPickup;
-
     }
 }
