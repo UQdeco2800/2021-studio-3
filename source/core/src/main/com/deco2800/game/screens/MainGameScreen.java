@@ -118,11 +118,11 @@ public class MainGameScreen extends ScreenAdapter {
     forestGameArea.spawnBuffDebuff(this.buffManager);
   }
   public static AssetManager load(){
-    manager.load("images/ghostKing.png", Texture.class);
+    manager.load("images/invincible.png", Texture.class);
     manager.load("images/winReplay.png", Texture.class);
     manager.load("images/winMainMenu.png", Texture.class);
     manager.load("images/winContinue.png", Texture.class);
-    manager.load("images/pauseRestart.png", Texture.class);
+    manager.load("images/doubleHurt.png", Texture.class);
     manager.load("images/box_boy.png", Texture.class);
     manager.load("images/heart.png", Texture.class);
     manager.finishLoading();

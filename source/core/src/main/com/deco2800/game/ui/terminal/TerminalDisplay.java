@@ -64,7 +64,7 @@ public class TerminalDisplay extends UIComponent {
     float i = 0f;
     for (BuffInformation buff:buffs) {
       if(Objects.equals(buff.getType().toString(), "BT_INVIN")){
-        batch.draw(manager.get("images/ghostKing.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
+        batch.draw(manager.get("images/invincible.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       if (Objects.equals(buff.getType().toString(), "DT_GIANT")){
         batch.draw(manager.get("images/winReplay.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
@@ -76,7 +76,7 @@ public class TerminalDisplay extends UIComponent {
         batch.draw(manager.get("images/box_boy.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       if (Objects.equals(buff.getType().toString(), "DT_DOUBLE_DMG")){
-        batch.draw(manager.get("images/pauseRestart.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
+        batch.draw(manager.get("images/doubleHurt.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       if (Objects.equals(buff.getType().toString(), "B_FULL_HEAL")){
         batch.draw(manager.get("images/heart.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
