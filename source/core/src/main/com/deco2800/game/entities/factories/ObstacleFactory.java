@@ -5,26 +5,18 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
-import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.GhostAnimationController;
 
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 
-import com.deco2800.game.components.npc.UfoAnimationController;
+import com.deco2800.game.components.obstacle.UfoAnimationController;
 
 import com.deco2800.game.components.tasks.ChaseTask;
 
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.TouchAttackComponent;
 
-
-import com.deco2800.game.components.tasks.WaitTask;
-
-import com.deco2800.game.components.tasks.FallTask;
 
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -121,7 +113,7 @@ public class ObstacleFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/asteroidFire.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
     Entity asteroidFire =
             new Entity()
                     .addComponent(new PhysicsComponent())
@@ -172,7 +164,7 @@ public class ObstacleFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/robot.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.6f, Animation.PlayMode.LOOP);
+    animator.addAnimation("float", 0.5f, Animation.PlayMode.LOOP);
 
     Entity robot =
             new Entity()
@@ -227,7 +219,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
     ufo.scaleHeight(3f);
     return ufo;
-
   }
 
   /**

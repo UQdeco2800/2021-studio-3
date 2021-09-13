@@ -1,4 +1,4 @@
-package com.deco2800.game.components.npc;
+package com.deco2800.game.components.obstacle;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
