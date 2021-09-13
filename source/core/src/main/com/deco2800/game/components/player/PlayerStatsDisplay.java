@@ -38,7 +38,7 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   Table table2;
   Table table3;
-  Table table4;
+  Table scoreTable;
 
   Table healthTable;
   Table sprintTable;
@@ -122,10 +122,10 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintTable.setFillParent(true);
     sprintTable.padTop(75f).padLeft(5f);
 
-    table4 = new Table();
-    table4.top().left();
-    table4.setFillParent(true);
-    table4.padTop(150f).padLeft(5f);
+    scoreTable = new Table();
+    scoreTable.top().left();
+    scoreTable.setFillParent(true);
+    scoreTable.padTop(150f).padLeft(5f);
 
     progressTable = new Table();
     progressTable.top();
@@ -135,7 +135,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     
     // Heart image
-    float heartSideLength = 30f;
+    //float heartSideLength = 30f;
     
     livesTable = new Table();
     livesTable.top();
@@ -150,7 +150,7 @@ public class PlayerStatsDisplay extends UIComponent {
     Table buffTable = new Table();
     buffTable.top().left();
     buffTable.setFillParent(true);
-    buffTable.padTop(150f).padLeft(5f);
+    buffTable.padTop(180f).padLeft(5f);
 
     /* Images for UI */
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
@@ -214,8 +214,8 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintTable.add(sprintLabel).pad(5);
 
 
-    table4.add(scoreLabel).pad(5);
-    stage.addActor(table4);
+    scoreTable.add(scoreLabel).pad(5);
+    stage.addActor(scoreTable);
 
     levelStatus = new Image(levelStart);
     progressTable.add(levelStatus).size(600, 250);
@@ -231,6 +231,7 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(sprintTable);
     stage.addActor(progressTable);
     stage.addActor(livesTable);
+    stage.addActor(scoreTable);
     stage.addActor(buffTable);
   }
 
