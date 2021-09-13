@@ -99,7 +99,6 @@ public class PlayerStateComponent extends Component {
             jumpCount++;
         }
         this.state = state;
-        System.out.println(getStateAnimation());
     }
 
     public State getState(){

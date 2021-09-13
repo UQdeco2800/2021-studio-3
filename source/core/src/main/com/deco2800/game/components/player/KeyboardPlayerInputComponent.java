@@ -3,8 +3,6 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-
-
 import com.badlogic.gdx.utils.Timer;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
@@ -29,8 +27,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public final Vector2 walkDirection = new Vector2(0, -1f); // Sets gravity on player
 
   private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
-
-  //public State currentState = entity.getComponent(PlayerStateComponent.class).getState();
 
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
@@ -60,7 +56,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   };
 
-  // Makes player fall for 1 second
+  /** Makes player fall for 1 second */
   public Timer.Task startFalling = new Timer.Task() {
     @Override
     public void run(){
@@ -76,7 +72,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   };
 
-  // Stops falling and allows user to jump again by setting isJumping to false
+
+  /** Stops falling and allows user to jump again by setting isJumping to false */
   public Timer.Task stopFalling = new Timer.Task() {
     @Override
     public void run(){
@@ -133,6 +130,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   }
 
+  /**
+   * After an input of 'A' or 'D' has been detected, decide to move left or right.
+   *
+   * @return true if walk was processed
+   */
   private boolean handleWalk(char Key, String keyState){
     Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
     int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
@@ -151,6 +153,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
+  /**
+   * After an input of 'LEFT_SHIFT' has been detected, decide which way to apply sprint to if sprint is left
+   *
+   * @return true if sprint was processed
+   */
   private boolean handleSprint(boolean keyDown){
     if (keyDown){
       if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
@@ -173,6 +180,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
+  /**
+   * After an input of 'SPACE_BAR' been detected, jump if the player is not currently jumping
+   *
+   * @return true if jump was processed
+   */
   private boolean jump(){
     if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
       isJumping = true;
@@ -189,11 +201,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
+  /** After a walk or jump has been processed, apply the speed and animations to the player. */
   private void triggerMovementEvent() {
     entity.getEvents().trigger("walk", walkDirection);
     entity.getEvents().trigger("playerStatusAnimation");
   }
 
+  /**
+   * After a sprint has been processed, apply the sprinting speed and animations to the player
+   *
+   * @param sprinting: true if the player is sprinting
+   */
   private void triggerSprintEvent(boolean sprinting) {
     if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
       return;

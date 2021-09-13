@@ -359,7 +359,6 @@ public class ForestGameArea extends GameArea {
   }
 
 
-
   private void spawnGhostKing() {
     //need to change it to the horizon view
     GridPoint2 minPos = new GridPoint2(0, 0);
