@@ -113,7 +113,7 @@ public class ObstacleFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/asteroidFire.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     Entity asteroidFire =
             new Entity()
                     .addComponent(new PhysicsComponent())
