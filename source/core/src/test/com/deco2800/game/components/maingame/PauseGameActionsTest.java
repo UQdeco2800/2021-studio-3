@@ -35,7 +35,7 @@ class PauseGameActionsTest {
     static void beforeAll() {
     }
 
-    /*@Test
+    @Test
     void shouldResume() {
         GdxGame game = new GdxGame();
         game.setState(GdxGame.GameState.PAUSED);
@@ -49,15 +49,6 @@ class PauseGameActionsTest {
         ui.getComponent(PauseGameActions.class).onResume();
         assertTrue(game.getState() == GdxGame.GameState.RUNNING);
 
-    }*/
+    }
 
-    /*@Test
-    void shouldResume() {
-        when(game.getState()).thenReturn(GdxGame.GameState.PAUSED);
-        //when(display.getScreenElements()).thenReturn(image);
-        when(ui.getComponent(PauseGameDisplay.class).getScreenElements()).thenReturn(image);
-        PauseGameActions actions = new PauseGameActions(game, ui, mainMenuUI);
-        actions.onResume();
-        assertEquals(game.getState(), GdxGame.GameState.PAUSED);
-    }*/
 }

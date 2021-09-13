@@ -55,7 +55,7 @@ public class BuffManager extends Component {
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
-
+    /* The floating animation that is released */
     Entity buffPickup;
 
     /* Creation time of floating animation when player picks up a buff */
@@ -108,11 +108,11 @@ public class BuffManager extends Component {
     /* The buffs which are currently applied to the player, on a timer */
     private LinkedHashMap<Entity, BuffInformation> timedBuffs;
 
-
+    /* A list of the possible buff pick up animations.
+    * The list contains two integers, the first is whether the buff has been picked up.
+    * The second is whether the animation has appeared on screen.
+    * 0 represents false, 1 represents true. */
     private LinkedHashMap<BuffPickup, List<Integer>> buffPickups;
-
-
-
 
     /**
      * Default constructor for the BuffManager. Sets up rudimentary
@@ -129,7 +129,7 @@ public class BuffManager extends Component {
         this.player = ((ForestGameArea) currentMap).getPlayer();
         this.buffPickup = new Entity();
         this.buffPickups.put(BuffPickup.positive, Arrays.asList(0, 0));
-        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0,0));
+        this.buffPickups.put(BuffPickup.negative, Arrays.asList(0, 0));
 
 
     }
@@ -320,6 +320,11 @@ public class BuffManager extends Component {
         return (ServiceLocator.getTimeSource().getTimeSince(timeOfCreation) >= 10 * SECONDS);
     }
 
+    /**
+     * Handles the float animation after a player hits a HP instant buff/debuff.
+     * If the player collides with the buff, a floating animation is spawned onto the map.
+     * Once it's been on the map for 1.5 seconds, it is removed.
+     */
     private void spawnPickup() {
         for (BuffPickup pickup: this.buffPickups.keySet()) {
             if (this.buffPickups.get(pickup).get(0) == 1) {
@@ -329,7 +334,7 @@ public class BuffManager extends Component {
                 this.buffPickups.get(pickup).set(1, 1);
             }
             if (this.buffPickups.get(pickup).get(1) == 1) {
-                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 2 * SECONDS) {
+                if (ServiceLocator.getTimeSource().getTimeSince(pickupCreationTime) >= 1.5 * SECONDS) {
                     removeBuff(buffPickup);
                     this.buffPickups.get(pickup).set(1, 0);
                 }
@@ -427,6 +432,10 @@ public class BuffManager extends Component {
     public void registerBuff(BuffInformation info) {
         this.currentBuffs.put(info.getBuff(), info);
         this.lastBuffSpawn = info.getTimeOfCreation();
+    }
+
+    public Collection<BuffInformation> test(){
+        return this.timedBuffs.values();
     }
 
     /**

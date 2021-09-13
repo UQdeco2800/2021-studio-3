@@ -1,11 +1,18 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -57,19 +64,19 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
-  /* Textures for buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
           {"images/invincible.png",
                   "images/healthDecrease.png",
                   "images/doubleHurt.png"};
 
 
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
+
 
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-
+  public static AssetManager manager =  new  AssetManager ();
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;
@@ -104,10 +111,21 @@ public class MainGameScreen extends ScreenAdapter {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
     forestGameArea.create();
-
+    load();
     this.currentMap = forestGameArea;
     createUI();
     forestGameArea.spawnBuffDebuff(this.buffManager);
+  }
+  public static AssetManager load(){
+    manager.load("images/ghostKing.png", Texture.class);
+    manager.load("images/winReplay.png", Texture.class);
+    manager.load("images/winMainMenu.png", Texture.class);
+    manager.load("images/winContinue.png", Texture.class);
+    manager.load("images/pauseRestart.png", Texture.class);
+    manager.load("images/box_boy.png", Texture.class);
+    manager.load("images/heart.png", Texture.class);
+    manager.finishLoading();
+    return manager;
   }
 
   public MainGameScreen(GdxGame game, int checkpoint) {
@@ -145,6 +163,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    this.currentMap.resetCam(renderer.getCamera());
 
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
@@ -225,7 +244,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
+        .addComponent(new TerminalDisplay(manager,currentMap))
         .addComponent(new PauseGamePopUp(this.game,
                 new PopupUIHandler(pauseMenuTextures)))
         .addComponent(new PlayerWinPopup(this.game, currentMap,

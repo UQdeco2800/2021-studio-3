@@ -65,46 +65,24 @@ public class BuffFactory {
         return buff;
     }
 
-    /*public static Entity createBuffAnimation(BuffManager.BuffPickup pickup, BuffManager manager,
-                                             Vector2 target) {
-
-        String texture = manager.getPickupTexture(pickup);
-        AITaskComponent buffComponent = new AITaskComponent().addTask(new WanderTask(new Vector2(0f, 3f), 0));
-        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f), 0));
 
 
-
-        Entity buffPickup = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
-                .addComponent(new PhysicsMovementComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                .addComponent(new TextureRenderComponent(texture))
-                .addComponent(buffComponent);
-        //buffPickup.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-
-
-        return buffPickup;
-
-    }*/
-
+    /**
+     * Creates and returns a floating animation.
+     * @param pickup the type of buff animation to be created
+     * @param manager the BuffManager which will oversee the actions, creation
+     *                and deletion of the floating animation.
+     * @return the buff floating animation
+     */
     public static Entity createBuffAnimation(BuffManager.BuffPickup pickup, BuffManager manager) {
         /* Get the texture for the pickup */
         String texture = manager.getPickupTexture(pickup);
-        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
-        //BuffTaskComponent buffComponent = new BuffTaskComponent().addTask(new FloatTask(new Vector2(0f, 3f)));
+        AITaskComponent buffComponent = new AITaskComponent().addTask(new FloatTask(new Vector2(0f, 2f)));
 
         Entity buffPickup = new Entity().addComponent(new TextureRenderComponent(texture))
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(buffComponent);
-
-
-        /*Entity buffPickup = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
-                .addComponent(new PhysicsMovementComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                .addComponent(new TextureRenderComponent(texture))
-                .addComponent(buffComponent);*/
-        //buffPickup.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-
 
         return buffPickup;
 
