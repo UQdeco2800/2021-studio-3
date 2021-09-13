@@ -142,16 +142,13 @@ public class BuffManager extends Component {
             case BT_INVIN:
                 return "images/invincible.png";
             case B_HP_UP:
-                return "images/winMainMenu.png";
-                //return "images/healthIncrease.png";
+                return "images/healthIncrease.png";
             case D_HP_DOWN:
                 return "images/healthDecrease.png";
             case DT_NO_JUMP:
-                return "images/box_boy.png";
-                //return "images/noJumping.png";
+                return "images/noJumping.png";
             case BT_INF_SPRINT:
-                return "images/box_boy.png";
-                //return "images/infiniteSprint.png";
+                return "images/infiniteSprint.png";
             case DT_DOUBLE_DMG:
                 return "images/doubleHurt.png";
             case B_FULL_HEAL:
