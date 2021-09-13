@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +22,16 @@ public class PlayerLossDisplay extends UIComponent {
     /* Handler to handle the UI elements of the loss menu */
     private PopupUIHandler handler;
     private int score;
-    public PlayerLossDisplay(PopupUIHandler handler, int score) {
+    private int progress;
+    private int steps;
+    private int health;
+
+    public PlayerLossDisplay(PopupUIHandler handler, Entity player) {
         this.handler = handler;
-        this.score = score;
+        this.score = player.getComponent(ScoreComponent.class).getScore();
+        this.progress = Math.round(player.getComponent(ProgressComponent.class).getProgress());
+        this.steps =  Math.round(player.getPosition().x * 10);
+        this.health = player.getComponent(CombatStatsComponent.class).getHealth();
     }
 
     @Override
@@ -41,7 +52,7 @@ public class PlayerLossDisplay extends UIComponent {
         // Create buttons from the images
         Table buttonHolder = new Table();
         ArrayList<Image> buttons =
-                handler.setupButtons(buttonHolder, 115, 35);
+                handler.setupButtons(buttonHolder, 410, 35, true);
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
@@ -51,15 +62,46 @@ public class PlayerLossDisplay extends UIComponent {
         Table scoreTable = new Table();
         scoreTable.top().left();
         scoreTable.setFillParent(true);
-        scoreTable.padTop(400f).padLeft(350f);
+        scoreTable.padTop(350f).padLeft(350f);
         // Create Score
         CharSequence scoreText = String.format("SCORE: %d", score);
         Label scoreLabel = new Label(scoreText, skin, "large");
         scoreTable.add(scoreLabel);
+
+        Table progressTable = new Table();
+        progressTable.top().left();
+        progressTable.setFillParent(true);
+        progressTable.padTop(400f).padLeft(350f);
+        // Create progress
+        CharSequence progressText = String.format("PROGRESS: %d%%", progress);
+        Label progressLabel = new Label(progressText, skin, "large");
+        progressTable.add(progressLabel);
+
+        Table stepsTable = new Table();
+        stepsTable.top().left();
+        stepsTable.setFillParent(true);
+        stepsTable.padTop(450f).padLeft(350f);
+        // Create progress
+        CharSequence stepsText = String.format("STEPS: %d", steps);
+        Label stepsLabel = new Label(stepsText, skin, "large");
+        stepsTable.add(stepsLabel);
+
+        Table healthTable = new Table();
+        healthTable.top().left();
+        healthTable.setFillParent(true);
+        healthTable.padTop(500f).padLeft(350f);
+        // Create progress
+        CharSequence healthText = String.format("HEALTH: %d", health);
+        Label healthLabel = new Label(healthText, skin, "large");
+        healthTable.add(healthLabel);
+
         // Add to the stage
         stage.addActor(backgroundFrame);
         stage.addActor(buttonHolder);
         stage.addActor(scoreTable);
+        stage.addActor(progressTable);
+        stage.addActor(stepsTable);
+        stage.addActor(healthTable);
     }
 
     @Override

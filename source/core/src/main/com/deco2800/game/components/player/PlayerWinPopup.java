@@ -85,7 +85,7 @@ public class PlayerWinPopup extends UIComponent {
         int score = player.getComponent(ScoreComponent.class).getScore();
         player.getComponent(ProgressComponent.class).updateProgress(endOfMap.getPosition().x);
         ui.addComponent(new PlayerWinActions(game, entity))
-                .addComponent(new PlayerWinDisplay(handler, score));
+                .addComponent(new PlayerWinDisplay(handler, player));
 
         ServiceLocator.getEntityService().register(ui);
     }
