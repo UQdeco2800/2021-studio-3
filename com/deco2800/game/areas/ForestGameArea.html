@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -138,8 +138,15 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+int&nbsp;checkpoint,
+boolean&nbsp;hasDied)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+int&nbsp;checkpoint,
+int&nbsp;lives)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -201,13 +208,18 @@ int&nbsp;checkpoint)</code></th>
 </td>
 </tr>
 <tr class="rowColor" id="i5">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDead()">isDead</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></span>&#8203;(<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</code></th>
 <td class="colLast">
 <div class="block">reset the camera position when refresh every frame</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCheckPointStatus(int)">setCheckPointStatus</a></span>&#8203;(int&nbsp;status)</code></th>
 <td class="colLast">
@@ -243,9 +255,18 @@ int&nbsp;checkpoint)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int)">ForestGameArea</a></h3>
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">ForestGameArea</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint)</span></div>
+int&nbsp;checkpoint,
+boolean&nbsp;hasDied)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">ForestGameArea</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+int&nbsp;checkpoint,
+int&nbsp;lives)</span></div>
 </section>
 </li>
 </ul>
@@ -296,6 +317,12 @@ int&nbsp;checkpoint)</span></div>
 <h3><a id="setCheckPointStatus(int)">setCheckPointStatus</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setCheckPointStatus</span>&#8203;(<span class="arguments">int&nbsp;status)</span></div>
 <div class="block">sets the check point status.</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="isDead()">isDead</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isDead</span>()</div>
 </section>
 </li>
 <li class="blockList">
