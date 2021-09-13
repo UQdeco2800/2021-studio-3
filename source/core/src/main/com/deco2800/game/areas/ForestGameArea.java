@@ -3,9 +3,11 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -50,6 +52,7 @@ public class ForestGameArea extends GameArea {
           "images/underground.png",
           "images/sky.png",
           "images/untouchedCheckpoint.png",
+          "images/longBackground.png",
 
           "images/broken_asteriod.png",
           "images/asteroid_fire1.png",
@@ -338,6 +341,7 @@ public class ForestGameArea extends GameArea {
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
+    newPlayer.addComponent(new ScoreComponent());
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);

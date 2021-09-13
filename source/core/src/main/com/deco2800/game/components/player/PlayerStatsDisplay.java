@@ -15,10 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.deco2800.game.GdxGame;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.CombatStatsComponent;
-
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.*;
 
 import com.deco2800.game.components.SprintComponent;
 
@@ -40,9 +37,11 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   Table table2;
   Table table3;
+  Table table4;
   private Image heartImage;
-  private Label healthLabel;
 
+  private Label healthLabel;
+  private Label scoreLabel;
   private Label sprintLabel;
   private Label progressLabel;
 
@@ -79,6 +78,7 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
+    entity.getEvents().addListener("updateScore", this::updateScoreUI);
 
   }
 
@@ -102,6 +102,11 @@ public class PlayerStatsDisplay extends UIComponent {
     table3.setFillParent(true);
     table3.padTop(25f);
 
+    table4 = new Table();
+    table4.top().left();
+    table4.setFillParent(true);
+    table4.padTop(100f).padLeft(5f);
+
     // Heart image
     float heartSideLength = 30f;
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
@@ -114,6 +119,9 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "large");
 
+    int score = entity.getComponent(ScoreComponent.class).getScore();
+    CharSequence scoreText = String.format("score: %d", score);
+    scoreLabel = new Label(scoreText, skin, "large");
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/00.png");
     level10percent = new Texture("images/10.png");
@@ -138,6 +146,9 @@ public class PlayerStatsDisplay extends UIComponent {
 
     table2.add(sprintLabel).pad(5);
     stage.addActor(table2);
+
+    table4.add(scoreLabel).pad(5);
+    stage.addActor(table4);
 
     levelStatus = new Image(levelStart);
     table3.add(levelStatus).size(600, 250);
@@ -258,9 +269,16 @@ public class PlayerStatsDisplay extends UIComponent {
           break;
       }
     }
-
   }
 
+  /**
+   * Updates the player's score on the ui.
+   * @param score player score
+   */
+  public void updateScoreUI(int score) {
+    CharSequence text = String.format("Score: %d", score);
+    scoreLabel.setText(text);
+  }
 
 
   @Override
@@ -270,6 +288,6 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.remove();
     sprintLabel.remove();
     progressLabel.remove();
-
+    scoreLabel.remove();
   }
 }
