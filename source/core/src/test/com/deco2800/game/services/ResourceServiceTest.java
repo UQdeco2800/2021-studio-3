@@ -47,6 +47,70 @@ class ResourceServiceTest {
   }
 
   @Test
+  void loadAllPlayerAnimationsAssets() {
+    String[] forestTextures = {
+            "images/Walking.png",
+            "images/WalkingDamage90-50.png",
+            "images/WalkingDamage50-10.png",
+            "images/Sprint.png",
+            "images/SprintDamage(50-90).png",
+            "images/SprintDamage(10-50).png",
+            "images/Jump.png",
+            "images/JumpDamage(50-90).png",
+            "images/JumpDamage(10-50).png",
+            "images/IdleCharacters.png"
+    };
+    String[] forestTextureAtlases = {
+            "images/PlayerMovementAnimations.atlas"
+    };
+    // Load Textures
+    AssetManager assetManager = spy(AssetManager.class);
+    ResourceService resourceService = new ResourceService(assetManager);
+
+    resourceService.loadTextureAtlases(forestTextureAtlases);
+    resourceService.loadTextures(forestTextures);
+
+    verify(assetManager).load("images/PlayerMovementAnimations.atlas", TextureAtlas.class);
+    verify(assetManager).load("images/Walking.png", Texture.class);
+    verify(assetManager).load("images/WalkingDamage90-50.png", Texture.class);
+    verify(assetManager).load("images/WalkingDamage50-10.png", Texture.class);
+    verify(assetManager).load("images/Sprint.png", Texture.class);
+    verify(assetManager).load("images/SprintDamage(50-90).png", Texture.class);
+    verify(assetManager).load("images/SprintDamage(10-50).png", Texture.class);
+    verify(assetManager).load("images/Jump.png", Texture.class);
+    verify(assetManager).load("images/JumpDamage(50-90).png", Texture.class);
+    verify(assetManager).load("images/JumpDamage(10-50).png", Texture.class);
+    verify(assetManager).load("images/IdleCharacters.png", Texture.class);
+
+    assertTrue(assetManager.contains("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
+    assertTrue(assetManager.contains("images/Walking.png", Texture.class));
+    assertTrue(assetManager.contains("images/WalkingDamage90-50.png", Texture.class));
+    assertTrue(assetManager.contains("images/WalkingDamage50-10.png", Texture.class));
+    assertTrue(assetManager.contains("images/Sprint.png", Texture.class));
+    assertTrue(assetManager.contains("images/SprintDamage(50-90).png", Texture.class));
+    assertTrue(assetManager.contains("images/SprintDamage(10-50).png", Texture.class));
+    assertTrue(assetManager.contains("images/Jump.png", Texture.class));
+    assertTrue(assetManager.contains("images/JumpDamage(50-90).png", Texture.class));
+    assertTrue(assetManager.contains("images/JumpDamage(10-50).png", Texture.class));
+    assertTrue(assetManager.contains("images/IdleCharacters.png", Texture.class));
+
+    resourceService.unloadAssets(forestTextures);
+    resourceService.unloadAssets(forestTextureAtlases);
+
+    assertFalse(assetManager.contains("images/PlayerMovementAnimations.atlas", TextureAtlas.class));
+    assertFalse(assetManager.contains("images/Walking.png", Texture.class));
+    assertFalse(assetManager.contains("images/WalkingDamage90-50.png", Texture.class));
+    assertFalse(assetManager.contains("images/WalkingDamage50-10.png", Texture.class));
+    assertFalse(assetManager.contains("images/Sprint.png", Texture.class));
+    assertFalse(assetManager.contains("images/SprintDamage(50-90).png", Texture.class));
+    assertFalse(assetManager.contains("images/SprintDamage(10-50).png", Texture.class));
+    assertFalse(assetManager.contains("images/Jump.png", Texture.class));
+    assertFalse(assetManager.contains("images/JumpDamage(50-90).png", Texture.class));
+    assertFalse(assetManager.contains("images/JumpDamage(10-50).png", Texture.class));
+    assertFalse(assetManager.contains("images/IdleCharacters.png", Texture.class));
+  }
+
+  @Test
   void loadForMillisShouldLoadAssets() {
     String texture1 = "test/files/tree.png";
     String texture2 = "test/files/missing.png";
