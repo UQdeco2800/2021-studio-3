@@ -140,14 +140,12 @@ public class BuffManager extends Component {
     public String getTexture(BuffTypes type) {
         switch (type) {
             case BT_INVIN:
-                return "images/ghostKing.png";
-                //return "images/invincible.png";
+                return "images/invincible.png";
             case B_HP_UP:
                 return "images/winMainMenu.png";
                 //return "images/healthIncrease.png";
             case D_HP_DOWN:
-                return "images/winContinue.png";
-                // return "images/healthDecrease.png";
+                return "images/healthDecrease.png";
             case DT_NO_JUMP:
                 return "images/box_boy.png";
                 //return "images/noJumping.png";
@@ -155,8 +153,7 @@ public class BuffManager extends Component {
                 return "images/box_boy.png";
                 //return "images/infiniteSprint.png";
             case DT_DOUBLE_DMG:
-                return "images/pauseRestart.png";
-                // return "images/doubleHurt.png";
+                return "images/doubleHurt.png";
             case B_FULL_HEAL:
                 return "images/heart.png";
         }
@@ -174,12 +171,9 @@ public class BuffManager extends Component {
     public String getPickupTexture(BuffPickup pickup) {
         switch (pickup) {
             case positive:
-                return "images/heart.png";
-                //return "images/healthIncrease.png";
+                return "images/increase20Pickup.png";
             case negative:
-                return "images/box_boy.png";
-                //return "images/healthDecrease.png";
-
+                return "images/decrease20Pickup.png";
         }
         return "images/heart.png"; // Default behaviour
     }
