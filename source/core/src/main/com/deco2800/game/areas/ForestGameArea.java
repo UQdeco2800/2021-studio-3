@@ -71,7 +71,7 @@ public class ForestGameArea extends GameArea {
 
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/boxBoy.atlas", "images/ufo_animation.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -118,8 +118,6 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     player = spawnPlayer();
     //spawnTrees();
-
-    spawnGhosts();
 
     //spawnTrees();
     spawnAsteriod();
@@ -355,33 +353,11 @@ public class ForestGameArea extends GameArea {
 
   }
 
-  private void spawnGhosts() {
-    //need to change it to the horizon view
-//    GridPoint2 minPos = new GridPoint2(0, 0);
-//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-//
-//    for (int i = 0; i < NUM_GHOSTS; i++) {
-//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-//      Entity ghost = NPCFactory.createGhost(player);
-//      spawnEntityAt(ghost, randomPos, true, true);
-//    }
-
-    GridPoint2 pos = new GridPoint2(12,10);
-    Entity ghost = NPCFactory.createGhost(player);
-    spawnEntityAt(ghost, pos, true, true);
-  }
 
 
 
-  private void spawnGhostKing() {
-    //need to change it to the horizon view
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createGhostKing(player);
-    spawnEntityAt(ghostKing, randomPos, true, true);
-  }
+
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);

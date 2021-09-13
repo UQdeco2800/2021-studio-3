@@ -46,71 +46,71 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
-    BaseEntityConfig config = configs.ghost;
-
-    AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-
-    ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-        .addComponent(animator)
-        .addComponent(new GhostAnimationController());
-
-    ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
-
-    return ghost;
-  }
-
-  /**
-   * Creates a ufo entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public static Entity createUFO(Entity target) {
-    Entity ufo = createBaseNPC(target);
-    BaseEntityConfig config = configs.ghost;
-
-    ufo
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(new TextureRenderComponent("images/ufo_2.png"));
-
-    ufo.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.DynamicBody);
-    ufo.getComponent(TextureRenderComponent.class).scaleEntity();
-    ufo.scaleHeight(1f);
-    return ufo;
-  }
-
-  /**
-   * Creates a ghost king entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC(target);
-    GhostKingConfig config = configs.ghostKing;
-
-    AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-
-    ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-        .addComponent(animator)
-        .addComponent(new GhostAnimationController());
-
-    ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return ghostKing;
-  }
+  //public static Entity createGhost(Entity target) {
+  //  Entity ghost = createBaseNPC(target);
+  //  BaseEntityConfig config = configs.ghost;
+//
+  //  AnimationRenderComponent animator =
+  //      new AnimationRenderComponent(
+  //          ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
+  //  animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+  //  animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+//
+  //  ghost
+  //      .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+  //      .addComponent(animator)
+  //      .addComponent(new GhostAnimationController());
+//
+  //  ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
+//
+  //  return ghost;
+  //}
+//
+  ///**
+  // * Creates a ufo entity.
+  // *
+  // * @param target entity to chase
+  // * @return entity
+  // */
+  //public static Entity createUFO(Entity target) {
+  //  Entity ufo = createBaseNPC(target);
+  //  BaseEntityConfig config = configs.ghost;
+//
+  //  ufo
+  //          .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+  //          .addComponent(new TextureRenderComponent("images/ufo_2.png"));
+//
+  //  ufo.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.DynamicBody);
+  //  ufo.getComponent(TextureRenderComponent.class).scaleEntity();
+  //  ufo.scaleHeight(1f);
+  //  return ufo;
+  //}
+//
+  ///**
+  // * Creates a ghost king entity.
+  // *
+  // * @param target entity to chase
+  // * @return entity
+  // */
+  //public static Entity createGhostKing(Entity target) {
+  //  Entity ghostKing = createBaseNPC(target);
+  //  GhostKingConfig config = configs.ghostKing;
+//
+  //  AnimationRenderComponent animator =
+  //      new AnimationRenderComponent(
+  //          ServiceLocator.getResourceService()
+  //              .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+  //  animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+  //  animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+//
+  //  ghostKing
+  //      .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+  //      .addComponent(animator)
+  //      .addComponent(new GhostAnimationController());
+//
+  //  ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
+  //  return ghostKing;
+  //}
 
 //  public static Entity createAttackObstacle(Entity target) {
 //    //Entity attackObstacle = createBaseNPC(target);
