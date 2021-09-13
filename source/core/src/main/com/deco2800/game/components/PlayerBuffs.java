@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class which handles the behaviour of the different buffs & debuffs available
+ * Class which handles the behaviour of the different buffs and debuffs available
  * to a player. Methods of this class are called when the player collides with
  * the corresponding buff or debuff. Methods of this class also handle removing
  * the effects of time-based buffs.

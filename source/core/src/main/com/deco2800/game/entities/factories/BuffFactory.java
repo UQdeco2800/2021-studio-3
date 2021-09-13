@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class for creating buffs & debuffs. This factory is called by the
+ * Class for creating buffs and debuffs. This factory is called by the
  * BuffManager when a new buff is to be spawned in.
  *
  * All buffs have a designated texture which should be defined in the

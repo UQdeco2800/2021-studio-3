@@ -5,7 +5,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
- * Stores information about each buff & debuff created. Each buff / debuff will
+ * Stores information about each buff and debuff created. Each buff / debuff will
  * have a BuffInformation attached to them when they are created. This class
  * works with the BuffManager to keep track of the information about current
  * buffs in the game.
@@ -50,7 +50,7 @@ public class BuffInformation extends Component {
         this.type = type;
         this.timeOfCreation = creationTime;
 
-        /* Set the UI title & time of effect for the timed buff. */
+        /* Set the UI title and time of effect for the timed buff. */
         switch (type) {
             case DT_DOUBLE_DMG:
                 this.buffName = "Double Hurt!";
