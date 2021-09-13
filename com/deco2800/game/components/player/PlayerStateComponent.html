@@ -123,17 +123,23 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <tr class="altColor">
 <td class="colFirst"><code>com.deco2800.game.components.player.Health</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#health">health</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The player's current Health state</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jumpCount">jumpCount</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Used for keeping track of how many times the player jumped</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>com.deco2800.game.components.player.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#state">state</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The players current state</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -163,7 +169,9 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">PlayerStateComponent</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Initialises the current State and Health values</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -191,7 +199,9 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>com.deco2800.game.components.player.Health</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHealth()">getHealth</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the player's current Health state.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>int</code></td>
@@ -201,28 +211,38 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>com.deco2800.game.components.player.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getState()">getState</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the player's current state.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStateAnimation()">getStateAnimation</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Determines which state the player should be in, at different health intervals</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#manage(boolean,boolean)">manage</a></span>&#8203;(boolean&nbsp;isJumping,
 boolean&nbsp;isSprinting)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">handles situations do with player sprinting and jumping at the same time</div>
+</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateHealth(com.deco2800.game.components.player.Health)">updateHealth</a></span>&#8203;(com.deco2800.game.components.player.Health&nbsp;health)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">update the player's current health state</div>
+</td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateState(com.deco2800.game.components.player.State)">updateState</a></span>&#8203;(com.deco2800.game.components.player.State&nbsp;state)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">updates the player's current state</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -255,18 +275,21 @@ boolean&nbsp;isSprinting)</code></th>
 <section class="detail">
 <h3><a id="jumpCount">jumpCount</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">jumpCount</span></div>
+<div class="block">Used for keeping track of how many times the player jumped</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="state">state</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.State</span>&nbsp;<span class="memberName">state</span></div>
+<div class="block">The players current state</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="health">health</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.Health</span>&nbsp;<span class="memberName">health</span></div>
+<div class="block">The player's current Health state</div>
 </section>
 </li>
 </ul>
@@ -283,6 +306,7 @@ boolean&nbsp;isSprinting)</code></th>
 <section class="detail">
 <h3><a id="&lt;init&gt;()">PlayerStateComponent</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">PlayerStateComponent</span>()</div>
+<div class="block">Initialises the current State and Health values</div>
 </section>
 </li>
 </ul>
@@ -299,6 +323,11 @@ boolean&nbsp;isSprinting)</code></th>
 <section class="detail">
 <h3><a id="getStateAnimation()">getStateAnimation</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getStateAnimation</span>()</div>
+<div class="block">Determines which state the player should be in, at different health intervals</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>String: the animation name of the current state</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -306,36 +335,66 @@ boolean&nbsp;isSprinting)</code></th>
 <h3><a id="manage(boolean,boolean)">manage</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">manage</span>&#8203;(<span class="arguments">boolean&nbsp;isJumping,
 boolean&nbsp;isSprinting)</span></div>
+<div class="block">handles situations do with player sprinting and jumping at the same time</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>isJumping</code> - Whether the player is jumping</dd>
+<dd><code>isSprinting</code> - Whether the player is sprinting</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="updateState(com.deco2800.game.components.player.State)">updateState</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateState</span>&#8203;(<span class="arguments">com.deco2800.game.components.player.State&nbsp;state)</span></div>
+<div class="block">updates the player's current state</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>state</code> - The new state the player is in.</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getState()">getState</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.State</span>&nbsp;<span class="memberName">getState</span>()</div>
+<div class="block">Gets the player's current state.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the player's current state</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="updateHealth(com.deco2800.game.components.player.Health)">updateHealth</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateHealth</span>&#8203;(<span class="arguments">com.deco2800.game.components.player.Health&nbsp;health)</span></div>
+<div class="block">update the player's current health state</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>health</code> - the new health interval the player is in</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getHealth()">getHealth</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.Health</span>&nbsp;<span class="memberName">getHealth</span>()</div>
+<div class="block">Gets the player's current Health state.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the player's current Health state</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getJumpCount()">getJumpCount</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getJumpCount</span>()</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The amount of time the player has jumped in the current game.</dd>
+</dl>
 </section>
 </li>
 </ul>
