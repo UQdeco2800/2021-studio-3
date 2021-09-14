@@ -97,12 +97,15 @@ public class ObstacleFactory {
                     .addComponent(new CombatStatsComponent(config.health, config.baseAttack));
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
 
-    //asteroidFire.getComponent(TextureRenderComponent.class).scaleEntity();
-    //asteroidFire.scaleHeight(1.5f);
-    //PhysicsUtils.setScaledCollider(asteroidFire, 1.5f, 0.5f);
     return asteroidFire;
   }
 
+  /**
+   * Creates an animated asteroid fire entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
   public static Entity createAsteroidAnimatedFire(Entity target) {
 
     AsteroidFireConfig config = configs.asteroidFire;
@@ -129,31 +132,13 @@ public class ObstacleFactory {
     asteroidFire.scaleHeight(1f);
     return asteroidFire;
   }
+
   /**
    * Creates a robot entity.
    *
    * @param target entity to chase
    * @return entity
    */
-//  public static Entity createRobot(Entity target) {
-//    RobotConfig config = configs.robot;
-//    AITaskComponent aiComponent =
-//            new AITaskComponent()
-//                    .addTask(new WanderTask(new Vector2(10f, 0f), 0f));
-//    Entity robot =
-//            new Entity()
-//                    .addComponent(new PhysicsComponent())
-//                    .addComponent(new PhysicsMovementComponent())
-//                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-//                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-//                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-//                    .addComponent(new TextureRenderComponent("images/robot1.png"))
-//                    .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-//                    .addComponent(aiComponent);
-//    robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-//    return robot;
-//  }
-
   public static Entity createRobot(Entity target) {
     RobotConfig config = configs.robot;
     AITaskComponent aiComponent =

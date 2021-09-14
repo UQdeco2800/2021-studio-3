@@ -162,15 +162,7 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
-
-//    fillTilesAt(layer, new GridPoint2(30, 20), new GridPoint2(32, 22), starTile);
-//    fillTilesAt(layer, new GridPoint2(32, 20), new GridPoint2(50, 22), skyTile);
-//    fillTilesAt(layer, new GridPoint2(50, 20), new GridPoint2(54, 22), starTile);
-//    fillTilesAt(layer, new GridPoint2(54, 20), new GridPoint2(100, 22), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
-//    fillTilesAt(layer, new GridPoint2(10, 21), new GridPoint2(12, 30), starTile);
-//    fillTilesAt(layer, new GridPoint2(12, 21), new GridPoint2(100, 30), skyTile);
-    //fillTilesAt(layer, new GridPoint2(0, 28), new GridPoint2(100, 30), starTile);
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
