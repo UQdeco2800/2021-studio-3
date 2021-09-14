@@ -186,17 +186,17 @@ public class PlayerStatsDisplay extends UIComponent {
     livesLabel = new Label(livesText, skin, "large");
 
     //Create textures to be changed on update
-    Texture levelStart = new Texture("images/00.png");
-    level10percent = new Texture("images/10.png");
-    level20percent = new Texture("images/20.png");
-    level30percent = new Texture("images/30.png");
-    level40percent = new Texture("images/40.png");
-    level50percent = new Texture("images/50.png");
-    level60percent = new Texture("images/60.png");
-    level70percent = new Texture("images/70.png");
-    level80percent = new Texture("images/80.png");
-    level90percent = new Texture("images/90.png");
-    levelComplete = new Texture("images/levelComplete.png");
+    Texture levelStart = new Texture("images/0percent.png");
+    level10percent = new Texture("images/10percent.png");
+    level20percent = new Texture("images/20percent.png");
+    level30percent = new Texture("images/30percent.png");
+    level40percent = new Texture("images/40percent.png");
+    level50percent = new Texture("images/50percent.png");
+    level60percent = new Texture("images/60percent.png");
+    level70percent = new Texture("images/70percent.png");
+    level80percent = new Texture("images/80percent.png");
+    level90percent = new Texture("images/90percent.png");
+    levelComplete = new Texture("images/100percent.png");
 
 
     //Adding elements to each table, subsequently adding them to the stage
@@ -218,7 +218,7 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(scoreTable);
 
     levelStatus = new Image(levelStart);
-    progressTable.add(levelStatus).size(600, 250);
+    progressTable.add(levelStatus).width(850);
     progressTable.add(progressLabel);
 
     stage.addActor(progressTable);
