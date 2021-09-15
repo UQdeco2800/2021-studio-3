@@ -385,6 +385,11 @@ public class PlayerStatsDisplay extends UIComponent {
     scoreLabel.setText(text);
   }
 
+
+  /**
+   * Updates the player's score on the ui.
+   * @param lives player lives
+   */
   public void updateLivesUI(int lives) {
     CharSequence text = String.format("x%d", lives);
     livesLabel.setText(text);
