@@ -40,7 +40,7 @@ public class ScoreComponent extends Component {
     }
 
     /**
-     * Set's the new score on the UI once the updateProgress event has been triggered. This occurs
+     * Set's the new score on the UI once the updateScore event has been triggered. This occurs
      * only if the entity has been created (i.e. it is not null)
      */
     public void setScore(int score) {
