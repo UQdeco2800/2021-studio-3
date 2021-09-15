@@ -89,7 +89,7 @@ public int getMaxHealth() {
    * Sets the players health to the maximum.
    * */
   public void setFullHeal() {
-    setHealth(getMaxHealth());
+    this.health = getMaxHealth();
   }
 
   /**
