@@ -50,36 +50,36 @@ public class PlayerWinDisplay extends UIComponent {
 
         // create score
         Table scoreTable = new Table();
-        scoreTable.top().left();
+        scoreTable.center();
         scoreTable.setFillParent(true);
-        scoreTable.padTop(350f).padLeft(350f);
+        scoreTable.padBottom(50f).padRight(350f);
         CharSequence scoreText = String.format("SCORE: %d", score);
         Label scoreLabel = new Label(scoreText, skin, "large");
         scoreTable.add(scoreLabel);
 
         // create progress
         Table progressTable = new Table();
-        progressTable.top().left();
+        progressTable.center();
         progressTable.setFillParent(true);
-        progressTable.padTop(400f).padLeft(350f);
+        progressTable.padTop(50f).padRight(350f);
         CharSequence progressText = String.format("PROGRESS: %d%%", progress);
         Label progressLabel = new Label(progressText, skin, "large");
         progressTable.add(progressLabel);
 
         // create steps
         Table stepsTable = new Table();
-        stepsTable.top().left();
+        stepsTable.center();
         stepsTable.setFillParent(true);
-        stepsTable.padTop(450f).padLeft(350f);
+        stepsTable.padTop(150f).padRight(350f);
         CharSequence stepsText = String.format("STEPS: %d", steps);
         Label stepsLabel = new Label(stepsText, skin, "large");
         stepsTable.add(stepsLabel);
 
         // create health
         Table healthTable = new Table();
-        healthTable.top().left();
+        healthTable.center();
         healthTable.setFillParent(true);
-        healthTable.padTop(500f).padLeft(350f);
+        healthTable.padTop(250f).padRight(350f);
         CharSequence healthText = String.format("HEALTH: %d", health);
         Label healthLabel = new Label(healthText, skin, "large");
         healthTable.add(healthLabel);
