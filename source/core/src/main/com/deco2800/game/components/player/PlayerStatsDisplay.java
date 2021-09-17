@@ -160,30 +160,30 @@ public class PlayerStatsDisplay extends UIComponent {
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
+    healthLabel = new Label(healthText, skin, "font_large", "white");
 
     //Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
-    sprintLabel = new Label(sprintText, skin, "large");
+    sprintLabel = new Label(sprintText, skin, "font_large", "white");
 
     int score = entity.getComponent(ScoreComponent.class).getScore();
     CharSequence scoreText = String.format("score: %d", score);
-    scoreLabel = new Label(scoreText, skin, "large");
+    scoreLabel = new Label(scoreText, skin, "font_large", "white");
     // Buff-related Text
     buffText = "Current buffs: \n";
-    buffLabel = new Label(buffText, skin, "large");
+    buffLabel = new Label(buffText, skin, "font_large", "white");
     buffTable.add(buffLabel);
 
     //Progress Text
     float progress = entity.getComponent(ProgressComponent.class).getProgress();
     CharSequence progressText = String.format("%.0f %%", progress);
-    progressLabel = new Label(progressText, skin, "large");
+    progressLabel = new Label(progressText, skin, "font_large", "white");
 
     //Lives text
     int lives = entity.getComponent(LivesComponent.class).getLives();
     CharSequence livesText = String.format("x%d", lives);
-    livesLabel = new Label(livesText, skin, "large");
+    livesLabel = new Label(livesText, skin, "font_large", "white");
 
     //Create textures to be changed on update
     Texture levelStart = new Texture("images/0percent.png");
