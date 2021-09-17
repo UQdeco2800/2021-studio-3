@@ -184,27 +184,27 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(livesTable);
     stage.addActor(scoreTable);
     stage.addActor(buffTable);
-  }
+    }
 
-  @Override
-  public void draw(SpriteBatch batch)  {
-    double health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    double hp = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
-    if (hp>0.9){
-      textureRegion.setTexture(manager.get("images/100.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.8 && hp <=0.9){
-      textureRegion.setTexture(manager.get("images/90.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.7 && hp <=0.8){
-      textureRegion.setTexture(manager.get("images/80.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.6 && hp <=0.7){
-      textureRegion.setTexture(manager.get("images/70.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
+    @Override
+    public void draw(SpriteBatch batch)  {
+      double health = entity.getComponent(CombatStatsComponent.class).getHealth();
+      double hp = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
+      if (hp>0.9){
+        textureRegion.setTexture(manager.get("images/100.png", Texture.class));
+        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
+      }
+      if (hp>0.8 && hp <=0.9){
+        textureRegion.setTexture(manager.get("images/90.png", Texture.class));
+        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
+      }
+      if (hp>0.7 && hp <=0.8){
+        textureRegion.setTexture(manager.get("images/80.png", Texture.class));
+        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
+      }
+      if (hp>0.6 && hp <=0.7){
+        textureRegion.setTexture(manager.get("images/70.png", Texture.class));
+        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
     }
     if (hp>0.5 && hp <=0.6){
       textureRegion.setTexture(manager.get("images/60.png", Texture.class));
