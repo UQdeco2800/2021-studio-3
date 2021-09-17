@@ -95,6 +95,21 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   /**
+   * Handles setting up a new UI Table to hold elements to be displayed in the
+   * top-left player UI.
+   *
+   * @param topPadding the amount of padding to put above the table.
+   * @param leftPadding the amount of padding to put to the left of the table.
+   * */
+  private Table setupUITable(float topPadding, float leftPadding) {
+    Table temporaryTable = new Table();
+    temporaryTable.top().left();
+    temporaryTable.setFillParent(true);
+    temporaryTable.padTop(topPadding).padLeft(leftPadding);
+    return temporaryTable;
+  }
+
+  /**
    * Creates actors and positions them on the stage using a healthTable.
    * @see Table for positioning options
    */
