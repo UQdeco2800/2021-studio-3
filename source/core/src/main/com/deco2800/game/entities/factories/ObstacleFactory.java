@@ -18,6 +18,7 @@ import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.CombatStatsComponent;
 
 
+import com.deco2800.game.components.tasks.MovingTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -489,46 +490,31 @@ public class ObstacleFactory {
     return checkpoint;
   }
 
-//  public static Entity createUfo(Entity target) {
-//    AITaskComponent aiComponent =
-//            new AITaskComponent()
-//                    //.addTask(new FallTask(5f));
-//                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-//                    .addTask(new ChaseTask(target, 2,2f,2.5f));
-//
-//    Entity ufo = new Entity()
-//            .addComponent(new PhysicsComponent())
-//            .addComponent(new PhysicsMovementComponent())
-//            .addComponent(new ColliderComponent())
-//            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-//            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-//            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-//            .addComponent(aiComponent);
-//
-//    AnimationRenderComponent animator =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-//    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
-//    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
-//
-//    ufo.addComponent(animator);
-//    ufo.addComponent(new UfoAnimationController());
-//
-//    ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
-//    PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-//    ufo.scaleHeight(3f);
-//    return ufo;
-//  }
 
-  public static Entity createDeathWall(float width, float height, float speed) {
+  /**
+   * Create a new death wall and start to move from left to end of map
+   * @param width the width of the death wall
+   * @param height the height of the death wall
+   * @param target the target that the death wall toward with.
+   *               Normally the target should be the right air wall of
+   *               the game
+   * @return A new Entity death wall
+   */
+  public static Entity createDeathWall(float width, float height, Vector2 target) {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new MovingTask(target));
+
     Entity deathWall = new Entity()
             .addComponent(new TextureRenderComponent("images/tree.png"))
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(aiComponent);
+
     deathWall.getComponent(TextureRenderComponent.class).scaleEntity();
     deathWall.setScale(width, height);
-
-//回来之后看看怎么让墙动起来
     return deathWall;
   }
 

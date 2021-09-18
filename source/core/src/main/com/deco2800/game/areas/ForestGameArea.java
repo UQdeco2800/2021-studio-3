@@ -3,6 +3,8 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -12,10 +14,15 @@ import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -177,7 +184,7 @@ public class ForestGameArea extends GameArea {
 
 
     //spawnGhosts();
-
+    spawnDeathWall();
     //spawnTrees();
     spawnAsteriod();
     spawnAsteroidFire();
@@ -196,8 +203,8 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
     //spawnGhostKing();
     createCheckpoint();
-//    playMusic();
-    //spawnAttackObstacle();
+    playMusic();
+//    spawnAttackObstacle();
   }
 
   private void displayUI() {
@@ -251,9 +258,15 @@ public class ForestGameArea extends GameArea {
             //change a wall with high:10
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
 
-    // Spawn death wall
-    spawnEntityAt(
-            ObstacleFactory.createDeathWall(1f, worldBounds.y, 1f), new GridPoint2(0, 9), false, false);
+  }
+
+  /**
+   * spawn a death wall that move from left to end
+   */
+  private void spawnDeathWall() {
+    Entity deathWall = ObstacleFactory.createDeathWall(1f, terrain.getMapBounds(0).y *
+            terrain.getTileSize() - 6, this.endOfMap.getPosition());
+    spawnEntityAt(deathWall, new GridPoint2(0, 9), false, false);
   }
 
   private void spawnUFO() {
@@ -438,7 +451,7 @@ public class ForestGameArea extends GameArea {
   public void resetCam(CameraComponent camera) {
     float playerX = player.getPosition().x;
 
-    System.out.println(playerX);
+//    System.out.println(playerX);
     if (playerX >= 5 && playerX <= 35) {
       camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
       camera.getCamera().update();
