@@ -36,7 +36,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(3, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
@@ -250,6 +250,10 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
             //change a wall with high:10
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+
+    // Spawn death wall
+    spawnEntityAt(
+            ObstacleFactory.createDeathWall(1f, worldBounds.y, 1f), new GridPoint2(0, 9), false, false);
   }
 
   private void spawnUFO() {
