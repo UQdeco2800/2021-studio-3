@@ -14,7 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
+import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.*;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;

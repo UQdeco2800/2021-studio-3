@@ -3,7 +3,6 @@ package com.deco2800.game.components.player;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.components.player.PlayerStateComponent;
 
 /**
  * This class listens to events relevant to a player entity's state and plays the animation when one
@@ -19,9 +18,15 @@ public class PlayerAnimationController extends Component {
     entity.getEvents().addListener("playerStatusAnimation", this::updatePlayerStatusAnimation);
   }
 
+  /**
+   * Updates the health of the player then applies the correct animation to the player based on states
+   * in the PlayerStateComponent.java
+   * @see PlayerStateComponent
+   */
   void updatePlayerStatusAnimation() {
     // Updates the health value in PlayerStateComponent
     int health = this.entity.getComponent(CombatStatsComponent.class).getHealth();
+
     if (health <= 90 && health > 50) {
       this.entity.getComponent(PlayerStateComponent.class).updateHealth(Health.ROUGH);
     } else if (health <= 50 && health > 10) {

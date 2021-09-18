@@ -1,16 +1,22 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
+
+import com.deco2800.game.components.obstacle.ObstacleAnimationController;
+
+import com.deco2800.game.components.obstacle.UfoAnimationController;
+
 import com.deco2800.game.components.tasks.ChaseTask;
 
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.TouchAttackComponent;
+
 
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -22,7 +28,9 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Factory to create obstacle entities.
@@ -74,9 +82,11 @@ public class ObstacleFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createAsteroidFree(Entity target) {
+  public static Entity createAsteroidFire(Entity target) {
     //Entity attackObstacle = createBaseNPC(target);
     AsteroidFireConfig config = configs.asteroidFire;
+
+
     Entity asteroidFire =
             new Entity()
                     .addComponent(new PhysicsComponent())
@@ -86,9 +96,40 @@ public class ObstacleFactory {
                     .addComponent(new TextureRenderComponent("images/asteroid_fire1.png"))
                     .addComponent(new CombatStatsComponent(config.health, config.baseAttack));
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    //asteroidFire.getComponent(TextureRenderComponent.class).scaleEntity();
-    //asteroidFire.scaleHeight(1.5f);
-    //PhysicsUtils.setScaledCollider(asteroidFire, 1.5f, 0.5f);
+
+    return asteroidFire;
+  }
+
+  /**
+   * Creates an animated asteroid fire entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createAsteroidAnimatedFire(Entity target) {
+
+    AsteroidFireConfig config = configs.asteroidFire;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(0f, 0f), 0f));
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/asteroidFire.atlas", TextureAtlas.class));
+    animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+    Entity asteroidFire =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                    .addComponent(aiComponent);
+    asteroidFire.addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new ObstacleAnimationController());
+    asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
+    asteroidFire.scaleHeight(1f);
     return asteroidFire;
   }
 
@@ -103,6 +144,13 @@ public class ObstacleFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(10f, 0f), 0f));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/robot.atlas", TextureAtlas.class));
+    animator.addAnimation("float", 0.5f, Animation.PlayMode.LOOP);
+
     Entity robot =
             new Entity()
                     .addComponent(new PhysicsComponent())
@@ -110,10 +158,13 @@ public class ObstacleFactory {
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
                     .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-                    .addComponent(new TextureRenderComponent("images/robot1.png"))
-                    .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                     .addComponent(aiComponent);
+
+    robot.addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new ObstacleAnimationController());
     robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
+    robot.scaleHeight(1f);
     return robot;
   }
 
@@ -127,21 +178,32 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f));
+                    //.addTask(new FallTask(5f));
+                    .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
+                    .addTask(new ChaseTask(target, 2,2f,2.5f));
+
     Entity ufo = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-            .addComponent(new TextureRenderComponent("images/ufo_2.png"))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(aiComponent);
-    ufo.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-    ufo.getComponent(TextureRenderComponent.class).scaleEntity();
-    ufo.scaleHeight(1f);
-    return ufo;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
+    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
+
+    ufo.addComponent(animator);
+    ufo.addComponent(new UfoAnimationController());
+
+    ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
+    PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
+    ufo.scaleHeight(3f);
+    return ufo;
   }
 
   /**

@@ -56,7 +56,7 @@ public class ProgressComponent extends Component {
   }
 
   /**
-   * Set's the new progress on the UI once the updateProgress event has been triggered. This occurs
+   * Sets the new progress on the UI once the updateProgress event has been triggered. This occurs
    * only if the entity has been created (i.e. it is not null)
     */
   public void setProgress() {

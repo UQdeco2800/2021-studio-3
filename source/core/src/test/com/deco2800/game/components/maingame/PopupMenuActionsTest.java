@@ -58,7 +58,7 @@ class PopupMenuActionsTest {
         CameraComponent camComponent = camera.getComponent(CameraComponent.class);
 
         TerrainFactory terrainFactory = new TerrainFactory(camComponent);
-        ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0);
+        ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
         forestGameArea.setCheckPointStatus(0);
         PopupMenuActions popup = new PopupMenuActions(game, forestGameArea);
         popup.onReplay();

@@ -78,7 +78,7 @@ public class PopupUIHandler {
      * @return a list of the buttons to which actions will be added
      * */
     public ArrayList<Image> setupButtons(Table buttonHolder, float upperPadding,
-            float betweenPadding) {
+            float betweenPadding, boolean lose) {
         buttonHolder.center();
         buttonHolder.setFillParent(true);
 
@@ -91,9 +91,16 @@ public class PopupUIHandler {
 
         // Add padding to push buttons down
         buttonHolder.padTop(upperPadding);
-        addButtons(buttonHolder, buttons, betweenPadding);
+        if (lose) {
+            for (Image image : buttons) {
+                buttonHolder.add(image).padRight(betweenPadding);
+            }
+        } else {
+            addButtons(buttonHolder, buttons, betweenPadding);
+        }
         return buttons;
     }
+
 
     /**
      * Adds the buttons to the pop-up menu.

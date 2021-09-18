@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.PlayerWinActions;
 import com.deco2800.game.components.maingame.PlayerWinDisplay;
 import com.deco2800.game.components.maingame.PopupUIHandler;
@@ -80,9 +82,10 @@ public class PlayerWinPopup extends UIComponent {
     public void createUI() {
         logger.debug("Creating player win ui");
         Entity ui = new Entity();
-
+        int score = player.getComponent(ScoreComponent.class).getScore();
+        player.getComponent(ProgressComponent.class).updateProgress(endOfMap.getPosition().x);
         ui.addComponent(new PlayerWinActions(game, entity))
-                .addComponent(new PlayerWinDisplay(handler));
+                .addComponent(new PlayerWinDisplay(handler, player));
 
         ServiceLocator.getEntityService().register(ui);
     }

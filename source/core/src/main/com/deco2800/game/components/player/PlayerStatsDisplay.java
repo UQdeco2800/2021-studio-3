@@ -1,50 +1,42 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.deco2800.game.GdxGame;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.CombatStatsComponent;
-
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.SprintComponent;
-
-import com.deco2800.game.components.SprintComponent;
-
-import com.deco2800.game.entities.configs.PlayerConfig;
-import com.deco2800.game.rendering.TextureRenderComponent;
-
-import com.deco2800.game.screens.MainGameScreen;
-
-import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.components.*;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import org.w3c.dom.Text;
+
+import java.util.Collection;
 
 
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
-  Table table;
-  Table table2;
-  Table table3;
-  private Image heartImage;
-  private Label healthLabel;
 
+  private Table scoreTable;
+  private Table healthTable;
+  private Table sprintTable;
+  private Table progressTable;
+  private Table livesTable;
+  private Table buffTable;
+
+  private Image heartImage;
+  private Image levelStatus;
+
+  private Label scoreLabel;
+  private Label healthLabel;
   private Label sprintLabel;
   private Label progressLabel;
+  private Label livesLabel;
 
   private Texture level10percent;
   private Texture level20percent;
@@ -57,11 +49,21 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level90percent;
   private Texture levelComplete;
 
-  private Image levelStatus;
-
 
   AssetManager manager;
   TextureRegion  textureRegion;
+
+  /* Buff-related UI elements */
+  private CharSequence buffText;
+  private Label buffLabel;
+
+  /**
+   * Defines potential positioning for Tables holding UI elements to be
+   * displayed.
+   * */
+  public enum UIPosition {
+    LEFT, CENTRE, RIGHT
+  }
 
   public PlayerStatsDisplay(AssetManager manager,TextureRegion textureRegion){
     this.manager = manager;
@@ -79,70 +81,123 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateSprint", this::updateSprintLevelUI);
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
-
+    entity.getEvents().addListener("updateScore", this::updateScoreUI);
+    entity.getEvents().addListener("updateLives", this::updateLivesUI);
   }
 
   /**
-   * Creates actors and positions them on the stage using a table.
+   * Handles setting up a new UI Table to hold elements to be displayed on the
+   * main game UI.
+   *
+   * @param topPadding the amount of padding to put above the table.
+   * @param leftPadding the amount of padding to put to the left of the table.
+   * @param position the horizontal positioning of the table, either LEFT,
+   *                 RIGHT or CENTRE.
+   *
+   * @return an empty table in the specified position with the specified
+   *         padding.
+   * */
+  private Table setupUITable(float topPadding, float leftPadding,
+          UIPosition position) {
+    Table temporaryTable = new Table();
+
+    switch (position) {
+      case LEFT:
+        temporaryTable.top().left();
+        break;
+      case RIGHT:
+        temporaryTable.top().right();
+        break;
+      case CENTRE:
+        temporaryTable.top();
+        break;
+    }
+
+    temporaryTable.setFillParent(true);
+    temporaryTable.padTop(topPadding).padLeft(leftPadding);
+    return temporaryTable;
+  }
+
+  /**
+   * Creates actors and positions them on the stage using a healthTable.
    * @see Table for positioning options
    */
   private void addActors() {
-    table = new Table();
-    table.top().left();
-    table.setFillParent(true);
-    table.padTop(45f).padLeft(5f);
+    // HUD icon images
+    float iconSideLength = 30f;
 
-    table2 = new Table();
-    table2.top().left();
-    table2.setFillParent(true);
-    table2.padTop(75f).padLeft(5f);
+    /* Tables for UI Elements */
+    healthTable = setupUITable(45f,5f, UIPosition.LEFT);
+    sprintTable = setupUITable(75f, 5f, UIPosition.LEFT);
+    scoreTable = setupUITable(150f, 5f, UIPosition.LEFT);
+    progressTable = setupUITable(25f, 0f, UIPosition.CENTRE);
+    livesTable = setupUITable(125f, 5f, UIPosition.LEFT);
+    buffTable = setupUITable(180f, 5f, UIPosition.LEFT);
 
-    table3 = new Table();
-    table3.top();
-    table3.setFillParent(true);
-    table3.padTop(25f);
-
-    // Heart image
-    float heartSideLength = 30f;
+    /* Images for UI */
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+    Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon.png", Texture.class));
+
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
+    healthLabel = new Label(healthText, skin, "font_large", "white");
 
+    //Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
-    sprintLabel = new Label(sprintText, skin, "large");
+    sprintLabel = new Label(sprintText, skin, "font_large", "white");
 
-    //Create textures to be changed on update
-    Texture levelStart = new Texture("images/00.png");
-    level10percent = new Texture("images/10.png");
-    level20percent = new Texture("images/20.png");
-    level30percent = new Texture("images/30.png");
-    level40percent = new Texture("images/40.png");
-    level50percent = new Texture("images/50.png");
-    level60percent = new Texture("images/60.png");
-    level70percent = new Texture("images/70.png");
-    level80percent = new Texture("images/80.png");
-    level90percent = new Texture("images/90.png");
-    levelComplete = new Texture("images/levelComplete.png");
+    int score = entity.getComponent(ScoreComponent.class).getScore();
+    CharSequence scoreText = String.format("score: %d", score);
+    scoreLabel = new Label(scoreText, skin, "font_large", "white");
+    // Buff-related Text
+    buffText = "Current buffs: \n";
+    buffLabel = new Label(buffText, skin, "font_large", "white");
+    buffTable.add(buffLabel);
 
     //Progress Text
     float progress = entity.getComponent(ProgressComponent.class).getProgress();
     CharSequence progressText = String.format("%.0f %%", progress);
-    progressLabel = new Label(progressText, skin, "large");
+    progressLabel = new Label(progressText, skin, "font_large", "white");
 
-    table.add(heartImage).size(heartSideLength).pad(5);
-    table.add(healthLabel).pad(5);
-    stage.addActor(table);
+    //Lives text
+    int lives = entity.getComponent(LivesComponent.class).getLives();
+    CharSequence livesText = String.format("x%d", lives);
+    livesLabel = new Label(livesText, skin, "font_large", "white");
 
-    table2.add(sprintLabel).pad(5);
-    stage.addActor(table2);
+    //Create textures to be changed on update
+    Texture levelStart = new Texture("images/0percent.png");
+    level10percent = new Texture("images/10percent.png");
+    level20percent = new Texture("images/20percent.png");
+    level30percent = new Texture("images/30percent.png");
+    level40percent = new Texture("images/40percent.png");
+    level50percent = new Texture("images/50percent.png");
+    level60percent = new Texture("images/60percent.png");
+    level70percent = new Texture("images/70percent.png");
+    level80percent = new Texture("images/80percent.png");
+    level90percent = new Texture("images/90percent.png");
+    levelComplete = new Texture("images/100percent.png");
 
+
+    //Adding elements to each table, subsequently adding them to the stage
+    sprintTable.add(sprintLabel).pad(5);
+    healthTable.add(heartImage).size(iconSideLength).pad(5);
+    healthTable.add(healthLabel).pad(5);
+    scoreTable.add(scoreLabel).pad(5);
     levelStatus = new Image(levelStart);
-    table3.add(levelStatus).size(600, 250);
-    table3.add(progressLabel);
-    stage.addActor(table3);
+    progressTable.add(levelStatus).width(850);
+    progressTable.add(progressLabel);
+    livesTable.add(livesImage).size(40f).pad(5);
+    livesTable.add(livesLabel);
+
+    //adding tables to stages
+    stage.addActor(healthTable);
+    stage.addActor(sprintTable);
+    stage.addActor(progressTable);
+    stage.addActor(livesTable);
+    stage.addActor(scoreTable);
+    stage.addActor(buffTable);
   }
 
   @Override
@@ -195,6 +250,11 @@ public class PlayerStatsDisplay extends UIComponent {
     }
   }
 
+  public Vector2 getPlayerPosition() {
+    return entity.getPosition();
+  }
+
+
   /**
    * Updates the player's health on the ui.
    * @param health player health
@@ -203,6 +263,27 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     entity.getEvents().trigger("updatePlayerStatusAnimation", health);
     healthLabel.setText(text);
+  }
+
+  /**
+   * Updates the players' currently active timed buffs and debuffs on the UI.
+   *
+   * @param buffInfo a collection of BuffInfo's for the currently active timed
+   *                 buffs. Gives the UI access to the name of the buff.
+   * */
+  public void updateBuffDisplay(Collection<BuffInformation> buffInfo) {
+    String text = ((String) this.buffText);
+
+    /* Add the names & time remaining of currently active buffs */
+    for (BuffInformation info : buffInfo) {
+      String buffName = info.getBuffName();
+      double timeRemaining = Math.ceil(info.getTimeLeft() * 0.001);
+
+      text = text.concat(buffName + " " + timeRemaining + "..." + "\n");
+    }
+
+    /* Update */
+    buffLabel.setText(text);
   }
 
   /**
@@ -220,7 +301,7 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerProgressUI(float progress) {
 
-    if (progress % 10 == 0 && progress > 0 || progress > 95) {
+    if (progress % 10 == 0 && progress > 0) {
       CharSequence text = String.format("%.0f %%", progress);
       progressLabel.setText(text);
 
@@ -258,7 +339,25 @@ public class PlayerStatsDisplay extends UIComponent {
           break;
       }
     }
+  }
 
+  /**
+   * Updates the player's score on the ui.
+   * @param score player score
+   */
+  public void updateScoreUI(int score) {
+    CharSequence text = String.format("Score: %d", score);
+    scoreLabel.setText(text);
+  }
+
+
+  /**
+   * Updates the player's score on the ui.
+   * @param lives player lives
+   */
+  public void updateLivesUI(int lives) {
+    CharSequence text = String.format("x%d", lives);
+    livesLabel.setText(text);
   }
 
 
@@ -270,6 +369,6 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.remove();
     sprintLabel.remove();
     progressLabel.remove();
-
+    scoreLabel.remove();
   }
 }

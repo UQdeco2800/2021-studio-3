@@ -45,6 +45,14 @@ public class PhysicsComponent extends Component {
   }
 
   /**
+   * Returns the PhysicsEngine pertaining to this PhysicsComponent.
+   * */
+  public PhysicsEngine getPhysics() {
+    return this.physics;
+  }
+
+
+  /**
    * Set body type
    *
    * @param bodyType body type, default = dynamic

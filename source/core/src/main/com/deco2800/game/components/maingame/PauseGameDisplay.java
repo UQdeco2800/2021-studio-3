@@ -40,7 +40,7 @@ public class PauseGameDisplay extends UIComponent {
         // Create buttons from the images
         Table buttonHolder = new Table();
         ArrayList<Image> buttons =
-                handler.setupButtons(buttonHolder, 125, 15);
+                handler.setupButtons(buttonHolder, 125, 15, false);
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
