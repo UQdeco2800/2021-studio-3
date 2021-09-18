@@ -26,6 +26,7 @@ public class PlayerAnimationController extends Component {
   void updatePlayerStatusAnimation() {
     // Updates the health value in PlayerStateComponent
     int health = this.entity.getComponent(CombatStatsComponent.class).getHealth();
+
     if (health <= 90 && health > 50) {
       this.entity.getComponent(PlayerStateComponent.class).updateHealth(Health.ROUGH);
     } else if (health <= 50 && health > 10) {

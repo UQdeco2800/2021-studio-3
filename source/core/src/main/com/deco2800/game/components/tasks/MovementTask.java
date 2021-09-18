@@ -34,6 +34,7 @@ public class MovementTask extends DefaultTask {
 
   @Override
   public void start() {
+
     super.start();
     this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
     movementComponent.setTarget(target);
@@ -45,6 +46,7 @@ public class MovementTask extends DefaultTask {
 
   @Override
   public void update() {
+
     if (isAtTarget()) {
       movementComponent.setMoving(false);
       status = Status.FINISHED;
@@ -52,6 +54,11 @@ public class MovementTask extends DefaultTask {
     } else {
       checkIfStuck();
     }
+  }
+
+  @Override
+  public Status getStatus() {
+    return super.getStatus();
   }
 
   public void setTarget(Vector2 target) {

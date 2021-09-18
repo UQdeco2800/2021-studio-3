@@ -17,6 +17,12 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private ForestGameArea area;
 
+  /* Whether or not the player is currently invincible (timed buff) */
+  private boolean invincible = false;
+
+  /* Whether or not the player is currently taking double damage (timed buff) */
+  private boolean doubleHurt = false;
+
   public CombatStatsComponent(int health, int baseAttack) {
     setMaxHealth(health);
     setHealth(health);
@@ -59,18 +65,60 @@ public int getMaxHealth() {
   }
 
   /**
-   * Sets the entity's health. Health has a minimum bound of 0. If the
-   * players' health reaches 0, a loss pop-up menu is triggered.
+   * Triggers' the players invincibility. When invincible, the player will
+   * not take damage.
+   *
+   * @param invincible whether to turn invincibility on or off. 'True' is on,
+   *                   'False' is off.
+   * */
+  public void setInvincibility(boolean invincible) {
+    this.invincible = invincible;
+  }
+
+  /**
+   * Triggers the player taking double damage upon being hit.
+   *
+   * @param hurtStatus whether to turn double hurt on or off. 'True' is on,
+   *                   'False' is off
+   * */
+  public void setDoubleHurt(boolean hurtStatus) {
+    this.doubleHurt = hurtStatus;
+  }
+
+  /**
+   * Sets the players health to the maximum.
+   * */
+  public void setFullHeal() {
+    this.health = getMaxHealth();
+  }
+
+  /**
+   * Sets the entity's health. Health has a minimum bound of 0.
+   *
+   * If the players' health reaches 0, a loss pop-up menu is triggered.
+   * If the player is Invincible (timed buff), then the player's health will
+   *    not decrease.
+   * If the player is under the effects of Double Hurt (timed buff), then the
+   *    player will take double damage when hit.
    *
    * @param health health
    */
   public void setHealth(int health) {
-    this.health = Math.max(health, 0);
-    if (entity != null) {
-      entity.getEvents().trigger("updateHealth", this.health);
-      if (isDead()) {
-        entity.getEvents().trigger("playerDeath");
+    if (!invincible) {
+      if (health >= 0) {
+        this.health = (doubleHurt && health < this.health) ?
+                (this.health - (2 * (this.health - health))) : health;
 
+        // If the double hurt caused negative health, set to 0.
+        this.health = this.health <= 0 ? 0 : this.health;
+      } else {
+        this.health = 0;
+      }
+      if (entity != null) {
+        entity.getEvents().trigger("updateHealth", this.health);
+        if (isDead()) {
+          entity.getEvents().trigger("playerDeath");
+        }
       }
     }
   }

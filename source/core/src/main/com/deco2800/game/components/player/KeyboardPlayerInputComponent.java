@@ -31,6 +31,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
+  private boolean noJumping = false;
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();
@@ -71,8 +72,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       startFalling.cancel();
     }
   };
-
-
+  
   /** Stops falling and allows user to jump again by setting isJumping to false */
   public Timer.Task stopFalling = new Timer.Task() {
     @Override
@@ -84,6 +84,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       stopFalling.cancel();
     }
   };
+
+  public void setNoJumping(boolean noJumping) {
+    this.noJumping = noJumping;
+  }
+
+  public boolean getIsJumping() {
+    return this.isJumping;
+  }
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -186,7 +194,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * @return true if jump was processed
    */
   private boolean jump(){
-    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled()) {
+    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled() && !noJumping) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement

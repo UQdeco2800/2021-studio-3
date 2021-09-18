@@ -2,6 +2,8 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.PlayerLossActions;
 import com.deco2800.game.components.maingame.PlayerLossDisplay;
 import com.deco2800.game.components.maingame.PopupUIHandler;
@@ -71,7 +73,7 @@ public class PlayerLossPopup extends UIComponent {
         Entity ui = new Entity();
 
         ui.addComponent(new PlayerLossActions(game, entity))
-                .addComponent(new PlayerLossDisplay(handler));
+                .addComponent(new PlayerLossDisplay(handler, player));
 
         ServiceLocator.getEntityService().register(ui);
     }
