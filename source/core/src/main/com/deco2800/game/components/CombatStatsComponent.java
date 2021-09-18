@@ -90,6 +90,7 @@ public int getMaxHealth() {
    * */
   public void setFullHeal() {
     this.health = getMaxHealth();
+    setHealth(this.health);
   }
 
   /**
@@ -116,6 +117,8 @@ public int getMaxHealth() {
       }
       if (entity != null) {
         entity.getEvents().trigger("updateHealth", this.health);
+        // Updates the player state and animations when healed
+        entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
           entity.getEvents().trigger("playerDeath");
         }
