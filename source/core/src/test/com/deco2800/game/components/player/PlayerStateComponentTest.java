@@ -14,12 +14,13 @@ public class PlayerStateComponentTest {
         PlayerStateComponent playerState = new PlayerStateComponent();
         playerState.updateHealth(Health.ROUGH);
         playerState.updateState(State.SPRINT);
+        playerState.updateDirection(Direction.LEFT);
 
-        assertEquals("rough-sprint", playerState.getStateAnimation());
+        assertEquals("rough-sprint-left", playerState.getStateAnimation());
 
         playerState.updateHealth(Health.DAMAGED);
 
-        assertEquals("damaged-sprint", playerState.getStateAnimation());
+        assertEquals("damaged-sprint-left", playerState.getStateAnimation());
 
         playerState.updateState(State.STATIONARY);
 
