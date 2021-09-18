@@ -159,6 +159,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (scalar == 1){
       entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
     }
+    // Updates the player state direction for which way they are moving
+    if (Key == 'A') {
+      if (keyState.equals("DOWN")) {
+        entity.getComponent(PlayerStateComponent.class).updateDirection(Direction.LEFT);
+      }
+    } else if (Key == 'D') {
+      if (keyState.equals("DOWN")) {
+        entity.getComponent(PlayerStateComponent.class).updateDirection(Direction.RIGHT);
+      }
+    }
+
     if (keyState.equals("DOWN")){
       //on KeyDown
       walkDirection.add(direction.cpy().scl(scalar));
