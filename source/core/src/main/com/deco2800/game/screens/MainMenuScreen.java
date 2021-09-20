@@ -25,6 +25,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
+  private static final String[] mainMenuMusic = {"sounds/background.mp3"};
 
   public MainMenuScreen(GdxGame game) {
     this.game = game;
@@ -79,6 +80,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    resourceService.loadMusic(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -86,6 +88,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
+    resourceService.unloadAssets(mainMenuMusic);
   }
 
   /**
