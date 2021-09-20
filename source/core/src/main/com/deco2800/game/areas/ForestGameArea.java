@@ -196,7 +196,7 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
     //spawnGhostKing();
     createCheckpoint();
-//    playMusic();
+    playMusic();
     //spawnAttackObstacle();
   }
 
