@@ -436,4 +436,15 @@ public class BuffManager extends Component {
         return this.currentBuffs;
     }
 
+    /**
+     * Disposes of all of the buffs currently sitting on the map
+     * */
+    public void disposeAll() {
+        for (Entity buff : this.currentBuffs.keySet()) {
+            removeBuff(buff);
+        }
+        // Reset the current buffs
+        this.currentBuffs = new LinkedHashMap<>();
+    }
+
 }
