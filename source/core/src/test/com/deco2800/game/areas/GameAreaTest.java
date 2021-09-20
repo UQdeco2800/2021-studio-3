@@ -43,21 +43,21 @@ class GameAreaTest {
     verify(entity).dispose();
   }
 
-    /**
-     * A test to test the create method in ForestGameArea class
-     */
-  @Test
-    void test() {
-      ServiceLocator.registerResourceService(new ResourceService());
-      ServiceLocator.registerEntityService(new EntityService());
-      ServiceLocator.registerInputService(new InputService());
-      ServiceLocator.registerPhysicsService(new PhysicsService());
-      ServiceLocator.registerRenderService(new RenderService());
-      ServiceLocator.registerTimeSource(new GameTime());
-      ForestGameArea gameArea = new ForestGameArea(mock(TerrainFactory.class), 0, false);
-      gameArea.create();
-
-      verify(gameArea).create();
-
-  }
+//    /**
+//     * A test to test the create method in ForestGameArea class
+//     */
+//  @Test
+//    void test() {
+//      ServiceLocator.registerResourceService(new ResourceService());
+//      ServiceLocator.registerEntityService(new EntityService());
+//      ServiceLocator.registerInputService(new InputService());
+//      ServiceLocator.registerPhysicsService(new PhysicsService());
+//      ServiceLocator.registerRenderService(new RenderService());
+//      ServiceLocator.registerTimeSource(new GameTime());
+//      ForestGameArea gameArea = new ForestGameArea(mock(TerrainFactory.class), 0, false);
+//      gameArea.create();
+//
+//      verify(gameArea).create();
+//
+//  }
 }
