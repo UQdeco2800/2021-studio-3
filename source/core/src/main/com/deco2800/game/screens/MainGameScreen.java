@@ -299,8 +299,8 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
-        .addComponent(new PopupMenuActions(this.game, this.currentMap));
-//        .addComponent(this.buffManager = new BuffManager(this, currentMap));
+        .addComponent(new PopupMenuActions(this.game, this.currentMap))
+        .addComponent(this.buffManager = new BuffManager(this, currentMap));
 
 
 
@@ -322,12 +322,15 @@ public class MainGameScreen extends ScreenAdapter {
 
   public void generateNewLevel () {
     currentLevel += 1;
+    System.out.println(currentLevel);
     currentMap.dispose();
+    unloadAssets();
     if (currentLevel == 2) {
       load();
 //      this.terrainFactory = new TerrainFactory(renderer.getCamera());
       level2Map = new Level2(terrainFactory, 0, false);
       level2Map.create();
+
     }
   }
 }
