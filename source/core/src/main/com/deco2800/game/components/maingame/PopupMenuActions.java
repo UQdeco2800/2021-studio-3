@@ -7,6 +7,7 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.screens.MainGameScreen;
 
 /**
  * Handles actions for the buttons pushed on the win, loss and pause pop-up
@@ -82,6 +83,10 @@ public class PopupMenuActions extends Component {
 
             game.setScreen(GdxGame.ScreenType.MAIN_GAME);
 
+    }
+
+    public void onNextLevel() {
+        MainGameScreen.changeLevel();
     }
 
 
