@@ -85,10 +85,20 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   };
 
+  /**
+   * Sets whether or not the player is under the effects of a No Jumping debuff
+   *
+   * @param noJumping whether or not the player is able to jump.
+   * */
   public void setNoJumping(boolean noJumping) {
     this.noJumping = noJumping;
   }
 
+  /**
+   * Returns whether or not the player is currently jumping
+   *
+   * @return true if the player is currently jumping, else false.
+   * */
   public boolean getIsJumping() {
     return this.isJumping;
   }
@@ -189,12 +199,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
-   * After an input of 'SPACE_BAR' been detected, jump if the player is not currently jumping
+   * After an input of 'SPACE_BAR' been detected, jump if the player is able
+   * to jump.
    *
    * @return true if jump was processed
    */
   private boolean jump(){
-    if (!isJumping && !startFalling.isScheduled() && !stopFalling.isScheduled() && !noJumping) {
+    if (canJump()) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement
@@ -207,6 +218,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       jumpingTimer.scheduleTask(startFalling, 0.3f);
     }
     return true;
+  }
+
+  /**
+   * Returns whether or not the player can jump based on:
+   * - whether they are currently jumping, and
+   * - whether they are under the effects of a debuff which disallows them to
+   *   jump.
+   *
+   * @return true if the player is able to jump, else false.
+   * */
+  private boolean canJump() {
+    return (!isJumping && !startFalling.isScheduled() &&
+            !stopFalling.isScheduled() && !noJumping);
   }
 
   /** After a walk or jump has been processed, apply the speed and animations to the player. */

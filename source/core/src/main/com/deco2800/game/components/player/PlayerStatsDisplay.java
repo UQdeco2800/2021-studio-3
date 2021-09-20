@@ -22,11 +22,12 @@ import java.util.Collection;
  */
 public class PlayerStatsDisplay extends UIComponent {
 
-  Table scoreTable;
-  Table healthTable;
-  Table sprintTable;
-  Table progressTable;
-  Table livesTable;
+  private Table scoreTable;
+  private Table healthTable;
+  private Table sprintTable;
+  private Table progressTable;
+  private Table livesTable;
+  private Table buffTable;
 
   private Image heartImage;
   private Image levelStatus;
@@ -56,6 +57,14 @@ public class PlayerStatsDisplay extends UIComponent {
   private CharSequence buffText;
   private Label buffLabel;
 
+  /**
+   * Defines potential positioning for Tables holding UI elements to be
+   * displayed.
+   * */
+  public enum UIPosition {
+    LEFT, CENTRE, RIGHT
+  }
+
   public PlayerStatsDisplay(AssetManager manager,TextureRegion textureRegion){
     this.manager = manager;
     this.textureRegion = textureRegion;
@@ -77,48 +86,53 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   /**
+   * Handles setting up a new UI Table to hold elements to be displayed on the
+   * main game UI.
+   *
+   * @param topPadding the amount of padding to put above the table.
+   * @param leftPadding the amount of padding to put to the left of the table.
+   * @param position the horizontal positioning of the table, either LEFT,
+   *                 RIGHT or CENTRE.
+   *
+   * @return an empty table in the specified position with the specified
+   *         padding.
+   * */
+  private Table setupUITable(float topPadding, float leftPadding,
+          UIPosition position) {
+    Table temporaryTable = new Table();
+
+    switch (position) {
+      case LEFT:
+        temporaryTable.top().left();
+        break;
+      case RIGHT:
+        temporaryTable.top().right();
+        break;
+      case CENTRE:
+        temporaryTable.top();
+        break;
+    }
+
+    temporaryTable.setFillParent(true);
+    temporaryTable.padTop(topPadding).padLeft(leftPadding);
+    return temporaryTable;
+  }
+
+  /**
    * Creates actors and positions them on the stage using a healthTable.
    * @see Table for positioning options
    */
   private void addActors() {
-
     // HUD icon images
     float iconSideLength = 30f;
 
     /* Tables for UI Elements */
-
-    healthTable = new Table();
-    healthTable.top().left();
-    healthTable.setFillParent(true);
-    healthTable.padTop(45f).padLeft(5f);
-
-    sprintTable = new Table();
-    sprintTable.top().left();
-    sprintTable.setFillParent(true);
-    sprintTable.padTop(75f).padLeft(5f);
-
-    scoreTable = new Table();
-    scoreTable.top().left();
-    scoreTable.setFillParent(true);
-    scoreTable.padTop(150f).padLeft(5f);
-
-    progressTable = new Table();
-    progressTable.top();
-    progressTable.setFillParent(true);
-    progressTable.padTop(25f);
-
-    // Heart image
-    //float heartSideLength = 30f;
-
-    livesTable = new Table();
-    livesTable.top().left();
-    livesTable.setFillParent(true);
-    livesTable.padTop(125f).padLeft(5f);
-
-    Table buffTable = new Table();
-    buffTable.top().left();
-    buffTable.setFillParent(true);
-    buffTable.padTop(180f).padLeft(5f);
+    healthTable = setupUITable(45f,5f, UIPosition.LEFT);
+    sprintTable = setupUITable(75f, 5f, UIPosition.LEFT);
+    scoreTable = setupUITable(150f, 5f, UIPosition.LEFT);
+    progressTable = setupUITable(25f, 0f, UIPosition.CENTRE);
+    livesTable = setupUITable(125f, 5f, UIPosition.LEFT);
+    buffTable = setupUITable(180f, 5f, UIPosition.LEFT);
 
     /* Images for UI */
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
