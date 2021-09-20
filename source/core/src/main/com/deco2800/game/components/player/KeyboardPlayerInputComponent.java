@@ -32,6 +32,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
   private boolean noJumping = false;
+  private boolean movingRight = false; //true if player is moving right
+  private boolean movingLeft = false; //true if player is moving left
+  private boolean isStationary = true; //true if player is not moving (Just gravity affecting movement)
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();
@@ -52,7 +55,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         sprintTimer.stop();
         isSprinting = false;
-        entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+        entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
       }
     }
   };
@@ -79,7 +82,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     public void run(){
       fallingTimer.stop();
       isJumping = false;
-      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       triggerMovementEvent();
       stopFalling.cancel();
     }
@@ -160,23 +162,27 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
     }
     // Updates the player state direction for which way they are moving
-    if (Key == 'A') {
-      if (keyState.equals("DOWN")) {
-        entity.getComponent(PlayerStateComponent.class).updateDirection(Direction.LEFT);
-      }
-    } else if (Key == 'D') {
-      if (keyState.equals("DOWN")) {
-        entity.getComponent(PlayerStateComponent.class).updateDirection(Direction.RIGHT);
-      }
-    }
-
     if (keyState.equals("DOWN")){
-      //on KeyDown
+      if (Key == 'A') {
+        movingLeft = true;
+      } else if (Key == 'D') {
+        movingRight = true;
+      }
+      isStationary = false;
       walkDirection.add(direction.cpy().scl(scalar));
     } else {
+      if (keyState.equals("UP")) {
+        if (Key == 'A') {
+          movingLeft = false;
+        } else if (Key == 'D') {
+          movingRight = false;
+        }
+      }
       //on KeyUp
       walkDirection.sub(direction.cpy().scl(scalar));
-      entity.getComponent(PlayerStateComponent.class).updateState(State.STATIONARY);
+      if (!movingRight && !movingLeft){
+        isStationary = true;
+      }
     }
     triggerMovementEvent();
     return true;
@@ -197,14 +203,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         firstSprint = false;
         sprintTimer.scheduleTask(removeSprint, 0.1f, 0.03f);
       }
-      triggerSprintEvent(true);
       isSprinting = true;
-      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
+      triggerSprintEvent(true);
       return true;
     }
     sprintTimer.stop();
     isSprinting = false;
-    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
     triggerSprintEvent(false);
     return true;
   }
@@ -218,7 +222,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean jump(){
     if (canJump()) {
       isJumping = true;
-      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
       // Adds 4 m/s to upwards movement
       for (int i = 0; i < 4; i++) {
         walkDirection.add(Vector2Utils.UP);
@@ -246,6 +249,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   /** After a walk or jump has been processed, apply the speed and animations to the player. */
   private void triggerMovementEvent() {
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
     entity.getEvents().trigger("walk", walkDirection);
     entity.getEvents().trigger("playerStatusAnimation");
   }
@@ -259,6 +263,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
       return;
     }
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
     entity.getEvents().trigger("sprint", walkDirection, sprinting, SPRINT_MODIFIER);
     entity.getEvents().trigger("playerStatusAnimation");
   }
