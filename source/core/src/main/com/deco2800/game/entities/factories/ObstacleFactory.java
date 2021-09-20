@@ -509,7 +509,7 @@ public class ObstacleFactory {
             .addComponent(new TextureRenderComponent("images/tree.png"))
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
             .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(aiComponent);
 
