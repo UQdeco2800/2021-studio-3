@@ -185,18 +185,20 @@ public class PlayerStateComponent extends Component {
     }
 
     /**
-     * handles situations do with player sprinting and jumping at the same time
+     * handles situations do with player sprinting and jumping at the same time, moving left or right
+     * and if they are stationary
      * @param isJumping Whether the player is jumping
      * @param isSprinting Whether the player is sprinting
+     * @param movingRight Whether the player is moving right
+     * @param movingLeft Whether the player is moving left
+     * @param isStationary Whether the player is stationary
      */
     public void manage(boolean isJumping, boolean isSprinting, boolean movingRight, boolean movingLeft, boolean isStationary){
         if (isJumping && !isSprinting){
             updateState(State.JUMP);
-        }
-        else if (!isJumping && isSprinting){
+        } else if (!isJumping && isSprinting){
             updateState(State.SPRINT);
-        }
-        else if (isJumping){
+        } else if (isJumping){
             updateState(State.SPRINT_JUMP);
         } else {
             updateState(State.WALK);

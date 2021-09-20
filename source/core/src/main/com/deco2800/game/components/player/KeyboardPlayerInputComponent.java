@@ -235,10 +235,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
-   * Returns whether or not the player can jump based on:
+   * Returns whether the player can jump based on:
    * - whether they are currently jumping, and
-   * - whether they are under the effects of a debuff which disallows them to
-   *   jump.
+   * - whether they are under the effects of a debuff which disallows them to jump.
    *
    * @return true if the player is able to jump, else false.
    * */
