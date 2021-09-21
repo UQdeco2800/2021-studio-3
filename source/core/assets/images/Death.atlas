@@ -1,0 +1,12 @@
+Death.png
+size: 518, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+DeathFrame
+  rotate: false
+  xy: 0, 0
+  size: 518, 400
+  orig: 518, 400
+  offset: 0, 0
+  index: 3
