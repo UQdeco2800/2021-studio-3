@@ -88,6 +88,7 @@ public class MainGameScreen extends ScreenAdapter {
   private ForestGameArea currentMap;
   private Level2 level2Map;
   private final TerrainFactory terrainFactory;
+  private Entity ui;
 
   /* Manages buffs & debuffs in the game */
   private BuffManager buffManager;
@@ -124,8 +125,9 @@ public class MainGameScreen extends ScreenAdapter {
     load();
     this.currentMap = forestGameArea;
     createUI();
-    //forestGameArea.spawnBuffDebuff(this.buffManager);
+    forestGameArea.spawnBuffDebuff(this.buffManager);
   }
+
   public static AssetManager load(){
     manager.load("images/invincible.png", Texture.class);
     manager.load("images/winReplay.png", Texture.class);
@@ -285,7 +287,7 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    Entity ui = new Entity();
+    this.ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
@@ -324,13 +326,17 @@ public class MainGameScreen extends ScreenAdapter {
     currentLevel += 1;
     System.out.println(currentLevel);
     currentMap.dispose();
-    unloadAssets();
+    buffManager.disposeAll();
+    ui.dispose();
+   // unloadAssets();
     if (currentLevel == 2) {
+      System.out.println("load next level.");
       load();
 //      this.terrainFactory = new TerrainFactory(renderer.getCamera());
       level2Map = new Level2(terrainFactory, 0, false);
       level2Map.create();
-
+      createUI();
     }
+    isLevelChange = false;
   }
 }
