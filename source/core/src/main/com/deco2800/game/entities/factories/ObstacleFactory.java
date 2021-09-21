@@ -501,6 +501,8 @@ public class ObstacleFactory {
    * @return A new Entity death wall
    */
   public static Entity createDeathWall(float width, float height, Vector2 target) {
+    DeathWallConfig config = configs.deathWall;
+
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new MovingTask(target));
@@ -511,6 +513,8 @@ public class ObstacleFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 30f))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(aiComponent);
 
     deathWall.getComponent(TextureRenderComponent.class).scaleEntity();
