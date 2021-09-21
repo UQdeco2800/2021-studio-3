@@ -264,8 +264,11 @@ public class ForestGameArea extends GameArea {
    * spawn a death wall that move from left to end
    */
   private void spawnDeathWall() {
+    // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
+    // target's y position is offset 4.5 upwards to remove the bug
+    Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y + 4.5f);
     Entity deathWall = ObstacleFactory.createDeathWall(1f, terrain.getMapBounds(0).y *
-            terrain.getTileSize() - 6, this.endOfMap.getPosition());
+            terrain.getTileSize() - 6, deathWallEndPos);
     spawnEntityAt(deathWall, new GridPoint2(0, 9), false, false);
   }
 
