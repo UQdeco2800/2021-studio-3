@@ -719,6 +719,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/raycast/SingleHitCallback.html#didHit">didHit</a></span> - Variable in class com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/SingleHitCallback.html" title="class in com.deco2800.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#direction">direction</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
+<dd>
+<div class="block">The players current state</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.Settings.html#displayMode">displayMode</a></span> - Variable in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.Settings.html" title="class in com.deco2800.game.files">UserSettings.Settings</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.DisplaySettings.html#%3Cinit%3E()">DisplaySettings()</a></span> - Constructor for class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.DisplaySettings.html" title="class in com.deco2800.game.files">UserSettings.DisplaySettings</a></dt>
@@ -1112,6 +1116,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/GameTime.html#getDeltaTime()">getDeltaTime()</a></span> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/GameTime.html" title="class in com.deco2800.game.services">GameTime</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#getDirection()">getDirection()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
+<dd>
+<div class="block">Gets the player's current Direction state.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/BuffInformation.html#getEffectTimeOut()">getEffectTimeOut()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a></dt>
 <dd>
 <div class="block">Returns the absolute amount of time that the effects of a buff should
@@ -1822,9 +1830,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Removes infinite stamina from the player</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#manage(boolean,boolean)">manage(boolean, boolean)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#manage(boolean,boolean,boolean,boolean,boolean)">manage(boolean, boolean, boolean, boolean, boolean)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
 <dd>
-<div class="block">handles situations do with player sprinting and jumping at the same time</div>
+<div class="block">handles situations do with player sprinting and jumping at the same time, moving left or right
+ and if they are stationary</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/PlayerFactory.html#manager">manager</a></span> - Static variable in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -3175,6 +3184,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#updateBuffDisplay(java.util.Collection)">updateBuffDisplay(Collection&lt;BuffInformation&gt;)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Updates the players' currently active timed buffs and debuffs on the UI.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#updateDirection(com.deco2800.game.components.player.Direction)">updateDirection(Direction)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
+<dd>
+<div class="block">update the player's current direction state</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStateComponent.html#updateHealth(com.deco2800.game.components.player.Health)">updateHealth(Health)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStateComponent.html" title="class in com.deco2800.game.components.player">PlayerStateComponent</a></dt>
 <dd>

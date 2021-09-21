@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -121,20 +121,27 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </thead>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code>com.deco2800.game.components.player.Direction</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#direction">direction</a></span></code></th>
+<td class="colLast">
+<div class="block">The players current state</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>com.deco2800.game.components.player.Health</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#health">health</a></span></code></th>
 <td class="colLast">
 <div class="block">The player's current Health state</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jumpCount">jumpCount</a></span></code></th>
 <td class="colLast">
 <div class="block">Used for keeping track of how many times the player jumped</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>com.deco2800.game.components.player.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#state">state</a></span></code></th>
 <td class="colLast">
@@ -197,47 +204,65 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>com.deco2800.game.components.player.Direction</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirection()">getDirection</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the player's current Direction state.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code>com.deco2800.game.components.player.Health</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHealth()">getHealth</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the player's current Health state.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getJumpCount()">getJumpCount</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>com.deco2800.game.components.player.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getState()">getState</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the player's current state.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStateAnimation()">getStateAnimation</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Determines which state the player should be in, at different health intervals</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#manage(boolean,boolean)">manage</a></span>&#8203;(boolean&nbsp;isJumping,
-boolean&nbsp;isSprinting)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#manage(boolean,boolean,boolean,boolean,boolean)">manage</a></span>&#8203;(boolean&nbsp;isJumping,
+boolean&nbsp;isSprinting,
+boolean&nbsp;movingRight,
+boolean&nbsp;movingLeft,
+boolean&nbsp;isStationary)</code></th>
 <td class="colLast">
-<div class="block">handles situations do with player sprinting and jumping at the same time</div>
+<div class="block">handles situations do with player sprinting and jumping at the same time, moving left or right
+ and if they are stationary</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateDirection(com.deco2800.game.components.player.Direction)">updateDirection</a></span>&#8203;(com.deco2800.game.components.player.Direction&nbsp;direction)</code></th>
+<td class="colLast">
+<div class="block">update the player's current direction state</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateHealth(com.deco2800.game.components.player.Health)">updateHealth</a></span>&#8203;(com.deco2800.game.components.player.Health&nbsp;health)</code></th>
 <td class="colLast">
 <div class="block">update the player's current health state</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateState(com.deco2800.game.components.player.State)">updateState</a></span>&#8203;(com.deco2800.game.components.player.State&nbsp;state)</code></th>
 <td class="colLast">
@@ -282,6 +307,13 @@ boolean&nbsp;isSprinting)</code></th>
 <section class="detail">
 <h3><a id="state">state</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.State</span>&nbsp;<span class="memberName">state</span></div>
+<div class="block">The players current state</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="direction">direction</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.Direction</span>&nbsp;<span class="memberName">direction</span></div>
 <div class="block">The players current state</div>
 </section>
 </li>
@@ -332,14 +364,21 @@ boolean&nbsp;isSprinting)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="manage(boolean,boolean)">manage</a></h3>
+<h3><a id="manage(boolean,boolean,boolean,boolean,boolean)">manage</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">manage</span>&#8203;(<span class="arguments">boolean&nbsp;isJumping,
-boolean&nbsp;isSprinting)</span></div>
-<div class="block">handles situations do with player sprinting and jumping at the same time</div>
+boolean&nbsp;isSprinting,
+boolean&nbsp;movingRight,
+boolean&nbsp;movingLeft,
+boolean&nbsp;isStationary)</span></div>
+<div class="block">handles situations do with player sprinting and jumping at the same time, moving left or right
+ and if they are stationary</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>isJumping</code> - Whether the player is jumping</dd>
 <dd><code>isSprinting</code> - Whether the player is sprinting</dd>
+<dd><code>movingRight</code> - Whether the player is moving right</dd>
+<dd><code>movingLeft</code> - Whether the player is moving left</dd>
+<dd><code>isStationary</code> - Whether the player is stationary</dd>
 </dl>
 </section>
 </li>
@@ -362,6 +401,28 @@ boolean&nbsp;isSprinting)</span></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the player's current state</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="updateDirection(com.deco2800.game.components.player.Direction)">updateDirection</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateDirection</span>&#8203;(<span class="arguments">com.deco2800.game.components.player.Direction&nbsp;direction)</span></div>
+<div class="block">update the player's current direction state</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>direction</code> - the new direction the player is moving</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getDirection()">getDirection</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">com.deco2800.game.components.player.Direction</span>&nbsp;<span class="memberName">getDirection</span>()</div>
+<div class="block">Gets the player's current Direction state.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the player's current Direction state</dd>
 </dl>
 </section>
 </li>
