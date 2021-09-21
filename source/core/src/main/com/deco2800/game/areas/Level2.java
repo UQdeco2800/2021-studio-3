@@ -168,8 +168,8 @@ public class Level2 extends GameArea{
         //spawnGhosts();
 
         //spawnTrees();
-       // spawnAsteriod();
-       // spawnAsteroidFire();
+        spawnAsteriod();
+        spawnAsteroidFire();
         spawnRobot();
 
 
@@ -184,7 +184,7 @@ public class Level2 extends GameArea{
 
         //spawnGhosts();
         //spawnGhostKing();
-        createCheckpoint();
+        //createCheckpoint();
 //    playMusic();
         //spawnAttackObstacle();
     }
@@ -309,9 +309,26 @@ public class Level2 extends GameArea{
         Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
         spawnEntityAt(attackObstacle2, pos2, true, false);
 
-        GridPoint2 pos3 = new GridPoint2(25,10);
+        GridPoint2 pos3 = new GridPoint2(27,10);
         Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
         spawnEntityAt(attackObstacle3, pos3, true, false);
+
+        GridPoint2 pos4 = new GridPoint2(33,10);
+        Entity attackObstacle4 = ObstacleFactory.createAsteroidAnimatedFire(player);
+        spawnEntityAt(attackObstacle4, pos4, true, false);
+
+        GridPoint2 pos5 = new GridPoint2(43,10);
+        Entity attackObstacle5 = ObstacleFactory.createAsteroidAnimatedFire(player);
+        spawnEntityAt(attackObstacle5, pos5, true, false);
+
+        GridPoint2 pos6 = new GridPoint2(48,10);
+        Entity attackObstacle6 = ObstacleFactory.createAsteroidAnimatedFire(player);
+        spawnEntityAt(attackObstacle6, pos6, true, false);
+
+
+        GridPoint2 pos7 = new GridPoint2(59,10);
+        Entity attackObstacle7 = ObstacleFactory.createAsteroidAnimatedFire(player);
+        spawnEntityAt(attackObstacle7, pos7, true, false);
     }
 
     private void spawnRobot() {
