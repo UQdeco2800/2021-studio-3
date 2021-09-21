@@ -1126,17 +1126,23 @@ rough-stationary
   orig: 400, 518
   offset: 67, 44
   index: 0
-dead
-  rotate: true
-  xy: 1, 1
-  size: 460, 211
-  orig: 518, 400
-  offset: 11, 81
-  index: 0
 default
   rotate: false
   xy: 214, 1
   size: 265, 431
   orig: 400, 518
   offset: 74, 50
+  index: 0
+
+Death.png
+size: 518, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dead
+  rotate: false
+  xy: 0, 0
+  size: 518, 400
+  orig: 518, 400
+  offset: 0, 0
   index: 0
