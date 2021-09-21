@@ -117,7 +117,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         load();
         this.currentMap = level2Area;
         createUI();
-        level2Area.spawnBuffDebuff(this.buffManager);
+        //level2Area.spawnBuffDebuff(this.buffManager);
     }
 
     public static AssetManager load(){
@@ -284,14 +284,14 @@ public class LevelTwoScreen extends ScreenAdapter {
                 .addComponent(new MainGameActions(this.game))
                 .addComponent(new MainGameExitDisplay())
                 .addComponent(new Terminal())
-                .addComponent(inputComponent)
-                .addComponent(new TerminalDisplay(manager,currentMap))
-                .addComponent(new PauseGamePopUp(this.game,
-                        new PopupUIHandler(pauseMenuTextures)))
-                .addComponent(new PlayerWinPopup(this.game, currentMap,
-                        new PopupUIHandler(winMenuTextures)))
-                .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
-                        new PopupUIHandler(lossMenuTextures)));
+                .addComponent(inputComponent);
+               // .addComponent(new TerminalDisplay(manager,currentMap))
+               // .addComponent(new PauseGamePopUp(this.game,
+                      //  new PopupUIHandler(pauseMenuTextures)))
+              //  .addComponent(new PlayerWinPopup(this.game, currentMap,
+               //         new PopupUIHandler(winMenuTextures)))
+               /// .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
+               //         new PopupUIHandler(lossMenuTextures)));
                 //.addComponent(new PopupMenuActions(this.game, this.currentMap))
                 //.addComponent(this.buffManager = new BuffManager(this, currentMap));
 
