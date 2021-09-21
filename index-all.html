@@ -280,6 +280,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStatsDisplay.UIPosition.html#CENTRE">CENTRE</a></span> - com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.UIPosition.html" title="enum in com.deco2800.game.components.player">PlayerStatsDisplay.UIPosition</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#changeLevel()">changeLevel()</a></span> - Static method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">ChaseTask</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
 <dd>
 <div class="block">Chases a target entity until they get too far away or line of sight is lost</div>
@@ -295,6 +297,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">When this entity touches a valid enemy's hitbox, deal damage to them and apply a knockback.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#%3Cinit%3E(short,com.deco2800.game.areas.ForestGameArea)">CheckPointComponent(short, ForestGameArea)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#%3Cinit%3E(short,com.deco2800.game.areas.Level2)">CheckPointComponent(short, Level2)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH">CLASSPATH</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
@@ -419,6 +423,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/GameArea.html#create()">create()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></dt>
 <dd>
 <div class="block">Create the game area in the world.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#create()">create()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>
+<div class="block">Create the game area, including terrain, static entities (trees), dynamic entities (player)</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -563,6 +571,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCheckpoint(com.deco2800.game.entities.Entity,com.deco2800.game.areas.ForestGameArea)">createCheckpoint(Entity, ForestGameArea)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
 <div class="block">Creates a checkpoint entity.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCheckpoint(com.deco2800.game.entities.Entity,com.deco2800.game.areas.Level2)">createCheckpoint(Entity, Level2)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>
+<div class="block">Creates a checkpoint entity on level 2.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/InputFactory.html#createForPlayer()">createForPlayer()</a></span> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputFactory.html" title="class in com.deco2800.game.input">InputFactory</a></dt>
 <dd>
@@ -721,6 +733,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Dispose of all internal entities in the area</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/Component.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/Component.html" title="class in com.deco2800.game.components">Component</a></dt>
@@ -767,6 +781,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/RenderService.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainMenuScreen.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
@@ -777,6 +793,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/TerminalDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/TerminalDisplay.html" title="class in com.deco2800.game.ui.terminal">TerminalDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/BuffManager.html#disposeAll()">disposeAll()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a></dt>
+<dd>
+<div class="block">Disposes of all of the buffs currently sitting on the map</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/math/Vector2Utils.html#DOWN">DOWN</a></span> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
@@ -1008,6 +1028,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum in com.deco2800.game"><span class="typeNameLink">GdxGame.ScreenType</span></a> - Enum in <a href="com/deco2800/game/package-summary.html">com.deco2800.game</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#generateNewLevel()">generateNewLevel()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.html#get()">get()</a></span> - Static method in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.html" title="class in com.deco2800.game.files">UserSettings</a></dt>
 <dd>
 <div class="block">Get the stored user settings</div>
@@ -1060,6 +1082,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the check point status.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#getCheckPointStatus()">getCheckPointStatus()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>
+<div class="block">Returns the check point status.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getComponent(java.lang.Class)">getComponent(Class&lt;T&gt;)</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get a component of type T on the entity.</div>
@@ -1071,6 +1097,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/BuffManager.html#getCurrentBuffs()">getCurrentBuffs()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a></dt>
 <dd>
 <div class="block">Returns the buffs which are currently sitting on the map.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#getCurrentMap()">getCurrentMap()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>
+<div class="block">Returns the current game map</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#getCurrentMap()">getCurrentMap()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>
@@ -1088,6 +1118,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  last on the player (in milliseconds).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getEndMap()">getEndMap()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Returns the end of the current map.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#getEndMap()">getEndMap()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
 <dd>
 <div class="block">Returns the end of the current map.</div>
 </dd>
@@ -1194,6 +1228,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the texture associated with a particular pickup</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getPlayer()">getPlayer()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Returns the player spawned into this area.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#getPlayer()">getPlayer()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
 <dd>
 <div class="block">Returns the player spawned into this area.</div>
 </dd>
@@ -1498,6 +1536,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#isDead()">isDead()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#isDead()">isDead()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/CombatStatsComponent.html#isDead()">isDead()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns true if the entity's has 0 health, otherwise false.</div>
@@ -1506,6 +1546,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Has the playing animation finished? This will always be false for looping animations.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#isLevelChange">isLevelChange</a></span> - Static variable in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html#ISOMETRIC">ISOMETRIC</a></span> - com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html" title="enum in com.deco2800.game.areas.terrain">TerrainComponent.TerrainOrientation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#isOpen()">isOpen()</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
@@ -1647,6 +1689,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/math/Vector2Utils.html#LEFT">LEFT</a></span> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/GdxGame.ScreenType.html#LEVEL_TWO_GAME">LEVEL_TWO_GAME</a></span> - com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas"><span class="typeNameLink">Level2</span></a> - Class in <a href="com/deco2800/game/areas/package-summary.html">com.deco2800.game.areas</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">Level2(TerrainFactory, int, boolean)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">Level2(TerrainFactory, int, int)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens"><span class="typeNameLink">LevelTwoScreen</span></a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)">LevelTwoScreen(GdxGame)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,boolean)">LevelTwoScreen(GdxGame, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,int,boolean)">LevelTwoScreen(GdxGame, int, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/LivesComponent.html" title="class in com.deco2800.game.components"><span class="typeNameLink">LivesComponent</span></a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
 <dd>
 <div class="block">Component used to handle player lives.</div>
@@ -1667,6 +1725,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">load picture to AssetManager.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#load()">load()</a></span> - Static method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#load()">load()</a></span> - Static method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ResourceService.html#loadAll()">loadAll()</a></span> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
@@ -1767,6 +1827,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">handles situations do with player sprinting and jumping at the same time</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/PlayerFactory.html#manager">manager</a></span> - Static variable in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#manager">manager</a></span> - Static variable in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#manager">manager</a></span> - Static variable in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -1876,6 +1938,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Called when a user clicks on the Main Menu button on pop-up screens.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/PopupMenuActions.html#onNextLevel()">onNextLevel()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/PopupMenuActions.html" title="class in com.deco2800.game.components.maingame">PopupMenuActions</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/PauseGamePopUp.html#onPause()">onPause()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/PauseGamePopUp.html" title="class in com.deco2800.game.components.maingame">PauseGamePopUp</a></dt>
 <dd>
 <div class="block">Creates the pop-up menu when the pause button is pressed</div>
@@ -1926,6 +1990,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Iterates over registered input handlers in descending priority and stops as soon as the input is
  processed</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#pause()">pause()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#pause()">pause()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainMenuScreen.html#pause()">pause()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
@@ -2278,6 +2344,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Render everything to the render service.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#render(float)">render(float)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#render(float)">render(float)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainMenuScreen.html#render(float)">render(float)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
@@ -2336,10 +2404,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">reset the camera position when refresh every frame</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#resetCam(com.deco2800.game.components.CameraComponent)">resetCam(CameraComponent)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>
+<div class="block">reset the camera position when refresh every frame</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/Renderer.html#resize(int,int)">resize(int, int)</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" title="class in com.deco2800.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Resize the renderer to a new screen size.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#resize(int,int)">resize(int, int)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#resize(int,int)">resize(int, int)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainMenuScreen.html#resize(int,int)">resize(int, int)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
@@ -2357,6 +2431,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ResourceService.html#%3Cinit%3E(com.badlogic.gdx.assets.AssetManager)">ResourceService(AssetManager)</a></span> - Constructor for class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/GdxGame.ScreenType.html#RESPAWN">RESPAWN</a></span> - com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#resume()">resume()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#resume()">resume()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -2460,6 +2536,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Set body type</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus(int)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">sets the check point status.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#setCheckPointStatus(int)">setCheckPointStatus(int)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
 <dd>
 <div class="block">sets the check point status.</div>
 </dd>
@@ -2704,7 +2784,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Spawns buffs or debuffs onto the current map in a random position.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff(BuffManager)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
+<dd>
+<div class="block">Spawns buffs or debuffs onto the current map in a random position.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup(BuffManager.BuffPickup, BuffManager)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/Level2.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup(BuffManager.BuffPickup, BuffManager)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/Level2.html" title="class in com.deco2800.game.areas">Level2</a></dt>
 <dd>
 <div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
 </dd>

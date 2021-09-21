@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -220,34 +220,41 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#disposeAll()">disposeAll</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Disposes of all of the buffs currently sitting on the map</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>java.util.Map&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>,&#8203;<a href="../BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentBuffs()">getCurrentBuffs</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the buffs which are currently sitting on the map.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPickupTexture(com.deco2800.game.components.maingame.BuffManager.BuffPickup)">getPickupTexture</a></span>&#8203;(<a href="BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup)</code></th>
 <td class="colLast">
 <div class="block">Returns the texture associated with a particular pickup</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTexture(com.deco2800.game.components.maingame.BuffManager.BuffTypes)">getTexture</a></span>&#8203;(<a href="BuffManager.BuffTypes.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffTypes</a>&nbsp;type)</code></th>
 <td class="colLast">
 <div class="block">Returns the texture associated with a particular buff.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>java.util.Collection&lt;<a href="../BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTimedBuffs()">getTimedBuffs</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the buffs which are currently affecting the player</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasTimedOut(com.deco2800.game.entities.Entity)">hasTimedOut</a></span>&#8203;(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;buff)</code></th>
 <td class="colLast">
@@ -255,7 +262,7 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
  removed from the map as the player did not pick it up in time).</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCollision(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollision</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;player,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;object)</code></th>
@@ -263,14 +270,14 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <div class="block">Activates when the player collides with something.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerBuff(com.deco2800.game.components.BuffInformation)">registerBuff</a></span>&#8203;(<a href="../BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&nbsp;info)</code></th>
 <td class="colLast">
 <div class="block">Registers a newly-created buff with this BuffManager.</div>
 </td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectBuffFunctionality(com.deco2800.game.components.maingame.BuffManager.BuffTypes,com.deco2800.game.entities.Entity,com.deco2800.game.components.BuffInformation)">selectBuffFunctionality</a></span>&#8203;(<a href="BuffManager.BuffTypes.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffTypes</a>&nbsp;type,
 <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;buff,
@@ -280,7 +287,7 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
  a buff.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -471,6 +478,13 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <h3><a id="getCurrentBuffs()">getCurrentBuffs</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>,&#8203;<a href="../BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&gt;</span>&nbsp;<span class="memberName">getCurrentBuffs</span>()</div>
 <div class="block">Returns the buffs which are currently sitting on the map.</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="disposeAll()">disposeAll</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">disposeAll</span>()</div>
+<div class="block">Disposes of all of the buffs currently sitting on the map</div>
 </section>
 </li>
 </ul>
