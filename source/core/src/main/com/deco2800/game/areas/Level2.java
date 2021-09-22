@@ -98,7 +98,11 @@ public class Level2 extends GameArea{
             "images/background_rock.png",
             "images/background_star.png",
             "images/background_surface.png",
-            "images/surface.png"
+            "images/surface.png",
+            "images/background_mars.png",
+            "images/background_mars_ground.png",
+            "images/background_mars_surface.png",
+            "images/background_mars_star.png"
     };
 
     private static final String[] forestTextureAtlases = {
@@ -212,7 +216,7 @@ public class Level2 extends GameArea{
     private void spawnTerrain() {
         // Background terrain
 
-        terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
+        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_TWO_TERRAIN);
         spawnEntity(new Entity().addComponent(terrain));
 
         // Terrain walls
