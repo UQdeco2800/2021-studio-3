@@ -45,8 +45,8 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
-  private static final GameTime gameTime = ServiceLocator.getTimeSource();
-  private final long CAM_START_TIME = gameTime.getTime();
+  private static final GameTime gameTime = new GameTime();
+  private final long CAM_START_TIME;
   private final long DEATH_WALL_SHOW_DUR = 3500;
   private final float REFRESH_RATE = 60;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 11);
@@ -151,7 +151,7 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     this.hasDied = hasDied;
-
+    CAM_START_TIME = gameTime.getTime();
   }
 
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
@@ -159,7 +159,7 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     ForestGameArea.lives = lives;
-
+    CAM_START_TIME = gameTime.getTime();
   }
 
   /**
