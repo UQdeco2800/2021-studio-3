@@ -24,6 +24,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -44,6 +45,10 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
+  private static final GameTime gameTime = ServiceLocator.getTimeSource();
+  private final long CAM_START_TIME = gameTime.getTime();
+  private final long DEATH_WALL_SHOW_DUR = 3500;
+  private final float REFRESH_RATE = 60;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -461,10 +466,18 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * introducing the death wall to player by making camera stay at the start with 3.5 second and move to target with
+   * constant speed
+   * @param startPos the position of the camera spawn
+   * @param distance the distance that the camera is going to move from start point
+   * @param duration the total time when the camera is moving
+   * @param camera the CameraComponent of the map
+   */
   public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
-
-    if (camera.getCamera().position.x - startPos.x < distance) {
-      camera.getCamera().translate((distance/duration)/60, 0,0);
+    if (camera.getCamera().position.x - startPos.x < distance
+            && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
+      camera.getCamera().translate((distance/duration)/REFRESH_RATE, 0,0);
       camera.getCamera().update();
     }
   }
