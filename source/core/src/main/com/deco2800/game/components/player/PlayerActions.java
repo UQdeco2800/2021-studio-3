@@ -19,7 +19,6 @@ import com.sun.tools.javac.Main;
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
-  // OLD VARIABLE - private Vector2 walkDirection = Vector2.Zero.cpy();
   // Sets gravity to 1 m/s for comparing
   private static final Vector2 gravity = new Vector2 (0, -1f);
   // Sets player movement and adds gravity of 1 m/s

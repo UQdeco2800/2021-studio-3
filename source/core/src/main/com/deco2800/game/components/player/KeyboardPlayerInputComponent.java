@@ -31,14 +31,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
-  private boolean noJumping = false;
+  private boolean noJumping = false; //true if player has picked up a no jump debuff
+  private boolean instantDrop = false;
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();
   public Timer fallingTimer = new Timer();
 
   public Timer.Task removeSprint = new Timer.Task() {
-
     @Override
     public void run() {
       entity.getComponent(SprintComponent.class).removeSprint(1);
@@ -61,10 +61,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public Timer.Task startFalling = new Timer.Task() {
     @Override
     public void run(){
+      logger.info("Player is falling from a jump");
       // Subtracts 4 m/s to upwards movement
-      for (int i = 0; i < 4; i++) {
-        walkDirection.sub(Vector2Utils.UP);
-      }
+      walkDirection.sub(0, 4);
       jumpingTimer.stop();
       // Schedules to stop falling and allow user to jump again
       fallingTimer.start();
@@ -76,7 +75,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   /** Stops falling and allows user to jump again by setting isJumping to false */
   public Timer.Task stopFalling = new Timer.Task() {
     @Override
-    public void run(){
+    public void run() {
+      logger.info("Player has stopped falling");
       fallingTimer.stop();
       isJumping = false;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
@@ -148,6 +148,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   }
 
+  /*private boolean instantDrop() {
+    if (isJumping) {
+      logger.info("Dropped to the ground");
+      for (int i = 0; i < 8; i++) {
+        walkDirection.sub(Vector2Utils.UP);
+      }
+      for (int i = 0; i < 4; i++) {
+        walkDirection.add(Vector2Utils.UP);
+      }
+    }
+    return true;
+  }*/
+
   /**
    * After an input of 'A' or 'D' has been detected, decide to move left or right.
    *
@@ -156,7 +169,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean handleWalk(char Key, String keyState){
     Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
     int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
-    if (scalar == 1){
+    if (scalar == 1) {
       entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
     }
     if (keyState.equals("DOWN")){
@@ -208,14 +221,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (canJump()) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
-      // Adds 4 m/s to upwards movement
-      for (int i = 0; i < 4; i++) {
-        walkDirection.add(Vector2Utils.UP);
-      }
+      walkDirection.add(0,4);
       triggerMovementEvent();
       jumpingTimer.start();
       // Schedules to stop jumping and start falling
       jumpingTimer.scheduleTask(startFalling, 0.3f);
+
     }
     return true;
   }
