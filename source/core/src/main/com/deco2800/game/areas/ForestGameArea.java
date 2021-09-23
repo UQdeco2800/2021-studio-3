@@ -468,6 +468,8 @@ public class ForestGameArea extends GameArea {
     super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
+
+    System.out.println("forest game area disposed");
   }
 
 }

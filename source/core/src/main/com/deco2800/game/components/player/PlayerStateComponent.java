@@ -23,6 +23,14 @@ enum State {
     SPRINT_JUMP
 }
 
+/**
+ * The different directions a player can be moving
+ */
+enum Direction {
+    LEFT,
+    RIGHT
+}
+
 public class PlayerStateComponent extends Component {
 
     /**
@@ -36,6 +44,11 @@ public class PlayerStateComponent extends Component {
     public State state;
 
     /**
+     * The players current state
+     */
+    public Direction direction;
+
+    /**
      * The player's current Health state
      */
     public Health health;
@@ -46,7 +59,9 @@ public class PlayerStateComponent extends Component {
     public PlayerStateComponent(){
         //at the start of the game
         state = State.STATIONARY;
+        direction = Direction.RIGHT;
         health = Health.NORMAL;
+
     }
 
     /**
@@ -60,12 +75,33 @@ public class PlayerStateComponent extends Component {
                 case STATIONARY:
                     return "normal-stationary";
                 case WALK:
-                    return "normal-walk";
+                    switch (direction) {
+                        case LEFT:
+                            return "normal-walk-left";
+                        case RIGHT:
+                            return "normal-walk-right";
+                    }
                 case SPRINT:
-                    return "normal-sprint";
+                    switch (direction) {
+                        case LEFT:
+                            return "normal-sprint-left";
+                        case RIGHT:
+                            return "normal-sprint-right";
+                    }
                 case JUMP:
+                    switch (direction) {
+                        case LEFT:
+                            return "normal-jump-left";
+                        case RIGHT:
+                            return "normal-jump-right";
+                    }
                 case SPRINT_JUMP:
-                    return "normal-jump";
+                    switch (direction) {
+                        case LEFT:
+                            return "normal-jump-left";
+                        case RIGHT:
+                            return "normal-jump-right";
+                    }
                 default:
                     throw new IllegalArgumentException();
             }
@@ -75,12 +111,33 @@ public class PlayerStateComponent extends Component {
                 case STATIONARY:
                     return "rough-stationary";
                 case WALK:
-                    return "rough-walk";
+                    switch (direction) {
+                        case LEFT:
+                            return "rough-walk-left";
+                        case RIGHT:
+                            return "rough-walk-right";
+                    }
                 case SPRINT:
-                    return "rough-sprint";
+                    switch (direction) {
+                        case LEFT:
+                            return "rough-sprint-left";
+                        case RIGHT:
+                            return "rough-sprint-right";
+                    }
                 case JUMP:
+                    switch (direction) {
+                        case LEFT:
+                            return "rough-jump-left";
+                        case RIGHT:
+                            return "rough-jump-right";
+                    }
                 case SPRINT_JUMP:
-                    return "rough-jump";
+                    switch (direction) {
+                        case LEFT:
+                            return "rough-jump-left";
+                        case RIGHT:
+                            return "rough-jump-right";
+                    }
                 default:
                     throw new IllegalArgumentException();
             }
@@ -90,12 +147,33 @@ public class PlayerStateComponent extends Component {
                 case STATIONARY:
                     return "damaged-stationary";
                 case WALK:
-                    return "damaged-walk";
+                    switch (direction) {
+                        case LEFT:
+                            return "damaged-walk-left";
+                        case RIGHT:
+                            return "damaged-walk-right";
+                    }
                 case SPRINT:
-                    return "damaged-sprint";
+                    switch (direction) {
+                        case LEFT:
+                            return "damaged-sprint-left";
+                        case RIGHT:
+                            return "damaged-sprint-right";
+                    }
                 case JUMP:
+                    switch (direction) {
+                        case LEFT:
+                            return "damaged-jump-left";
+                        case RIGHT:
+                            return "damaged-jump-right";
+                    }
                 case SPRINT_JUMP:
-                    return "damaged-jump";
+                    switch (direction) {
+                        case LEFT:
+                            return "damaged-jump-left";
+                        case RIGHT:
+                            return "damaged-jump-right";
+                    }
                 default:
                     throw new IllegalArgumentException();
             }
@@ -107,19 +185,33 @@ public class PlayerStateComponent extends Component {
     }
 
     /**
-     * handles situations do with player sprinting and jumping at the same time
+     * handles situations do with player sprinting and jumping at the same time, moving left or right
+     * and if they are stationary
      * @param isJumping Whether the player is jumping
      * @param isSprinting Whether the player is sprinting
+     * @param movingRight Whether the player is moving right
+     * @param movingLeft Whether the player is moving left
+     * @param isStationary Whether the player is stationary
      */
-    public void manage(boolean isJumping, boolean isSprinting){
+    public void manage(boolean isJumping, boolean isSprinting, boolean movingRight, boolean movingLeft, boolean isStationary){
         if (isJumping && !isSprinting){
             updateState(State.JUMP);
-        }
-        else if (!isJumping && isSprinting){
+        } else if (!isJumping && isSprinting){
             updateState(State.SPRINT);
-        }
-        else if (isJumping){
+        } else if (isJumping){
             updateState(State.SPRINT_JUMP);
+        } else {
+            updateState(State.WALK);
+        }
+
+        if (movingRight && movingLeft) {
+            updateState(State.STATIONARY);
+        } else if (movingRight) {
+            updateDirection(Direction.RIGHT);
+        } else if (movingLeft) {
+            updateDirection(Direction.LEFT);
+        } else if (isStationary && !isJumping) {
+            updateState(State.STATIONARY);
         }
     }
 
@@ -140,6 +232,22 @@ public class PlayerStateComponent extends Component {
      */
     public State getState(){
         return state;
+    }
+
+    /**
+     * update the player's current direction state
+     * @param direction the new direction the player is moving
+     */
+    public void updateDirection(Direction direction){
+        this.direction = direction;
+    }
+
+    /**
+     * Gets the player's current Direction state.
+     * @return the player's current Direction state
+     */
+    public Direction getDirection(){
+        return direction;
     }
 
     /**

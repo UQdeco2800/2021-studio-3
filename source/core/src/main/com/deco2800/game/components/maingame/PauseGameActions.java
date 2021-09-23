@@ -34,7 +34,7 @@ public class PauseGameActions extends Component {
         entity.getEvents().addListener("homeMenu",
                 this.mainMenuUI.getComponent(PopupMenuActions.class)::onHome);
         entity.getEvents().addListener("replayLevel",
-                this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplay);
+                this.mainMenuUI.getComponent(PopupMenuActions.class)::onNextLevel);
     }
 
     /**

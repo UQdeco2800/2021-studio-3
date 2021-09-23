@@ -3,35 +3,131 @@ size: 2000, 518
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-normal-walk
+normal-walk-right
   rotate: false
   xy: 0, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-normal-walk
+normal-walk-right
   rotate: false
   xy: 400, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-normal-walk
+normal-walk-right
   rotate: false
   xy: 800, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-normal-walk
+normal-walk-right
   rotate: false
   xy: 1200, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-normal-walk
+normal-walk-right
+  rotate: false
+  xy: 1600, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+Walking.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+normal-walk-left
+  rotate: false
+  xy: 400, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-walk-left
+  rotate: false
+  xy: 800, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-walk-left
+  rotate: false
+  xy: 1200, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-walk-left
+  rotate: false
+  xy: 1600, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-walk-left
+  rotate: false
+  xy: 2000, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+WalkingDamage90-50.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rough-walk-right
+  rotate: false
+  xy: 0, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-walk-right
+  rotate: false
+  xy: 400, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-walk-right
+  rotate: false
+  xy: 800, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-walk-right
+  rotate: false
+  xy: 1200, 0
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-walk-right
   rotate: false
   xy: 1600, 0
   size: 400, 518
@@ -51,35 +147,83 @@ size: 2000, 518
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-rough-walk
+rough-walk-left
+  rotate: false
+  xy: 400, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-walk-left
+  rotate: false
+  xy: 800, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-walk-left
+  rotate: false
+  xy: 1200, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-walk-left
+  rotate: false
+  xy: 1600, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-walk-left
+  rotate: false
+  xy: 2000, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+default
+  rotate: false
+  xy: 2000, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+WalkingDamage50-10.png
+size: 2000, 518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+damaged-walk-right
   rotate: false
   xy: 0, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-rough-walk
+damaged-walk-right
   rotate: false
   xy: 400, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-rough-walk
+damaged-walk-right
   rotate: false
   xy: 800, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-rough-walk
+damaged-walk-right
   rotate: false
   xy: 1200, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-rough-walk
+damaged-walk-right
   rotate: false
   xy: 1600, 0
   size: 400, 518
@@ -99,44 +243,106 @@ size: 2000, 518
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-damaged-walk
+damaged-walk-left
   rotate: false
-  xy: 0, 0
-  size: 400, 518
+  xy: 400, 0
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-damaged-walk
+damaged-walk-left
   rotate: false
-  xy: 400, 0
-  size: 400, 518
+  xy: 800, 0
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-damaged-walk
+damaged-walk-left
   rotate: false
-  xy: 800, 0
-  size: 400, 518
+  xy: 1200, 0
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-damaged-walk
+damaged-walk-left
   rotate: false
-  xy: 1200, 0
-  size: 400, 518
+  xy: 1600, 0
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-damaged-walk
+damaged-walk-left
   rotate: false
-  xy: 1600, 0
-  size: 400, 518
+  xy: 2000, 0
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
 default
   rotate: false
   xy: 2000, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+Sprint.png
+size: 2818, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+normal-sprint-right
+  rotate: false
+  xy: 2, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-sprint-right
+  rotate: false
+  xy: 404, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-sprint-right
+  rotate: false
+  xy: 806, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-sprint-right
+  rotate: false
+  xy: 1208, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-sprint-right
+  rotate: false
+  xy: 1610, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-sprint-right
+  rotate: false
+  xy: 2012, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-sprint-right
+  rotate: false
+  xy: 2414, 4
+  size: 400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+default
+  rotate: false
+  xy: 2818, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
@@ -147,65 +353,127 @@ size: 2818, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-normal-sprint
+normal-sprint-left
+  rotate: false
+  xy: 404, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-sprint-left
+  rotate: false
+  xy: 806, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-sprint-left
+  rotate: false
+  xy: 1208, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-sprint-left
+  rotate: false
+  xy: 1610, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-sprint-left
+  rotate: false
+  xy: 2012, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-sprint-left
+  rotate: false
+  xy: 2414, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-sprint-left
+  rotate: false
+  xy: 2818, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+default
+  rotate: false
+  xy: 2818, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+SprintDamage(50-90).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+rough-sprint-right
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-normal-sprint
+rough-sprint-right
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-normal-sprint
+rough-sprint-right
   rotate: false
-  xy: 2, 4
+  xy: 2816, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 7
 default
   rotate: false
-  xy: 2818, 0
+  xy: 3220, 0
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
@@ -216,56 +484,125 @@ size: 3220, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-rough-sprint
+rough-sprint-left
+  rotate: false
+  xy: 404, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-sprint-left
+  rotate: false
+  xy: 806, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-sprint-left
+  rotate: false
+  xy: 1208, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-sprint-left
+  rotate: false
+  xy: 1610, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-sprint-left
+  rotate: false
+  xy: 2012, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+rough-sprint-left
+  rotate: false
+  xy: 2414, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+rough-sprint-left
+  rotate: false
+  xy: 2816, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+rough-sprint-left
+  rotate: false
+  xy: 3220, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+SprintDamage(10-50).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+damaged-sprint-right
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-rough-sprint
+damaged-sprint-right
   rotate: false
   xy: 2816, 4
   size: 400, 518
@@ -285,56 +622,125 @@ size: 3220, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-damaged-sprint
+damaged-sprint-left
+  rotate: false
+  xy: 404, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+damaged-sprint-left
+  rotate: false
+  xy: 806, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+damaged-sprint-left
+  rotate: false
+  xy: 1208, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+damaged-sprint-left
+  rotate: false
+  xy: 1610, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+damaged-sprint-left
+  rotate: false
+  xy: 2012, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+damaged-sprint-left
+  rotate: false
+  xy: 2414, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+damaged-sprint-left
+  rotate: false
+  xy: 2816, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+damaged-sprint-left
+  rotate: false
+  xy: 3220, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+Jump.png
+size: 3220, 524
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+normal-jump-right
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-damaged-sprint
+normal-jump-right
   rotate: false
   xy: 2816, 4
   size: 400, 518
@@ -354,56 +760,125 @@ size: 3220, 524
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-normal-jump
+normal-jump-left
+  rotate: false
+  xy: 404, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+normal-jump-left
+  rotate: false
+  xy: 806, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+normal-jump-left
+  rotate: false
+  xy: 1208, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+normal-jump-left
+  rotate: false
+  xy: 1610, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+normal-jump-left
+  rotate: false
+  xy: 2012, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+normal-jump-left
+  rotate: false
+  xy: 2414, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+normal-jump-left
+  rotate: false
+  xy: 2816, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+normal-jump-left
+  rotate: false
+  xy: 3220, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+JumpDamage(50-90).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+rough-jump-right
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-normal-jump
+rough-jump-right
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-normal-jump
+rough-jump-right
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-normal-jump
+rough-jump-right
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-normal-jump
+rough-jump-right
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-normal-jump
+rough-jump-right
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-normal-jump
+rough-jump-right
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-normal-jump
+rough-jump-right
   rotate: false
   xy: 2816, 4
   size: 400, 518
@@ -423,56 +898,125 @@ size: 3220, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-rough-jump
+rough-jump-left
+  rotate: false
+  xy: 404, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+rough-jump-left
+  rotate: false
+  xy: 806, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 1
+rough-jump-left
+  rotate: false
+  xy: 1208, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 2
+rough-jump-left
+  rotate: false
+  xy: 1610, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 3
+rough-jump-left
+  rotate: false
+  xy: 2012, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 4
+rough-jump-left
+  rotate: false
+  xy: 2414, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 5
+rough-jump-left
+  rotate: false
+  xy: 2816, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 6
+rough-jump-left
+  rotate: false
+  xy: 3220, 4
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 7
+default
+  rotate: false
+  xy: 3220, 0
+  size: -400, 518
+  orig: 400, 518
+  offset: 0, 0
+  index: 0
+
+JumpDamage(10-50).png
+size: 3220, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+damaged-jump-right
   rotate: false
   xy: 2, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 404, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 806, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 1208, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 1610, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 2012, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 2414, 4
   size: 400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-rough-jump
+damaged-jump-right
   rotate: false
   xy: 2816, 4
   size: 400, 518
@@ -492,66 +1036,66 @@ size: 3220, 524
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 2, 4
-  size: 400, 518
+  xy: 404, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 404, 4
-  size: 400, 518
+  xy: 806, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 1
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 806, 4
-  size: 400, 518
+  xy: 1208, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 2
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 1208, 4
-  size: 400, 518
+  xy: 1610, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 3
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 1610, 4
-  size: 400, 518
+  xy: 2012, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 4
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 2012, 4
-  size: 400, 518
+  xy: 2414, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 5
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 2414, 4
-  size: 400, 518
+  xy: 2816, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 6
-damaged-jump
+damaged-jump-left
   rotate: false
-  xy: 2816, 4
-  size: 400, 518
+  xy: 3220, 4
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 7
 default
   rotate: false
   xy: 3220, 0
-  size: 400, 518
+  size: -400, 518
   orig: 400, 518
   offset: 0, 0
   index: 0
