@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -43,7 +44,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(3, 11);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
@@ -186,24 +187,24 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
     spawnDeathWall();
     //spawnTrees();
-    spawnAsteriod();
-    spawnAsteroidFire();
-    spawnRobot();
-
-
-    //spawnBuilding();
-    //spawnTrees();
-    //spawnRocks();
-    spawnPlatform1();
-    //spawnPlanet1();
-    spawnUFO();
-    //spawnBuffDebuffPickup();
-    //spawnAsteroids();
-
-    //spawnGhosts();
-    //spawnGhostKing();
-    createCheckpoint();
-    playMusic();
+//    spawnAsteriod();
+//    spawnAsteroidFire();
+//    spawnRobot();
+//
+//
+//    //spawnBuilding();
+//    //spawnTrees();
+//    //spawnRocks();
+//    spawnPlatform1();
+//    //spawnPlanet1();
+//    spawnUFO();
+//    //spawnBuffDebuffPickup();
+//    //spawnAsteroids();
+//
+//    //spawnGhosts();
+//    //spawnGhostKing();
+//    createCheckpoint();
+//    playMusic();
 //    spawnAttackObstacle();
   }
 
@@ -453,10 +454,17 @@ public class ForestGameArea extends GameArea {
    */
   public void resetCam(CameraComponent camera) {
     float playerX = player.getPosition().x;
-
-//    System.out.println(playerX);
-    if (playerX >= 5 && playerX <= 35) {
+//    logger.info(String.valueOf(playerX));
+    if (playerX > 12 && playerX <= 35) {
       camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
+      camera.getCamera().update();
+    }
+  }
+
+  public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
+
+    if (camera.getCamera().position.x - startPos.x < distance) {
+      camera.getCamera().translate((distance/duration)/60, 0,0);
       camera.getCamera().update();
     }
   }
