@@ -433,7 +433,7 @@ public class ForestGameArea extends GameArea {
   public void resetCam(CameraComponent camera) {
     float playerX = player.getPosition().x;
 
-    System.out.println(playerX);
+    //System.out.println(playerX);
     if (playerX >= 5 && playerX <= 35) {
       camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
       camera.getCamera().update();
@@ -468,6 +468,8 @@ public class ForestGameArea extends GameArea {
     super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
+
+    System.out.println("forest game area disposed");
   }
 
 }
