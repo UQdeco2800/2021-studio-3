@@ -31,11 +31,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
-
   private boolean noJumping = false; //true if player has picked up a no jump debuff
   private boolean movingRight = false; //true if player is moving right
   private boolean movingLeft = false; //true if player is moving left
   private boolean isStationary = true; //true if player is not moving (Just gravity affecting movement)
+
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();
@@ -235,6 +235,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean jump(){
     if (canJump()) {
       isJumping = true;
+
       // Adds 4 m/s to upwards movement
       walkDirection.add(0,4);
 
