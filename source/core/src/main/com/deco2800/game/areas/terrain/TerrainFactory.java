@@ -90,6 +90,16 @@ public class TerrainFactory {
         TextureRegion star =
                 new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
         return createSideScrollTerrain(0.5f, surface, underground, sky, star);
+      case LEVEL_TWO_TERRAIN:
+        TextureRegion mars_surface =
+                new TextureRegion(resourceService.getAsset("images/background_mars_surface.png", Texture.class));
+        TextureRegion mars_underground =
+                new TextureRegion(resourceService.getAsset("images/background_mars_ground.png", Texture.class));
+        TextureRegion mars_sky =
+                new TextureRegion(resourceService.getAsset("images/background_mars.png", Texture.class));
+        TextureRegion mars_star =
+                new TextureRegion(resourceService.getAsset("images/background_mars_star.png", Texture.class));
+        return createLevelTwoTerrain(0.5f, mars_surface, mars_underground, mars_sky, mars_star);
       default:
         return null;
     }
@@ -100,6 +110,13 @@ public class TerrainFactory {
           float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
     GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
     TiledMap tiledMap = createSideScrollTiles(tilePixelSize, surface, underground, sky, tree);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
+
+  private TerrainComponent createLevelTwoTerrain(float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
+    TiledMap tiledMap = createLevelTwoTiles(tilePixelSize, surface, underground, sky, star);
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -136,6 +153,45 @@ public class TerrainFactory {
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(57, 20), new GridPoint2(58, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(58, 20), new GridPoint2(98, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(98, 20), new GridPoint2(99, 21), starTile);
+    fillTilesAt(layer, new GridPoint2(99, 20), new GridPoint2(100, 21), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 21), new GridPoint2(100, 22), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 22), new GridPoint2(15, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(15, 22), new GridPoint2(16, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(16, 22), new GridPoint2(18, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(18, 22), new GridPoint2(19, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(19, 22), new GridPoint2(31, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(31, 22), new GridPoint2(32, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(32, 22), new GridPoint2(70, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(70, 22), new GridPoint2(72, 23), starTile);
+    fillTilesAt(layer, new GridPoint2(72, 22), new GridPoint2(100, 23), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 23), new GridPoint2(100, 24), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 24), new GridPoint2(5, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(5, 24), new GridPoint2(6, 25), starTile);
+    fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
+    tiledMap.getLayers().add(layer);
+    return tiledMap;
+  }
+
+  private TiledMap createLevelTwoTiles(GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    TiledMap tiledMap = new TiledMap();
+    TerrainTile surfaceTile = new TerrainTile(surface);
+    TerrainTile undergroundTile = new TerrainTile(underground);
+    TerrainTile skyTile = new TerrainTile(sky);
+    TerrainTile starTile = new TerrainTile(star);
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+
     fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
     fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
     fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
@@ -229,6 +285,7 @@ public class TerrainFactory {
     FOREST_DEMO,
     FOREST_DEMO_ISO,
     FOREST_DEMO_HEX,
-    SIDE_SCROLL_ER
+    SIDE_SCROLL_ER,
+    LEVEL_TWO_TERRAIN
   }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.Level2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
@@ -31,6 +32,7 @@ public class CheckPointComponent extends Component {
     private HitboxComponent hitboxComponent;
     private GdxGame game;
     private ForestGameArea area;
+    private Level2 area2;
     /**
      *
      * @param targetLayer The physics layer of the target's collider.
@@ -38,6 +40,11 @@ public class CheckPointComponent extends Component {
     public CheckPointComponent(short targetLayer, ForestGameArea area) {
         this.targetLayer = targetLayer;
         this.area = area;
+    }
+
+    public CheckPointComponent(short targetLayer, Level2 area) {
+        this.targetLayer = targetLayer;
+        this.area2 = area;
     }
 
     @Override
