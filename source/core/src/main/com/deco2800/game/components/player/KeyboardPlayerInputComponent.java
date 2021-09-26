@@ -236,7 +236,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     if (canJump()) {
       isJumping = true;
       entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting);
-      // Adds 4 m/s to upwards movement
       walkDirection.add(0,4);
       triggerMovementEvent();
       jumpingTimer.start();
