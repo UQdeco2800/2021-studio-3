@@ -32,7 +32,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
   private boolean noJumping = false; //true if player has picked up a no jump debuff
-  private boolean instantDrop = false;
 
   public Timer sprintTimer = new Timer();
   public Timer jumpingTimer = new Timer();

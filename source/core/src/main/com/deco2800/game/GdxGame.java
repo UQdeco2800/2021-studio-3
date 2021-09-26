@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
+import com.deco2800.game.screens.LoadingScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.screens.SettingsScreen;
@@ -87,6 +88,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this, true);
       case SETTINGS:
         return new SettingsScreen(this);
+      case LOADING:
+        return new LoadingScreen(this);
       case CHECKPOINT:
         return new MainGameScreen(this, 1, true);
       case CHECKPOINT_REPLAY:
@@ -105,7 +108,8 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY
+    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY,
+    LOADING
   }
 
   public enum GameState {
