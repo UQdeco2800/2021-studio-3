@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.Level2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -78,9 +80,15 @@ public class MainGameScreen extends ScreenAdapter {
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager ();
 
+  public static boolean isLevelChange = false;
+  private int currentLevel = 1;
+
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;
+  private Level2 level2Map;
+  private final TerrainFactory terrainFactory;
+  private Entity ui;
 
   /* Manages buffs & debuffs in the game */
   private BuffManager buffManager;
@@ -109,14 +117,17 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
 
     logger.debug("Initialising main game screen entities");
-    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    //terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
     forestGameArea.create();
+
     load();
     this.currentMap = forestGameArea;
     createUI();
     forestGameArea.spawnBuffDebuff(this.buffManager);
   }
+
   public static AssetManager load(){
     manager.load("images/invincible.png", Texture.class);
     manager.load("images/winReplay.png", Texture.class);
@@ -154,13 +165,14 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
 
     logger.debug("Initialising main game screen entities");
-    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, hasDied);
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
     createUI();
-    forestGameArea.spawnBuffDebuff(this.buffManager);
+    //forestGameArea.spawnBuffDebuff(this.buffManager);
   }
 
   public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied) {
@@ -187,7 +199,8 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
 
     logger.debug("Initialising main game screen entities");
-    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied);
     forestGameArea.create();
 
@@ -199,7 +212,9 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void render(float delta) {
     this.currentMap.resetCam(renderer.getCamera());
-
+    if (isLevelChange) {
+      generateNewLevel();
+    }
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
@@ -272,7 +287,7 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    Entity ui = new Entity();
+    this.ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
@@ -298,6 +313,30 @@ public class MainGameScreen extends ScreenAdapter {
    * Returns the current game map
    * */
   public ForestGameArea getCurrentMap() {
-    return this.currentMap;
+
+      return this.currentMap;
+
+  }
+
+  public static void changeLevel() {
+    isLevelChange = true;
+  }
+
+  public void generateNewLevel () {
+    currentLevel += 1;
+    System.out.println(currentLevel);
+    currentMap.dispose();
+    buffManager.disposeAll();
+    ui.dispose();
+   // unloadAssets();
+    if (currentLevel == 2) {
+      System.out.println("load next level.");
+      load();
+//      this.terrainFactory = new TerrainFactory(renderer.getCamera());
+      level2Map = new Level2(terrainFactory, 0, false);
+      level2Map.create();
+      createUI();
+    }
+    isLevelChange = false;
   }
 }
