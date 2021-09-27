@@ -89,6 +89,7 @@ public class ForestGameArea extends GameArea {
           "images/JumpDamage(50-90).png",
           "images/JumpDamage(10-50).png",
           "images/IdleCharacters.png",
+          "images/Death.png",
           "images/0percent.png",
           "images/10percent.png",
           "images/20percent.png",

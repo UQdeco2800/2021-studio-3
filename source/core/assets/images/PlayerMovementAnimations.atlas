@@ -1146,3 +1146,10 @@ dead
   orig: 518, 400
   offset: 0, 0
   index: 0
+default
+  rotate: false
+  xy: 0, 0
+  size: 518, 400
+  orig: 518, 400
+  offset: 0, 0
+  index: 0
