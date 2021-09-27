@@ -11,6 +11,7 @@ import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
@@ -23,6 +24,7 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -46,17 +48,7 @@ public class ForestGameArea extends GameArea {
           "images/ghost_king.png",
           "images/ghost_1.png",
           "images/lives_icon.png",
-          "images/grass_1.png",
-          "images/grass_2.png",
-          "images/grass_3.png",
-          "images/hex_grass_1.png",
-          "images/hex_grass_2.png",
-          "images/hex_grass_3.png",
-          "images/iso_grass_1.png",
-          "images/iso_grass_2.png",
-          "images/iso_grass_3.png",
           "images/box_boy.png",
-          "images/surface.png",
           "images/underground.png",
           "images/sky.png",
           "images/untouchedCheckpoint.png",
@@ -100,7 +92,6 @@ public class ForestGameArea extends GameArea {
           "images/80percent.png",
           "images/90percent.png",
           "images/100percent.png",
-          "images/rock_platform.png",
           "images/background_stars.png",
           "images/background_sky.png",
           "images/background_rock.png",
@@ -131,6 +122,10 @@ public class ForestGameArea extends GameArea {
   private int checkpoint;
 
   private boolean hasDied;
+
+  /* The edges (Entity objects) of this map.  This region defines the
+     space the player is allowed to move within. */
+  private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
 
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
@@ -202,7 +197,7 @@ public class ForestGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("Box Forest"));
+    ui.addComponent(new GameAreaDisplay("Level One"));
     spawnEntity(ui);
   }
 
@@ -221,8 +216,12 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnTerrain() {
-    // Background terrain
+    /* To extract the borders of the map */
+    Entity leftWall;
+    Entity topWall;
+    Entity floor;
 
+    // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
     spawnEntity(new Entity().addComponent(terrain));
 
@@ -233,7 +232,7 @@ public class ForestGameArea extends GameArea {
 
     // Left
     spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+        leftWall = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
         this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
@@ -242,14 +241,19 @@ public class ForestGameArea extends GameArea {
         false);
     // Top
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+        topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
         new GridPoint2(0, tileBounds.y),
         false,
         false);
     // Bottom
     spawnEntityAt(
             //change a wall with high:10
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+        floor = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+
+    this.mapFixtures.put("LEFT_WALL", leftWall);
+    this.mapFixtures.put("RIGHT_WALL", this.endOfMap);
+    this.mapFixtures.put("ROOF", topWall);
+    this.mapFixtures.put("FLOOR", floor);
   }
 
   private void spawnUFO() {
@@ -362,6 +366,9 @@ public class ForestGameArea extends GameArea {
     } else {
       spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     }
+
+    /* Inform the player about the map fixtures */
+    newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
     return newPlayer;
   }
 

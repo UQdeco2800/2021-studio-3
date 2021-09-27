@@ -6,6 +6,8 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.LinkedHashMap;
+
 /**
  * Class to handle the player double jumping. This class controls;
  *
@@ -37,6 +39,9 @@ public class DoubleJumpComponent extends Component {
 
     /* The players' jumping state */
     private JumpingState jumpState;
+
+    /* The edges of the current game map */
+    private LinkedHashMap<String, Entity> mapFixtures;
 
     /**
      * The players' potential jumping states.
@@ -79,6 +84,11 @@ public class DoubleJumpComponent extends Component {
         if (collidedWithData != null && collidedWithData.entity != null) {
             Entity collidedWith = collidedWithData.entity;
 
+            /* Check that the player didn't hit the walls or roof */
+            if (this.mapFixtures.values().contains(collidedWith)) {
+                return;
+            }
+
             // Player should only jump again if they have landed on something
             boolean isBeneath =
                     ((collidedWith.getCenterPosition().y -
@@ -104,6 +114,18 @@ public class DoubleJumpComponent extends Component {
                 entity.getComponent(KeyboardPlayerInputComponent.class).handleFalling();
             }
         }
+    }
+
+    /**
+     * Sets the edges of the current game map. This allows for finer control
+     * of the player on collision with a map edge.
+     *
+     * @param mapFixtures the edges of the map; FLOOR, RIGHT_WALL, LEFT_WALL,
+     *                    ROOF.
+     * */
+    public void setMapEdges(LinkedHashMap<String, Entity> mapFixtures) {
+        mapFixtures.remove("FLOOR");
+        this.mapFixtures = mapFixtures;
     }
 
     /**
