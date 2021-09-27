@@ -195,7 +195,7 @@ public class Level2 extends GameArea{
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Forest"));
+        ui.addComponent(new GameAreaDisplay("Level Two"));
         spawnEntity(ui);
     }
 
