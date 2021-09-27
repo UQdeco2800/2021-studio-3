@@ -23,6 +23,10 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -179,23 +183,23 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
 
     //spawnTrees();
-    spawnAsteriod();
-    spawnAsteroidFire();
-    spawnRobot();
+    //spawnAsteriod();
+    //spawnAsteroidFire();
+    //spawnRobot();
 
 
     //spawnBuilding();
     //spawnTrees();
     //spawnRocks();
-    spawnPlatform1();
+    //spawnPlatform1();
     //spawnPlanet1();
-    spawnUFO();
+    //spawnUFO();
     //spawnBuffDebuffPickup();
     //spawnAsteroids();
 
     //spawnGhosts();
     //spawnGhostKing();
-    createCheckpoint();
+    //createCheckpoint();
 //    playMusic();
     //spawnAttackObstacle();
   }
@@ -247,9 +251,42 @@ public class ForestGameArea extends GameArea {
         false,
         false);
     // Bottom
-    spawnEntityAt(
-            //change a wall with high:10
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+    // LOGIC to create level terrain
+    int previousY = 0, previousX = 0, i = 0, x = 0, y = 0;
+    // opens the levels file
+    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+      StringBuilder sb = new StringBuilder();
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(" ");
+        x = Integer.parseInt(values[1]);
+        y = Integer.parseInt(values[2]);
+        // creates the floors wall
+        spawnEntityAt(
+                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+        if (i != 0) {
+          // creates walls when floor level changes
+          float height = (float) (y - previousY)/2;
+          float endHeight = (float) (previousY - y)/2;
+          if (height > 0) {
+            spawnEntityAt(
+                    ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, previousY), false, false);
+          }
+          if (endHeight > 0) {
+            spawnEntityAt(
+                    ObstacleFactory.createWall(WALL_WIDTH, endHeight), new GridPoint2(x, y), false, false);
+          }
+        }
+        previousY = y;
+        line = br.readLine();
+        i++;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void spawnUFO() {
