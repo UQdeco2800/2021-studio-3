@@ -294,8 +294,8 @@ public class ForestGameArea extends GameArea {
 
     //Kills player upon falling into void
     spawnEntityAt(
-            ObstacleFactory.createWall(0, worldBounds.x),
-            new GridPoint2(tileBounds.x, 0), false, false);
+            ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, 1), false, false);
 
   }
 
