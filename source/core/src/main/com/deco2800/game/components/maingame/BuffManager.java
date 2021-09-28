@@ -78,11 +78,12 @@ public class BuffManager extends Component {
      *  - selectBuffFunctionality() method: append the relevant switch
      *    statement to call the PlayerBuffs method which controls the behaviour
      *    of the buff
+     *  - getBuffSound() method: add the buff or debuff into the buff / debuff
+     *    switch statement list so that the buff or debuff sound is applied to
+     *    the buff upon pickup.
      *
      * When any new buff is added, the PlayerBuff class must have a method
-     * added to control that buff. The BuffManagers' getBuffSound function must
-     * also be updated to apply the buff or debuff sound to the buff upon
-     * pickup.
+     * added to control that buff.
      *
      * If a new timed buff is added, the PlayerBuff class must have a method
      * added to control the removal of the effects of the buff
