@@ -46,8 +46,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level90percent;
   private Texture levelComplete;
 
-  private String currentHealthBarImage;
-
   AssetManager manager;
   TextureRegion  textureRegion;
 
@@ -251,7 +249,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
       /* Get the new texture */
       String healthImage = getHealthBarImage(healthPercentage);
-      this.currentHealthBarImage = healthImage;
 
       /* Update the display */
       textureRegion.setTexture(manager.get(healthImage, Texture.class));
