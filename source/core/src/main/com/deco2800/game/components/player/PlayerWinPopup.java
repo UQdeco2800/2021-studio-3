@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.Level2;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.PlayerWinActions;

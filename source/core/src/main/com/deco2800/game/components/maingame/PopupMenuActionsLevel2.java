@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.deco2800.game.GdxGame;
@@ -17,23 +18,23 @@ import com.deco2800.game.screens.MainGameScreen;
  * This class allows for the functionality of buttons common to all menus to
  * be changed centrally.
  * */
-public class PopupMenuActions extends Component {
+public class PopupMenuActionsLevel2 extends Component {
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
-    private ForestGameArea area = null;
+    //private ForestGameArea area;
     //private int checkPointStatus;
-    private Level2 area2 = null;
+    private Level2 area2;
 
-    public PopupMenuActions(GdxGame game) {
+    public PopupMenuActionsLevel2(GdxGame game) {
         this.game = game;
     }
 
-    public PopupMenuActions(GdxGame game, ForestGameArea area) {
-        this.game = game;
-        this.area = area;
-    }
+//    public PopupMenuActionsLevel2(GdxGame game, ForestGameArea area) {
+//        this.game = game;
+//        this.area = area;
+//    }
 
-    public PopupMenuActions(GdxGame game, Level2 area) {
+    public PopupMenuActionsLevel2(GdxGame game, Level2 area) {
         this.game = game;
         this.area2 = area;
     }
@@ -53,50 +54,39 @@ public class PopupMenuActions extends Component {
      * */
     public void onReplay() {
 
-//        if (area.getCheckPointStatus() == 1) {
+//        if (area2.getCheckPointStatus() == 1) {
 //            game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
 //        } else {
 //            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
 //        }
-
-        if (area != null) {
-            if (area.getCheckPointStatus() == 1) {
-                game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
-            } else {
-                game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-            }
-        } else if (area2 != null) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
-        }
+        game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
     }
 
     /**
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
-//        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
+//        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 || area2.getPlayer().getComponent(LivesComponent.class).getLives() < 1) {
 //            onHome();
 //        } else {
-//            if (area.getCheckPointStatus() == 1 ) {
+//            if (area.getCheckPointStatus() == 1 || area2.getCheckPointStatus() == 1) {
 //                game.setScreen(GdxGame.ScreenType.CHECKPOINT);
 //            } else {
 //                game.setScreen(GdxGame.ScreenType.RESPAWN);
 //            }
 //        }
 
-        if (area != null) {
-            if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
-                onHome();
-            } else {
-                if (area.getCheckPointStatus() == 1 ) {
-                    game.setScreen(GdxGame.ScreenType.CHECKPOINT);
-                } else {
-                    game.setScreen(GdxGame.ScreenType.RESPAWN);
-                }
-            }
-        } else if (area2 != null) {
+//
+        if (area2.getPlayer().getComponent(LivesComponent.class).getLives() < 1 || area2.getPlayer().getComponent(LivesComponent.class).getLives() < 1) {
+            onHome();
+        } else if (area2.getCheckPointStatus() == 1) {
+            game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+        } else if (area2.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        } else {
+            game.setScreen(GdxGame.ScreenType.RESPAWN);
         }
+
     }
 
     /**
@@ -111,7 +101,7 @@ public class PopupMenuActions extends Component {
      */
     public void onReplayWin() {
 
-            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
 
     }
 
