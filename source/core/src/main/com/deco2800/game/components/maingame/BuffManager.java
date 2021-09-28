@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -57,6 +58,10 @@ public class BuffManager extends Component {
     /* Creation time of floating animation when player picks up a buff */
     private long pickupCreationTime;
 
+    /*Buff sound*/
+    private static final String BUFF_SOUND_PATH = "sounds/buff.mp3";
+    /*Debuff sound*/
+    private static final String DEBUFF_SOUND_PATH = "sounds/debuff.mp3";
 
     /**
      * Tracks the different buff types in the game. Add new buff types here.
@@ -276,6 +281,21 @@ public class BuffManager extends Component {
             // Remove the buff from the map
             this.currentBuffs.remove(buff);
             removeBuff(buff);
+            if(type.toString() == "B_HP_UP" || type.toString() == "B_FULL_HEAL" ||
+                    type.toString() == "BT_INVIN" || type.toString() == "BT_INF_SPRINT"
+            ){
+                Sound sound =ServiceLocator.getResourceService().getAsset(BUFF_SOUND_PATH, Sound.class);
+                sound.setVolume(0,0.5f);
+                sound.play();
+
+            }
+            if(type.toString() == "D_HP_DOWN" || type.toString() == "DT_NO_JUMP" ||
+                    type.toString() == "DT_DOUBLE_DMG"){
+                Sound sound =ServiceLocator.getResourceService().getAsset(DEBUFF_SOUND_PATH, Sound.class);
+                sound.setVolume(0,0.5f);
+                sound.play();
+
+            }
         }
     }
 

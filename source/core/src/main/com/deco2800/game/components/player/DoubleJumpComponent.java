@@ -159,7 +159,7 @@ public class DoubleJumpComponent extends Component {
 
     /**
      * Sets the player to the next jumping state, where the ordering is
-     * LANDED -> JUMPING -> DOUBLE_JUMPING.
+     * LANDED, JUMPING, DOUBLE_JUMPING.
      * */
     public void nextJumpState() {
         if (this.jumpState == JumpingState.JUMPING) {
