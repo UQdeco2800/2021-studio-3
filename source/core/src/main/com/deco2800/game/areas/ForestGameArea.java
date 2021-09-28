@@ -291,6 +291,12 @@ public class ForestGameArea extends GameArea {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    //Kills player upon falling into void
+    spawnEntityAt(
+            ObstacleFactory.createWall(0, worldBounds.x),
+            new GridPoint2(tileBounds.x, 0), false, false);
+
   }
 
   private void spawnUFO() {
