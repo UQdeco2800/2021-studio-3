@@ -1,8 +1,13 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -110,7 +115,8 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png"
+          "images/surface.png",
+          "images/vikings in space.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -226,7 +232,6 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-
     terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
     spawnEntity(new Entity().addComponent(terrain));
 
@@ -234,6 +239,7 @@ public class ForestGameArea extends GameArea {
     float tileSize = terrain.getTileSize();
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+    TiledMapTileLayer layer = new TiledMapTileLayer(tileBounds.x, tileBounds.y, tileBounds.x, tileBounds.y);
 
     // Left
     spawnEntityAt(
@@ -263,6 +269,7 @@ public class ForestGameArea extends GameArea {
         distance = Integer.parseInt(values[0]) * 2;
         x = Integer.parseInt(values[1]);
         y = Integer.parseInt(values[2]);
+
         // creates the floors wall
         spawnEntityAt(
                 ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);

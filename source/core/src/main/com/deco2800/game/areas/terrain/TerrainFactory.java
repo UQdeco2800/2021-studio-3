@@ -3,8 +3,10 @@ package com.deco2800.game.areas.terrain;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
@@ -87,14 +89,11 @@ public class TerrainFactory {
 //            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
 //        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       case SIDE_SCROLL_ER:
-        TextureRegion surface =
-                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
-        TextureRegion underground =
-                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
-        TextureRegion sky =
-                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
-        TextureRegion star =
-                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        TextureRegion background = new TextureRegion(resourceService.getAsset("images/vikings in space.png", Texture.class));
+        TextureRegion surface = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+        TextureRegion underground = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+        TextureRegion sky = new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion star = new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
         return createSideScrollTerrain(0.5f, surface, underground, sky, star);
       case LEVEL_TWO_TERRAIN:
         TextureRegion mars_surface =
@@ -221,6 +220,12 @@ public class TerrainFactory {
 
     fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
     fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(25, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(25, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(25, 20), skyTile);
+    fillTilesAt(layer, new GridPoint2(25, 0), new GridPoint2(50, 10), skyTile);
+    fillTilesAt(layer, new GridPoint2(50, 0), new GridPoint2(100, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(50, 9), new GridPoint2(100, 10), surfaceTile);
     fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
     fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
@@ -302,6 +307,7 @@ public class TerrainFactory {
       }
     }
   }
+
 
   /**
    * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
