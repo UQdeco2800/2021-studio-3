@@ -46,6 +46,8 @@ public class PlayerStatsDisplay extends UIComponent {
   private Texture level90percent;
   private Texture levelComplete;
 
+  private String currentHealthBarImage;
+
   AssetManager manager;
   TextureRegion  textureRegion;
 
@@ -138,7 +140,7 @@ public class PlayerStatsDisplay extends UIComponent {
     sprintTable = setupUITable(60f, 5f, UIPosition.LEFT);
     scoreTable = setupUITable(60f, 10f, UIPosition.CENTRE);
     progressTable = setupUITable(25f, 0f, UIPosition.CENTRE);
-    buffTable = setupUITable(100f, 5f, UIPosition.LEFT);
+    buffTable = setupUITable(95f, 5f, UIPosition.CENTRE);
 
     /* Images for UI */
     Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon.png", Texture.class));
@@ -146,7 +148,7 @@ public class PlayerStatsDisplay extends UIComponent {
     // Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
-    sprintLabel = new Label(sprintText, skin, "font_large", "white");
+    sprintLabel = new Label(sprintText, skin, "font", "white");
 
     // Score Text
     int score = entity.getComponent(ScoreComponent.class).getScore();
@@ -155,7 +157,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     // Buff / Debuff Text
     buffText = "Current buffs: \n";
-    buffLabel = new Label(buffText, skin, "font_large", "white");
+    buffLabel = new Label(buffText, skin, "font", "gray");
     buffTable.add(buffLabel);
 
     // Progress Text
@@ -166,7 +168,7 @@ public class PlayerStatsDisplay extends UIComponent {
     // Lives Text
     int lives = entity.getComponent(LivesComponent.class).getLives();
     CharSequence livesText = String.format("x%d", lives);
-    livesLabel = new Label(livesText, skin, "font_large", "white");
+    livesLabel = new Label(livesText, skin, "font", "white");
 
     // Create textures to be changed on update
     Texture levelStart = new Texture("images/0percent.png");
@@ -190,67 +192,93 @@ public class PlayerStatsDisplay extends UIComponent {
     livesTable.add(livesImage).size(40f).pad(5);
     livesTable.add(livesLabel);
 
-    //adding tables to stages
+    // Adding tables to stages
     stage.addActor(sprintTable);
     stage.addActor(progressTable);
     stage.addActor(livesTable);
     stage.addActor(scoreTable);
     stage.addActor(buffTable);
+  }
+
+    /**
+     * Returns the new Health Bar image, corresponding to the player's current
+     * health.
+     *
+     * @return the filepath to the new image to use for the health bar
+     * */
+    public String getHealthBarImage(double currentHealthPercentage) {
+      /* Switch is using int one-off decimal representation.
+         '9' is 91-99, '8' is 81-89, etc. */
+      switch ((int) currentHealthPercentage) {
+        case 10:  // Same behaviour as 9
+        case 9:
+          return "images/100.png";
+        case 8:
+          return "images/90.png";
+        case 7:
+          return "images/80.png";
+        case 6:
+          return "images/70.png";
+        case 5:
+          return "images/60.png";
+        case 4:
+          return "images/50.png";
+        case 3:
+          return "images/40.png";
+        case 2:
+          return "images/30.png";
+        case 1:
+          return "images/20.png";
+        case 0:
+          // Health could be 0 to 9 inclusive
+          double newHealth = currentHealthPercentage * 10;
+
+          // If it's 0, return so, else return the 1-9 image.
+          return (newHealth == 0) ? "images/00.png" : "images/10.png";
+      }
+      return "images/00.png"; // Unreachable
     }
 
+    /**
+     * Handles updating the Health Bar display. The image representing the
+     * entity's current health is retrieved and placed above the player.
+     *
+     * @param currentHealth the players' current health, as a percentage.
+     * */
+    private void updateHealthBarDisplay(double currentHealth, SpriteBatch batch) {
+      /* Change percentage to decimal, 1 place off. */
+      double healthPercentage = (currentHealth * 10);
+
+      /* Get the new texture */
+      String healthImage = getHealthBarImage(healthPercentage);
+      this.currentHealthBarImage = healthImage;
+
+      /* Update the display */
+      textureRegion.setTexture(manager.get(healthImage, Texture.class));
+      batch.draw(textureRegion,entity.getPosition().x - 1,
+              entity.getPosition().y + 1);
+    }
+
+
+    /**
+     * Handles drawing the health bar.
+     * */
     @Override
     public void draw(SpriteBatch batch)  {
       double health = entity.getComponent(CombatStatsComponent.class).getHealth();
-      double hp = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
-      if (hp>0.9){
-        textureRegion.setTexture(manager.get("images/100.png", Texture.class));
-        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-      }
-      if (hp>0.8 && hp <=0.9){
-        textureRegion.setTexture(manager.get("images/90.png", Texture.class));
-        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-      }
-      if (hp>0.7 && hp <=0.8){
-        textureRegion.setTexture(manager.get("images/80.png", Texture.class));
-        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-      }
-      if (hp>0.6 && hp <=0.7){
-        textureRegion.setTexture(manager.get("images/70.png", Texture.class));
-        batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
+      double healthPercentage = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
+      updateHealthBarDisplay(healthPercentage, batch);
     }
-    if (hp>0.5 && hp <=0.6){
-      textureRegion.setTexture(manager.get("images/60.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.4 && hp <=0.5){
-      textureRegion.setTexture(manager.get("images/50.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.3 && hp <=0.4){
-      textureRegion.setTexture(manager.get("images/40.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.2 && hp <=0.3){
-      textureRegion.setTexture(manager.get("images/30.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.1 && hp <=0.2){
-      textureRegion.setTexture(manager.get("images/20.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp>0.0 && hp <=0.1){
-      textureRegion.setTexture(manager.get("images/10.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-    if (hp <=0){
-      textureRegion.setTexture(manager.get("images/00.png", Texture.class));
-      batch.draw(textureRegion,entity.getPosition().x-1, entity.getPosition().y+1);
-    }
-  }
 
-  public Vector2 getPlayerPosition() {
-    return entity.getPosition();
-  }
+
+    /**
+     * Returns the position of the current entity.
+     *
+     * @return Vector2 representation of the entity's position.
+     * */
+    public Vector2 getPlayerPosition() {
+      return entity.getPosition();
+    }
 
   /**
    * Updates the players' currently active timed buffs and debuffs on the UI.
@@ -266,7 +294,7 @@ public class PlayerStatsDisplay extends UIComponent {
       String buffName = info.getBuffName();
       double timeRemaining = Math.ceil(info.getTimeLeft() * 0.001);
 
-      text = text.concat(buffName + " " + timeRemaining + "..." + "\n");
+      text = text.concat(buffName + " " + (int) timeRemaining + "..." + "\n");
     }
 
     /* Update */
@@ -277,7 +305,7 @@ public class PlayerStatsDisplay extends UIComponent {
    * updates the players sprint on the UI
    * @param sprintLevel player's sprint
    */
-  public void updateSprintLevelUI(int sprintLevel){
+  public void updateSprintLevelUI(int sprintLevel) {
     CharSequence text = String.format("Sprint: %d", sprintLevel);
     sprintLabel.setText(text);
   }
@@ -337,7 +365,6 @@ public class PlayerStatsDisplay extends UIComponent {
     scoreLabel.setText(text);
   }
 
-
   /**
    * Updates the player's score on the ui.
    * @param lives player lives
@@ -346,8 +373,6 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("x%d", lives);
     livesLabel.setText(text);
   }
-
-
 
   @Override
   public void dispose() {
