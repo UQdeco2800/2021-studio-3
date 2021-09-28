@@ -1,22 +1,14 @@
 package com.deco2800.game.entities.factories;
 
-
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.*;
-
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -109,7 +101,6 @@ public class PlayerFactory {
 
     Entity player =
             new Entity()
-//            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent())
                     .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -121,12 +112,11 @@ public class PlayerFactory {
                     .addComponent(new SprintComponent(100))
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
-                    .addComponent(new PlayerStatsDisplay(manager,h));
-
+                    .addComponent(new PlayerStatsDisplay(manager,h))
+                    .addComponent(new DoubleJumpComponent());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-//    player.getComponent(TextureRenderComponent.class).scaleEntity();
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     return player;
   }

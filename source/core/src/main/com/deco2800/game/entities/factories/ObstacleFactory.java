@@ -132,6 +132,9 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     asteroidFire.scaleHeight(1f);
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1f));
+    // Allows player to pass through fire while taking damage
+    asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
     return asteroidFire;
   }
 
