@@ -23,6 +23,9 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.deco2800.game.components.player.DoubleJumpComponent;
+
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class Level2 extends GameArea{
@@ -127,6 +130,8 @@ public class Level2 extends GameArea{
     private int checkpoint;
 
     private boolean hasDied;
+
+    private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
     public Level2(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super();
@@ -372,6 +377,8 @@ public class Level2 extends GameArea{
         } else {
             spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         }
+
+        newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
         return newPlayer;
     }
 
