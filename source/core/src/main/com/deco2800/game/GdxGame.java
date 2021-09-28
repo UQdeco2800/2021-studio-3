@@ -5,13 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 
-import com.deco2800.game.screens.LoadingScreen;
+import com.deco2800.game.screens.*;
 
-import com.deco2800.game.screens.LevelTwoScreen;
-
-import com.deco2800.game.screens.MainGameScreen;
-import com.deco2800.game.screens.MainMenuScreen;
-import com.deco2800.game.screens.SettingsScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,6 +85,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this);
       case LEVEL_TWO_GAME:
         return new LevelTwoScreen(this);
+      case LEVEL_THREE_GAME:
+        return new LevelThreeScreen(this);
       case RESPAWN:
         return new MainGameScreen(this, true);
       case SETTINGS:
@@ -114,7 +111,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LOADING
+    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME, LOADING
 
   }
 

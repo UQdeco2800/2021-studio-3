@@ -28,8 +28,8 @@ import com.deco2800.game.components.player.DoubleJumpComponent;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class Level2 extends GameArea{
-    private static final Logger logger = LoggerFactory.getLogger(Level2.class);
+public class LevelThreeArea extends GameArea {
+    private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
     private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
@@ -133,18 +133,18 @@ public class Level2 extends GameArea{
 
     private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
+    public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
         this.hasDied = hasDied;
     }
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
-        Level2.lives = lives;
+        LevelThreeArea.lives = lives;
     }
 
     /**
@@ -268,25 +268,6 @@ public class Level2 extends GameArea{
         spawnEntityAt(platform2, pos2, true, false);
     }
 
-
-    /**private void spawnAsteroids() {
-     GridPoint2 minPos = new GridPoint2(2, 20);
-     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 5);
-     Random r = new Random();
-
-     for (int i = 0; i < NUM_ASTEROIDS; i++) {
-     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-     Entity asteroid1 = ObstacleFactory.createAsteroid1();
-     Entity asteroid2 = ObstacleFactory.createAsteroid2();
-
-     if(r.nextInt(2) == 0) {
-     spawnEntityAt(asteroid1, randomPos, true, false);
-     } else {
-     spawnEntityAt(asteroid2, randomPos, true, false);
-     }
-     }
-     }*/
-
     private void spawnAsteriod() {
         //GridPoint2 minPos = new GridPoint2(2, 10);
         //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
@@ -389,7 +370,6 @@ public class Level2 extends GameArea{
         spawnEntityAt(checkpoint, checkPoint, true, false);
 
     }
-
 
     /**
      * Spawns buffs or debuffs onto the current map in a random position. Buffs

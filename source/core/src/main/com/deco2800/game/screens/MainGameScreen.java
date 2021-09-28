@@ -7,8 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.Level2;
+import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -87,7 +86,7 @@ public class MainGameScreen extends ScreenAdapter {
   // We know the map is a ForestGameArea
   // should make more general when new maps are added
   private ForestGameArea currentMap;
-  private Level2 level2Map;
+  private LevelTwoArea level2Map;
   private final TerrainFactory terrainFactory;
   private Entity ui;
 
@@ -335,7 +334,7 @@ public class MainGameScreen extends ScreenAdapter {
       System.out.println("load next level.");
       load();
 //      this.terrainFactory = new TerrainFactory(renderer.getCamera());
-      level2Map = new Level2(terrainFactory, 0, false);
+      level2Map = new LevelTwoArea(terrainFactory, 0, false);
       level2Map.create();
       createUI();
     }

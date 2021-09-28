@@ -1,15 +1,10 @@
 package com.deco2800.game.components.maingame;
 
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.Level2;
+import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.screens.MainGameScreen;
 
 /**
  * Handles actions for the buttons pushed on the win, loss and pause pop-up
@@ -23,7 +18,7 @@ public class PopupMenuActionsLevel2 extends Component {
     private GdxGame game;
     //private ForestGameArea area;
     //private int checkPointStatus;
-    private Level2 area2;
+    private LevelTwoArea area2;
 
     public PopupMenuActionsLevel2(GdxGame game) {
         this.game = game;
@@ -34,7 +29,7 @@ public class PopupMenuActionsLevel2 extends Component {
 //        this.area = area;
 //    }
 
-    public PopupMenuActionsLevel2(GdxGame game, Level2 area) {
+    public PopupMenuActionsLevel2(GdxGame game, LevelTwoArea area) {
         this.game = game;
         this.area2 = area;
     }

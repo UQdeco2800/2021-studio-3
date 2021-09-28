@@ -1,14 +1,11 @@
 package com.deco2800.game.components.maingame;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.Level2;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.screens.MainGameScreen;
 
 /**
  * Handles actions for the buttons pushed on the win, loss and pause pop-up
@@ -22,7 +19,9 @@ public class PopupMenuActions extends Component {
     private GdxGame game;
     private ForestGameArea area = null;
     //private int checkPointStatus;
-    private Level2 area2 = null;
+    private LevelTwoArea area2 = null;
+    private LevelThreeArea area3 = null;
+    private int currentLevel = 0;
 
     public PopupMenuActions(GdxGame game) {
         this.game = game;
@@ -31,11 +30,18 @@ public class PopupMenuActions extends Component {
     public PopupMenuActions(GdxGame game, ForestGameArea area) {
         this.game = game;
         this.area = area;
+        this.currentLevel = 1;
     }
 
-    public PopupMenuActions(GdxGame game, Level2 area) {
+    public PopupMenuActions(GdxGame game, LevelTwoArea area) {
         this.game = game;
         this.area2 = area;
+        this.currentLevel = 2;
+    }
+
+    public PopupMenuActions(GdxGame game, LevelThreeArea area) {
+        this.game = game;
+        this.area3 = area;
     }
 
     /**
@@ -67,6 +73,8 @@ public class PopupMenuActions extends Component {
             }
         } else if (area2 != null) {
             game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        } else if (area3 != null) {
+            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
         }
     }
 
@@ -117,7 +125,12 @@ public class PopupMenuActions extends Component {
 
     public void onNextLevel() {
         //MainGameScreen.changeLevel();
-        game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        if (this.currentLevel == 1) {
+            game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        } else if (this.currentLevel == 2) {
+            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+        }
+        //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
     }
 
 
