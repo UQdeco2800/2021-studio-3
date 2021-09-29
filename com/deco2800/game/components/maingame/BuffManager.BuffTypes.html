@@ -121,9 +121,12 @@ extends java.lang.Enum&lt;<a href="BuffManager.BuffTypes.html" title="enum in co
   - selectBuffFunctionality() method: append the relevant switch
     statement to call the PlayerBuffs method which controls the behaviour
     of the buff
+  - getBuffSound() method: add the buff or debuff into the buff / debuff
+    switch statement list so that the buff or debuff sound is applied to
+    the buff upon pickup.
 
  When any new buff is added, the PlayerBuff class must have a method
- added to control that buff
+ added to control that buff.
 
  If a new timed buff is added, the PlayerBuff class must have a method
  added to control the removal of the effects of the buff

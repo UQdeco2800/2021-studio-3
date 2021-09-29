@@ -222,33 +222,36 @@ extends <a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</code></th>
 <td class="colLast">
-<div class="block">Draw the renderable.</div>
+<div class="block">Handles drawing the health bar.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
-<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerPosition()">getPlayerPosition</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHealthBarImage(double)">getHealthBarImage</a></span>&#8203;(double&nbsp;currentHealthPercentage)</code></th>
+<td class="colLast">
+<div class="block">Returns the new Health Bar image, corresponding to the player's current
+ health.</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerPosition()">getPlayerPosition</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the position of the current entity.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateBuffDisplay(java.util.Collection)">updateBuffDisplay</a></span>&#8203;(java.util.Collection&lt;<a href="../BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&gt;&nbsp;buffInfo)</code></th>
 <td class="colLast">
 <div class="block">Updates the players' currently active timed buffs and debuffs on the UI.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateLivesUI(int)">updateLivesUI</a></span>&#8203;(int&nbsp;lives)</code></th>
 <td class="colLast">
 <div class="block">Updates the player's score on the ui.</div>
-</td>
-</tr>
-<tr class="altColor" id="i6">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePlayerHealthUI(int)">updatePlayerHealthUI</a></span>&#8203;(int&nbsp;health)</code></th>
-<td class="colLast">
-<div class="block">Updates the player's health on the ui.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i7">
@@ -349,10 +352,21 @@ extends <a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="getHealthBarImage(double)">getHealthBarImage</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getHealthBarImage</span>&#8203;(<span class="arguments">double&nbsp;currentHealthPercentage)</span></div>
+<div class="block">Returns the new Health Bar image, corresponding to the player's current
+ health.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the filepath to the new image to use for the health bar</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">draw</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">RenderComponent</a></code></span></div>
-<div class="block">Draw the renderable. Should be called only by the renderer, not manually.</div>
+<div class="block">Handles drawing the health bar.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">RenderComponent</a></code></dd>
@@ -365,16 +379,10 @@ extends <a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui
 <section class="detail">
 <h3><a id="getPlayerPosition()">getPlayerPosition</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">getPlayerPosition</span>()</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="updatePlayerHealthUI(int)">updatePlayerHealthUI</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updatePlayerHealthUI</span>&#8203;(<span class="arguments">int&nbsp;health)</span></div>
-<div class="block">Updates the player's health on the ui.</div>
+<div class="block">Returns the position of the current entity.</div>
 <dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>health</code> - player health</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Vector2 representation of the entity's position.</dd>
 </dl>
 </section>
 </li>
