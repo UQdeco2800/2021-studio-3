@@ -58,9 +58,10 @@ public class BuffManager extends Component {
     /* Creation time of floating animation when player picks up a buff */
     private long pickupCreationTime;
 
-    /*Buff sound*/
+    /* Buff sound */
     private static final String BUFF_SOUND_PATH = "sounds/buff.mp3";
-    /*Debuff sound*/
+
+    /* Debuff sound */
     private static final String DEBUFF_SOUND_PATH = "sounds/debuff.mp3";
 
     /**
@@ -77,9 +78,12 @@ public class BuffManager extends Component {
      *  - selectBuffFunctionality() method: append the relevant switch
      *    statement to call the PlayerBuffs method which controls the behaviour
      *    of the buff
+     *  - getBuffSound() method: add the buff or debuff into the buff / debuff
+     *    switch statement list so that the buff or debuff sound is applied to
+     *    the buff upon pickup.
      *
      * When any new buff is added, the PlayerBuff class must have a method
-     * added to control that buff
+     * added to control that buff.
      *
      * If a new timed buff is added, the PlayerBuff class must have a method
      * added to control the removal of the effects of the buff
@@ -281,22 +285,47 @@ public class BuffManager extends Component {
             // Remove the buff from the map
             this.currentBuffs.remove(buff);
             removeBuff(buff);
-            if(type.toString() == "B_HP_UP" || type.toString() == "B_FULL_HEAL" ||
-                    type.toString() == "BT_INVIN" || type.toString() == "BT_INF_SPRINT"
-            ){
-                Sound sound =ServiceLocator.getResourceService().getAsset(BUFF_SOUND_PATH, Sound.class);
-                sound.setVolume(0,0.5f);
-                sound.play();
 
-            }
-            if(type.toString() == "D_HP_DOWN" || type.toString() == "DT_NO_JUMP" ||
-                    type.toString() == "DT_DOUBLE_DMG"){
-                Sound sound =ServiceLocator.getResourceService().getAsset(DEBUFF_SOUND_PATH, Sound.class);
-                sound.setVolume(0,0.5f);
-                sound.play();
-
-            }
+            // Play the sound for the buff
+            playBuffSound(type);
         }
+    }
+
+    /**
+     * Returns the filepath for the buff or debuff sound associated with a
+     * particular buff. By default, there are two sounds: one for buffs, one
+     * for debuffs.
+     *
+     * @param type the type of buff that was picked up.
+     * @return the filepath for the sound to be played.
+     * */
+    private String getBuffSound(BuffTypes type) {
+        switch (type) {
+            case B_FULL_HEAL:
+            case B_HP_UP:
+            case BT_INF_SPRINT:
+            case BT_INVIN:
+                return BUFF_SOUND_PATH;
+            case D_HP_DOWN:
+            case DT_NO_JUMP:
+            case DT_DOUBLE_DMG:
+                return DEBUFF_SOUND_PATH;
+        }
+        return BUFF_SOUND_PATH; // default
+    }
+
+    /**
+     * Plays the buff or debuff tune when one is picked up by the player.
+     *
+     * @param type the type of buff that was picked up. The tune that is played
+     *             upon pickup will depend on whether a buff or debuff was
+     *             retrieved.
+     * */
+    private void playBuffSound(BuffTypes type) {
+        String soundPath = getBuffSound(type);
+        Sound sound = ServiceLocator.getResourceService().getAsset(soundPath, Sound.class);
+        sound.setVolume(0,0.5f);
+        sound.play();
     }
 
     /**
