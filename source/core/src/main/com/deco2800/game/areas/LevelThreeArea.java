@@ -260,7 +260,7 @@ public class LevelThreeArea extends GameArea {
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
         GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
         //Entity ufo = NPCFactory.createUFO(player);
-        Entity ufo = ObstacleFactory.createUfo(player);
+        Entity ufo = ObstacleFactory.createUfo(player, this);
         spawnEntityAt(ufo, randomPos, true, true);
     }
 

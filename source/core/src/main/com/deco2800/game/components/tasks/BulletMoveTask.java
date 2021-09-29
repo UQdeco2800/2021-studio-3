@@ -11,14 +11,14 @@ import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.services.ServiceLocator;
 
-public class FallTask extends DefaultTask implements PriorityTask {
+public class BulletMoveTask extends DefaultTask implements PriorityTask {
     private final float waitTime;
     private Vector2 startPos;
     private MovementTask movementTask;
     private WaitTask waitTask;
     private Task currentTask;
 
-    public FallTask(float waitTime) {
+    public BulletMoveTask(float waitTime) {
         this.waitTime = waitTime;
     }
 
@@ -55,16 +55,17 @@ public class FallTask extends DefaultTask implements PriorityTask {
 
 
 
- // private void swapTask(Task newTask) {
- //     if (currentTask != null) {
- //         currentTask.stop();
- //     }
- //     currentTask = newTask;
- //     currentTask.start();
- // }
+    // private void swapTask(Task newTask) {
+    //     if (currentTask != null) {
+    //         currentTask.stop();
+    //     }
+    //     currentTask = newTask;
+    //     currentTask.start();
+    // }
 
     @Override
     public int getPriority() {
         return 1; // Low priority task
     }
 }
+
