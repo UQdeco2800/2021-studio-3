@@ -136,7 +136,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     /* Images for UI */
     heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
-    Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon.png", Texture.class));
+    Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon2.png", Texture.class));
 
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
