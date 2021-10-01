@@ -23,8 +23,7 @@ import static com.badlogic.gdx.Gdx.app;
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
   private GameState gameState;
-  private ForestGameArea forestGameArea;
-  //private MainGameScreen mainGameScreen;
+  private ScreenType screenType;
   private ResourceService resourceService;
 
 
@@ -99,18 +98,26 @@ public class GdxGame extends Game {
       case LEVEL_THREE_GAME:
         return new LevelThreeScreen(this);
       case RESPAWN:
-        return new MainGameScreen(this, true);
+        return new MainGameScreen(this, true, resourceService);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
         return new LoadingScreen(this, resourceService);
       case CHECKPOINT:
-        return new MainGameScreen(this, 1, true);
+        return new MainGameScreen(this, 1, true, resourceService);
       case CHECKPOINT_REPLAY:
-        return new MainGameScreen(this, 1, false);
+        return new MainGameScreen(this, 1, false, resourceService);
         default:
         return null;
     }
+  }
+
+  public void setScreenType(ScreenType screenType) {
+    this.screenType = screenType;
+  }
+
+  public ScreenType getScreenType() {
+    return this.screenType;
   }
 
   public void setState(GameState gameState) {

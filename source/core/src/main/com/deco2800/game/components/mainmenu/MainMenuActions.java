@@ -31,9 +31,7 @@ public class MainMenuActions extends Component {
    */
   private void onStart() {
     logger.info("Start game");
-    /*Entity ui = new Entity();
-    ui.addComponent(new LoadingDisplay());
-    ui.getComponent(LoadingDisplay.class).create();*/
+    game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
     game.setScreen(GdxGame.ScreenType.LOADING);
   }
 

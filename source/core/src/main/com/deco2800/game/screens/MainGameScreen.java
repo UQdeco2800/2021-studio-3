@@ -127,9 +127,6 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
-    /*Entity ui = new Entity();
-    ui.addComponent(new LoadingDisplay(forestGameArea));
-    ui.getComponent(LoadingDisplay.class).create();*/
     forestGameArea.create();
 
     load();
@@ -151,7 +148,7 @@ public class MainGameScreen extends ScreenAdapter {
     return manager;
   }
 
-  public MainGameScreen(GdxGame game, boolean hasDied) {
+  public MainGameScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -163,7 +160,7 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine = physicsService.getPhysics();
 
     ServiceLocator.registerInputService(new InputService());
-    ServiceLocator.registerResourceService(new ResourceService());
+    ServiceLocator.registerResourceService(resourceService);
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
@@ -186,7 +183,7 @@ public class MainGameScreen extends ScreenAdapter {
     //forestGameArea.spawnBuffDebuff(this.buffManager);
   }
 
-  public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied) {
+  public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied, ResourceService resourceService) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -198,7 +195,7 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine = physicsService.getPhysics();
 
     ServiceLocator.registerInputService(new InputService());
-    ServiceLocator.registerResourceService(new ResourceService());
+    ServiceLocator.registerResourceService(resourceService);
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());

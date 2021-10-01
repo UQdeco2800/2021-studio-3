@@ -67,9 +67,11 @@ public class PopupMenuActions extends Component {
 
         if (area != null) {
             if (area.getCheckPointStatus() == 1) {
-                game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
+                game.setScreenType(GdxGame.ScreenType.CHECKPOINT_REPLAY);
+                game.setScreen(GdxGame.ScreenType.LOADING);
             } else {
-                game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+                game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
             }
         } else if (area2 != null) {
             game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
@@ -97,9 +99,11 @@ public class PopupMenuActions extends Component {
                 onHome();
             } else {
                 if (area.getCheckPointStatus() == 1 ) {
-                    game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+                    game.setScreenType(GdxGame.ScreenType.CHECKPOINT);
+                    game.setScreen(GdxGame.ScreenType.LOADING);
                 } else {
-                    game.setScreen(GdxGame.ScreenType.RESPAWN);
+                    game.setScreenType(GdxGame.ScreenType.RESPAWN);
+                    game.setScreen(GdxGame.ScreenType.LOADING);
                 }
             }
         } else if (area2 != null) {
@@ -120,8 +124,8 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after winning
      */
     public void onReplayWin() {
-
-            game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
 
     }
 

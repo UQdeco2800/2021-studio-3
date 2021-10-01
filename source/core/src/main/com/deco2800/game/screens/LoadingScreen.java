@@ -112,20 +112,16 @@ public class LoadingScreen extends ScreenAdapter {
 
     public LoadingScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
-        //this.forestGameArea = forestGameArea;
 
         logger.debug("Initialising main menu screen services");
         ServiceLocator.registerResourceService(resourceService);
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
-        ServiceLocator.registerInputService(new InputService());
-
         renderer = RenderFactory.createRenderer();
-
         this.resourceService = ServiceLocator.getResourceService();
-        loadAssets();
 
+        loadAssets();
         createUI();
     }
 
@@ -133,8 +129,23 @@ public class LoadingScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
 
+        // If all assets are loaded, then switch to the correct screen of the game.
         if (resourceService.getAssetManager().update()) {
-            this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+            switch (game.getScreenType()) {
+                case MAIN_GAME:
+                    this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+                    break;
+                case CHECKPOINT_REPLAY:
+                    this.game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
+                    break;
+                case CHECKPOINT:
+                    this.game.setScreen(GdxGame.ScreenType.CHECKPOINT);
+                    break;
+                case RESPAWN:
+                    this.game.setScreen(GdxGame.ScreenType.RESPAWN);
+                    break;
+            }
+
         } else {
             logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
         }
@@ -159,6 +170,10 @@ public class LoadingScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
+    /**
+     * Loads all the assets required for the loading screen as well as the
+     * forest game area.
+     */
     private void loadAssets() {
         logger.debug("Loading assets");
 
@@ -177,6 +192,9 @@ public class LoadingScreen extends ScreenAdapter {
         resourceService.unloadAssets(LoadingTextures);
     }
 
+    /**
+     *
+     */
     private void createUI() {
         logger.debug("Creating ui");
         Entity ui = new Entity();
