@@ -240,11 +240,6 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnTerrain() {
-    /* To extract the borders of the map */
-    Entity leftWall;
-    Entity topWall;
-    Entity floor;
-
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
     spawnEntity(new Entity().addComponent(terrain));
@@ -257,19 +252,19 @@ public class ForestGameArea extends GameArea {
 
     // Left
     spawnEntityAt(
-        leftWall = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
-        this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-        new GridPoint2(tileBounds.x, 0),
-        false,
-        false);
+            this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            new GridPoint2(tileBounds.x, 0),
+            false,
+            false);
     // Top
     spawnEntityAt(
-        topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
-        false,
-        false);
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, tileBounds.y),
+            false,
+            false);
     // Bottom
     // LOGIC to create level terrain
     int i = 0, x, y, distance;
@@ -291,10 +286,10 @@ public class ForestGameArea extends GameArea {
           // creates walls when floor level changes
           float height = (float) y/2;
           //float endHeight = (float) (previousY - y)/2;
-            spawnEntityAt(
-                    ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
-            spawnEntityAt(
-                    ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+          spawnEntityAt(
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+          spawnEntityAt(
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
         }
 
         line = br.readLine();
@@ -307,16 +302,6 @@ public class ForestGameArea extends GameArea {
     }
 
     //Kills player upon falling into void
-    spawnEntityAt(
-
-            //change a wall with high:10
-        floor = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
-
-    this.mapFixtures.put("LEFT_WALL", leftWall);
-    this.mapFixtures.put("RIGHT_WALL", this.endOfMap);
-    this.mapFixtures.put("ROOF", topWall);
-    this.mapFixtures.put("FLOOR", floor);
-
     spawnEntityAt(
             ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
             new GridPoint2(0, 1), false, false);
