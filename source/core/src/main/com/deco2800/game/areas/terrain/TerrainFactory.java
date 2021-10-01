@@ -3,8 +3,10 @@ package com.deco2800.game.areas.terrain;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
@@ -13,9 +15,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
@@ -81,14 +89,11 @@ public class TerrainFactory {
 //            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
 //        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       case SIDE_SCROLL_ER:
-        TextureRegion surface =
-                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
-        TextureRegion underground =
-                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
-        TextureRegion sky =
-                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
-        TextureRegion star =
-                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        TextureRegion background = new TextureRegion(resourceService.getAsset("images/vikings in space.png", Texture.class));
+        TextureRegion surface = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+        TextureRegion underground = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+        TextureRegion sky = new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion star = new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
         return createSideScrollTerrain(0.5f, surface, underground, sky, star);
       case LEVEL_TWO_TERRAIN:
         TextureRegion mars_surface =
@@ -170,9 +175,9 @@ public class TerrainFactory {
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
-    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
-    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
-    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
+    //fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
+    //fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
     fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
     fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
@@ -197,6 +202,27 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
+    // parses the level files
+    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+      StringBuilder sb = new StringBuilder();
+      String line = br.readLine();
+      int x = 0, y = 0, width = 0, distance = 0, i = 0;
+      while (line != null) {
+        String[] values = line.split(" ");
+        width = Integer.parseInt(values[0]);
+        x = Integer.parseInt(values[1]);
+        y = Integer.parseInt(values[2]);
+        distance = (width * 2) + x;
+        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
+        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
+        line = br.readLine();
+        i++;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -211,6 +237,12 @@ public class TerrainFactory {
 
     fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
     fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(25, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(25, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(25, 20), skyTile);
+    fillTilesAt(layer, new GridPoint2(25, 0), new GridPoint2(50, 10), skyTile);
+    fillTilesAt(layer, new GridPoint2(50, 0), new GridPoint2(100, 9), undergroundTile);
+    fillTilesAt(layer, new GridPoint2(50, 9), new GridPoint2(100, 10), surfaceTile);
     fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
     fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
@@ -331,6 +363,7 @@ public class TerrainFactory {
       }
     }
   }
+
 
   /**
    * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with

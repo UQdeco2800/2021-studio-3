@@ -1,8 +1,13 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -25,6 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -48,6 +57,16 @@ public class ForestGameArea extends GameArea {
           "images/ghost_king.png",
           "images/ghost_1.png",
           "images/lives_icon.png",
+          "images/lives_icon2.png",
+          "images/grass_1.png",
+          "images/grass_2.png",
+          "images/grass_3.png",
+          "images/hex_grass_1.png",
+          "images/hex_grass_2.png",
+          "images/hex_grass_3.png",
+          "images/iso_grass_1.png",
+          "images/iso_grass_2.png",
+          "images/iso_grass_3.png",
           "images/box_boy.png",
           "images/underground.png",
           "images/sky.png",
@@ -97,7 +116,8 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png"
+          "images/surface.png",
+          "images/vikings in space.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -174,17 +194,17 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
 
     //spawnTrees();
-    spawnAsteriod();
-    spawnAsteroidFire();
-    spawnRobot();
+    //spawnAsteriod();
+    //spawnAsteroidFire();
+    //spawnRobot();
 
 
     //spawnBuilding();
     //spawnTrees();
     //spawnRocks();
-    spawnPlatform1();
+    //spawnPlatform1();
     //spawnPlanet1();
-    spawnUFO();
+    //spawnUFO();
     //spawnBuffDebuffPickup();
     //spawnAsteroids();
 
@@ -192,6 +212,10 @@ public class ForestGameArea extends GameArea {
     //spawnGhostKing();
     createCheckpoint();
     playMusic();
+
+    //createCheckpoint();
+//    playMusic();
+
     //spawnAttackObstacle();
   }
 
@@ -229,6 +253,7 @@ public class ForestGameArea extends GameArea {
     float tileSize = terrain.getTileSize();
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+    TiledMapTileLayer layer = new TiledMapTileLayer(tileBounds.x, tileBounds.y, tileBounds.x, tileBounds.y);
 
     // Left
     spawnEntityAt(
@@ -246,7 +271,44 @@ public class ForestGameArea extends GameArea {
         false,
         false);
     // Bottom
+    // LOGIC to create level terrain
+    int i = 0, x, y, distance;
+    // opens the levels file
+    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+      StringBuilder sb = new StringBuilder();
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(" ");
+        distance = Integer.parseInt(values[0]) * 2;
+        x = Integer.parseInt(values[1]);
+        y = Integer.parseInt(values[2]);
+
+        // creates the floors wall
+        spawnEntityAt(
+                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+        if (i != 0) {
+          // creates walls when floor level changes
+          float height = (float) y/2;
+          //float endHeight = (float) (previousY - y)/2;
+            spawnEntityAt(
+                    ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+            spawnEntityAt(
+                    ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+        }
+
+        line = br.readLine();
+        i++;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    //Kills player upon falling into void
     spawnEntityAt(
+
             //change a wall with high:10
         floor = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
 
@@ -254,6 +316,11 @@ public class ForestGameArea extends GameArea {
     this.mapFixtures.put("RIGHT_WALL", this.endOfMap);
     this.mapFixtures.put("ROOF", topWall);
     this.mapFixtures.put("FLOOR", floor);
+
+    spawnEntityAt(
+            ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, 1), false, false);
+
   }
 
   private void spawnUFO() {
