@@ -101,7 +101,7 @@ public class MainGameScreen extends ScreenAdapter {
   /* Manages buffs & debuffs in the game */
   private BuffManager buffManager;
 
-  public MainGameScreen(GdxGame game, ResourceService resourceService) {
+  public MainGameScreen(GdxGame game) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -113,7 +113,7 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine = physicsService.getPhysics();
 
     ServiceLocator.registerInputService(new InputService());
-    ServiceLocator.registerResourceService(resourceService);
+    ServiceLocator.registerResourceService(new ResourceService());
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());

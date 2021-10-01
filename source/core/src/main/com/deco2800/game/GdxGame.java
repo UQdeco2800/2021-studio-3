@@ -8,8 +8,6 @@ import com.deco2800.game.files.UserSettings;
 
 import com.deco2800.game.screens.*;
 
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +23,11 @@ public class GdxGame extends Game {
   private GameState gameState;
   private ForestGameArea forestGameArea;
   //private MainGameScreen mainGameScreen;
-  private ResourceService resourceService;
 
   @Override
   public void create() {
     logger.info("Creating game");
     loadSettings();
-    ServiceLocator.registerResourceService(new ResourceService());
-    resourceService = ServiceLocator.getResourceService();
 
     // Sets background to light yellow
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
@@ -91,7 +86,7 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this, resourceService);
+        return new MainGameScreen(this);
       case LEVEL_TWO_GAME:
         return new LevelTwoScreen(this);
       case LEVEL_THREE_GAME:
@@ -101,7 +96,7 @@ public class GdxGame extends Game {
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
-        return new LoadingScreen(this, resourceService);
+        return new LoadingScreen(this);
       case CHECKPOINT:
         return new MainGameScreen(this, 1, true);
       case CHECKPOINT_REPLAY:
