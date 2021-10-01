@@ -105,7 +105,12 @@ public class LevelThreeArea extends GameArea {
             "images/background_mars.png",
             "images/background_mars_ground.png",
             "images/background_mars_surface.png",
-            "images/background_mars_star.png"
+            "images/background_mars_star.png",
+            "images/background_europa.png",
+            "images/background_europa_ground.png",
+            "images/background_europa_surface.png",
+            "images/background_europa_star.png"
+
     };
 
     private static final String[] forestTextureAtlases = {
@@ -221,7 +226,7 @@ public class LevelThreeArea extends GameArea {
     private void spawnTerrain() {
         // Background terrain
 
-        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_TWO_TERRAIN);
+        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_THREE_TERRAIN);
         spawnEntity(new Entity().addComponent(terrain));
 
         // Terrain walls
@@ -255,7 +260,7 @@ public class LevelThreeArea extends GameArea {
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
         GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
         //Entity ufo = NPCFactory.createUFO(player);
-        Entity ufo = ObstacleFactory.createUfo(player);
+        Entity ufo = ObstacleFactory.createUfo(player, this);
         spawnEntityAt(ufo, randomPos, true, true);
     }
 
