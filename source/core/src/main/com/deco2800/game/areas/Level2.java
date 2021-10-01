@@ -112,8 +112,8 @@ public class Level2 extends GameArea{
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
     };
 
-    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+    private static final String backgroundMusic = "sounds/maingame.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -185,7 +185,7 @@ public class Level2 extends GameArea{
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-
+        playMusic();
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();
