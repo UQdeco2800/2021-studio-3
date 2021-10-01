@@ -64,7 +64,7 @@ class PopupMenuActionsTest {
         popup.onReplay();
 
         // Verify that the game screen did change
-        verify(game).setScreen(GdxGame.ScreenType.MAIN_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.MAIN_GAME);
     }
 
 }
