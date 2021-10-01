@@ -1,11 +1,16 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -16,39 +21,36 @@ public class LoadingDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table background;
     private Table loadTable;
+
     private Image loadingStatus;
 
-    private GdxGame game;
-    private ForestGameArea forestGameArea;
+    private ResourceService resourceService;
 
     public LoadingDisplay(){
-        //this.game = game;
-        //this.forestGameArea = forestGameArea;
+        resourceService = ServiceLocator.getResourceService();
     }
 
 
     @Override
     public void create() {
         super.create();
-        //entity.getEvents().addListener("updateLoad", this::updateLoad);
+
         addActors();
-        //updateLoad(100);
-        //this.forestGameArea.loadAssets();
-        //this.forestGameArea.create();
 
     }
 
     private void addActors() {
         background = new Table();
         background.setFillParent(true);
-        //Table menuBtns = makeMenuBtns();
-        //background.add(menuBtns).fillX();
+        //Texture backgroundImage = resourceService.getAsset("images/loading3.png", Texture.class);
+        //background.background(new TextureRegionDrawable(new TextureRegion(backgroundImage)));
+
 
         loadTable = new Table();
         loadTable.center();
         loadTable.setFillParent(true);
-
-        loadingStatus = new Image(ServiceLocator.getResourceService().getAsset("images/0percent.png", Texture.class));
+        Texture loadingStart = resourceService.getAsset("images/0percent.png", Texture.class);
+        loadingStatus = new Image(loadingStart);
         loadTable.add(loadingStatus).width(850);
 
         stage.addActor(background);
@@ -56,38 +58,57 @@ public class LoadingDisplay extends UIComponent {
 
     }
 
-        /*private Table makeMenuBtns() {
-        TextButton exitBtn = new TextButton("Exit", skin);
-
-        exitBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Exit button clicked");
-                        exitMenu();
-                    }
-                });
-
-
-        Table table = new Table();
-        table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
-        return table;
-    }
-    private void exitMenu() {
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-    }*/
-
-    private void updateLoad(int progress) {
-        if (progress == 100) {
-            game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    private void updateLoadingBar(int currentLoad) {
+        if (currentLoad % 10 == 0 && currentLoad > 0) {
+            switch (currentLoad) {
+                case 10:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/10percent.png", Texture.class))));
+                    break;
+                case 20:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/20percent.png", Texture.class))));
+                    break;
+                case 30:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/30percent.png", Texture.class))));
+                    break;
+                case 40:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/40percent.png", Texture.class))));
+                    break;
+                case 50:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/50percent.png", Texture.class))));
+                    break;
+                case 60:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/60percent.png", Texture.class))));
+                    break;
+                case 70:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/70percent.png", Texture.class))));
+                    break;
+                case 80:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/80percent.png", Texture.class))));
+                    break;
+                case 90:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/90percent.png", Texture.class))));
+                    break;
+                case 100:
+                    loadingStatus.setDrawable(new SpriteDrawable
+                            (new Sprite(resourceService.getAsset("images/100percent.png", Texture.class))));
+                    break;
+            }
         }
-
     }
 
 
     @Override
     protected void draw(SpriteBatch batch) {
-        //handled by the stage
+        updateLoadingBar((int) (ServiceLocator.getResourceService().getAssetManager().getProgress() * 100));
     }
 
     @Override
@@ -99,6 +120,7 @@ public class LoadingDisplay extends UIComponent {
     public void dispose() {
         background.clear();
         loadingStatus.clear();
+        loadTable.clear();
         super.dispose();
     }
 }

@@ -38,7 +38,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/10percent.png", "images/20percent.png", "images/30percent.png",
             "images/40percent.png", "images/50percent.png", "images/50percent.png",
             "images/60percent.png", "images/70percent.png", "images/80percent.png",
-            "images/90percent.png", "images/100percent.png"};
+            "images/90percent.png", "images/100percent.png", "images/loading3.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -125,7 +125,7 @@ public class LoadingScreen extends ScreenAdapter {
 
         this.resourceService = ServiceLocator.getResourceService();
         loadAssets();
- 
+
         createUI();
     }
 
