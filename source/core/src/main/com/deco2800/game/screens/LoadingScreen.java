@@ -110,12 +110,12 @@ public class LoadingScreen extends ScreenAdapter {
     private static final String[] forestMusic = {backgroundMusic};
 
 
-    public LoadingScreen(GdxGame game) {
+    public LoadingScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         //this.forestGameArea = forestGameArea;
 
         logger.debug("Initialising main menu screen services");
-        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerResourceService(resourceService);
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
@@ -123,9 +123,9 @@ public class LoadingScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
-        resourceService = ServiceLocator.getResourceService();
+        this.resourceService = ServiceLocator.getResourceService();
         loadAssets();
-        //load();
+ 
         createUI();
     }
 
@@ -134,7 +134,7 @@ public class LoadingScreen extends ScreenAdapter {
         ServiceLocator.getEntityService().update();
 
         if (resourceService.getAssetManager().update()) {
-            this.game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+            this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
         } else {
             logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
         }
@@ -175,11 +175,6 @@ public class LoadingScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         //ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(LoadingTextures);
-
-        /*resourceService.unloadAssets(forestTextures);
-        resourceService.unloadAssets(forestTextureAtlases);
-        resourceService.unloadAssets(forestSounds);
-        resourceService.unloadAssets(forestMusic);*/
     }
 
     private void createUI() {

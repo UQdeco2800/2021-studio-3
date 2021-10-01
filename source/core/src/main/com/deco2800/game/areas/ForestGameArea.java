@@ -47,7 +47,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
-  /*private static final String[] forestTextures = {
+  private static final String[] forestTextures = {
           "images/box_boy_leaf.png",
           "images/tree.png",
           "images/ghost_king.png",
@@ -114,7 +114,7 @@ public class ForestGameArea extends GameArea {
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
   private static final String backgroundMusic = "sounds/maingame.mp3";
-  private static final String[] forestMusic = {backgroundMusic};*/
+  private static final String[] forestMusic = {backgroundMusic};
 
   private final TerrainFactory terrainFactory;
 
@@ -454,37 +454,22 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  /*public void loadAssets() {
-    logger.debug("Loading assets");
 
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(forestTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
-
-    while (!resourceService.loadForMillis(10)) {
-
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
-  }*/
-
-  /*private void unloadAssets() {
+  private void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(forestTextures);
     resourceService.unloadAssets(forestTextureAtlases);
     resourceService.unloadAssets(forestSounds);
     resourceService.unloadAssets(forestMusic);
-  }*/
+  }
 
   @Override
   public void dispose() {
     super.dispose();
     /*Change back to backgroundMusic*/
     ServiceLocator.getResourceService().getAsset("sounds/maingame.mp3", Music.class).stop();
-    //this.unloadAssets();
+    this.unloadAssets();
 
     System.out.println("forest game area disposed");
   }
