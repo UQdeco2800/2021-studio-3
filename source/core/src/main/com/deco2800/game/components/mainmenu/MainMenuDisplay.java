@@ -112,7 +112,7 @@ public class MainMenuDisplay extends UIComponent {
   @Override
   public void dispose() {
     table.clear();
-      ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
+    ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
     super.dispose();
   }
 

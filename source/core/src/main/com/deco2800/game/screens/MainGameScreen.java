@@ -74,7 +74,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
   /* background and click effect */
-  private static final String[] sounds = {"sounds/rollover.mp3","sounds/click.mp3"};
+  private static final String[] mainMenuMusic = {"sounds/background.mp3"};
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -264,7 +264,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(winMenuTextures);
     resourceService.loadTextures(lossMenuTextures);
     resourceService.loadTextures(buffsAndDebuffsTextures);
-    resourceService.loadSounds(sounds);
+    resourceService.loadSounds(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -276,6 +276,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(winMenuTextures);
     resourceService.unloadAssets(lossMenuTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
+    resourceService.unloadAssets(mainMenuMusic);
   }
 
   /**
