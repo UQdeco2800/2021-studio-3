@@ -23,10 +23,13 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.deco2800.game.components.player.DoubleJumpComponent;
+
+import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class Level2 extends GameArea{
-    private static final Logger logger = LoggerFactory.getLogger(Level2.class);
+public class LevelThreeArea extends GameArea {
+    private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
     private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
@@ -102,7 +105,12 @@ public class Level2 extends GameArea{
             "images/background_mars.png",
             "images/background_mars_ground.png",
             "images/background_mars_surface.png",
-            "images/background_mars_star.png"
+            "images/background_mars_star.png",
+            "images/background_europa.png",
+            "images/background_europa_ground.png",
+            "images/background_europa_surface.png",
+            "images/background_europa_star.png"
+
     };
 
     private static final String[] forestTextureAtlases = {
@@ -112,8 +120,8 @@ public class Level2 extends GameArea{
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
     };
 
-    private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
-    private static final String backgroundMusic = "sounds/level2.mp3";
+    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -128,18 +136,20 @@ public class Level2 extends GameArea{
 
     private boolean hasDied;
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
+    private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
+
+    public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
         this.hasDied = hasDied;
     }
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
-        Level2.lives = lives;
+        LevelThreeArea.lives = lives;
     }
 
     /**
@@ -185,7 +195,7 @@ public class Level2 extends GameArea{
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-        playMusic();
+
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();
@@ -216,7 +226,7 @@ public class Level2 extends GameArea{
     private void spawnTerrain() {
         // Background terrain
 
-        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_TWO_TERRAIN);
+        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_THREE_TERRAIN);
         spawnEntity(new Entity().addComponent(terrain));
 
         // Terrain walls
@@ -262,25 +272,6 @@ public class Level2 extends GameArea{
         Entity platform2 = ObstacleFactory.createPlatform2();
         spawnEntityAt(platform2, pos2, true, false);
     }
-
-
-    /**private void spawnAsteroids() {
-     GridPoint2 minPos = new GridPoint2(2, 20);
-     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 5);
-     Random r = new Random();
-
-     for (int i = 0; i < NUM_ASTEROIDS; i++) {
-     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-     Entity asteroid1 = ObstacleFactory.createAsteroid1();
-     Entity asteroid2 = ObstacleFactory.createAsteroid2();
-
-     if(r.nextInt(2) == 0) {
-     spawnEntityAt(asteroid1, randomPos, true, false);
-     } else {
-     spawnEntityAt(asteroid2, randomPos, true, false);
-     }
-     }
-     }*/
 
     private void spawnAsteriod() {
         //GridPoint2 minPos = new GridPoint2(2, 10);
@@ -372,6 +363,8 @@ public class Level2 extends GameArea{
         } else {
             spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         }
+
+        newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
         return newPlayer;
     }
 
@@ -382,7 +375,6 @@ public class Level2 extends GameArea{
         spawnEntityAt(checkpoint, checkPoint, true, false);
 
     }
-
 
     /**
      * Spawns buffs or debuffs onto the current map in a random position. Buffs
