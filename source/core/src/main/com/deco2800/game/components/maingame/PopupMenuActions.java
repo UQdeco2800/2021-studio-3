@@ -104,6 +104,8 @@ public class PopupMenuActions extends Component {
             }
         } else if (area2 != null) {
             game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        } else if (area3 != null) {
+            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
         }
     }
 
