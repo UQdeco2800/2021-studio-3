@@ -24,6 +24,8 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.Provider;
+
 /**
  * The game screen containing the main menu.
  */
@@ -32,7 +34,6 @@ public class LoadingScreen extends ScreenAdapter {
 
     private final Renderer renderer;
     private final GdxGame game;
-    private ResourceService resourceService;
 
     private static final String[] LoadingTextures = {"images/0percent.png",
             "images/10percent.png", "images/20percent.png", "images/30percent.png",
@@ -110,12 +111,12 @@ public class LoadingScreen extends ScreenAdapter {
     private static final String[] forestMusic = {backgroundMusic};
 
 
-    public LoadingScreen(GdxGame game) {
+    public LoadingScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         //this.forestGameArea = forestGameArea;
 
         logger.debug("Initialising main menu screen services");
-        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerResourceService(resourceService);
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
@@ -123,9 +124,7 @@ public class LoadingScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
-        resourceService = ServiceLocator.getResourceService();
         loadAssets();
-        //load();
         createUI();
     }
 
@@ -133,10 +132,11 @@ public class LoadingScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
 
-        if (resourceService.getAssetManager().update()) {
-            this.game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+        if (ServiceLocator.getResourceService().getAssetManager().update()) {
+            this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
         } else {
-            logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
+            logger.info("Loading... {}%", (int)
+                    (ServiceLocator.getResourceService().getAssetManager().getProgress() * 100));
         }
         renderer.render();
     }
@@ -162,31 +162,29 @@ public class LoadingScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
 
-        resourceService.loadTextures(LoadingTextures);
+        ServiceLocator.getResourceService().loadTextures(LoadingTextures);
         ServiceLocator.getResourceService().loadAll();
 
-        resourceService.loadTextures(forestTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadSounds(forestSounds);
-        resourceService.loadMusic(forestMusic);
+        ServiceLocator.getResourceService().loadTextures(forestTextures);
+        ServiceLocator.getResourceService().loadTextureAtlases(forestTextureAtlases);
+        ServiceLocator.getResourceService().loadSounds(forestSounds);
+        ServiceLocator.getResourceService().loadMusic(forestMusic);
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
-        //ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(LoadingTextures);
+        ServiceLocator.getResourceService().unloadAssets(LoadingTextures);
 
-        /*resourceService.unloadAssets(forestTextures);
-        resourceService.unloadAssets(forestTextureAtlases);
-        resourceService.unloadAssets(forestSounds);
-        resourceService.unloadAssets(forestMusic);*/
+        ServiceLocator.getResourceService().unloadAssets(forestTextures);
+        ServiceLocator.getResourceService().unloadAssets(forestTextureAtlases);
+        ServiceLocator.getResourceService().unloadAssets(forestSounds);
+        ServiceLocator.getResourceService().unloadAssets(forestMusic);
     }
 
     private void createUI() {
         logger.debug("Creating ui");
         Entity ui = new Entity();
         ui.addComponent(new LoadingDisplay());
-        //ui.addComponent(new LoadingDisplay(game)).addComponent(new InputDecorator(stage, 10));;
         ServiceLocator.getEntityService().register(ui);
     }
 }
