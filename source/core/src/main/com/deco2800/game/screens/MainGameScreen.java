@@ -126,7 +126,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false, this.game);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
     /*Entity ui = new Entity();
     ui.addComponent(new LoadingDisplay(forestGameArea));
     ui.getComponent(LoadingDisplay.class).create();*/
@@ -178,7 +178,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
     //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, hasDied, this.game);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, hasDied);
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
@@ -212,7 +212,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
     //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied, this.game);
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied);
 
 
     forestGameArea.create();

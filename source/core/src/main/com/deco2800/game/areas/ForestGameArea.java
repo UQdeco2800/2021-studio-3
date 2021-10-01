@@ -133,12 +133,11 @@ public class ForestGameArea extends GameArea {
   private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
 
-  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied, GdxGame game) {
+  public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     this.hasDied = hasDied;
-    this.game = game;
 
   }
 
