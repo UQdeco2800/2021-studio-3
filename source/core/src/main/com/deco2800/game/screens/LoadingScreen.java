@@ -1,8 +1,14 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
@@ -26,25 +32,112 @@ public class LoadingScreen extends ScreenAdapter {
 
     private final Renderer renderer;
     private final GdxGame game;
-    private static final String[] LoadingTextures = {"images/40percent.png"};
+    private ResourceService resourceService;
+
+    private static final String[] LoadingTextures = {"images/0percent.png",
+            "images/10percent.png", "images/20percent.png", "images/30percent.png",
+            "images/40percent.png", "images/50percent.png", "images/50percent.png",
+            "images/60percent.png", "images/70percent.png", "images/80percent.png",
+            "images/90percent.png", "images/100percent.png"};
+
+    private static final String[] forestTextures = {
+            "images/box_boy_leaf.png",
+            "images/tree.png",
+            "images/ghost_king.png",
+            "images/ghost_1.png",
+            "images/lives_icon.png",
+            "images/box_boy.png",
+            "images/underground.png",
+            "images/sky.png",
+            "images/untouchedCheckpoint.png",
+            "images/longBackground.png",
+            "images/broken_asteriod.png",
+            "images/asteroid_fire1.png",
+            "images/robot1.png",
+            "images/rock1.png",
+            "images/rock2.png",
+            "images/rock3.png",
+            "images/rock4.png",
+            "images/asteroid.png",
+            "images/asteroid_2.png",
+            "images/platform1.png",
+            "images/platform2.png",
+            "images/platform3.png",
+            "images/platform4.png",
+            "images/platform5.png",
+            "images/building_1.png",
+            "images/planet1.png",
+            "images/ufo_2.png",
+            "images/rock_platform.png",
+            "images/Walking.png",
+            "images/WalkingDamage90-50.png",
+            "images/WalkingDamage50-10.png",
+            "images/Sprint.png",
+            "images/SprintDamage(50-90).png",
+            "images/SprintDamage(10-50).png",
+            "images/Jump.png",
+            "images/JumpDamage(50-90).png",
+            "images/JumpDamage(10-50).png",
+            "images/IdleCharacters.png",
+            "images/0percent.png",
+            "images/10percent.png",
+            "images/20percent.png",
+            "images/30percent.png",
+            "images/40percent.png",
+            "images/50percent.png",
+            "images/60percent.png",
+            "images/70percent.png",
+            "images/80percent.png",
+            "images/90percent.png",
+            "images/100percent.png",
+            "images/background_stars.png",
+            "images/background_sky.png",
+            "images/background_rock.png",
+            "images/background_star.png",
+            "images/background_surface.png",
+            "images/surface.png"
+    };
+
+    private static final String[] forestTextureAtlases = {
+
+            "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
+            "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
+            "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
+    };
+
+    private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+    private static final String backgroundMusic = "sounds/maingame.mp3";
+    private static final String[] forestMusic = {backgroundMusic};
+
 
     public LoadingScreen(GdxGame game) {
         this.game = game;
+        //this.forestGameArea = forestGameArea;
 
         logger.debug("Initialising main menu screen services");
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
+        ServiceLocator.registerInputService(new InputService());
+
         renderer = RenderFactory.createRenderer();
 
+        resourceService = ServiceLocator.getResourceService();
         loadAssets();
-        //createUI();
+        //load();
+        createUI();
     }
 
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
+
+        if (resourceService.getAssetManager().update()) {
+            this.game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+        } else {
+            logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
+        }
         renderer.render();
     }
 
@@ -68,22 +161,32 @@ public class LoadingScreen extends ScreenAdapter {
 
     private void loadAssets() {
         logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
+
         resourceService.loadTextures(LoadingTextures);
         ServiceLocator.getResourceService().loadAll();
+
+        resourceService.loadTextures(forestTextures);
+        resourceService.loadTextureAtlases(forestTextureAtlases);
+        resourceService.loadSounds(forestSounds);
+        resourceService.loadMusic(forestMusic);
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
+        //ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(LoadingTextures);
+
+        /*resourceService.unloadAssets(forestTextures);
+        resourceService.unloadAssets(forestTextureAtlases);
+        resourceService.unloadAssets(forestSounds);
+        resourceService.unloadAssets(forestMusic);*/
     }
 
     private void createUI() {
         logger.debug("Creating ui");
         Entity ui = new Entity();
         ui.addComponent(new LoadingDisplay());
-
+        //ui.addComponent(new LoadingDisplay(game)).addComponent(new InputDecorator(stage, 10));;
         ServiceLocator.getEntityService().register(ui);
     }
 }
