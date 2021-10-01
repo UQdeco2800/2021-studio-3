@@ -113,7 +113,7 @@ public class Level2 extends GameArea{
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
-    private static final String backgroundMusic = "sounds/maingame.mp3";
+    private static final String backgroundMusic = "sounds/level2.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
