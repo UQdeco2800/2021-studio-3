@@ -109,7 +109,7 @@ public class PlayerFactory {
                     .addComponent(new InventoryComponent(stats.gold))
                     .addComponent(new PlayerStateComponent())
                     .addComponent(inputComponent)
-                    .addComponent(new SprintComponent(100))
+                    .addComponent(new SprintComponent(10000))
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
                     .addComponent(new PlayerStatsDisplay(manager,h))
