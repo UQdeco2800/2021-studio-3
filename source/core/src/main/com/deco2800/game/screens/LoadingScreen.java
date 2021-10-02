@@ -95,8 +95,19 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_rock.png",
             "images/background_star.png",
             "images/background_surface.png",
-            "images/surface.png"
+            "images/surface.png",
+            "images/alien_monster.png"
     };
+
+    private static final String[] level2Textures = {"images/background_mars.png",
+            "images/background_mars_ground.png",
+            "images/background_mars_surface.png",
+            "images/background_mars_star.png"};
+
+    private static final String[] level3Textures = {"images/background_europa.png",
+            "images/background_europa_ground.png",
+            "images/background_europa_surface.png",
+            "images/background_europa_star.png"};
 
     private static final String[] forestTextureAtlases = {
 
@@ -106,8 +117,8 @@ public class LoadingScreen extends ScreenAdapter {
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
-    private static final String backgroundMusic = "sounds/maingame.mp3";
-    private static final String[] forestMusic = {backgroundMusic};
+    //private static String backgroundMusic = "sounds/maingame.mp3";
+    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3"};
 
 
     public LoadingScreen(GdxGame game, ResourceService resourceService) {
@@ -144,10 +155,16 @@ public class LoadingScreen extends ScreenAdapter {
                 case RESPAWN:
                     this.game.setScreen(GdxGame.ScreenType.RESPAWN);
                     break;
+                case LEVEL_TWO_GAME:
+                    this.game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+                    break;
+                case LEVEL_THREE_GAME:
+                    this.game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+                    break;
             }
 
         } else {
-            logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
+            //logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
         }
         renderer.render();
     }
@@ -184,6 +201,14 @@ public class LoadingScreen extends ScreenAdapter {
         resourceService.loadTextureAtlases(forestTextureAtlases);
         resourceService.loadSounds(forestSounds);
         resourceService.loadMusic(forestMusic);
+        if (game.getScreenType() == GdxGame.ScreenType.LEVEL_TWO_GAME) {
+            logger.info("loading level2 assets");
+            resourceService.loadTextures(level2Textures);
+
+        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_THREE_GAME) {
+            logger.info("loading level3 assets");
+            resourceService.loadTextures(level3Textures);
+        }
     }
 
     private void unloadAssets() {
@@ -199,7 +224,6 @@ public class LoadingScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Entity ui = new Entity();
         ui.addComponent(new LoadingDisplay());
-        //ui.addComponent(new LoadingDisplay(game)).addComponent(new InputDecorator(stage, 10));;
         ServiceLocator.getEntityService().register(ui);
     }
 }
