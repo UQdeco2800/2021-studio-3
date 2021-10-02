@@ -89,7 +89,6 @@ public class TerrainFactory {
 //            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
 //        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       case SIDE_SCROLL_ER:
-        TextureRegion background = new TextureRegion(resourceService.getAsset("images/vikings in space.png", Texture.class));
         TextureRegion surface = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
         TextureRegion underground = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
         TextureRegion sky = new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));

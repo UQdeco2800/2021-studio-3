@@ -46,6 +46,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/ghost_king.png",
             "images/ghost_1.png",
             "images/lives_icon.png",
+            "images/lives_icon2.png",
             "images/box_boy.png",
             "images/underground.png",
             "images/sky.png",
@@ -95,7 +96,8 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_rock.png",
             "images/background_star.png",
             "images/background_surface.png",
-            "images/surface.png"
+            "images/surface.png",
+            "images/vikings_in_space.png"
     };
 
     private static final String[] forestTextureAtlases = {

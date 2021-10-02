@@ -122,7 +122,7 @@ public class ForestGameArea extends GameArea {
           "images/background_star.png",
           "images/background_surface.png",
           "images/surface.png",
-          "images/vikings in space.png"
+          "images/vikings_in_space.png"
   };
 
   private static final String[] forestTextureAtlases = {
