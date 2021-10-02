@@ -177,20 +177,13 @@ public class ObstacleFactory {
     return robot;
   }
 
-  /**
-   * Creates a ufo entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public static Entity createUfo(Entity target, GameArea gameArea) {
+  public static Entity createUfo(Entity target) {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
                     //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-                    //.addTask(new ChaseTask(target, 2,2f,2.5f));
-                    .addTask(new AttackTask(target, 1, 10, 4f));
+                    .addTask(new ChaseTask(target, 2,2f,2.5f));
 
     Entity ufo = new Entity()
             .addComponent(new PhysicsComponent())
@@ -199,8 +192,7 @@ public class ObstacleFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(aiComponent)
-            .addComponent(new AttackListener(target, gameArea));
+            .addComponent(aiComponent);
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -215,45 +207,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
     ufo.scaleHeight(3f);
     return ufo;
-  }
-
-  /**
-   * Creates a rock entity.
-   *
-   * @return entity
-   */
-  public static Entity createAttack1(Entity from, Entity target, GameArea gameArea) {
-    float x1 = from.getPosition().x;
-    float y1 = from.getPosition().y;
-    float x2 = target.getPosition().x;
-    float y2 = target.getPosition().y;
-
-    Vector2 newTarget = new Vector2(x2 - x1, y2 - y1);
-
-    newTarget = newTarget.scl(100);
-    newTarget = newTarget.add(from.getPosition());
-
-    float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(newTarget.y - y1, newTarget.x - x1));
-
-    Entity Attack1 =
-            new Entity()
-                    .addComponent(new TextureRenderComponent("images/rock1.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new PhysicsMovementComponent())
-                    .addComponent(new ColliderComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    Attack1.getComponent(TextureRenderComponent.class).scaleEntity();
-    Attack1.scaleHeight(0.7f);
-    PhysicsUtils.setScaledCollider(Attack1, 0.5f, 0.3f);
-
-    Attack1.setPosition(x1 - Attack1.getScale().x / 2 + from.getScale().x / 2,
-            y1 - Attack1.getScale().y / 2 + from.getScale().y / 2);
-
-    Attack1.getComponent(PhysicsMovementComponent.class).setTarget(newTarget);
-    Attack1.getComponent(PhysicsMovementComponent.class).setMoving(true);
-    Attack1.getComponent(ColliderComponent.class).setSensor(true);
-    return Attack1;
   }
 
   /**

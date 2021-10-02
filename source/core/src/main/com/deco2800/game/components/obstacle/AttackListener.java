@@ -3,7 +3,10 @@ package com.deco2800.game.components.obstacle;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.entities.factories.NPCFactory;
+
 
 
 public class AttackListener extends Component {
@@ -22,7 +25,7 @@ public class AttackListener extends Component {
     }
 
     void attack() {
-        gameArea.spawnEntity(ObstacleFactory.createAttack1(this.entity, target, gameArea));
+        gameArea.spawnEntity(EnemyFactory.createAlienMonsterWeapon(this.entity, target, gameArea));
 
     }
 }

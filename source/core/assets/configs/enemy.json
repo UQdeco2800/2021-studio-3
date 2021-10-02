@@ -1,0 +1,6 @@
+{
+  "alienMonster": {
+    "health": 100,
+    "baseAttack": 10
+  }
+}
