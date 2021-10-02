@@ -165,7 +165,7 @@ public class LevelTwoArea extends GameArea{
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
-        loadAssets();
+        //loadAssets();
 
         displayUI();
 
@@ -457,19 +457,6 @@ public class LevelTwoArea extends GameArea{
         }
     }
 
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(forestTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadSounds(forestSounds);
-        resourceService.loadMusic(forestMusic);
-
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
-        }
-    }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");

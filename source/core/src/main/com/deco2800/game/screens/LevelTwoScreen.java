@@ -82,7 +82,7 @@ public class LevelTwoScreen extends ScreenAdapter {
     /* Manages buffs & debuffs in the game */
     private BuffManager buffManager;
 
-    public LevelTwoScreen(GdxGame game) {
+    public LevelTwoScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
 
@@ -94,7 +94,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         physicsEngine = physicsService.getPhysics();
 
         ServiceLocator.registerInputService(new InputService());
-        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerResourceService(resourceService);
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
