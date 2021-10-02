@@ -52,7 +52,7 @@ public class EnemyFactory {
                         .addTask(new AttackTask(target, 2, 10, 6f));
 
         Entity alienMonster = new Entity()
-                .addComponent(new TextureRenderComponent("images/alien_monster.png"))
+                .addComponent(new TextureRenderComponent("images/ufo_2.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent())
@@ -95,7 +95,7 @@ public class EnemyFactory {
 
         Entity alienMonsterWeapon =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_monster_weapon_1.png"))
+                        .addComponent(new TextureRenderComponent("images/ufo_2.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())

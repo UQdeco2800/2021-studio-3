@@ -49,6 +49,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
+
           "images/box_boy_leaf.png",
           "images/tree.png",
           "images/ghost_king.png",
@@ -62,10 +63,6 @@ public class ForestGameArea extends GameArea {
           "images/broken_asteriod.png",
           "images/asteroid_fire1.png",
           "images/robot1.png",
-          "images/rock1.png",
-          "images/rock2.png",
-          "images/rock3.png",
-          "images/rock4.png",
           "images/asteroid.png",
           "images/asteroid_2.png",
           "images/platform1.png",
@@ -103,9 +100,7 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png",
-          "images/alien_monster.png",
-          "images/alien_monster_weapon_1.png"
+          "images/surface.png"
   };
 
   private static final String[] forestTextureAtlases = {
