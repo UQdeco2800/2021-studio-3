@@ -49,7 +49,7 @@ public class EnemyFactory {
                 new AITaskComponent()
                         //.addTask(new FallTask(5f));
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-                        .addTask(new AttackTask(target, 2, 10, 5f));
+                        .addTask(new AttackTask(target, 2, 10, 6f));
 
         Entity alienMonster = new Entity()
                 .addComponent(new TextureRenderComponent("images/alien_monster.png"))
