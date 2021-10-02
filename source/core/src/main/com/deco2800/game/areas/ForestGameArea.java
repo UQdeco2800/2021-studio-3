@@ -17,6 +17,7 @@ import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ResourceService;
@@ -48,6 +49,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
+
           "images/box_boy_leaf.png",
           "images/tree.png",
           "images/ghost_king.png",
@@ -61,10 +63,6 @@ public class ForestGameArea extends GameArea {
           "images/broken_asteriod.png",
           "images/asteroid_fire1.png",
           "images/robot1.png",
-          "images/rock1.png",
-          "images/rock2.png",
-          "images/rock3.png",
-          "images/rock4.png",
           "images/asteroid.png",
           "images/asteroid_2.png",
           "images/platform1.png",
@@ -102,7 +100,8 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png"
+          "images/surface.png",
+          "images/alien_monster.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -198,6 +197,7 @@ public class ForestGameArea extends GameArea {
     createCheckpoint();
     playMusic();
     //spawnAttackObstacle();
+    spawnAlienMonster();
   }
 
   private void displayUI() {
@@ -340,6 +340,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(robot1, pos1, true, true);
   }
 
+  private void spawnAlienMonster() {
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(63, 20);
+    Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
+    spawnEntityAt(alienMonster, pos1, true, true);
+  }
 
   public boolean isDead() {
     return hasDied;
