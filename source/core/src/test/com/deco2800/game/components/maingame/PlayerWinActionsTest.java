@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
@@ -52,7 +53,7 @@ class PlayerWinActionsTest {
         popup.onContinue();
 
         // Verify that the game screen did change
-        verify(game).setScreen(GdxGame.ScreenType.MAIN_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.MAIN_GAME);
     }
 
 }

@@ -138,6 +138,10 @@ public class ResourceService implements Disposable {
     loadAssets(textureNames, Texture.class);
   }
 
+  public AssetManager getAssetManager() {
+    return this.assetManager;
+  }
+
   /**
    * Loads a list of texture atlas assets into the asset manager.
    *
