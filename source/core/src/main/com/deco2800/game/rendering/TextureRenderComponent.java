@@ -10,7 +10,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class TextureRenderComponent extends RenderComponent {
   private final Texture texture;
   private TextureRegion textureRegion;
-  private float rotation = 0;
 
   /**
    * @param texturePath internal path of static teture to render. Will be scaled to the entity's
@@ -18,12 +17,6 @@ public class TextureRenderComponent extends RenderComponent {
    */
   public TextureRenderComponent(String texturePath) {
     this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
-  }
-
-  public TextureRenderComponent(String texturePath, float rotation) {
-    this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
-    this.rotation = rotation;
-    textureRegion = new TextureRegion(this.texture);
   }
 
   /** @param texture Static texture to render. Will be scaled to the entity's scale. */

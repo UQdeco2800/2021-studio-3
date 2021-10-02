@@ -10,6 +10,7 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
+import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 
@@ -187,7 +188,6 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                     //.addTask(new ChaseTask(target, 2,2f,2.5f));
                     .addTask(new AttackTask(target, 1, 10, 4f));
@@ -233,15 +233,15 @@ public class ObstacleFactory {
     newTarget = newTarget.scl(100);
     newTarget = newTarget.add(from.getPosition());
 
-    float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(newTarget.y - y1, newTarget.x - x1));
-
     Entity Attack1 =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/rock1.png"))
+                    .addComponent(new TextureRenderComponent("images/enemy2_bullet.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new PhysicsMovementComponent())
                     .addComponent(new ColliderComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                   // .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    //.addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0.2f))
+                    .addComponent(new BulletHitPlayer(target, gameArea));
 
     Attack1.getComponent(TextureRenderComponent.class).scaleEntity();
     Attack1.scaleHeight(0.7f);
