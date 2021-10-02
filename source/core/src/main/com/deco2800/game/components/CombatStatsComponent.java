@@ -136,6 +136,15 @@ public int getMaxHealth() {
   }
 
   /**
+   * Decrease the player's health. The amount added can be negative.
+   *
+   * @param health health to add
+   */
+  public void decreaseHealth(int health) {
+    setHealth(this.health - health);
+  }
+
+  /**
    * Returns the entity's base attack damage.
    *
    * @return base attack damage

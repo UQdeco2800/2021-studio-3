@@ -340,12 +340,12 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnAlienMonster() {
-    GridPoint2 minPos = new GridPoint2(2, 20);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    //Entity ufo = NPCFactory.createUFO(player);
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(63, 20);
     Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
-    spawnEntityAt(alienMonster, randomPos, true, true);
+    spawnEntityAt(alienMonster, pos1, true, true);
   }
 
   public boolean isDead() {

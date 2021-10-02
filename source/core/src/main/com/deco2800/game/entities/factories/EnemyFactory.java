@@ -10,6 +10,7 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
+import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 
@@ -48,9 +49,9 @@ public class EnemyFactory {
                 new AITaskComponent()
                         //.addTask(new FallTask(5f));
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-                        .addTask(new AttackTask(target, 1, 10, 4f));
+                        .addTask(new AttackTask(target, 2, 10, 5f));
 
-        Entity ufo = new Entity()
+        Entity alienMonster = new Entity()
                 .addComponent(new TextureRenderComponent("images/alien_monster.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
@@ -72,12 +73,14 @@ public class EnemyFactory {
 //    ufo.addComponent(new UfoAnimationController());
 //
 //    ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
-        PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-        ufo.scaleHeight(3f);
-        return ufo;
+        PhysicsUtils.setScaledCollider(alienMonster, 1f,1f);
+        alienMonster.scaleHeight(2f);
+        return alienMonster;
     }
 
     public static Entity createAlienMonsterWeapon(Entity from, Entity target, GameArea gameArea) {
+
+        AlienMonsterWeaponConfig config = configs.alienMonsterWeapon;
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
         float x2 = target.getPosition().x;
@@ -90,25 +93,29 @@ public class EnemyFactory {
 
         float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(newTarget.y - y1, newTarget.x - x1));
 
-        Entity Attack1 =
+        Entity alienMonsterWeapon =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/rock1.png"))
+                        .addComponent(new TextureRenderComponent("images/alien_monster_weapon_1.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
-                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+                      //  .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                       // .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                       // .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                        //.addComponent(new CombatStatsComponent(config.health, config.baseAttack));
 
-        Attack1.getComponent(TextureRenderComponent.class).scaleEntity();
-        Attack1.scaleHeight(0.7f);
-        PhysicsUtils.setScaledCollider(Attack1, 0.5f, 0.3f);
+        alienMonsterWeapon.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienMonsterWeapon.scaleHeight(0.7f);
+        PhysicsUtils.setScaledCollider(alienMonsterWeapon, 0.5f, 0.3f);
 
-        Attack1.setPosition(x1 - Attack1.getScale().x / 2 + from.getScale().x / 2,
-                y1 - Attack1.getScale().y / 2 + from.getScale().y / 2);
+        alienMonsterWeapon.setPosition(x1 - alienMonsterWeapon.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienMonsterWeapon.getScale().y / 2 + from.getScale().y / 2);
 
-        Attack1.getComponent(PhysicsMovementComponent.class).setTarget(newTarget);
-        Attack1.getComponent(PhysicsMovementComponent.class).setMoving(true);
-        Attack1.getComponent(ColliderComponent.class).setSensor(true);
-        return Attack1;
+        alienMonsterWeapon.getComponent(PhysicsMovementComponent.class).setTarget(newTarget);
+        alienMonsterWeapon.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienMonsterWeapon.getComponent(ColliderComponent.class).setSensor(true);
+        return alienMonsterWeapon;
     }
 
 }
