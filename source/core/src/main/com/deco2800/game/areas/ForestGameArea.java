@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
@@ -16,6 +17,7 @@ import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
@@ -47,6 +49,9 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
+
+  private GdxGame game;
+
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -182,7 +187,7 @@ public class ForestGameArea extends GameArea {
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
-    loadAssets();
+    //loadAssets();
 
     displayUI();
 
@@ -479,7 +484,8 @@ public class ForestGameArea extends GameArea {
   }
 
   private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    /*Changed*/
+    Music music = ServiceLocator.getResourceService().getAsset("sounds/maingame.mp3", Music.class);
     music.setLooping(true);
     music.setVolume(0.3f);
     music.play();
@@ -499,19 +505,6 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(forestTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
-  }
 
   private void unloadAssets() {
     logger.debug("Unloading assets");
@@ -525,7 +518,8 @@ public class ForestGameArea extends GameArea {
   @Override
   public void dispose() {
     super.dispose();
-    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+    /*Change back to backgroundMusic*/
+    ServiceLocator.getResourceService().getAsset("sounds/maingame.mp3", Music.class).stop();
     this.unloadAssets();
 
     System.out.println("forest game area disposed");
