@@ -7,5 +7,9 @@ public class ObstacleConfig {
     public AsteroidFireConfig asteroidFire = new AsteroidFireConfig();
     public RobotConfig robot = new RobotConfig();
     public UfoConfig ufo = new UfoConfig();
+   // public AlienMonsterConfig alienMonster = new AlienMonsterConfig();
+   // public AlienMonsterWeaponConfig alienMonsterWeapon = new AlienMonsterWeaponConfig();
+   // public AlienSoliderConfig alienSolider = new AlienSoliderConfig();
+   // public AlienSoliderWeaponConfig alienSoliderWeapon = new AlienSoliderWeaponConfig();
 }
 

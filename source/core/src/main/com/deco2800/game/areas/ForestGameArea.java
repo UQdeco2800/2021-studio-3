@@ -15,6 +15,7 @@ import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ResourceService;
@@ -97,7 +98,9 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png"
+          "images/surface.png",
+          "images/alien_monster.png",
+          "images/alien_monster_weapon_1.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -193,6 +196,7 @@ public class ForestGameArea extends GameArea {
     createCheckpoint();
     playMusic();
     //spawnAttackObstacle();
+    spawnAlienMonster();
   }
 
   private void displayUI() {
@@ -335,6 +339,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(robot1, pos1, true, true);
   }
 
+  private void spawnAlienMonster() {
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(63, 20);
+    Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
+    spawnEntityAt(alienMonster, pos1, true, true);
+  }
 
   public boolean isDead() {
     return hasDied;
