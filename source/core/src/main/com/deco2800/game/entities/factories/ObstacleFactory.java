@@ -514,7 +514,7 @@ public class ObstacleFactory {
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 30f))
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, 100))
             .addComponent(aiComponent);
 
     deathWall.getComponent(TextureRenderComponent.class).scaleEntity();

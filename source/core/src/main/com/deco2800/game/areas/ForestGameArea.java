@@ -274,8 +274,8 @@ public class ForestGameArea extends GameArea {
     // target's y position is offset 4.5 upwards to remove the bug
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y + 4.5f);
     Entity deathWall = ObstacleFactory.createDeathWall(1f, terrain.getMapBounds(0).y *
-            terrain.getTileSize() - 6, deathWallEndPos);
-    spawnEntityAt(deathWall, new GridPoint2(0, 9), false, false);
+            terrain.getTileSize(), deathWallEndPos);
+    spawnEntityAt(deathWall, new GridPoint2(-5, 5), false, false);
   }
 
   private void spawnUFO() {
