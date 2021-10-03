@@ -105,7 +105,12 @@ public class LevelThreeArea extends GameArea {
             "images/background_mars.png",
             "images/background_mars_ground.png",
             "images/background_mars_surface.png",
-            "images/background_mars_star.png"
+            "images/background_mars_star.png",
+            "images/background_europa.png",
+            "images/background_europa_ground.png",
+            "images/background_europa_surface.png",
+            "images/background_europa_star.png"
+
     };
 
     private static final String[] forestTextureAtlases = {
@@ -165,7 +170,7 @@ public class LevelThreeArea extends GameArea {
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
-        loadAssets();
+        //loadAssets();
 
         displayUI();
 
@@ -221,7 +226,7 @@ public class LevelThreeArea extends GameArea {
     private void spawnTerrain() {
         // Background terrain
 
-        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_TWO_TERRAIN);
+        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_THREE_TERRAIN);
         spawnEntity(new Entity().addComponent(terrain));
 
         // Terrain walls
@@ -430,24 +435,9 @@ public class LevelThreeArea extends GameArea {
     public void resetCam(CameraComponent camera) {
         float playerX = player.getPosition().x;
 
-        System.out.println(playerX);
         if (playerX >= 5 && playerX <= 35) {
             camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
             camera.getCamera().update();
-        }
-    }
-
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(forestTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadSounds(forestSounds);
-        resourceService.loadMusic(forestMusic);
-
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
         }
     }
 

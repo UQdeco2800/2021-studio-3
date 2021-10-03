@@ -8,10 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * A ui component for displaying the Main menu.
@@ -48,6 +51,9 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Start button clicked");
+            Entity ui = new Entity();
+            /*ui.addComponent(new LoadingDisplay());
+            ui.getComponent(LoadingDisplay.class).create();*/
             entity.getEvents().trigger("start");
           }
         });
@@ -112,7 +118,7 @@ public class MainMenuDisplay extends UIComponent {
   @Override
   public void dispose() {
     table.clear();
-      ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
+    ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
     super.dispose();
   }
 

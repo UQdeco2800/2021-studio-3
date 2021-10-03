@@ -168,12 +168,6 @@ public class ObstacleFactory {
     return robot;
   }
 
-  /**
-   * Creates a ufo entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
   public static Entity createUfo(Entity target) {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
@@ -204,25 +198,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
     ufo.scaleHeight(3f);
     return ufo;
-  }
-
-  /**
-   * Creates a rock entity.
-   *
-   * @return entity
-   */
-  public static Entity createRock1() {
-    Entity rock1 =
-            new Entity()
-                    .addComponent(new TextureRenderComponent("images/rock1.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    rock1.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    rock1.getComponent(TextureRenderComponent.class).scaleEntity();
-    rock1.scaleHeight(0.7f);
-    PhysicsUtils.setScaledCollider(rock1, 0.5f, 0.3f);
-    return rock1;
   }
 
   /**
@@ -466,6 +441,21 @@ public class ObstacleFactory {
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);
     return wall;
+  }
+
+  public static Entity createDeathFloor(float width, float height) {
+    DeathFloorConfig deathFloor = configs.deathFloor;
+
+    Entity floor = new Entity()
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    floor.addComponent(new CombatStatsComponent(1000, deathFloor.baseAttack));
+    floor.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    floor.setScale(width, height);
+    return floor;
   }
 
   /**

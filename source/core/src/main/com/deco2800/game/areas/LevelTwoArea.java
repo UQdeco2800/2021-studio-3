@@ -40,7 +40,7 @@ public class LevelTwoArea extends GameArea{
             "images/tree.png",
             "images/ghost_king.png",
             "images/ghost_1.png",
-            "images/lives_icon.png",
+            "images/lives_icon2.png",
             "images/grass_1.png",
             "images/grass_2.png",
             "images/grass_3.png",
@@ -115,8 +115,8 @@ public class LevelTwoArea extends GameArea{
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
     };
 
-    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+    private static final String backgroundMusic = "sounds/level2.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -165,7 +165,7 @@ public class LevelTwoArea extends GameArea{
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
-        loadAssets();
+        //loadAssets();
 
         displayUI();
 
@@ -190,7 +190,7 @@ public class LevelTwoArea extends GameArea{
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-
+        playMusic();
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();
@@ -457,19 +457,6 @@ public class LevelTwoArea extends GameArea{
         }
     }
 
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(forestTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadSounds(forestSounds);
-        resourceService.loadMusic(forestMusic);
-
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
-        }
-    }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");

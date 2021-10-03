@@ -145,7 +145,9 @@ public class PlayerStatsDisplay extends UIComponent {
     rollTable = setupUITable(90f, 10f, UIPosition.LEFT);
 
     /* Images for UI */
-    Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon.png", Texture.class));
+
+    Image heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+    Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon2.png", Texture.class));
 
     // Sprint Text
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
