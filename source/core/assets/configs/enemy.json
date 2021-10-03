@@ -1,0 +1,10 @@
+{
+  "alienMonster": {
+    "health": 100,
+    "baseAttack": 10
+  },
+  "alienMonsterWeapon": {
+    "health": 100,
+    "baseAttack": 10
+  }
+}

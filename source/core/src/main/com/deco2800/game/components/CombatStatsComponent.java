@@ -1,6 +1,5 @@
 package com.deco2800.game.components;
 
-import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int maxHealth;
   private int baseAttack;
-  private ForestGameArea area;
 
   /* Whether or not the player is currently invincible (timed buff) */
   private boolean invincible = false;
@@ -46,16 +44,17 @@ public class CombatStatsComponent extends Component {
   public int getHealth() {
     return health;
   }
-/*
- * Returns the Max health.
- *
- * @return entity's Max health
- */
-public int getMaxHealth() {
-  return this.maxHealth;
-}
 
-  /*
+  /**
+   * Returns the Max health.
+   *
+   * @return entity's Max health
+   */
+  public int getMaxHealth() {
+    return this.maxHealth;
+  }
+
+  /**
    * Returns the Max health.
    *
    * @return entity's Max health
@@ -90,6 +89,7 @@ public int getMaxHealth() {
    * */
   public void setFullHeal() {
     this.health = getMaxHealth();
+    setHealth(this.health);
   }
 
   /**
@@ -115,7 +115,8 @@ public int getMaxHealth() {
         this.health = 0;
       }
       if (entity != null) {
-        entity.getEvents().trigger("updateHealth", this.health);
+        // Updates the player state and animations when healed
+        entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
           entity.getEvents().trigger("playerDeath");
         }
@@ -130,6 +131,15 @@ public int getMaxHealth() {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
+  }
+
+  /**
+   * Decrease the player's health. The amount added can be negative.
+   *
+   * @param health health to add
+   */
+  public void decreaseHealth(int health) {
+    setHealth(this.health - health);
   }
 
   /**

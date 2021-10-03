@@ -66,6 +66,8 @@ public class ScoreComponent extends Component {
             health = combatStats.getHealth();
         }
         int newScore = getScore() + (7 * healthDifference);
+
+        newScore = newScore < 0 ? 0 : newScore;
         setScore(newScore);
     }
 

@@ -10,5 +10,8 @@
   "ufo": {
     "health": 100,
     "baseAttack": 25
+  },
+  "deathFloor": {
+    "baseAttack": 101
   }
 }

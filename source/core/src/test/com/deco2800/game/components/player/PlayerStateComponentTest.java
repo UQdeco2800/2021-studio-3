@@ -14,12 +14,13 @@ public class PlayerStateComponentTest {
         PlayerStateComponent playerState = new PlayerStateComponent();
         playerState.updateHealth(Health.ROUGH);
         playerState.updateState(State.SPRINT);
+        playerState.updateDirection(Direction.LEFT);
 
-        assertEquals("rough-sprint", playerState.getStateAnimation());
+        assertEquals("rough-sprint-left", playerState.getStateAnimation());
 
         playerState.updateHealth(Health.DAMAGED);
 
-        assertEquals("damaged-sprint", playerState.getStateAnimation());
+        assertEquals("damaged-sprint-left", playerState.getStateAnimation());
 
         playerState.updateState(State.STATIONARY);
 
@@ -31,19 +32,24 @@ public class PlayerStateComponentTest {
 
         playerState.updateState(State.WALK);
 
-        playerState.manage(true, true);
+        playerState.manage(true, true, true, false, false);
         assertEquals(State.SPRINT_JUMP, playerState.getState());
+        assertEquals(Direction.RIGHT, playerState.getDirection());
 
-        playerState.manage(false, true);
+        playerState.manage(false, true, false, true, false);
         assertEquals(State.SPRINT, playerState.getState());
+        assertEquals(Direction.LEFT, playerState.getDirection());
 
-        playerState.manage(true, false);
+        playerState.manage(true, false, true, false, false);
         assertEquals(State.JUMP, playerState.getState());
 
         playerState.updateState(State.WALK);
 
-        playerState.manage(false, false);
+        playerState.manage(false, false, true, false, false);
         assertEquals(State.WALK, playerState.getState());
+
+        playerState.manage(false, false, false, false, true);
+        assertEquals(State.STATIONARY, playerState.getState());
     }
 
     @Test

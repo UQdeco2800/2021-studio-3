@@ -1,6 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -117,7 +118,6 @@ public class PopupUIHandler {
             buttonHolder.row();
         }
     }
-
     /**
      * Handles setting up the on-click actions for the buttons on the menu.
      *
