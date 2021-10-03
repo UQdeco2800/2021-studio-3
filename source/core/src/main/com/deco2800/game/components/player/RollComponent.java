@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -173,6 +174,7 @@ public class RollComponent extends Component {
         entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(false);
         stopRolling();
         setCoolDown(true);
+        unanimateRoll();
         handleCheckingFallRequired();
     }
 
@@ -232,6 +234,9 @@ public class RollComponent extends Component {
 
         // Perform the roll
         move(direction.cpy().scl(ROLL_LENGTH));
+
+        // Animate the player
+        animateRoll();
     }
 
     /**
@@ -362,6 +367,15 @@ public class RollComponent extends Component {
      * */
     public long getLastRollStarted() {
         return this.lastRollStarted;
+    }
+
+    public void animateRoll() {
+        AnimationRenderComponent render = entity.getComponent(AnimationRenderComponent.class);
+        render.startAnimation("roll3");
+    }
+
+    public void unanimateRoll() {
+        entity.getComponent(KeyboardPlayerInputComponent.class).updatePlayerStateAnimation();
     }
 
 }

@@ -289,6 +289,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
+  public void updatePlayerStateAnimation() {
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping,
+            isSprinting, movingRight, movingLeft, isStationary);
+    entity.getEvents().trigger("playerStatusAnimation");
+  }
+
   /**
    * Handles setup and performance of player jumping when the SPACE_BAR is hit.
    * The player's jumping-related variables and new state are set.

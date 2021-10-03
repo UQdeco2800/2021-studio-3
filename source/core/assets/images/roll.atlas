@@ -150,140 +150,140 @@ size: 2048, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-roll
+roll2
   rotate: false
   xy: 2, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 7
-roll
+roll2
   rotate: false
   xy: 2, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 20
-roll
+roll2
   rotate: false
   xy: 404, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 33
-roll
+roll2
   rotate: false
   xy: 2, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 12
-roll
+roll2
   rotate: false
   xy: 404, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 25
-roll
+roll2
   rotate: false
   xy: 806, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 38
-roll
+roll2
   rotate: false
   xy: 2, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 4
-roll
+roll2
   rotate: false
   xy: 404, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 17
-roll
+roll2
   rotate: false
   xy: 806, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 30
-roll
+roll2
   rotate: false
   xy: 1208, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 43
-roll
+roll2
   rotate: false
   xy: 404, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 9
-roll
+roll2
   rotate: false
   xy: 806, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 22
-roll
+roll2
   rotate: false
   xy: 1208, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 35
-roll
+roll2
   rotate: false
   xy: 1610, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 1
-roll
+roll2
   rotate: false
   xy: 806, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 14
-roll
+roll2
   rotate: false
   xy: 1208, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 27
-roll
+roll2
   rotate: false
   xy: 1610, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 40
-roll
+roll2
   rotate: false
   xy: 1208, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 6
-roll
+roll2
   rotate: false
   xy: 1610, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 19
-roll
+roll2
   rotate: false
   xy: 1610, 2
   size: 400, 225
@@ -296,35 +296,35 @@ size: 2048, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-roll
+roll3
   rotate: false
   xy: 2, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 11
-roll
+roll3
   rotate: false
   xy: 404, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 24
-roll
+roll3
   rotate: false
   xy: 806, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 37
-roll
+roll3
   rotate: false
   xy: 1208, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 3
-roll
+roll3
   rotate: false
   xy: 1610, 2
   size: 400, 225

@@ -95,6 +95,7 @@ public class PlayerFactory {
     animator.addAnimation("damaged-sprint-right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("damaged-jump-right", 0.1f);
     animator.addAnimation("dead", 0.4f, Animation.PlayMode.LOOP);
+    animator.addAnimation("roll3", 0.01f, Animation.PlayMode.LOOP);
 
     // Starts the idle animation
     animator.startAnimation("normal-stationary");
