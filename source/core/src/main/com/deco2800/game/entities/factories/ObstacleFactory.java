@@ -503,21 +503,29 @@ public class ObstacleFactory {
   public static Entity createDeathWall(float width, float height, Vector2 target) {
     DeathWallConfig config = configs.deathWall;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP);
+    animator.startAnimation("Serpent1.1");
+
+
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new MovingTask(target));
 
     Entity deathWall = new Entity()
-            .addComponent(new TextureRenderComponent("images/Serpent1.png"))
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
             .addComponent(new CombatStatsComponent(config.health, 100))
-            .addComponent(aiComponent);
+            .addComponent(aiComponent)
+                    .addComponent(animator);
 
-    deathWall.getComponent(TextureRenderComponent.class).scaleEntity();
+    deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(width, height);
     return deathWall;
   }
