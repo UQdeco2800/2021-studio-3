@@ -1141,6 +1141,7 @@ default
   offset: 74, 50
   index: 0
 
+
 roll.png
 size: 2048, 1024
 format: RGBA8888
@@ -1152,324 +1153,109 @@ roll
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 29
-roll
-  rotate: false
-  xy: 2, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 42
-roll
-  rotate: false
-  xy: 404, 683
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 21
-roll
-  rotate: false
-  xy: 2, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
   index: 8
 roll
   rotate: false
-  xy: 404, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 34
-roll
-  rotate: false
-  xy: 806, 683
+  xy: 2, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 0
 roll
   rotate: false
-  xy: 2, 2
+  xy: 404, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 13
 roll
   rotate: false
-  xy: 404, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 26
-roll
-  rotate: false
-  xy: 806, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 39
-roll
-  rotate: false
-  xy: 1208, 683
+  xy: 2, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 5
 roll
   rotate: false
-  xy: 404, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 18
-roll
-  rotate: false
-  xy: 806, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 31
-roll
-  rotate: false
-  xy: 1208, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 44
-roll
-  rotate: false
-  xy: 1610, 683
+  xy: 404, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 10
 roll
   rotate: false
-  xy: 806, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 23
-roll
-  rotate: false
-  xy: 1208, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 36
-roll
-  rotate: false
-  xy: 1610, 456
+  xy: 806, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 2
 roll
   rotate: false
-  xy: 1208, 2
+  xy: 2, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 15
 roll
   rotate: false
-  xy: 1610, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 28
-roll
-  rotate: false
-  xy: 1610, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 41
-
-roll2.png
-size: 2048, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-roll2
-  rotate: false
-  xy: 2, 683
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 7
-roll2
-  rotate: false
-  xy: 2, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 20
-roll2
-  rotate: false
-  xy: 404, 683
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 33
-roll2
-  rotate: false
-  xy: 2, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 12
-roll2
-  rotate: false
-  xy: 404, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 25
-roll2
-  rotate: false
-  xy: 806, 683
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 38
-roll2
-  rotate: false
-  xy: 2, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 4
-roll2
-  rotate: false
   xy: 404, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 17
-roll2
+  index: 7
+roll
   rotate: false
   xy: 806, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 30
-roll2
+  index: 12
+roll
   rotate: false
   xy: 1208, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 43
-roll2
+  index: 4
+roll
   rotate: false
   xy: 404, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
   index: 9
-roll2
+roll
   rotate: false
   xy: 806, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 22
-roll2
+  index: 1
+roll
   rotate: false
   xy: 1208, 456
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 35
-roll2
+  index: 14
+roll
   rotate: false
   xy: 1610, 683
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 1
-roll2
+  index: 6
+roll
   rotate: false
   xy: 806, 2
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 14
-roll2
+  index: 11
+roll
   rotate: false
   xy: 1208, 229
   size: 400, 225
   orig: 400, 225
   offset: 0, 0
-  index: 27
-roll2
-  rotate: false
-  xy: 1610, 456
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 40
-roll2
-  rotate: false
-  xy: 1208, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 6
-roll2
-  rotate: false
-  xy: 1610, 229
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 19
-roll2
-  rotate: false
-  xy: 1610, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 32
-
-roll3.png
-size: 2048, 256
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-roll3
-  rotate: false
-  xy: 2, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 11
-roll3
-  rotate: false
-  xy: 404, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 24
-roll3
-  rotate: false
-  xy: 806, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 37
-roll3
-  rotate: false
-  xy: 1208, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
   index: 3
-roll3
-  rotate: false
-  xy: 1610, 2
-  size: 400, 225
-  orig: 400, 225
-  offset: 0, 0
-  index: 16
