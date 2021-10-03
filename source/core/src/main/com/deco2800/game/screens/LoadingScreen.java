@@ -93,6 +93,8 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_solider.png",
             "images/alien_solider_weapon_01.png",
             "images/alien_solider_weapon_02.png",
+            "images/alien_boss.png",
+            "images/alien_boss_weapon_01.png",
             "images/vikings in space.png",
             "images/lives_icon2.png"
 

@@ -14,6 +14,7 @@ import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 
+import com.deco2800.game.components.enemy.AlienBossAttackListener;
 import com.deco2800.game.components.enemy.AlienSoliderAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
@@ -140,101 +141,6 @@ public class EnemyFactory {
     public static void createAlienSoliderWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
-        float x2 = target.getPosition().x;
-        float y2 = target.getPosition().y;
-
-        Vector2 straightTarget = new Vector2(x2 - x1, y2 - y1); //straight through player
-
-        //Shifted up 45 degrees from the straight vector
-        double upX = (Math.cos((Math.PI)/4) * straightTarget.x) - (Math.sin((Math.PI)/4) * straightTarget.y);
-        double upY = (Math.sin((Math.PI)/4) * straightTarget.x) + (Math.cos((Math.PI)/4) * straightTarget.y);
-        Vector2 upRotate = new Vector2( (float) upX, (float) upY);
-
-        //Shifted down 45 degrees from the straight vector
-        double downX = (Math.cos(-(Math.PI)/4) * straightTarget.x) - (Math.sin(-(Math.PI)/4) * straightTarget.y);
-        double downY = (Math.sin(-(Math.PI)/4) * straightTarget.x) + (Math.cos(-(Math.PI)/4) * straightTarget.y);
-        Vector2 downRotate = new Vector2( (float) downX, (float) downY);
-
-        straightTarget = straightTarget.scl(100);
-        straightTarget = straightTarget.add(from.getPosition());
-
-        downRotate = downRotate.scl(100);
-        downRotate = downRotate.add(from.getPosition());
-
-        upRotate = upRotate.scl(100);
-        upRotate = upRotate.add(from.getPosition());
-
-        float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(straightTarget.y - y1, straightTarget.x - x1));
-        float rotationUp = (MathUtils.radiansToDegrees * MathUtils.atan2(upRotate.y - y1, upRotate.x - x1));
-        float rotationDown = (MathUtils.radiansToDegrees * MathUtils.atan2(downRotate.y - y1, downRotate.x - x1));
-
-        Entity alienSoliderWeapon1 =
-                new Entity()
-                    .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotation))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new PhysicsMovementComponent())
-                    .addComponent(new ColliderComponent())
-                    .addComponent(new BulletHitPlayer(target, gameArea));
-
-        Entity alienSoliderWeapon2 =
-                new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotationUp))
-                        .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
-                        .addComponent(new ColliderComponent())
-                        .addComponent(new BulletHitPlayer(target, gameArea));
-
-        Entity alienSoliderWeapon3 =
-                new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotationDown))
-                        .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
-                        .addComponent(new ColliderComponent())
-                        .addComponent(new BulletHitPlayer(target, gameArea));
-
-        alienSoliderWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
-        alienSoliderWeapon1.scaleHeight(0.3f);
-        PhysicsUtils.setScaledCollider(alienSoliderWeapon1, 0.3f, 0.3f);
-
-        alienSoliderWeapon2.getComponent(TextureRenderComponent.class).scaleEntity();
-        alienSoliderWeapon2.scaleHeight(0.3f);
-        PhysicsUtils.setScaledCollider(alienSoliderWeapon2, 0.3f, 0.3f);
-
-        alienSoliderWeapon3.getComponent(TextureRenderComponent.class).scaleEntity();
-        alienSoliderWeapon3.scaleHeight(0.3f);
-        PhysicsUtils.setScaledCollider(alienSoliderWeapon3, 0.3f, 0.3f);
-
-        alienSoliderWeapon1.setPosition(x1 - alienSoliderWeapon1.getScale().x / 2 + from.getScale().x / 2,
-                y1 - alienSoliderWeapon1.getScale().y / 2 + from.getScale().y / 2);
-
-        alienSoliderWeapon2.setPosition(x1 - alienSoliderWeapon2.getScale().x / 2 + from.getScale().x / 2,
-                y1 - alienSoliderWeapon2.getScale().y / 2 + from.getScale().y / 2);
-
-        alienSoliderWeapon3.setPosition(x1 - alienSoliderWeapon3.getScale().x / 2 + from.getScale().x / 2,
-                y1 - alienSoliderWeapon3.getScale().y / 2 + from.getScale().y / 2);
-
-        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(straightTarget);
-        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
-        alienSoliderWeapon1.getComponent(ColliderComponent.class).setSensor(true);
-
-        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setTarget(upRotate);
-        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setMoving(true);
-        alienSoliderWeapon2.getComponent(ColliderComponent.class).setSensor(true);
-
-        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setTarget(downRotate);
-        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setMoving(true);
-        alienSoliderWeapon3.getComponent(ColliderComponent.class).setSensor(true);
-
-        gameArea.spawnEntity(alienSoliderWeapon1);
-        gameArea.spawnEntity(alienSoliderWeapon2);
-        gameArea.spawnEntity(alienSoliderWeapon3);
-
-
-    }
-
-    public static void createAlienSoliderWeapon2(Entity from, Entity target, GameArea gameArea) {
-        float x1 = from.getPosition().x;
-        float y1 = from.getPosition().y;
 
         Vector2 target1 = new Vector2(x1 + 1, 0);
         Vector2 target2 = new Vector2(x1 - 10, 0);
@@ -343,6 +249,126 @@ public class EnemyFactory {
         gameArea.spawnEntity(alienSoliderWeapon4);
         gameArea.spawnEntity(alienSoliderWeapon5);
     }
+
+    public static Entity createAlienBoss(Entity target, GameArea gameArea) {
+        AlienBossConfig config = configs.alienBoss;
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
+                        .addTask(new AttackTask(target, 1, 10, 6f));
+
+        Entity alienBoss =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_boss.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+                        .addComponent(aiComponent)
+                        .addComponent(new AlienBossAttackListener(target, gameArea));
+
+        PhysicsUtils.setScaledCollider(alienBoss, 1f,1f);
+        alienBoss.scaleHeight(1.5f);
+        return alienBoss;
+    }
+
+    public static void createAlienBossWeapon(Entity from, Entity target, GameArea gameArea) {
+        float x1 = from.getPosition().x;
+        float y1 = from.getPosition().y;
+        float x2 = target.getPosition().x;
+        float y2 = target.getPosition().y;
+
+        Vector2 straightTarget = new Vector2(x2 - x1, y2 - y1); //straight through player
+
+        //Shifted up 45 degrees from the straight vector
+        double upX = (Math.cos((Math.PI)/4) * straightTarget.x) - (Math.sin((Math.PI)/4) * straightTarget.y);
+        double upY = (Math.sin((Math.PI)/4) * straightTarget.x) + (Math.cos((Math.PI)/4) * straightTarget.y);
+        Vector2 upRotate = new Vector2( (float) upX, (float) upY);
+
+        //Shifted down 45 degrees from the straight vector
+        double downX = (Math.cos(-(Math.PI)/4) * straightTarget.x) - (Math.sin(-(Math.PI)/4) * straightTarget.y);
+        double downY = (Math.sin(-(Math.PI)/4) * straightTarget.x) + (Math.cos(-(Math.PI)/4) * straightTarget.y);
+        Vector2 downRotate = new Vector2( (float) downX, (float) downY);
+
+        straightTarget = straightTarget.scl(100);
+        straightTarget = straightTarget.add(from.getPosition());
+
+        downRotate = downRotate.scl(100);
+        downRotate = downRotate.add(from.getPosition());
+
+        upRotate = upRotate.scl(100);
+        upRotate = upRotate.add(from.getPosition());
+
+        float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(straightTarget.y - y1, straightTarget.x - x1));
+        float rotationUp = (MathUtils.radiansToDegrees * MathUtils.atan2(upRotate.y - y1, upRotate.x - x1));
+        float rotationDown = (MathUtils.radiansToDegrees * MathUtils.atan2(downRotate.y - y1, downRotate.x - x1));
+
+        Entity alienBossWeapon1 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotation))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienBossWeapon2 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationUp))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienBossWeapon3 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationDown))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        alienBossWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienBossWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienBossWeapon1, 0.3f, 0.3f);
+
+        alienBossWeapon2.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienBossWeapon2.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienBossWeapon2, 0.3f, 0.3f);
+
+        alienBossWeapon3.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienBossWeapon3.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienBossWeapon3, 0.3f, 0.3f);
+
+        alienBossWeapon1.setPosition(x1 - alienBossWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienBossWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
+        alienBossWeapon2.setPosition(x1 - alienBossWeapon2.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienBossWeapon2.getScale().y / 2 + from.getScale().y / 2);
+
+        alienBossWeapon3.setPosition(x1 - alienBossWeapon3.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienBossWeapon3.getScale().y / 2 + from.getScale().y / 2);
+
+        alienBossWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(straightTarget);
+        alienBossWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienBossWeapon1.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienBossWeapon2.getComponent(PhysicsMovementComponent.class).setTarget(upRotate);
+        alienBossWeapon2.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienBossWeapon2.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienBossWeapon3.getComponent(PhysicsMovementComponent.class).setTarget(downRotate);
+        alienBossWeapon3.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienBossWeapon3.getComponent(ColliderComponent.class).setSensor(true);
+
+        gameArea.spawnEntity(alienBossWeapon1);
+        gameArea.spawnEntity(alienBossWeapon2);
+        gameArea.spawnEntity(alienBossWeapon3);
+    }
+
+
 }
 
 

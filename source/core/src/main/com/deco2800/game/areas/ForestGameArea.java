@@ -159,6 +159,7 @@ public class ForestGameArea extends GameArea {
     //spawnAttackObstacle();
     spawnAlienMonster();
     spawnAlienSolider();
+    spawnAlienBoss();
   }
 
   private void displayUI() {
@@ -343,8 +344,17 @@ public class ForestGameArea extends GameArea {
 //    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
 //    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     GridPoint2 pos1 = new GridPoint2(83, 20);
-    Entity alienMonster = EnemyFactory.createAlienSolider(player, this);
-    spawnEntityAt(alienMonster, pos1, true, true);
+    Entity alienSolider = EnemyFactory.createAlienSolider(player, this);
+    spawnEntityAt(alienSolider, pos1, true, true);
+  }
+
+  private void spawnAlienBoss() {
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(33, 20);
+    Entity alienBoss = EnemyFactory.createAlienBoss(player, this);
+    spawnEntityAt(alienBoss, pos1, true, true);
   }
 
   public boolean isDead() {
