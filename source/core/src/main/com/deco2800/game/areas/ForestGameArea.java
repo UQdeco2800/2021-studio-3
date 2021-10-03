@@ -119,7 +119,8 @@ public class ForestGameArea extends GameArea {
           "images/background_rock.png",
           "images/background_star.png",
           "images/background_surface.png",
-          "images/surface.png"
+          "images/surface.png",
+          "images/Serpent1.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -272,10 +273,10 @@ public class ForestGameArea extends GameArea {
   private void spawnDeathWall() {
     // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
     // target's y position is offset 4.5 upwards to remove the bug
-    Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y + 4.5f);
-    Entity deathWall = ObstacleFactory.createDeathWall(1f, terrain.getMapBounds(0).y *
+    Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
+    Entity deathWall = ObstacleFactory.createDeathWall(3f, terrain.getMapBounds(0).y *
             terrain.getTileSize(), deathWallEndPos);
-    spawnEntityAt(deathWall, new GridPoint2(-5, 5), false, false);
+    spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
   }
 
   private void spawnUFO() {
