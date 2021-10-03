@@ -10,16 +10,10 @@ import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
-
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-
 import com.deco2800.game.components.tasks.ChaseTask;
-
 import com.deco2800.game.components.CombatStatsComponent;
-
-
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -132,9 +126,10 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     asteroidFire.scaleHeight(1f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1f));
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0f, 0f));
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
+    asteroidFire.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0),asteroidFire.getCenterPosition());
     return asteroidFire;
   }
 
