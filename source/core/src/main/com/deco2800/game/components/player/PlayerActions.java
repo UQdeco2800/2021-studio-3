@@ -1,29 +1,33 @@
 package com.deco2800.game.components.player;
-import com.badlogic.gdx.Graphics;
+
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.components.*;
-import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-import com.sun.tools.javac.Main;
 
 /**
- * Action component for interacting with the player. Player events should be initialised in create()
- * and when triggered should call methods within this class.
+ * Action component for interacting with the player. Player events should be
+ * initialised in create() and when triggered should call methods within this
+ * class.
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+
+  /* The entity's physics component */
   private PhysicsComponent physicsComponent;
+
   // Sets gravity to 1 m/s for comparing
   private static final Vector2 gravity = new Vector2 (0, -1f);
+
   // Sets player movement and adds gravity of 1 m/s
   private Vector2 walkDirection = new Vector2 (0, -1f);
+
+  /* True if the player is currently moving */
   private boolean moving = false;
+
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -33,6 +37,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("sprint", this::sprint);
     entity.getEvents().addListener("newProgress", this::upgradeProgress);
     entity.getEvents().addListener("newScore", this::upgradeScore);
+    entity.getEvents().addListener("roll", this::roll);
+    entity.getEvents().addListener("stopRoll", this::stopRolling);
   }
 
   @Override
@@ -54,6 +60,26 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Rolls the player in a given direction.
+   *
+   * @param direction the direction for the player to roll in.
+   * */
+  public void roll(Vector2 direction) {
+    if (entity.getComponent(RollComponent.class).cantRoll()) {
+      return;
+    }
+    entity.getComponent(RollComponent.class).handleRolling(direction);
+  }
+
+  /**
+   * Stops the player rolling.
+   * */
+  public void stopRolling() {
+    stopWalking();
+    entity.getComponent(KeyboardPlayerInputComponent.class).setWalkDirection(this.walkDirection.cpy()); // Update the walking direction
+  }
+
+  /**
    * Moves the player towards a given direction.
    *
    * @param direction direction to move in
@@ -68,8 +94,8 @@ public class PlayerActions extends Component {
    * @param direction the direction the player is moving in
    * @param sprinting true if the player is beginning a sprint, false otherwise
    */
-  void sprint(Vector2 direction, boolean sprinting, int sprintModifier){
-      if (direction.x > 0){
+  void sprint(Vector2 direction, boolean sprinting, int sprintModifier) {
+      if (direction.x > 0) {
         //if the player is moving right
         if (sprinting){
           //if sprint was called on keyDown, increase speed
@@ -113,7 +139,6 @@ public class PlayerActions extends Component {
   void upgradeProgress() {
     if (walkDirection.x > 0) {
       entity.getComponent(ProgressComponent.class).updateProgress(entity.getPosition().x);
-
     }
   }
 

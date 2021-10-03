@@ -6,20 +6,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.Level2;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
-
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-
 import com.deco2800.game.components.tasks.ChaseTask;
-
 import com.deco2800.game.components.CombatStatsComponent;
-
-
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -132,9 +126,10 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     asteroidFire.scaleHeight(1f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1f));
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0f, 0f));
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
+    asteroidFire.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0),asteroidFire.getCenterPosition());
     return asteroidFire;
   }
 
@@ -173,12 +168,6 @@ public class ObstacleFactory {
     return robot;
   }
 
-  /**
-   * Creates a ufo entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
   public static Entity createUfo(Entity target) {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
@@ -209,25 +198,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
     ufo.scaleHeight(3f);
     return ufo;
-  }
-
-  /**
-   * Creates a rock entity.
-   *
-   * @return entity
-   */
-  public static Entity createRock1() {
-    Entity rock1 =
-            new Entity()
-                    .addComponent(new TextureRenderComponent("images/rock1.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    rock1.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    rock1.getComponent(TextureRenderComponent.class).scaleEntity();
-    rock1.scaleHeight(0.7f);
-    PhysicsUtils.setScaledCollider(rock1, 0.5f, 0.3f);
-    return rock1;
   }
 
   /**
@@ -473,6 +443,21 @@ public class ObstacleFactory {
     return wall;
   }
 
+  public static Entity createDeathFloor(float width, float height) {
+    DeathFloorConfig deathFloor = configs.deathFloor;
+
+    Entity floor = new Entity()
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    floor.addComponent(new CombatStatsComponent(1000, deathFloor.baseAttack));
+    floor.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    floor.setScale(width, height);
+    return floor;
+  }
+
   /**
    * Creates a checkpoint entity.
    * @return entity
@@ -498,7 +483,24 @@ public class ObstacleFactory {
    * Creates a checkpoint entity on level 2.
    * @return entity
    */
-  public static Entity createCheckpoint(Entity target, Level2 area) {
+  public static Entity createCheckpoint(Entity target, LevelTwoArea area) {
+
+    Entity checkpoint =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new CheckPointComponent(PhysicsLayer.PLAYER, area))
+                    .addComponent(new TextureRenderComponent("images/untouchedCheckpoint.png"));
+
+
+
+    PhysicsUtils.setScaledCollider(checkpoint, 0.9f, 0.4f);
+    return checkpoint;
+  }
+
+  public static Entity createCheckpoint(Entity target, LevelThreeArea area) {
 
     Entity checkpoint =
             new Entity()

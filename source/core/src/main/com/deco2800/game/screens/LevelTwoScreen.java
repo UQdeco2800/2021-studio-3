@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.Level2;
+import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -27,7 +25,6 @@ import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
-import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,14 +75,14 @@ public class LevelTwoScreen extends ScreenAdapter {
     //public static boolean isLevelChange = false;
     //private int currentLevel = 1;
 
-    private Level2 currentMap;
+    private LevelTwoArea currentMap;
     private final TerrainFactory terrainFactory;
     private Entity ui;
 
     /* Manages buffs & debuffs in the game */
     private BuffManager buffManager;
 
-    public LevelTwoScreen(GdxGame game) {
+    public LevelTwoScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
 
@@ -97,7 +94,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         physicsEngine = physicsService.getPhysics();
 
         ServiceLocator.registerInputService(new InputService());
-        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerResourceService(resourceService);
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
@@ -111,7 +108,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen entities");
         //terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
-        Level2 level2Area = new Level2(terrainFactory, 0, false);
+        LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, 0, false);
         level2Area.create();
 
         load();
@@ -159,7 +156,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
-        Level2 level2Area = new Level2(terrainFactory, 0, hasDied);
+        LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, 0, hasDied);
         level2Area.create();
 
         this.currentMap = level2Area;
@@ -193,7 +190,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
-        Level2 level2Area = new Level2(terrainFactory, 1, hasDied);
+        LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, 1, hasDied);
         level2Area.create();
 
         this.currentMap = level2Area;
@@ -284,15 +281,15 @@ public class LevelTwoScreen extends ScreenAdapter {
                 .addComponent(new MainGameActions(this.game))
                 .addComponent(new MainGameExitDisplay())
                 .addComponent(new Terminal())
-                .addComponent(inputComponent);
-               // .addComponent(new TerminalDisplay(manager,currentMap))
-               // .addComponent(new PauseGamePopUp(this.game,
-                      //  new PopupUIHandler(pauseMenuTextures)))
-              //  .addComponent(new PlayerWinPopup(this.game, currentMap,
-               //         new PopupUIHandler(winMenuTextures)))
-               /// .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
-               //         new PopupUIHandler(lossMenuTextures)));
-                //.addComponent(new PopupMenuActions(this.game, this.currentMap))
+                .addComponent(inputComponent)
+               // .addComponent(new TerminalDisplay(manager,currentMap));
+                .addComponent(new PauseGamePopUp(this.game,
+                        new PopupUIHandler(pauseMenuTextures)))
+                .addComponent(new PlayerWinPopup(this.game, currentMap,
+                        new PopupUIHandler(winMenuTextures)))
+                .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
+                        new PopupUIHandler(lossMenuTextures)))
+                .addComponent(new PopupMenuActions(this.game, this.currentMap));
                 //.addComponent(this.buffManager = new BuffManager(this, currentMap));
 
 
@@ -303,7 +300,7 @@ public class LevelTwoScreen extends ScreenAdapter {
     /**
      * Returns the current game map
      * */
-    public Level2 getCurrentMap() {
+    public LevelTwoArea getCurrentMap() {
 
         return this.currentMap;
 
