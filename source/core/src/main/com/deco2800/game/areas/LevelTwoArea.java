@@ -23,10 +23,13 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.deco2800.game.components.player.DoubleJumpComponent;
+
+import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class Level2 extends GameArea{
-    private static final Logger logger = LoggerFactory.getLogger(Level2.class);
+public class LevelTwoArea extends GameArea{
+    private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
     private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
@@ -37,7 +40,7 @@ public class Level2 extends GameArea{
             "images/tree.png",
             "images/ghost_king.png",
             "images/ghost_1.png",
-            "images/lives_icon.png",
+            "images/lives_icon2.png",
             "images/grass_1.png",
             "images/grass_2.png",
             "images/grass_3.png",
@@ -112,8 +115,8 @@ public class Level2 extends GameArea{
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
     };
 
-    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+    private static final String backgroundMusic = "sounds/level2.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -128,18 +131,20 @@ public class Level2 extends GameArea{
 
     private boolean hasDied;
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
+    private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
+
+    public LevelTwoArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
         this.hasDied = hasDied;
     }
 
-    public Level2(TerrainFactory terrainFactory, int checkpoint, int lives) {
+    public LevelTwoArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
         super();
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
-        Level2.lives = lives;
+        LevelTwoArea.lives = lives;
     }
 
     /**
@@ -160,7 +165,7 @@ public class Level2 extends GameArea{
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
-        loadAssets();
+        //loadAssets();
 
         displayUI();
 
@@ -185,7 +190,7 @@ public class Level2 extends GameArea{
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-
+        playMusic();
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();
@@ -195,7 +200,7 @@ public class Level2 extends GameArea{
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Forest"));
+        ui.addComponent(new GameAreaDisplay("Level Two"));
         spawnEntity(ui);
     }
 
@@ -372,6 +377,8 @@ public class Level2 extends GameArea{
         } else {
             spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         }
+
+        newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
         return newPlayer;
     }
 
@@ -450,19 +457,6 @@ public class Level2 extends GameArea{
         }
     }
 
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(forestTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadSounds(forestSounds);
-        resourceService.loadMusic(forestMusic);
-
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
-        }
-    }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");

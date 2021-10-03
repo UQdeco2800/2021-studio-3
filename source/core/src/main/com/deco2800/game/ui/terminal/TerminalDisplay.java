@@ -27,6 +27,7 @@ public class TerminalDisplay extends UIComponent {
   private Collection<BuffManager.BuffTypes> buffTypes;
   public TerminalDisplay(AssetManager manager, GameArea currentMap){
     this.manager = manager;
+    //this.player = ((ForestGameArea) currentMap).getPlayer();
     this.player = ((ForestGameArea) currentMap).getPlayer();
     this.buffTypes = new ArrayList<>();
   }

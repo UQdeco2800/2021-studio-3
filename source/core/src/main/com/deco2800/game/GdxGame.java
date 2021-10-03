@@ -3,15 +3,13 @@ package com.deco2800.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.files.UserSettings;
 
-import com.deco2800.game.screens.LoadingScreen;
+import com.deco2800.game.screens.*;
 
-import com.deco2800.game.screens.LevelTwoScreen;
-
-import com.deco2800.game.screens.MainGameScreen;
-import com.deco2800.game.screens.MainMenuScreen;
-import com.deco2800.game.screens.SettingsScreen;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +23,9 @@ import static com.badlogic.gdx.Gdx.app;
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
   private GameState gameState;
+  private ScreenType screenType;
+  private ResourceService resourceService;
+
 
   @Override
   public void create() {
@@ -33,6 +34,10 @@ public class GdxGame extends Game {
 
     // Sets background to light yellow
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+    ServiceLocator.registerResourceService(new ResourceService());
+    resourceService = ServiceLocator.getResourceService();
+
+
 
     setScreen(ScreenType.MAIN_MENU);
   }
@@ -87,22 +92,32 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this);
+        return new MainGameScreen(this, resourceService);
       case LEVEL_TWO_GAME:
-        return new LevelTwoScreen(this);
+        return new LevelTwoScreen(this, resourceService);
+      case LEVEL_THREE_GAME:
+        return new LevelThreeScreen(this, resourceService);
       case RESPAWN:
-        return new MainGameScreen(this, true);
+        return new MainGameScreen(this, true, resourceService);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
-        return new LoadingScreen(this);
+        return new LoadingScreen(this, resourceService);
       case CHECKPOINT:
-        return new MainGameScreen(this, 1, true);
+        return new MainGameScreen(this, 1, true, resourceService);
       case CHECKPOINT_REPLAY:
-        return new MainGameScreen(this, 1, false);
+        return new MainGameScreen(this, 1, false, resourceService);
         default:
         return null;
     }
+  }
+
+  public void setScreenType(ScreenType screenType) {
+    this.screenType = screenType;
+  }
+
+  public ScreenType getScreenType() {
+    return this.screenType;
   }
 
   public void setState(GameState gameState) {
@@ -114,8 +129,8 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LOADING
-
+    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY,
+    LEVEL_TWO_GAME, LEVEL_THREE_GAME, LOADING
   }
 
   public enum GameState {

@@ -1,8 +1,10 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -15,6 +17,7 @@ import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ResourceService;
@@ -25,6 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -38,6 +45,9 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
+
+  private GdxGame game;
+
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -110,8 +120,8 @@ public class ForestGameArea extends GameArea {
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
   };
 
-  private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-  private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+  private static final String backgroundMusic = "sounds/maingame.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
   private final TerrainFactory terrainFactory;
@@ -165,7 +175,7 @@ public class ForestGameArea extends GameArea {
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
-    loadAssets();
+    //loadAssets();
 
     displayUI();
 
@@ -177,25 +187,30 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
 
     //spawnTrees();
-    spawnAsteriod();
-    spawnAsteroidFire();
-    spawnRobot();
+    //spawnAsteriod();
+    //spawnAsteroidFire();
+    //spawnRobot();
 
 
     //spawnBuilding();
     //spawnTrees();
     //spawnRocks();
-    spawnPlatform1();
+    //spawnPlatform1();
     //spawnPlanet1();
-    spawnUFO();
+    //spawnUFO();
     //spawnBuffDebuffPickup();
     //spawnAsteroids();
 
     //spawnGhosts();
     //spawnGhostKing();
     createCheckpoint();
+    playMusic();
+
+    //createCheckpoint();
 //    playMusic();
+
     //spawnAttackObstacle();
+    spawnAlienMonster();
   }
 
   private void displayUI() {
@@ -219,11 +234,6 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnTerrain() {
-    /* To extract the borders of the map */
-    Entity leftWall;
-    Entity topWall;
-    Entity floor;
-
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.SIDE_SCROLL_ER);
     spawnEntity(new Entity().addComponent(terrain));
@@ -232,31 +242,64 @@ public class ForestGameArea extends GameArea {
     float tileSize = terrain.getTileSize();
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+    TiledMapTileLayer layer = new TiledMapTileLayer(tileBounds.x, tileBounds.y, tileBounds.x, tileBounds.y);
 
     // Left
     spawnEntityAt(
-        leftWall = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
-        this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-        new GridPoint2(tileBounds.x, 0),
-        false,
-        false);
+            this.endOfMap = ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            new GridPoint2(tileBounds.x, 0),
+            false,
+            false);
     // Top
     spawnEntityAt(
-        topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
-        false,
-        false);
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, tileBounds.y),
+            false,
+            false);
     // Bottom
-    spawnEntityAt(
-            //change a wall with high:10
-        floor = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+    // LOGIC to create level terrain
+    int i = 0, x, y, distance;
+    // opens the levels file
+    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+      StringBuilder sb = new StringBuilder();
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(" ");
+        distance = Integer.parseInt(values[0]) * 2;
+        x = Integer.parseInt(values[1]);
+        y = Integer.parseInt(values[2]);
 
-    this.mapFixtures.put("LEFT_WALL", leftWall);
-    this.mapFixtures.put("RIGHT_WALL", this.endOfMap);
-    this.mapFixtures.put("ROOF", topWall);
-    this.mapFixtures.put("FLOOR", floor);
+        // creates the floors wall
+        spawnEntityAt(
+                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+        if (i != 0) {
+          // creates walls when floor level changes
+          float height = (float) y/2;
+          //float endHeight = (float) (previousY - y)/2;
+          spawnEntityAt(
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+          spawnEntityAt(
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+        }
+
+        line = br.readLine();
+        i++;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    //Kills player upon falling into void
+    spawnEntityAt(
+            ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, 1), false, false);
+
   }
 
   private void spawnUFO() {
@@ -338,6 +381,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(robot1, pos1, true, true);
   }
 
+  private void spawnAlienMonster() {
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(63, 20);
+    Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
+    spawnEntityAt(alienMonster, pos1, true, true);
+  }
 
   public boolean isDead() {
     return hasDied;
@@ -430,7 +481,8 @@ public class ForestGameArea extends GameArea {
   }
 
   private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    /*Changed*/
+    Music music = ServiceLocator.getResourceService().getAsset("sounds/maingame.mp3", Music.class);
     music.setLooping(true);
     music.setVolume(0.3f);
     music.play();
@@ -450,19 +502,6 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(forestTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
-  }
 
   private void unloadAssets() {
     logger.debug("Unloading assets");
@@ -476,7 +515,8 @@ public class ForestGameArea extends GameArea {
   @Override
   public void dispose() {
     super.dispose();
-    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+    /*Change back to backgroundMusic*/
+    ServiceLocator.getResourceService().getAsset("sounds/maingame.mp3", Music.class).stop();
     this.unloadAssets();
 
     System.out.println("forest game area disposed");
