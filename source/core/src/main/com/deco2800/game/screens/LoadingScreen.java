@@ -96,7 +96,15 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_star.png",
             "images/background_surface.png",
             "images/surface.png",
-            "images/alien_monster.png"
+            "images/alien_monster.png",
+            "images/alien_monster_weapon_01.png",
+            "images/alien_monster_weapon_02.png",
+            "images/alien_solider.png",
+            "images/alien_solider_weapon_01.png",
+            "images/alien_solider_weapon_02.png",
+            "images/vikings in space.png",
+            "images/lives_icon2.png"
+
     };
 
     private static final String[] level2Textures = {"images/background_mars.png",
