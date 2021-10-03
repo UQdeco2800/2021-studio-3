@@ -1,0 +1,55 @@
+
+SerpentLevel1.png
+size: 5668, 1890
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Serpent1.1
+  rotate: false
+  xy: 2, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 1
+Serpent1.2
+  rotate: false
+  xy: 946, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 2
+Serpent1.3
+  rotate: false
+  xy: 1890, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 3
+Serpent1.4
+  rotate: false
+  xy: 2834, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 4
+Serpent1.5
+  rotate: false
+  xy: 3778, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 5
+Serpent1.6
+  rotate: false
+  xy: 4722, 4
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 6
+default
+  rotate: false
+  xy: 5668, 0
+  size: 942, 1884
+  orig: 942, 1884
+  offset: 0, 0
+  index: 0
