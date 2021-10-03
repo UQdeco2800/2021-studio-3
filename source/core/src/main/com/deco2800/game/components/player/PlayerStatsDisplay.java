@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +28,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Table progressTable;
   private Table livesTable;
   private Table buffTable;
+  private Table rollTable;
 
   private Image levelStatus;
 
@@ -34,6 +36,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label sprintLabel;
   private Label progressLabel;
   private Label livesLabel;
+  private Label rollLabel;
 
   private Texture level10percent;
   private Texture level20percent;
@@ -139,6 +142,7 @@ public class PlayerStatsDisplay extends UIComponent {
     scoreTable = setupUITable(60f, 10f, UIPosition.CENTRE);
     progressTable = setupUITable(25f, 0f, UIPosition.CENTRE);
     buffTable = setupUITable(95f, 5f, UIPosition.CENTRE);
+    rollTable = setupUITable(90f, 10f, UIPosition.LEFT);
 
     /* Images for UI */
     Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon.png", Texture.class));
@@ -147,6 +151,10 @@ public class PlayerStatsDisplay extends UIComponent {
     int sprint = entity.getComponent(SprintComponent.class).getSprint();
     CharSequence sprintText = String.format("Sprint: %d", sprint);
     sprintLabel = new Label(sprintText, skin, "font", "white");
+
+    // Roll Text
+    CharSequence rollText = "Roll";
+    rollLabel = new Label(rollText, skin, "font", Color.FOREST);
 
     // Score Text
     int score = entity.getComponent(ScoreComponent.class).getScore();
@@ -189,6 +197,7 @@ public class PlayerStatsDisplay extends UIComponent {
     progressTable.add(progressLabel);
     livesTable.add(livesImage).size(40f).pad(5);
     livesTable.add(livesLabel);
+    rollTable.add(rollLabel);
 
     // Adding tables to stages
     stage.addActor(sprintTable);
@@ -196,6 +205,7 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(livesTable);
     stage.addActor(scoreTable);
     stage.addActor(buffTable);
+    stage.addActor(rollTable);
   }
 
     /**
@@ -265,6 +275,29 @@ public class PlayerStatsDisplay extends UIComponent {
       double health = entity.getComponent(CombatStatsComponent.class).getHealth();
       double healthPercentage = health / entity.getComponent(CombatStatsComponent.class).getMaxHealth();
       updateHealthBarDisplay(healthPercentage, batch);
+    }
+
+    /**
+     * Updates the roll status on the UI. If roll is available to the player,
+     * it appears green. Otherwise it appears gray with a cool-down timer
+     *
+     * @param coolDown the amount of time remaining on the roll cool-down, in
+     *                 seconds.
+     * */
+    public void updateRollDisplay(double coolDown) {
+      // Remove the old status
+      rollTable.clear();
+
+      // Set the label based on the cool-down, or lack thereof.
+      if (coolDown == 0) {
+        rollLabel = new Label("Roll", skin, "font", Color.FOREST);
+      } else {
+        String text = "Roll: " + (int) (coolDown + 1) + " ... ";
+        rollLabel = new Label(text, skin, "font", "gray");
+      }
+
+      // Update the table
+      rollTable.add(rollLabel);
     }
 
 
