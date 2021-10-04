@@ -153,7 +153,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
-   * Checks if the walk input was entered while the player was mid-roll.
+   * Checks if a walk input was entered while the player was mid-roll. If the
+   * player tries to walk while mid-roll, the onRollWalked variable ensures the
+   * movements don't clash.
    * */
   private void checkOnRollWalked() {
     if ((processingRoll | isRolling)) {
@@ -182,10 +184,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SHIFT_LEFT:
           return handleSprint(true);
       case Keys.Q:
-        // The player can only roll if they're not currently walking.
-        return !isStationary || setupRoll(Vector2Utils.LEFT);
+        // The player can only roll if they're not currently walking or rolling
+        return handleRollKeyInput(Vector2Utils.LEFT);
       case Keys.E:
-        return !isStationary || setupRoll(Vector2Utils.RIGHT);
+        return handleRollKeyInput(Vector2Utils.RIGHT);
       default:
         return false;
     }
@@ -212,12 +214,29 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
+   * Handles the key input when a player attempts to roll left (Q) or right
+   * (E).
+   *
+   * The player can't roll if they are currently rolling, processing a
+   * roll or moving. If these conditions are met, the roll is handled.
+   *
+   * @param direction the direction the player rolls in.
+   * @return true to indicate that the input is processed.
+   * */
+  private boolean handleRollKeyInput(Vector2 direction) {
+    if (processingRoll | isRolling) {
+      return true;
+    }
+    return !isStationary || setupRoll(direction);
+  }
+
+  /**
    * Ensures that if the player tried to walk while mid-roll, the player does
    * not attempt to 'un-walk' when the roll ends (ie, walk backwards)
    *
    * @param key the key that was pressed (A or D)
-   * @param keyState whether the key was relesed or pressed. Currently, this
-   *                 function only handles release, ie "UP"
+   * @param keyState whether the key was released or pressed. Currently, this
+   *                 function only handles release, ie "UP".
    * */
   private boolean handleWalkKeyInput(char key, String keyState) {
     if (onRollWalked) {
@@ -322,6 +341,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
+  /**
+   * Determines the players current state based on several state-tracking
+   * variables, and updates their physical representation to reflect that.
+   * */
   public void updatePlayerStateAnimation() {
     entity.getComponent(PlayerStateComponent.class).manage(isJumping,
             isSprinting, movingRight, movingLeft, isStationary);
