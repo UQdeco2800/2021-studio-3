@@ -1,0 +1,14 @@
+{
+  "alienMonster": {
+    "health": 100,
+    "baseAttack": 10
+  },
+  "alienSolider": {
+    "health": 100,
+    "baseAttack": 10
+  },
+  "alienBoss": {
+    "health": 100,
+    "baseAttack": 50
+  }
+}

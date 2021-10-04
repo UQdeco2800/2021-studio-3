@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,17 +32,56 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean isSprinting = false; //true if player is currently sprinting
   private boolean firstSprint = true; //used for starting timer-related stuff
   private boolean isJumping = false; //true if player is jumping
-  private boolean noJumping = false;
+  private boolean noJumping = false; //true if player has picked up a no jump debuff
   private boolean movingRight = false; //true if player is moving right
   private boolean movingLeft = false; //true if player is moving left
   private boolean isStationary = true; //true if player is not moving (Just gravity affecting movement)
 
+
   public Timer sprintTimer = new Timer();
-  public Timer jumpingTimer = new Timer();
-  public Timer fallingTimer = new Timer();
+
+  /**
+   * Handles jump-related behaviour every frame.
+   *
+   * @see DoubleJumpComponent#checkJumpOnUpdate()
+   * */
+  @Override
+  public void update() {
+    entity.getComponent(DoubleJumpComponent.class).checkJumpOnUpdate();
+  }
+
+  /**
+   * Handles the player falling after their total JUMP_TIME is up. The player's
+   * jumping-related variables and new state are set.
+   *
+   * JUMP_TIME is defined in the DoubleJumpComponent class.
+   *
+   * @see DoubleJumpComponent
+   * */
+  public void handleFalling() {
+    // Subtracts 4 m/s to upwards movement
+    applyMovement(Vector2Utils.DOWN);
+
+    isJumping = false;
+    entity.getComponent(DoubleJumpComponent.class).setIsJumping(isJumping);
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
+    triggerMovementEvent();
+  }
+
+  /**
+   * Applies change in players' movement direction when jumping or falling.
+   *
+   * @param direction the new direction for the player to go in.
+   * */
+  private void applyMovement(Vector2 direction) {
+    int height = entity.getComponent(DoubleJumpComponent.class).JUMP_HEIGHT;
+
+    for (int i = 0; i < height; i++) {
+      walkDirection.add(direction);
+    }
+  }
 
   public Timer.Task removeSprint = new Timer.Task() {
-
     @Override
     public void run() {
       entity.getComponent(SprintComponent.class).removeSprint(1);
@@ -57,33 +97,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         isSprinting = false;
         entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
       }
-    }
-  };
-
-  /** Makes player fall for 1 second */
-  public Timer.Task startFalling = new Timer.Task() {
-    @Override
-    public void run(){
-      // Subtracts 4 m/s to upwards movement
-      for (int i = 0; i < 4; i++) {
-        walkDirection.sub(Vector2Utils.UP);
-      }
-      jumpingTimer.stop();
-      // Schedules to stop falling and allow user to jump again
-      fallingTimer.start();
-      fallingTimer.scheduleTask(stopFalling, 1f);
-      startFalling.cancel();
-    }
-  };
-
-  /** Stops falling and allows user to jump again by setting isJumping to false */
-  public Timer.Task stopFalling = new Timer.Task() {
-    @Override
-    public void run(){
-      fallingTimer.stop();
-      isJumping = false;
-      triggerMovementEvent();
-      stopFalling.cancel();
     }
   };
 
@@ -150,6 +163,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   }
 
+  /*private boolean instantDrop() {
+    if (isJumping) {
+      logger.info("Dropped to the ground");
+      for (int i = 0; i < 8; i++) {
+        walkDirection.sub(Vector2Utils.UP);
+      }
+      for (int i = 0; i < 4; i++) {
+        walkDirection.add(Vector2Utils.UP);
+      }
+    }
+    return true;
+  }*/
+
   /**
    * After an input of 'A' or 'D' has been detected, decide to move left or right.
    *
@@ -158,7 +184,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private boolean handleWalk(char Key, String keyState){
     Vector2 direction = Key == 'A' ? Vector2Utils.LEFT : Vector2Utils.RIGHT;
     int scalar = entity.getComponent(SprintComponent.class).getSprint() > 0 && isSprinting ? SPRINT_MODIFIER : 1;
-    if (scalar == 1){
+    if (scalar == 1) {
       entity.getComponent(PlayerStateComponent.class).updateState(State.WALK);
     }
     // Updates the player state direction for which way they are moving
@@ -214,36 +240,51 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
-   * After an input of 'SPACE_BAR' been detected, jump if the player is able
-   * to jump.
+   * Handles setup and performance of player jumping when the SPACE_BAR is hit.
+   * The player's jumping-related variables and new state are set.
    *
-   * @return true if jump was processed
+   * @return true when the jump is processed.
    */
-  private boolean jump(){
+  private boolean jump() {
     if (canJump()) {
       isJumping = true;
-      // Adds 4 m/s to upwards movement
-      for (int i = 0; i < 4; i++) {
-        walkDirection.add(Vector2Utils.UP);
-      }
-      triggerMovementEvent();
-      jumpingTimer.start();
-      // Schedules to stop jumping and start falling
-      jumpingTimer.scheduleTask(startFalling, 0.3f);
+      entity.getComponent(DoubleJumpComponent.class).setIsJumping(isJumping);
+      entity.getComponent(DoubleJumpComponent.class).nextJumpState();
+      entity.getComponent(PlayerStateComponent.class).manage(isJumping, isSprinting, movingRight, movingLeft, isStationary);
+      performJump();
     }
     return true;
   }
 
   /**
-   * Returns whether the player can jump based on:
-   * - whether they are currently jumping, and
-   * - whether they are under the effects of a debuff which disallows them to jump.
+   * Performs the player jump movement and begins timing to handle player
+   * descent. The duration of a players' jump is defined in the
+   * DoubleJumpComponent class.
+   *
+   * @see DoubleJumpComponent
+   * */
+  private void performJump() {
+    // Adds 4 m/s to upwards movement
+    applyMovement(Vector2Utils.UP);
+    triggerMovementEvent();
+
+    // Begin timing
+    long time = ServiceLocator.getTimeSource().getTime();
+    entity.getComponent(DoubleJumpComponent.class).setJumpStartTime(time);
+  }
+
+  /**
+   * Returns whether or not the player can jump based on:
+   * - whether they are currently jumping,
+   * - whether they are currently double jumping, and
+   * - whether they are under the effects of a debuff which disallows them to
+   *   jump.
    *
    * @return true if the player is able to jump, else false.
    * */
   private boolean canJump() {
-    return (!isJumping && !startFalling.isScheduled() &&
-            !stopFalling.isScheduled() && !noJumping);
+    return (!isJumping && !noJumping &&
+            entity.getComponent(DoubleJumpComponent.class).notDoubleJumping());
   }
 
   /** After a walk or jump has been processed, apply the speed and animations to the player. */

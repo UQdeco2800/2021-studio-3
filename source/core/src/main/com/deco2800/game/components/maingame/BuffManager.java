@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -57,6 +58,11 @@ public class BuffManager extends Component {
     /* Creation time of floating animation when player picks up a buff */
     private long pickupCreationTime;
 
+    /* Buff sound */
+    private static final String BUFF_SOUND_PATH = "sounds/buff.mp3";
+
+    /* Debuff sound */
+    private static final String DEBUFF_SOUND_PATH = "sounds/debuff.mp3";
 
     /**
      * Tracks the different buff types in the game. Add new buff types here.
@@ -72,9 +78,12 @@ public class BuffManager extends Component {
      *  - selectBuffFunctionality() method: append the relevant switch
      *    statement to call the PlayerBuffs method which controls the behaviour
      *    of the buff
+     *  - getBuffSound() method: add the buff or debuff into the buff / debuff
+     *    switch statement list so that the buff or debuff sound is applied to
+     *    the buff upon pickup.
      *
      * When any new buff is added, the PlayerBuff class must have a method
-     * added to control that buff
+     * added to control that buff.
      *
      * If a new timed buff is added, the PlayerBuff class must have a method
      * added to control the removal of the effects of the buff
@@ -276,7 +285,47 @@ public class BuffManager extends Component {
             // Remove the buff from the map
             this.currentBuffs.remove(buff);
             removeBuff(buff);
+
+            // Play the sound for the buff
+            playBuffSound(type);
         }
+    }
+
+    /**
+     * Returns the filepath for the buff or debuff sound associated with a
+     * particular buff. By default, there are two sounds: one for buffs, one
+     * for debuffs.
+     *
+     * @param type the type of buff that was picked up.
+     * @return the filepath for the sound to be played.
+     * */
+    private String getBuffSound(BuffTypes type) {
+        switch (type) {
+            case B_FULL_HEAL:
+            case B_HP_UP:
+            case BT_INF_SPRINT:
+            case BT_INVIN:
+                return BUFF_SOUND_PATH;
+            case D_HP_DOWN:
+            case DT_NO_JUMP:
+            case DT_DOUBLE_DMG:
+                return DEBUFF_SOUND_PATH;
+        }
+        return BUFF_SOUND_PATH; // default
+    }
+
+    /**
+     * Plays the buff or debuff tune when one is picked up by the player.
+     *
+     * @param type the type of buff that was picked up. The tune that is played
+     *             upon pickup will depend on whether a buff or debuff was
+     *             retrieved.
+     * */
+    private void playBuffSound(BuffTypes type) {
+        String soundPath = getBuffSound(type);
+        Sound sound = ServiceLocator.getResourceService().getAsset(soundPath, Sound.class);
+        sound.setVolume(0,0.5f);
+        sound.play();
     }
 
     /**
@@ -434,6 +483,17 @@ public class BuffManager extends Component {
      * */
     public Map<Entity, BuffInformation> getCurrentBuffs() {
         return this.currentBuffs;
+    }
+
+    /**
+     * Disposes of all of the buffs currently sitting on the map
+     * */
+    public void disposeAll() {
+        for (Entity buff : this.currentBuffs.keySet()) {
+            removeBuff(buff);
+        }
+        // Reset the current buffs
+        this.currentBuffs = new LinkedHashMap<>();
     }
 
 }
