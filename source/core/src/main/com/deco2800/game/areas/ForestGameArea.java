@@ -60,7 +60,7 @@ public class ForestGameArea extends GameArea {
   private static final float WALL_WIDTH = 0.1f;
 
   private GdxGame game;
-  private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
+  private static final GridPoint2 CHECKPOINT = new GridPoint2(18, 12);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
 
   /**
@@ -504,6 +504,8 @@ public class ForestGameArea extends GameArea {
    * @param camera the CameraComponent of the map
    */
   public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
+    player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= CAM_START_TIME + DEATH_WALL_SHOW_DUR);
+
     if (camera.getCamera().position.x - startPos.x < distance
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
       camera.getCamera().translate((distance/duration)/REFRESH_RATE, 0,0);
