@@ -27,8 +27,7 @@ public class LoadingScreen extends ScreenAdapter {
     private static final String[] LoadingTextures = {"images/bar1.png",
             "images/bar2.png", "images/bar3.png", "images/bar4.png",
             "images/bar5.png", "images/bar6.png", "images/bar7.png",
-            "images/bar8.png", "images/bar9.png", "images/bar10.png",
-            "images/loadingF1.png"};
+            "images/bar8.png", "images/bar9.png", "images/bar10.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -145,21 +144,27 @@ public class LoadingScreen extends ScreenAdapter {
         if (resourceService.getAssetManager().update()) {
             switch (game.getScreenType()) {
                 case MAIN_GAME:
+                    logger.info("Setting screen to MAIN_GAME");
                     this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
                     break;
                 case CHECKPOINT_REPLAY:
+                    logger.info("Setting screen to CHECKPOINT_REPLAY");
                     this.game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
                     break;
                 case CHECKPOINT:
+                    logger.info("Setting screen to CHECKPOINT");
                     this.game.setScreen(GdxGame.ScreenType.CHECKPOINT);
                     break;
                 case RESPAWN:
+                    logger.info("Setting screen to RESPAWN");
                     this.game.setScreen(GdxGame.ScreenType.RESPAWN);
                     break;
                 case LEVEL_TWO_GAME:
+                    logger.info("Setting screen to LEVEL_TWO_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
                     break;
                 case LEVEL_THREE_GAME:
+                    logger.info("Setting screen to LEVEL_THREE_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
                     break;
             }
@@ -213,7 +218,6 @@ public class LoadingScreen extends ScreenAdapter {
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
-        //ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(LoadingTextures);
     }
 
