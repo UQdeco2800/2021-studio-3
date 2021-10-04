@@ -23,11 +23,11 @@ public class LoadingScreen extends ScreenAdapter {
     private final GdxGame game;
     private ResourceService resourceService;
 
-    private static final String[] LoadingTextures = {"images/0percent.png",
-            "images/10percent.png", "images/20percent.png", "images/30percent.png",
-            "images/40percent.png", "images/50percent.png", "images/50percent.png",
-            "images/60percent.png", "images/70percent.png", "images/80percent.png",
-            "images/90percent.png", "images/100percent.png", "images/loading3.png"};
+    /* Textures of loading screen background and loading bar */
+    private static final String[] LoadingTextures = {"images/bar1.png",
+            "images/bar2.png", "images/bar3.png", "images/bar4.png",
+            "images/bar5.png", "images/bar6.png", "images/bar7.png",
+            "images/bar8.png", "images/bar9.png", "images/bar10.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -103,11 +103,13 @@ public class LoadingScreen extends ScreenAdapter {
             "images/double_jump.png"
     };
 
+    /* Textures only needed for level 2*/
     private static final String[] level2Textures = {"images/background_mars.png",
             "images/background_mars_ground.png",
             "images/background_mars_surface.png",
             "images/background_mars_star.png"};
 
+    /* Textures only needed for level 3 */
     private static final String[] level3Textures = {"images/background_europa.png",
             "images/background_europa_ground.png",
             "images/background_europa_surface.png",
@@ -121,7 +123,7 @@ public class LoadingScreen extends ScreenAdapter {
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
-    //private static String backgroundMusic = "sounds/maingame.mp3";
+
     private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
 
@@ -148,27 +150,32 @@ public class LoadingScreen extends ScreenAdapter {
         if (resourceService.getAssetManager().update()) {
             switch (game.getScreenType()) {
                 case MAIN_GAME:
+                    logger.info("Setting screen to MAIN_GAME");
                     this.game.setScreen(GdxGame.ScreenType.MAIN_GAME);
                     break;
                 case CHECKPOINT_REPLAY:
+                    logger.info("Setting screen to CHECKPOINT_REPLAY");
                     this.game.setScreen(GdxGame.ScreenType.CHECKPOINT_REPLAY);
                     break;
                 case CHECKPOINT:
+                    logger.info("Setting screen to CHECKPOINT");
                     this.game.setScreen(GdxGame.ScreenType.CHECKPOINT);
                     break;
                 case RESPAWN:
+                    logger.info("Setting screen to RESPAWN");
                     this.game.setScreen(GdxGame.ScreenType.RESPAWN);
                     break;
                 case LEVEL_TWO_GAME:
+                    logger.info("Setting screen to LEVEL_TWO_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
                     break;
                 case LEVEL_THREE_GAME:
+                    logger.info("Setting screen to LEVEL_THREE_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
                     break;
             }
-
         } else {
-            //logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
+            logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));
         }
         renderer.render();
     }
@@ -217,7 +224,6 @@ public class LoadingScreen extends ScreenAdapter {
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
-        //ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(LoadingTextures);
     }
 
