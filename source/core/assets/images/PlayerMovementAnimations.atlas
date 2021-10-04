@@ -1101,44 +1101,37 @@ default
   index: 0
 
 IdleCharacters.png
-size: 1015, 462
+size: 1210, 524
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest, Nearest
 repeat: none
 normal-stationary
   rotate: false
-  xy: 214, 1
-  size: 265, 431
+  xy: 404, 4
+  size: 400, 518
   orig: 400, 518
-  offset: 74, 50
-  index: 0
+  offset: 0, 0
+  index: 1
 damaged-stationary
   rotate: false
-  xy: 481, 1
-  size: 265, 431
+  xy: 2, 4
+  size: 400, 518
   orig: 400, 518
-  offset: 63, 51
-  index: 0
+  offset: 0, 0
+  index: 3
 rough-stationary
   rotate: false
-  xy: 748, 1
-  size: 266, 430
+  xy: 806, 4
+  size: 400, 518
   orig: 400, 518
-  offset: 67, 44
-  index: 0
-dead
-  rotate: true
-  xy: 1, 1
-  size: 460, 211
-  orig: 518, 400
-  offset: 11, 81
-  index: 0
+  offset: 0, 0
+  index: 2
 default
   rotate: false
-  xy: 214, 1
-  size: 265, 431
+  xy: 1210, 0
+  size: 400, 518
   orig: 400, 518
-  offset: 74, 50
+  offset: 0, 0
   index: 0
 
 Death.png
@@ -1160,6 +1153,7 @@ default
   orig: 518, 400
   offset: 0, 0
   index: 0
+
 
 double_jump.png
 size: 2048, 1024
