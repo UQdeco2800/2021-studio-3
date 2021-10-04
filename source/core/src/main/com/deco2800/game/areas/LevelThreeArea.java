@@ -121,7 +121,7 @@ public class LevelThreeArea extends GameArea {
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String backgroundMusic = "sounds/level3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -193,7 +193,7 @@ public class LevelThreeArea extends GameArea {
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-
+        playMusic();
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();
@@ -433,6 +433,7 @@ public class LevelThreeArea extends GameArea {
     public void resetCam(CameraComponent camera) {
         float playerX = player.getPosition().x;
 
+        //System.out.println(playerX);
         if (playerX >= 5 && playerX <= 35) {
             camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
             camera.getCamera().update();

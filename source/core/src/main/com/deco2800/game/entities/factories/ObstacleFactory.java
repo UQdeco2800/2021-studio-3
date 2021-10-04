@@ -2,25 +2,17 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-
-import com.deco2800.game.components.obstacle.AttackListener;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
-
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-
-import com.deco2800.game.components.tasks.AttackTask;
 import com.deco2800.game.components.tasks.ChaseTask;
-
 import com.deco2800.game.components.CombatStatsComponent;
 
 
@@ -136,10 +128,12 @@ public class ObstacleFactory {
             .addComponent(animator)
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-    asteroidFire.scaleHeight(1f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1f));
+    asteroidFire.scaleHeight(1.2f);
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.2f));
+
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
+    asteroidFire.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0),asteroidFire.getCenterPosition());
     return asteroidFire;
   }
 
