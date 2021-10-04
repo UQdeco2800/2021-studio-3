@@ -36,7 +36,7 @@ import java.util.Random;
 public class LevelTwoArea extends GameArea{
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(5, 11);
     private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
     private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
     private static final float WALL_WIDTH = 0.1f;
@@ -176,6 +176,7 @@ public class LevelTwoArea extends GameArea{
 
         spawnTerrain();
         player = spawnPlayer();
+        spawnDeathWall();
         //spawnTrees();
 
 
@@ -494,6 +495,15 @@ public class LevelTwoArea extends GameArea{
         spawnEntityAtVector(buffPickup, playerPos);
         logger.info("Just released a buff pickup");
         return buffPickup;
+    }
+
+    private void spawnDeathWall() {
+        // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
+        // target's y position is offset 4.5 upwards to remove the bug
+        Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
+        Entity deathWall = ObstacleFactory.createDeathWall(3f, terrain.getMapBounds(0).y *
+                terrain.getTileSize(), deathWallEndPos);
+        spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
     }
 
     private void playMusic() {
