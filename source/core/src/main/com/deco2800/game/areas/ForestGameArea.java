@@ -14,6 +14,7 @@ import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
+import com.deco2800.game.components.player.PlayerAnimationController;
 import com.deco2800.game.components.player.PlayerStateComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -510,7 +511,7 @@ public class ForestGameArea extends GameArea {
     long DEATH_WALL_SHOW_DUR = 3500;
     float REFRESH_RATE = 60;
     player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
-    player.getComponent(PlayerStateComponent.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
+    player.getComponent(PlayerAnimationController.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
 
     if (camera.getCamera().position.x - startPos.x < distance
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {

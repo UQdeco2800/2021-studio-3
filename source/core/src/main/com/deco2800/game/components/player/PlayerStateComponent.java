@@ -70,7 +70,7 @@ public class PlayerStateComponent extends Component {
      */
     public String getStateAnimation(){
         String animationName;
-        if (health == Health.NORMAL && this.enabled){
+        if (health == Health.NORMAL){
             switch (state) {
                 case STATIONARY:
                     return "normal-stationary";
