@@ -36,10 +36,14 @@ public class RollComponent extends Component {
     /* True if the player is falling (rolled off something) */
     private boolean falling;
 
+    /* True if the player has rolled at least once */
+    private boolean playerHasRolled;
+
     public RollComponent() {
         this.rolling = false;
         this.rollOnCoolDown = false;
         this.falling = false;
+        this.playerHasRolled = false;
     }
 
     /**
@@ -48,7 +52,9 @@ public class RollComponent extends Component {
     @Override
     public void update() {
         checkRollStatus();
-        entity.getComponent(PlayerStatsDisplay.class).updateRollDisplay(getCoolDownRemaining() / 1000);
+        if (playerHasRolled) {
+            entity.getComponent(PlayerStatsDisplay.class).updateRollDisplay(getCoolDownRemaining() / 1000);
+        }
     }
 
     /**
@@ -126,6 +132,9 @@ public class RollComponent extends Component {
      *                  RIGHT.
      * */
     public void handleRolling(Vector2 direction) {
+        // Let the UI know the player has rolled
+        this.playerHasRolled = true;
+
         // Keep track of when the player rolls
         setLastRollStarted(ServiceLocator.getTimeSource().getTime());
 
