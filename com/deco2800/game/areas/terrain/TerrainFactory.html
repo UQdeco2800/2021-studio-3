@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -190,6 +190,15 @@ extends java.lang.Object</pre>
 <div class="block">Create a terrain of the given type, using the orientation of the factory.</div>
 </td>
 </tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getYOfSurface(int,com.deco2800.game.GdxGame.ScreenType)">getYOfSurface</a></span>&#8203;(int&nbsp;x,
+<a href="../../GdxGame.ScreenType.html" title="enum in com.deco2800.game">GdxGame.ScreenType</a>&nbsp;screenType)</code></th>
+<td class="colLast">
+<div class="block">If a surface tile exists on the game map with the given x-coordinate, return
+ the corresponding y-coordinate</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -257,6 +266,23 @@ extends java.lang.Object</pre>
 <dd><code>terrainType</code> - Terrain to create</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Terrain component which renders the terrain</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getYOfSurface(int,com.deco2800.game.GdxGame.ScreenType)">getYOfSurface</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getYOfSurface</span>&#8203;(<span class="arguments">int&nbsp;x,
+<a href="../../GdxGame.ScreenType.html" title="enum in com.deco2800.game">GdxGame.ScreenType</a>&nbsp;screenType)</span></div>
+<div class="block">If a surface tile exists on the game map with the given x-coordinate, return
+ the corresponding y-coordinate</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>x</code> - </dd>
+<dd><code>screenType</code> - the current level screen of the game</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the corresponding y-coordinate of surface tile if it exists wih
+ given x-coordinate</dd>
 </dl>
 </section>
 </li>
