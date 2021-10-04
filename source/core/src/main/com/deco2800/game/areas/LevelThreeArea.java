@@ -14,6 +14,7 @@ import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ResourceService;
@@ -28,6 +29,7 @@ import com.deco2800.game.components.player.DoubleJumpComponent;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
+/** Game area for the level three */
 public class LevelThreeArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
@@ -109,12 +111,17 @@ public class LevelThreeArea extends GameArea {
             "images/background_europa.png",
             "images/background_europa_ground.png",
             "images/background_europa_surface.png",
-            "images/background_europa_star.png"
-
+            "images/background_europa_star.png",
+            "images/alien_monster_weapon_01.png",
+            "images/alien_monster_weapon_02.png",
+            "images/alien_solider.png",
+            "images/alien_solider_weapon_01.png",
+            "images/alien_solider_weapon_02.png",
+            "images/alien_boss.png",
+            "images/alien_boss_weapon_01.png"
     };
 
     private static final String[] forestTextureAtlases = {
-
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
@@ -123,7 +130,6 @@ public class LevelThreeArea extends GameArea {
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
-
     private final TerrainFactory terrainFactory;
 
     /* Player on the map */
@@ -167,40 +173,22 @@ public class LevelThreeArea extends GameArea {
         return endOfMap;
     }
 
-    /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+    /** Create the game area, including terrain, static entities (asteroids, asteroid fire), dynamic entities (enemies, robot, ufo) */
     @Override
     public void create() {
-        //loadAssets();
 
         displayUI();
 
         spawnTerrain();
         player = spawnPlayer();
-        //spawnTrees();
 
-
-        //spawnGhosts();
-
-        //spawnTrees();
         spawnAsteriod();
         spawnAsteroidFire();
         spawnRobot();
 
-
-        //spawnBuilding();
-        //spawnTrees();
-        //spawnRocks();
         spawnPlatform1();
-        //spawnPlanet1();
         spawnUFO();
-        //spawnBuffDebuffPickup();
-        //spawnAsteroids();
-
-        //spawnGhosts();
-        //spawnGhostKing();
-        //createCheckpoint();
-//    playMusic();
-        //spawnAttackObstacle();
+        spawnAlienBoss();
     }
 
     private void displayUI() {
@@ -223,6 +211,9 @@ public class LevelThreeArea extends GameArea {
         checkpoint = status;
     }
 
+    /**
+     * Spawn the terrain onto this area.
+     */
     private void spawnTerrain() {
         // Background terrain
 
@@ -255,6 +246,9 @@ public class LevelThreeArea extends GameArea {
                 ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
     }
 
+    /**
+     * Spawn the dynamic obstacle entity UFO.
+     */
     private void spawnUFO() {
         GridPoint2 minPos = new GridPoint2(2, 20);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
@@ -264,6 +258,9 @@ public class LevelThreeArea extends GameArea {
         spawnEntityAt(ufo, randomPos, true, true);
     }
 
+    /**
+     * Spawn the entity platform.
+     */
     private void spawnPlatform1() {
         Entity platform1 = ObstacleFactory.createPlatform1();
         spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
@@ -273,10 +270,10 @@ public class LevelThreeArea extends GameArea {
         spawnEntityAt(platform2, pos2, true, false);
     }
 
+    /**
+     * Spawn the static obstacle entities asteroid.
+     */
     private void spawnAsteriod() {
-        //GridPoint2 minPos = new GridPoint2(2, 10);
-        //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
-
         GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
         Entity asteriod1 = ObstacleFactory.createAsteroid();
         spawnEntityAt(asteriod1, asteriodPosition1, true, false);
@@ -288,11 +285,6 @@ public class LevelThreeArea extends GameArea {
         GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
         Entity asteriod3 = ObstacleFactory.createAsteroid();
         spawnEntityAt(asteriod3, asteriodPosition3, true, false);
-//    for (int i = 0; i < NUM_ASTERIODS; i++) {
-//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-//      Entity asteriod = ObstacleFactory.createAsteriod();
-//      spawnEntityAt(asteriod, randomPos, true, false);
-//    }
     }
 
     private void spawnAsteroidFire() {
@@ -332,6 +324,14 @@ public class LevelThreeArea extends GameArea {
         spawnEntityAt(robot1, pos1, true, true);
     }
 
+    /**
+     * Spawns an alien boss for this level.
+     */
+    private void spawnAlienBoss() {
+        GridPoint2 pos1 = new GridPoint2(78, 20);
+        Entity alienBoss = EnemyFactory.createAlienBoss(player, this);
+        spawnEntityAt(alienBoss, pos1, true, true);
+    }
 
     public boolean isDead() {
         return hasDied;

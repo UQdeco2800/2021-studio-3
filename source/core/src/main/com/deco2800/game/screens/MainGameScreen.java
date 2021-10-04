@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The game screen containing the main game.
+ * The game screen containing the level one game area.
  *
  * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
  */
@@ -224,15 +224,11 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void render(float delta) {
     this.currentMap.resetCam(renderer.getCamera());
-    if (isLevelChange) {
-      generateNewLevel();
-    }
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
     renderer.render();
-
   }
 
   @Override
@@ -331,27 +327,5 @@ public class MainGameScreen extends ScreenAdapter {
 
       return this.currentMap;
 
-  }
-
-  public static void changeLevel() {
-    isLevelChange = true;
-  }
-
-  public void generateNewLevel () {
-    currentLevel += 1;
-    System.out.println(currentLevel);
-    currentMap.dispose();
-    buffManager.disposeAll();
-    ui.dispose();
-   // unloadAssets();
-    if (currentLevel == 2) {
-      System.out.println("load next level.");
-      load();
-//      this.terrainFactory = new TerrainFactory(renderer.getCamera());
-      level2Map = new LevelTwoArea(terrainFactory, 0, false);
-      level2Map.create();
-      createUI();
-    }
-    isLevelChange = false;
   }
 }

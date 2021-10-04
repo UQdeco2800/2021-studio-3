@@ -29,6 +29,11 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The game screen containing the level three game area.
+ *
+ * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
+ */
 public class LevelThreeScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoScreen.class);
     private static final String[] mainGameTextures = {"images/heart.png", "images/lives_icon2.png"};
@@ -66,7 +71,6 @@ public class LevelThreeScreen extends ScreenAdapter {
 
 
     private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
-
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;

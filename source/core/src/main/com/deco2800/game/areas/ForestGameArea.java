@@ -87,7 +87,6 @@ public class ForestGameArea extends GameArea {
      space the player is allowed to move within. */
   private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
-
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
@@ -155,9 +154,9 @@ public class ForestGameArea extends GameArea {
 //    playMusic();
 
     //spawnAttackObstacle();
-    spawnAlienMonster();
+    //spawnAlienMonster();
     spawnAlienSoldier();
-    spawnAlienBoss();
+    //spawnAlienBoss();
   }
 
   private void displayUI() {
