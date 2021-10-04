@@ -181,8 +181,8 @@ public class LevelTwoArea extends GameArea{
         //spawnGhosts();
 
         //spawnTrees();
-        //spawnAsteriod();
-        //spawnAsteroidFire();
+        spawnAsteroids();
+        spawnAsteroidFires();
         spawnRobot();
 
 
@@ -191,9 +191,9 @@ public class LevelTwoArea extends GameArea{
         //spawnRocks();
         spawnPlatforms();
         //spawnPlanet1();
-        spawnUFO();
+        //spawnUFO();
         //spawnBuffDebuffPickup();
-        //spawnAsteroids();
+
         playMusic();
         //spawnGhosts();
         //spawnGhostKing();
@@ -299,7 +299,9 @@ public class LevelTwoArea extends GameArea{
         spawnEntityAt(ufo, randomPos, true, true);
     }
 
-    // calls all spawn platorms for this level
+    /**
+     * spawns the platforms for the level
+     * */
     private void spawnPlatforms() {
         spawnPlatform(20, 13);
         spawnPlatform(24, 10);
@@ -307,7 +309,11 @@ public class LevelTwoArea extends GameArea{
         spawnPlatform(34, 6);
     }
 
-
+    /**
+     * spawns a platform at a give position
+     * param: int x, x position of the platform
+     *        int y, y position of the platform
+     * */
     private void spawnPlatform(int x, int y) {
         Entity platform1 = ObstacleFactory.createPlatform1();
         spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
@@ -335,21 +341,17 @@ public class LevelTwoArea extends GameArea{
      }
      }*/
 
-    private void spawnAsteriod() {
+    /**
+     * spawns the asteroids for the level
+     * */
+    private void spawnAsteroids() {
         //GridPoint2 minPos = new GridPoint2(2, 10);
         //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
+        spawnAsteroidFire(38,5);
+        spawnAsteroid(46, 7);
+        spawnAsteroid(55, 8);
+        spawnAsteroid(87, 5);
 
-        GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
-        Entity asteriod1 = ObstacleFactory.createAsteroid();
-        spawnEntityAt(asteriod1, asteriodPosition1, true, false);
-
-        GridPoint2 asteriodPosition2 = new GridPoint2(9, 10);
-        Entity asteriod2 = ObstacleFactory.createAsteroid();
-        spawnEntityAt(asteriod2, asteriodPosition2, true, false);
-
-        GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
-        Entity asteriod3 = ObstacleFactory.createAsteroid();
-        spawnEntityAt(asteriod3, asteriodPosition3, true, false);
 //    for (int i = 0; i < NUM_ASTERIODS; i++) {
 //      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
 //      Entity asteriod = ObstacleFactory.createAsteriod();
@@ -357,35 +359,41 @@ public class LevelTwoArea extends GameArea{
 //    }
     }
 
-    private void spawnAsteroidFire() {
-        GridPoint2 pos1 = new GridPoint2(12,10);
-        Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle1, pos1, true, false);
+    /**
+     * spawns an asteroid at a give position
+     * param: int x, x position of the asteroid
+     *        int y, y position of the asteroid
+     * */
+    private void spawnAsteroid(int x, int y) {
+        GridPoint2 asteroidPosition1 = new GridPoint2(x, y);
+        Entity asteroid1 = ObstacleFactory.createAsteroid();
+        spawnEntityAt(asteroid1, asteroidPosition1, true, false);
+    }
 
-        GridPoint2 pos2 = new GridPoint2(17,10);
-        Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle2, pos2, true, false);
+    /**
+     * spawns the asteroidFires for the level
+     * */
+    private void spawnAsteroidFires() {
+        spawnAsteroidFire(22,3);
+        spawnAsteroidFire(21,3);
+        spawnAsteroidFire(25,4);
+        spawnAsteroidFire(40,5);
+        spawnAsteroidFire(41,5);
+        spawnAsteroidFire(50,7);
+        spawnAsteroidFire(61,11);
+        spawnAsteroidFire(65,15);
+        spawnAsteroidFire(85,5);
+    }
 
-        GridPoint2 pos3 = new GridPoint2(27,10);
-        Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle3, pos3, true, false);
-
-        GridPoint2 pos4 = new GridPoint2(33,10);
-        Entity attackObstacle4 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle4, pos4, true, false);
-
-        GridPoint2 pos5 = new GridPoint2(43,10);
-        Entity attackObstacle5 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle5, pos5, true, false);
-
-        GridPoint2 pos6 = new GridPoint2(48,10);
-        Entity attackObstacle6 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle6, pos6, true, false);
-
-
-        GridPoint2 pos7 = new GridPoint2(59,10);
-        Entity attackObstacle7 = ObstacleFactory.createAsteroidAnimatedFire(player);
-        spawnEntityAt(attackObstacle7, pos7, true, false);
+    /**
+     * spawns an asteroidFire at a give position
+     * param: int x, x position of the asteroidFire
+     *        int y, y position of the asteroidFire
+     * */
+    private void spawnAsteroidFire(int x, int y) {
+        GridPoint2 pos = new GridPoint2(x,y);
+        Entity attackObstacle = ObstacleFactory.createAsteroidAnimatedFire(player);
+        spawnEntityAt(attackObstacle, pos, true, false);
     }
 
     private void spawnRobot() {
@@ -498,7 +506,7 @@ public class LevelTwoArea extends GameArea{
     public void resetCam(CameraComponent camera) {
         float playerX = player.getPosition().x;
 
-        System.out.println(playerX);
+        //System.out.println(playerX);
         if (playerX >= 5 && playerX <= 35) {
             camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
             camera.getCamera().update();

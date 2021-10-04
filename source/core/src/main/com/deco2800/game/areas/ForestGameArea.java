@@ -321,11 +321,19 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(ufo, randomPos, true, true);
   }
 
+  /**
+   * spawns the platforms for the level
+   * */
   private void spawnPlatforms() {
     spawnPlatform(22, 15);
     spawnPlatform(70, 18);
   }
 
+  /**
+   * spawns a platform at a give position
+   * param: int x, x position of the platform
+   *        int y, y position of the platform
+   * */
   private void spawnPlatform(int x, int y) {
     GridPoint2 pos = new GridPoint2(x, y);
     Entity platform = ObstacleFactory.createPlatform2();
@@ -350,6 +358,9 @@ public class ForestGameArea extends GameArea {
     }
   }*/
 
+  /**
+   * spawns the asteroids for the level
+   * */
   private void spawnAsteroids() {
     //GridPoint2 minPos = new GridPoint2(2, 10);
     //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
@@ -365,12 +376,20 @@ public class ForestGameArea extends GameArea {
 //    }
   }
 
+  /**
+   * spawns an asteroid at a give position
+   * param: int x, x position of the asteroid
+   *        int y, y position of the asteroid
+   * */
   private void spawnAsteroid(int x, int y) {
     GridPoint2 asteroidPosition1 = new GridPoint2(x, y);
     Entity asteroid1 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteroid1, asteroidPosition1, true, false);
   }
 
+  /**
+   * spawns the asteroidFires for the level
+   * */
   private void spawnAsteroidFires() {
     spawnAsteroidFire(22,8);
     spawnAsteroidFire(41, 10);
@@ -378,6 +397,11 @@ public class ForestGameArea extends GameArea {
     spawnAsteroidFire(75,13);
   }
 
+  /**
+   * spawns an asteroidFire at a give position
+   * param: int x, x position of the asteroidFire
+   *        int y, y position of the asteroidFire
+   * */
   private void spawnAsteroidFire(int x, int y) {
     GridPoint2 pos = new GridPoint2(x,y);
     Entity attackObstacle = ObstacleFactory.createAsteroidAnimatedFire(player);
