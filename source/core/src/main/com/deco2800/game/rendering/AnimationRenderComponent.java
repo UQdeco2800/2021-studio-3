@@ -133,6 +133,7 @@ public class AnimationRenderComponent extends RenderComponent {
     logger.debug("Starting animation {}", name);
   }
 
+
   /**
    * Stop the currently running animation. Does nothing if no animation is playing.
    * @return true if animation was stopped, false if no animation is playing.

@@ -68,6 +68,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/JumpDamage(50-90).png",
             "images/JumpDamage(10-50).png",
             "images/IdleCharacters.png",
+            "images/Death.png",
             "images/0percent.png",
             "images/10percent.png",
             "images/20percent.png",
@@ -87,7 +88,17 @@ public class LoadingScreen extends ScreenAdapter {
             "images/surface.png",
             "images/alien_monster.png",
             "images/lives_icon2.png",
-            "images/vikings in space.png"
+            "images/vikings in space.png",
+            "images/alien_monster_weapon_01.png",
+            "images/alien_monster_weapon_02.png",
+            "images/alien_solider.png",
+            "images/alien_solider_weapon_01.png",
+            "images/alien_solider_weapon_02.png",
+            "images/alien_boss.png",
+            "images/alien_boss_weapon_01.png",
+            "images/vikings in space.png",
+            "images/lives_icon2.png"
+
     };
 
     private static final String[] level2Textures = {"images/background_mars.png",

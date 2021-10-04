@@ -1141,6 +1141,25 @@ default
   offset: 74, 50
   index: 0
 
+Death.png
+size: 518, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dead
+  rotate: false
+  xy: 0, 0
+  size: 518, 400
+  orig: 518, 400
+  offset: 0, 0
+  index: 0
+default
+  rotate: false
+  xy: 0, 0
+  size: 518, 400
+  orig: 518, 400
+  offset: 0, 0
+  index: 0
 
 double_jump.png
 size: 2048, 1024

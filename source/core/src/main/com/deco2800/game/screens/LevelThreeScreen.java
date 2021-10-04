@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class LevelThreeScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoScreen.class);
-    private static final String[] mainGameTextures = {"images/heart.png"};
+    private static final String[] mainGameTextures = {"images/heart.png", "images/lives_icon2.png"};
 
     /* Textures for the pause menu */
     private static final String[] pauseMenuTextures =
@@ -124,6 +124,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         manager.load("images/winContinue.png", Texture.class);
         manager.load("images/doubleHurt.png", Texture.class);
         manager.load("images/infiniteSprint.png", Texture.class);
+        manager.load("images/lives_icon2.png", Texture.class);
         manager.load("images/heart.png", Texture.class);
         manager.load("images/noJumping.png", Texture.class);
         manager.finishLoading();

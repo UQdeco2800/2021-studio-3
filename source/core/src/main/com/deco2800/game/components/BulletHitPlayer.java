@@ -17,6 +17,7 @@ public class BulletHitPlayer extends Component {
     public BulletHitPlayer(Entity target, GameArea GameArea) {
         this.target = target;
         this.GameArea = GameArea;
+
     }
 
     @Override

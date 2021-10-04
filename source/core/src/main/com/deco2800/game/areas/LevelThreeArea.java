@@ -435,6 +435,7 @@ public class LevelThreeArea extends GameArea {
     public void resetCam(CameraComponent camera) {
         float playerX = player.getPosition().x;
 
+        //System.out.println(playerX);
         if (playerX >= 5 && playerX <= 35) {
             camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
             camera.getCamera().update();
