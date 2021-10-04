@@ -38,7 +38,9 @@ public class PlayerAnimationController extends Component {
     }
 
     // Applies the correct animation
-    animator.startAnimation(entity.getComponent(PlayerStateComponent.class).getStateAnimation());
+    if (this.enabled) {
+      animator.startAnimation(entity.getComponent(PlayerStateComponent.class).getStateAnimation());
+    }
   }
 
 }

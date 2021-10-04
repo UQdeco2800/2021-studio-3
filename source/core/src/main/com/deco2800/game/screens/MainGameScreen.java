@@ -32,6 +32,8 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+
 /**
  * The game screen containing the level one game area.
  *
@@ -223,6 +225,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
     this.currentMap.resetCam(renderer.getCamera());
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
