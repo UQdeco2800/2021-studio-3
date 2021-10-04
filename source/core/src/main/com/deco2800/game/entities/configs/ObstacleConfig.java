@@ -11,5 +11,6 @@ public class ObstacleConfig {
    // public AlienMonsterWeaponConfig alienMonsterWeapon = new AlienMonsterWeaponConfig();
    // public AlienSoliderConfig alienSolider = new AlienSoliderConfig();
    // public AlienSoliderWeaponConfig alienSoliderWeapon = new AlienSoliderWeaponConfig();
+    public DeathFloorConfig deathFloor = new DeathFloorConfig();
 }
 

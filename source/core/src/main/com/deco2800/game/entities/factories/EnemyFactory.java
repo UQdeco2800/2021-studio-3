@@ -14,6 +14,7 @@ import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 
+import com.deco2800.game.components.enemy.AlienSoliderAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 
@@ -80,7 +81,6 @@ public class EnemyFactory {
 
     public static Entity createAlienMonsterWeapon(Entity from, Entity target, GameArea gameArea) {
 
-        AlienMonsterWeaponConfig config = configs.alienMonsterWeapon;
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
         float x2 = target.getPosition().x;
@@ -88,25 +88,19 @@ public class EnemyFactory {
 
         Vector2 newTarget = new Vector2(x2 - x1, y2 - y1);
 
-        newTarget = newTarget.scl(100);
-        newTarget = newTarget.add(from.getPosition());
-
-        float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(newTarget.y - y1, newTarget.x - x1));
+        newTarget = newTarget.scl(1000).add(from.getPosition());
+        //newTarget = newTarget.add(from.getPosition());
 
         Entity alienMonsterWeapon =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/ufo_2.png"))
+                        .addComponent(new TextureRenderComponent("images/alien_monster_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
-                      //  .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-                       // .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                       // .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-                        //.addComponent(new CombatStatsComponent(config.health, config.baseAttack));
 
         alienMonsterWeapon.getComponent(TextureRenderComponent.class).scaleEntity();
-        alienMonsterWeapon.scaleHeight(0.7f);
+        alienMonsterWeapon.scaleHeight(0.5f);
         PhysicsUtils.setScaledCollider(alienMonsterWeapon, 0.5f, 0.3f);
 
         alienMonsterWeapon.setPosition(x1 - alienMonsterWeapon.getScale().x / 2 + from.getScale().x / 2,
@@ -118,6 +112,237 @@ public class EnemyFactory {
         return alienMonsterWeapon;
     }
 
+    public static Entity createAlienSolider(Entity target, GameArea gameArea) {
+        AlienSoliderConfig config = configs.alienSolider;
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        //.addTask(new WanderTask(new Vector2(3f, 2f), 0f))
+                        .addTask(new AttackTask(target, 3, 10, 6f));
+
+        Entity alienSolider =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+                        .addComponent(aiComponent)
+                .addComponent(new AlienSoliderAttackListener(target, gameArea));
+
+        PhysicsUtils.setScaledCollider(alienSolider, 1f,1f);
+        alienSolider.scaleHeight(1.5f);
+        return alienSolider;
+    }
+
+    public static void createAlienSoliderWeapon(Entity from, Entity target, GameArea gameArea) {
+        float x1 = from.getPosition().x;
+        float y1 = from.getPosition().y;
+        float x2 = target.getPosition().x;
+        float y2 = target.getPosition().y;
+
+        Vector2 straightTarget = new Vector2(x2 - x1, y2 - y1); //straight through player
+
+        //Shifted up 45 degrees from the straight vector
+        double upX = (Math.cos((Math.PI)/4) * straightTarget.x) - (Math.sin((Math.PI)/4) * straightTarget.y);
+        double upY = (Math.sin((Math.PI)/4) * straightTarget.x) + (Math.cos((Math.PI)/4) * straightTarget.y);
+        Vector2 upRotate = new Vector2( (float) upX, (float) upY);
+
+        //Shifted down 45 degrees from the straight vector
+        double downX = (Math.cos(-(Math.PI)/4) * straightTarget.x) - (Math.sin(-(Math.PI)/4) * straightTarget.y);
+        double downY = (Math.sin(-(Math.PI)/4) * straightTarget.x) + (Math.cos(-(Math.PI)/4) * straightTarget.y);
+        Vector2 downRotate = new Vector2( (float) downX, (float) downY);
+
+        straightTarget = straightTarget.scl(100);
+        straightTarget = straightTarget.add(from.getPosition());
+
+        downRotate = downRotate.scl(100);
+        downRotate = downRotate.add(from.getPosition());
+
+        upRotate = upRotate.scl(100);
+        upRotate = upRotate.add(from.getPosition());
+
+        float rotation = (MathUtils.radiansToDegrees * MathUtils.atan2(straightTarget.y - y1, straightTarget.x - x1));
+        float rotationUp = (MathUtils.radiansToDegrees * MathUtils.atan2(upRotate.y - y1, upRotate.x - x1));
+        float rotationDown = (MathUtils.radiansToDegrees * MathUtils.atan2(downRotate.y - y1, downRotate.x - x1));
+
+        Entity alienSoliderWeapon1 =
+                new Entity()
+                    .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotation))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon2 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotationUp))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon3 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png", rotationDown))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        alienSoliderWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon1, 0.3f, 0.3f);
+
+        alienSoliderWeapon2.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon2.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon2, 0.3f, 0.3f);
+
+        alienSoliderWeapon3.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon3.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon3, 0.3f, 0.3f);
+
+        alienSoliderWeapon1.setPosition(x1 - alienSoliderWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon2.setPosition(x1 - alienSoliderWeapon2.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon2.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon3.setPosition(x1 - alienSoliderWeapon3.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon3.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(straightTarget);
+        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon1.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setTarget(upRotate);
+        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon2.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setTarget(downRotate);
+        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon3.getComponent(ColliderComponent.class).setSensor(true);
+
+        gameArea.spawnEntity(alienSoliderWeapon1);
+        gameArea.spawnEntity(alienSoliderWeapon2);
+        gameArea.spawnEntity(alienSoliderWeapon3);
+
+
+    }
+
+    public static void createAlienSoliderWeapon2(Entity from, Entity target, GameArea gameArea) {
+        float x1 = from.getPosition().x;
+        float y1 = from.getPosition().y;
+
+        Vector2 target1 = new Vector2(x1 + 1, 0);
+        Vector2 target2 = new Vector2(x1 - 10, 0);
+        Vector2 target3 = new Vector2(x1 + 10, 0);
+        Vector2 target4 = new Vector2(x1 - 30, 0);
+        Vector2 target5 = new Vector2(x1 + 30, 0);
+
+        Entity alienSoliderWeapon1 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon2 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon3 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon4 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        Entity alienSoliderWeapon5 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        alienSoliderWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon1, 0.3f, 0.3f);
+
+        alienSoliderWeapon2.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon2.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon2, 0.3f, 0.3f);
+
+        alienSoliderWeapon3.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon3.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon3, 0.3f, 0.3f);
+
+        alienSoliderWeapon4.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon4.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon4, 0.3f, 0.3f);
+
+        alienSoliderWeapon5.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoliderWeapon5.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoliderWeapon5, 0.3f, 0.3f);
+
+        alienSoliderWeapon1.setPosition(x1 - alienSoliderWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon2.setPosition(x1 - alienSoliderWeapon2.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon2.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon3.setPosition(x1 - alienSoliderWeapon3.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon3.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon4.setPosition(x1 - alienSoliderWeapon4.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon4.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon5.setPosition(x1 - alienSoliderWeapon5.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoliderWeapon5.getScale().y / 2 + from.getScale().y / 2);
+
+        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
+        alienSoliderWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon1.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setTarget(target2);
+        alienSoliderWeapon2.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon2.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setTarget(target3);
+        alienSoliderWeapon3.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon3.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon4.getComponent(PhysicsMovementComponent.class).setTarget(target4);
+        alienSoliderWeapon4.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon4.getComponent(ColliderComponent.class).setSensor(true);
+
+        alienSoliderWeapon5.getComponent(PhysicsMovementComponent.class).setTarget(target5);
+        alienSoliderWeapon5.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoliderWeapon5.getComponent(ColliderComponent.class).setSensor(true);
+
+        gameArea.spawnEntity(alienSoliderWeapon1);
+        gameArea.spawnEntity(alienSoliderWeapon2);
+        gameArea.spawnEntity(alienSoliderWeapon3);
+        gameArea.spawnEntity(alienSoliderWeapon4);
+        gameArea.spawnEntity(alienSoliderWeapon5);
+    }
 }
 
 

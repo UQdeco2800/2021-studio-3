@@ -453,6 +453,21 @@ public class ObstacleFactory {
     return wall;
   }
 
+  public static Entity createDeathFloor(float width, float height) {
+    DeathFloorConfig deathFloor = configs.deathFloor;
+
+    Entity floor = new Entity()
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    floor.addComponent(new CombatStatsComponent(1000, deathFloor.baseAttack));
+    floor.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    floor.setScale(width, height);
+    return floor;
+  }
+
   /**
    * Creates a checkpoint entity.
    * @return entity
