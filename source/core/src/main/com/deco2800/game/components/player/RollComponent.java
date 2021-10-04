@@ -33,10 +33,10 @@ public class RollComponent extends Component {
     public long ROLL_COOL_DOWN = 4 * SECONDS;
 
     /* Defines how far the player will roll. */
-    public int ROLL_LENGTH = 8;
+    public int ROLL_LENGTH = 3;
 
     /* Defines how long the player rolls for */
-    public double ROLL_TIME = 0.05 * SECONDS;
+    public double ROLL_TIME = 0.4 * SECONDS;
 
     /* Counts the amount of collisions the player disengaged from while rolling */
     private int offCollisions;
@@ -98,6 +98,11 @@ public class RollComponent extends Component {
      * */
     private void onCollision(Fixture player, Fixture object) {
         if (falling && collisionFromBeneath(object)) {
+            // Once the falling ends, the players roll is considered to be over
+            setRolling(false);
+            entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(false);
+
+            // Stop the player falling
             stopFalling();
         }
     }
@@ -170,12 +175,14 @@ public class RollComponent extends Component {
      * off something while rolling, this is handled.
      * */
     public void handleStopRolling() {
-        setRolling(false);
-        entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(false);
+        stopRollAnimation();
         stopRolling();
         setCoolDown(true);
-        unanimateRoll();
         handleCheckingFallRequired();
+
+        // We are no longer rolling
+        setRolling(false);
+        entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(this.falling); // if we are falling, dont allow walking
     }
 
     /**
@@ -369,12 +376,18 @@ public class RollComponent extends Component {
         return this.lastRollStarted;
     }
 
+    /**
+     * Starts the roll animation when the player rolls
+     * */
     public void animateRoll() {
         AnimationRenderComponent render = entity.getComponent(AnimationRenderComponent.class);
-        render.startAnimation("roll3");
+        render.startAnimation("roll");
     }
 
-    public void unanimateRoll() {
+    /**
+     * Returns the player to their previous state after rolling
+     * */
+    public void stopRollAnimation() {
         entity.getComponent(KeyboardPlayerInputComponent.class).updatePlayerStateAnimation();
     }
 

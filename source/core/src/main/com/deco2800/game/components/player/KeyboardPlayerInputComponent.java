@@ -45,6 +45,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   // Rolling
   private boolean isRolling = false; // true if the player is rolling
+  private boolean processingRoll = false; // true if a roll is currently being processed
+  private boolean onRollWalked = false; // true if the player attempted to walk while mid-roll
 
   public Timer sprintTimer = new Timer();
 
@@ -151,6 +153,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
+   * Checks if the walk input was entered while the player was mid-roll.
+   * */
+  private void checkOnRollWalked() {
+    if ((processingRoll | isRolling)) {
+      this.onRollWalked = true;
+    }
+  }
+
+  /**
    * Triggers player events on specific keycodes.
    *
    * @return whether the input was processed
@@ -162,9 +173,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         return jump();
       case Keys.A:
-        return handleWalk('A', "DOWN");
+        // The player can only walk if they are not currently rolling
+        checkOnRollWalked();
+        return (processingRoll | isRolling) || handleWalk('A', "DOWN");
       case Keys.D:
-        return handleWalk('D', "DOWN");
+        checkOnRollWalked();
+        return (processingRoll | isRolling) || handleWalk('D', "DOWN");
       case Keys.SHIFT_LEFT:
           return handleSprint(true);
       case Keys.Q:
@@ -187,14 +201,30 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Keys.A:
-        return handleWalk('A', "UP");
+        return handleWalkKeyInput('A', "UP");
       case Keys.D:
-        return handleWalk('D', "UP");
+        return handleWalkKeyInput('D', "UP");
       case Keys.SHIFT_LEFT:
         return handleSprint(false);
       default:
         return false;
     }
+  }
+
+  /**
+   * Ensures that if the player tried to walk while mid-roll, the player does
+   * not attempt to 'un-walk' when the roll ends (ie, walk backwards)
+   *
+   * @param key the key that was pressed (A or D)
+   * @param keyState whether the key was relesed or pressed. Currently, this
+   *                 function only handles release, ie "UP"
+   * */
+  private boolean handleWalkKeyInput(char key, String keyState) {
+    if (onRollWalked) {
+      this.onRollWalked = false;
+      return true;
+    }
+    return (processingRoll | isRolling) || handleWalk(key, keyState);
   }
 
   /**
@@ -205,9 +235,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * @return true when the input is processed.
    * */
   private boolean setupRoll(Vector2 direction) {
+    processingRoll = true;
     if (entity.getComponent(DoubleJumpComponent.class).isLanded()) {
+      isRolling = true;
       entity.getEvents().trigger("roll", direction);
     }
+    processingRoll = false;
     return true;
   }
 

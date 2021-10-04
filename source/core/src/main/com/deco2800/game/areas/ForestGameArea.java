@@ -48,7 +48,7 @@ public class ForestGameArea extends GameArea {
 
   private GdxGame game;
 
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(1, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
