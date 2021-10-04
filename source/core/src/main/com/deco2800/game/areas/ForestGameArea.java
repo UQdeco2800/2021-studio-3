@@ -53,9 +53,7 @@ public class ForestGameArea extends GameArea {
   private static int lives = 5;
 
   private static final GameTime gameTime = new GameTime();
-  private final long CAM_START_TIME;
-  private final long DEATH_WALL_SHOW_DUR = 3500;
-  private final float REFRESH_RATE = 60;
+  private long CAM_START_TIME;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
   private static final float WALL_WIDTH = 0.1f;
 
@@ -173,6 +171,7 @@ public class ForestGameArea extends GameArea {
     spawnAlienMonster();
     spawnAlienSolider();
     spawnAlienBoss();
+
   }
 
   private void displayUI() {
@@ -504,11 +503,14 @@ public class ForestGameArea extends GameArea {
    * @param camera the CameraComponent of the map
    */
   public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
-    player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= CAM_START_TIME + DEATH_WALL_SHOW_DUR);
+    long DEATH_WALL_SHOW_DUR = 3500;
+    float REFRESH_RATE = 60;
+
+    player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
 
     if (camera.getCamera().position.x - startPos.x < distance
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
-      camera.getCamera().translate((distance/duration)/REFRESH_RATE, 0,0);
+      camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
       camera.getCamera().update();
     }
   }
