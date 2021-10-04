@@ -1,5 +1,7 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -36,22 +38,25 @@ public class LoadingDisplay extends UIComponent {
         super.create();
 
         addActors();
+        //2256x1504
+
 
     }
 
     private void addActors() {
         background = new Table();
         background.setFillParent(true);
-        //Texture backgroundImage = resourceService.getAsset("images/loading3.png", Texture.class);
+        Texture backgroundImage = resourceService.getAsset("images/loadingF1.png", Texture.class);
         //background.background(new TextureRegionDrawable(new TextureRegion(backgroundImage)));
-
-
+        //background.setWidth(1000);
+        //background.add(new Image(backgroundImage)).width(2256);
+        
         loadTable = new Table();
         loadTable.center();
         loadTable.setFillParent(true);
-        Texture loadingStart = resourceService.getAsset("images/0percent.png", Texture.class);
+        Texture loadingStart = resourceService.getAsset("images/bar1.png", Texture.class);
         loadingStatus = new Image(loadingStart);
-        loadTable.add(loadingStatus).width(850);
+        loadTable.add(loadingStatus).width(2500).height(1500);
 
         stage.addActor(background);
         stage.addActor(loadTable);
@@ -59,50 +64,47 @@ public class LoadingDisplay extends UIComponent {
     }
 
     private void updateLoadingBar(int currentLoad) {
-        if (currentLoad % 10 == 0 && currentLoad > 0) {
-            switch (currentLoad) {
-                case 10:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/10percent.png", Texture.class))));
-                    break;
-                case 20:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/20percent.png", Texture.class))));
-                    break;
-                case 30:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/30percent.png", Texture.class))));
-                    break;
-                case 40:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/40percent.png", Texture.class))));
-                    break;
-                case 50:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/50percent.png", Texture.class))));
-                    break;
-                case 60:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/60percent.png", Texture.class))));
-                    break;
-                case 70:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/70percent.png", Texture.class))));
-                    break;
-                case 80:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/80percent.png", Texture.class))));
-                    break;
-                case 90:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/90percent.png", Texture.class))));
-                    break;
-                case 100:
-                    loadingStatus.setDrawable(new SpriteDrawable
-                            (new Sprite(resourceService.getAsset("images/100percent.png", Texture.class))));
-                    break;
+        switch (currentLoad) {
+            case 0:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar1.png", Texture.class))));
+            case 10:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar2.png", Texture.class))));
+                break;
+            case 20:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar3.png", Texture.class))));
+                break;
+            case 30:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar4.png", Texture.class))));
+                break;
+            case 40:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar5.png", Texture.class))));
+                break;
+            case 50:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar6.png", Texture.class))));
+                break;
+            case 60:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar7.png", Texture.class))));
+                break;
+            case 70:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar8.png", Texture.class))));
+                break;
+            case 80:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar9.png", Texture.class))));
+                break;
+            case 95:
+                loadingStatus.setDrawable(new SpriteDrawable
+                        (new Sprite(resourceService.getAsset("images/bar10.png", Texture.class))));
+                break;
             }
-        }
     }
 
 
