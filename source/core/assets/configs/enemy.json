@@ -3,8 +3,12 @@
     "health": 100,
     "baseAttack": 10
   },
-  "alienMonsterWeapon": {
+  "alienSolider": {
     "health": 100,
     "baseAttack": 10
+  },
+  "alienBoss": {
+    "health": 100,
+    "baseAttack": 50
   }
 }
