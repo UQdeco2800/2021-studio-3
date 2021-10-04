@@ -89,6 +89,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_monster.png",
             "images/lives_icon2.png",
             "images/vikings in space.png",
+            "images/roll.png",
             "images/alien_monster_weapon_01.png",
             "images/alien_monster_weapon_02.png",
             "images/alien_solider.png",
@@ -97,8 +98,9 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_boss.png",
             "images/alien_boss_weapon_01.png",
             "images/vikings in space.png",
-            "images/lives_icon2.png"
-
+            "images/lives_icon2.png",
+            "images/instence_fall.png",
+            "images/double_jump.png"
     };
 
     /* Textures only needed for level 2*/
@@ -121,7 +123,8 @@ public class LoadingScreen extends ScreenAdapter {
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3"};
+
+    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
 
     public LoadingScreen(GdxGame game, ResourceService resourceService) {
