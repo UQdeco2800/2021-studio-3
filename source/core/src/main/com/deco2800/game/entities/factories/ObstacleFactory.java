@@ -506,7 +506,7 @@ public class ObstacleFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
                             TextureAtlas.class));
-    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
     animator.startAnimation("Serpent1.1");
 
 
