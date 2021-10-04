@@ -105,6 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">AttackTask</span>
 extends <a href="../../ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a>
 implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></pre>
+<div class="block">Attacks a target entity when it gets close to the enemy.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -245,6 +246,15 @@ float&nbsp;distance)</code></th>
 float&nbsp;waitTime,
 int&nbsp;priority,
 float&nbsp;distance)</span></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - The entity to attack.</dd>
+<dd><code>waitTime</code> - The waiting time between each attack.</dd>
+<dd><code>priority</code> - Task priority when chasing (0 when not chasing).</dd>
+<dd><code>distance</code> - The attack distance.
+
+ Construct the AttackTask.</dd>
+</dl>
 </section>
 </li>
 </ul>

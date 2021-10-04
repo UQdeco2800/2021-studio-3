@@ -239,7 +239,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/obstacle/AttackListener.html#%3Cinit%3E(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">AttackListener(Entity, GameArea)</a></span> - Constructor for class com.deco2800.game.components.obstacle.<a href="com/deco2800/game/components/obstacle/AttackListener.html" title="class in com.deco2800.game.components.obstacle">AttackListener</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">AttackTask</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Attacks a target entity when it gets close to the enemy.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,float,int,float)">AttackTask(Entity, float, int, float)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -319,12 +321,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Tracks the different buff types in the game.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/BulletHitPlayer.html" title="class in com.deco2800.game.components"><span class="typeNameLink">BulletHitPlayer</span></a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">When this entity touches a valid enemy's bullet, deal damage to them and destroy the bullet.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/BulletHitPlayer.html#%3Cinit%3E(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">BulletHitPlayer(Entity, GameArea)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/BulletHitPlayer.html" title="class in com.deco2800.game.components">BulletHitPlayer</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">BulletMoveTask</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/BulletMoveTask.html#%3Cinit%3E(float)">BulletMoveTask(float)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks">BulletMoveTask</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a id="I:C">
@@ -348,8 +348,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html#CENTER">CENTER</a></span> - com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html" title="enum in com.deco2800.game.physics.components">PhysicsComponent.AlignY</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStatsDisplay.UIPosition.html#CENTRE">CENTRE</a></span> - com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.UIPosition.html" title="enum in com.deco2800.game.components.player">PlayerStatsDisplay.UIPosition</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#changeLevel()">changeLevel()</a></span> - Static method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">ChaseTask</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
 <dd>
@@ -508,7 +506,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelThreeArea.html#create()">create()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></dt>
 <dd>
-<div class="block">Create the game area, including terrain, static entities (trees), dynamic entities (player)</div>
+<div class="block">Create the game area, including terrain, static entities (asteroids, asteroid fire), dynamic entities (enemies, robot, ufo)</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelTwoArea.html#create()">create()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></dt>
 <dd>
@@ -1192,8 +1190,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum in com.deco2800.game"><span class="typeNameLink">GdxGame.ScreenType</span></a> - Enum in <a href="com/deco2800/game/package-summary.html">com.deco2800.game</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#generateNewLevel()">generateNewLevel()</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.html#get()">get()</a></span> - Static method in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.html" title="class in com.deco2800.game.files">UserSettings</a></dt>
 <dd>
 <div class="block">Get the stored user settings</div>
@@ -1471,8 +1467,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/PriorityTask.html#getPriority()">getPriority()</a></span> - Method in interface com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#getPriority()">getPriority()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/BulletMoveTask.html#getPriority()">getPriority()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks">BulletMoveTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/ChaseTask.html#getPriority()">getPriority()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
@@ -1970,13 +1964,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html#LEVEL_TWO_TERRAIN">LEVEL_TWO_TERRAIN</a></span> - com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/LevelThreeArea.html" title="class in com.deco2800.game.areas"><span class="typeNameLink">LevelThreeArea</span></a> - Class in <a href="com/deco2800/game/areas/package-summary.html">com.deco2800.game.areas</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Game area for the level three</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelThreeArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">LevelThreeArea(TerrainFactory, int, boolean)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelThreeArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">LevelThreeArea(TerrainFactory, int, int)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/LevelThreeScreen.html" title="class in com.deco2800.game.screens"><span class="typeNameLink">LevelThreeScreen</span></a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The game screen containing the level three game area.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelThreeScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,boolean)">LevelThreeScreen(GdxGame, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelThreeScreen.html" title="class in com.deco2800.game.screens">LevelThreeScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelThreeScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,int,boolean)">LevelThreeScreen(GdxGame, int, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelThreeScreen.html" title="class in com.deco2800.game.screens">LevelThreeScreen</a></dt>
@@ -1984,13 +1982,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelThreeScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,com.deco2800.game.services.ResourceService)">LevelThreeScreen(GdxGame, ResourceService)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelThreeScreen.html" title="class in com.deco2800.game.screens">LevelThreeScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/LevelTwoArea.html" title="class in com.deco2800.game.areas"><span class="typeNameLink">LevelTwoArea</span></a> - Class in <a href="com/deco2800/game/areas/package-summary.html">com.deco2800.game.areas</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Game area for the level two</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelTwoArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">LevelTwoArea(TerrainFactory, int, boolean)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelTwoArea.html#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">LevelTwoArea(TerrainFactory, int, int)</a></span> - Constructor for class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens"><span class="typeNameLink">LevelTwoScreen</span></a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The game screen containing the level two game area.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,boolean)">LevelTwoScreen(GdxGame, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/LevelTwoScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,int,boolean)">LevelTwoScreen(GdxGame, int, boolean)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTwoScreen.html" title="class in com.deco2800.game.screens">LevelTwoScreen</a></dt>
@@ -2101,7 +2103,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens"><span class="typeNameLink">MainGameScreen</span></a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
 <dd>
-<div class="block">The game screen containing the main game.</div>
+<div class="block">The game screen containing the level one game area.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/MainGameScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,boolean,com.deco2800.game.services.ResourceService)">MainGameScreen(GdxGame, boolean, ResourceService)</a></span> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -3290,8 +3292,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#start()">start()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/BulletMoveTask.html#start()">start()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks">BulletMoveTask</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/ChaseTask.html#start()">start()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/FloatTask.html#start()">start()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/FloatTask.html" title="class in com.deco2800.game.components.tasks">FloatTask</a></dt>
@@ -3323,8 +3323,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Stop the task immediately.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#stop()">stop()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/BulletMoveTask.html#stop()">stop()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks">BulletMoveTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/ChaseTask.html#stop()">stop()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
@@ -3616,8 +3614,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#update()">update()</a></span> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/BulletMoveTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/BulletMoveTask.html" title="class in com.deco2800.game.components.tasks">BulletMoveTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/ChaseTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
