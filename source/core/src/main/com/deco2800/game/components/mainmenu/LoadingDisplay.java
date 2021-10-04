@@ -20,6 +20,9 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A ui component for displaying the loading screen.
+ */
 public class LoadingDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LoadingDisplay.class);
     private static final float Z_INDEX = 2f;
@@ -36,11 +39,9 @@ public class LoadingDisplay extends UIComponent {
     /* The resource service that holds all the assets required for the UI */
     private ResourceService resourceService;
 
-
     public LoadingDisplay(){
         resourceService = ServiceLocator.getResourceService();
     }
-
 
     @Override
     public void create() {
@@ -49,6 +50,10 @@ public class LoadingDisplay extends UIComponent {
         addActors();
     }
 
+    /**
+     * Creates the visualisation for the menu, including the background text and
+     * initialising the loading bar.
+     */
     private void addActors() {
         background = new Table();
         background.setFillParent(true);
@@ -66,9 +71,12 @@ public class LoadingDisplay extends UIComponent {
 
         stage.addActor(background);
         stage.addActor(loadTable);
-
     }
 
+    /**
+     * Updates the loading bar to reflect the percentage of assets that have been loaded
+     * @param currentLoad percentage of assets that have been loaded
+     */
     private void updateLoadingBar(int currentLoad) {
         switch (currentLoad) {
             case 0:
@@ -112,7 +120,6 @@ public class LoadingDisplay extends UIComponent {
                 break;
             }
     }
-
 
     @Override
     protected void draw(SpriteBatch batch) {

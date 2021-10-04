@@ -127,6 +127,9 @@ public class LoadingScreen extends ScreenAdapter {
     private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
 
+    /**
+     * The game screen displayed when the level is loading.
+     */
     public LoadingScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
 
@@ -222,13 +225,16 @@ public class LoadingScreen extends ScreenAdapter {
         }
     }
 
+    /**
+     * Unloads the assets required for the loading screen only.
+     */
     private void unloadAssets() {
         logger.debug("Unloading assets");
         resourceService.unloadAssets(LoadingTextures);
     }
 
     /**
-     *
+     * Creates the loading screen's ui
      */
     private void createUI() {
         logger.debug("Creating ui");

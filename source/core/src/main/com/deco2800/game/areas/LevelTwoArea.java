@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -458,9 +459,12 @@ public class LevelTwoArea extends GameArea{
      * */
     public void spawnBuffDebuff(BuffManager manager) {
         /* Get a random position based on map bounds */
-        GridPoint2 maxPos = new GridPoint2(terrain.getMapBounds(0).x,
-                PLAYER_SPAWN.y);
-        GridPoint2 randomPos = RandomUtils.random(PLAYER_SPAWN, maxPos);
+        int maxXPos = terrain.getMapBounds(0).x;
+
+        Random randomXPos = new Random();
+        int pos = randomXPos.nextInt(maxXPos);
+        logger.info("this is x {}", pos);
+        GridPoint2 randomPos = new GridPoint2(pos - 1, terrainFactory.getYOfSurface(pos, GdxGame.ScreenType.LEVEL_TWO_GAME));
 
         /* Pick a random buff */
         Random randomNumber = new Random();
