@@ -1,15 +1,11 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-
-import java.util.LinkedHashMap;
 
 public class RollComponent extends Component {
 
@@ -32,38 +28,22 @@ public class RollComponent extends Component {
     public long ROLL_COOL_DOWN = 4 * SECONDS;
 
     /* Defines how far the player will roll. */
-    public int ROLL_LENGTH = 8;
+    public int ROLL_LENGTH = 3;
 
     /* Defines how long the player rolls for */
-    public double ROLL_TIME = 0.05 * SECONDS;
-
-    /* Counts the amount of collisions the player disengaged from while rolling */
-    private int offCollisions;
+    public double ROLL_TIME = 0.4 * SECONDS;
 
     /* True if the player is falling (rolled off something) */
     private boolean falling;
 
-    /* The ROOF, LEFT_WALL and RIGHT_WALL of the map */
-    private LinkedHashMap<String, Entity> mapFixtures;
+    /* True if the player has rolled at least once */
+    private boolean playerHasRolled;
 
     public RollComponent() {
         this.rolling = false;
         this.rollOnCoolDown = false;
-        this.offCollisions = 0;
         this.falling = false;
-    }
-
-    /**
-     * Handles setting up listeners for collision starts and ends. Tracking
-     * collisions allows for finer control of the player while rolling between
-     * physics objects.
-     * */
-    @Override
-    public void create() {
-        entity.getEvents().addListener("collisionStart",
-                this::onCollision);
-        entity.getEvents().addListener("collisionEnd",
-                this::offCollision);
+        this.playerHasRolled = false;
     }
 
     /**
@@ -72,58 +52,9 @@ public class RollComponent extends Component {
     @Override
     public void update() {
         checkRollStatus();
-        entity.getComponent(PlayerStatsDisplay.class).updateRollDisplay(getCoolDownRemaining() / 1000);
-    }
-
-    /**
-     * collisionEnd listener. Increases the offCollisions count if the player
-     * disengages from a collision while rolling.
-     *
-     * @param player the player
-     * @param object the object that the player stopped colliding with while
-     *               rolling
-     * */
-    public void offCollision(Fixture player, Fixture object) {
-        this.offCollisions += 1;
-    }
-
-    /**
-     * collisionStart listener. If the player has rolled off something (eg a
-     * platform) and hit another entity beneath them, their position will be
-     * reset to stationary.
-     *
-     * @param player the player
-     * @param object the object the player collided with
-     * */
-    private void onCollision(Fixture player, Fixture object) {
-        if (falling && collisionFromBeneath(object)) {
-            stopFalling();
+        if (playerHasRolled) {
+            entity.getComponent(PlayerStatsDisplay.class).updateRollDisplay(getCoolDownRemaining() / 1000);
         }
-    }
-
-    /**
-     * Helper method to check if a collision the player had was with an object
-     * beneath them or not.
-     *
-     * @param collision the entity that the player collided with
-     * @return true if the entity is beneath the player, else false.
-     * */
-    public boolean collisionFromBeneath(Fixture collision) {
-        BodyUserData collidedWithData = (BodyUserData) collision.getBody().getUserData();
-        if (collidedWithData != null && collidedWithData.entity != null) {
-            Entity collidedWith = collidedWithData.entity;
-
-            // The player should continue to fall if they hit the map walls.
-            if (this.mapFixtures.values().contains(collidedWith)) {
-                return false;
-            }
-
-            // Player hit something beneath them
-            return ((collidedWith.getCenterPosition().y -
-                           entity.getCenterPosition().y) <= 0);
-
-        }
-        return false; // In null cases, safer to return false.
     }
 
     /**
@@ -169,35 +100,19 @@ public class RollComponent extends Component {
      * off something while rolling, this is handled.
      * */
     public void handleStopRolling() {
-        setRolling(false);
-        entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(false);
-        stopRolling();
+        // Reset the player to their old visual representation
+        stopRollAnimation();
+
+        // The players roll cool-down begins
         setCoolDown(true);
-        handleCheckingFallRequired();
-    }
 
-    /**
-     * Informs the RollComponent about the entities which are map fixtures,
-     * to allow for finer control when the player hits the edge of the map.
-     *
-     * @param fixtures the map fixtures (ROOF, LEFT_WALL, RIGHT_WALL)
-     * */
-    void setMapFixtures(LinkedHashMap<String, Entity> fixtures) {
-        this.mapFixtures = fixtures;
-    }
+        // Make the player stop rolling
+        entity.getEvents().trigger("walk", Vector2Utils.DOWN);
 
-    /**
-     * Returns the player to the ground (or closest physics object beneath
-     * them) if they rolled off an object.
-     * */
-    public void handleCheckingFallRequired() {
-        if (offCollisions != 0) {
-            this.falling = true;
-            // We fell off something when rolling
-            move(Vector2Utils.DOWN);
-        }
+        // We are no longer rolling
+        setRolling(false);
+        entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(this.falling); // if we are falling, dont allow walking
     }
-
 
     /**
      * Sets the player's 'rolling' status.
@@ -217,6 +132,9 @@ public class RollComponent extends Component {
      *                  RIGHT.
      * */
     public void handleRolling(Vector2 direction) {
+        // Let the UI know the player has rolled
+        this.playerHasRolled = true;
+
         // Keep track of when the player rolls
         setLastRollStarted(ServiceLocator.getTimeSource().getTime());
 
@@ -224,14 +142,14 @@ public class RollComponent extends Component {
         entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(true);
         this.rolling = true;
 
-        // Reset count for off-collisions during roll
-        offCollisions = 0;
-
         // Set the new roll ending time
         updateRollEnd();
 
         // Perform the roll
         move(direction.cpy().scl(ROLL_LENGTH));
+
+        // Animate the player
+        animateRoll();
     }
 
     /**
@@ -274,43 +192,11 @@ public class RollComponent extends Component {
     /**
      * Helper function to make code less verbose.
      *
-     * Calls the 'stopRolling' function in PlayerActions
-     * @see PlayerActions
-     * */
-    private void stopRolling() {
-        entity.getComponent(PlayerActions.class).stopRolling();
-    }
-
-    /**
-     * Helper function to make code less verbose.
-     *
      * Calls the 'walk' function in PlayerActions
      * @see PlayerActions
      * */
     private void move(Vector2 direction) {
         entity.getComponent(PlayerActions.class).walk(direction);
-    }
-
-    /**
-     * Helper function to make code less verbose.
-     *
-     * Calls the 'stopWalking' function in PlayerActions. Also sets the player
-     * to no longer be falling.
-     * @see PlayerActions
-     * */
-    private void stopFalling() {
-        this.falling = false;
-        entity.getComponent(PlayerActions.class).stopWalking();
-    }
-
-    /**
-     * Returns the amount of off-collisions (disengages from collision) the
-     * player encountered while rolling
-     *
-     * @return the amount of off-collisions.
-     * */
-    public int getOffCollisions() {
-        return this.offCollisions;
     }
 
     /**
@@ -335,16 +221,6 @@ public class RollComponent extends Component {
     }
 
     /**
-     * Returns whether or not the player is currently 'falling' ie, they
-     * rolled off something while rolling.
-     *
-     * @return true if the player is falling, else false.
-     * */
-    public boolean getFalling() {
-        return this.falling;
-    }
-
-    /**
      * Returns whether or not the player is currently rolling.
      *
      * @return true if the player is mid-roll, else false.
@@ -362,6 +238,21 @@ public class RollComponent extends Component {
      * */
     public long getLastRollStarted() {
         return this.lastRollStarted;
+    }
+
+    /**
+     * Starts the roll animation when the player rolls
+     * */
+    public void animateRoll() {
+        AnimationRenderComponent render = entity.getComponent(AnimationRenderComponent.class);
+        render.startAnimation("roll");
+    }
+
+    /**
+     * Returns the player to their previous state after rolling
+     * */
+    public void stopRollAnimation() {
+        entity.getComponent(KeyboardPlayerInputComponent.class).updatePlayerStateAnimation();
     }
 
 }

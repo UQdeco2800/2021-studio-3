@@ -5,6 +5,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -22,13 +23,13 @@ import static org.mockito.Mockito.when;
 @ExtendWith(GameExtension.class)
 @ExtendWith(MockitoExtension.class)
 class RollComponentTest {
-    @Mock Fixture fixture;
     @Mock RollComponent mockRoll;
     @Mock GameTime time;
     @Mock KeyboardPlayerInputComponent keyboardMock;
     @Mock PlayerActions actionsMock;
     @Mock PhysicsComponent physicsMock;
     @Mock PhysicsService physicsServiceMock;
+    @Mock AnimationRenderComponent mockAnimation;
 
     private RollComponent rollComponent;
 
@@ -41,18 +42,6 @@ class RollComponentTest {
         rollComponent = new RollComponent();
         physicsMock = new PhysicsComponent();
         mockRoll = new RollComponent();
-    }
-
-     /**
-      * Tests that the offCollisions function is working correctly
-      * */
-    @Test
-    void shouldIncreaseOffCollisionCount() {
-        assertEquals(0, rollComponent.getOffCollisions());
-
-        // Tell the player they've stopped colliding with something
-        rollComponent.offCollision(fixture, fixture);
-        assertEquals(1, rollComponent.getOffCollisions());
     }
 
     /**
@@ -101,7 +90,6 @@ class RollComponentTest {
         // Verify the call was made
         assertFalse(mockRoll.getRolling());
         verify(keyboardMock).setRolling(false);
-        verify(actionsMock).stopRolling();
         assertTrue(mockRoll.cantRoll());
     }
 
@@ -135,32 +123,6 @@ class RollComponentTest {
     }
 
     /**
-     * Verifies that the function calls made (both locally and to other
-     * classes) passed when the handleCheckingFallRequired function is called.
-     * */
-    @Test
-    void shouldMakeCallsInFallRequired() {
-        // Create a player
-        Entity player = new Entity()
-                .addComponent(mockRoll)
-                .addComponent(actionsMock)
-                .addComponent(physicsMock);
-
-        // Tell the player they rolled off something
-        mockRoll.offCollision(fixture, fixture);
-        assertNotEquals(0, mockRoll.getOffCollisions());
-
-        // Should set falling to true, and call a movement.
-        mockRoll.handleCheckingFallRequired();
-
-        // Check that fall is true
-        assertTrue(mockRoll.getFalling());
-
-        // Check that the move was called
-        verify(actionsMock).walk(Vector2Utils.DOWN);
-    }
-
-    /**
      * Checks that the setRolling and getRolling functionality works
      * */
     @Test
@@ -190,7 +152,8 @@ class RollComponentTest {
         Entity player = new Entity()
                 .addComponent(rollComponent)
                 .addComponent(keyboardMock)
-                .addComponent(actionsMock);
+                .addComponent(actionsMock)
+                .addComponent(mockAnimation);
 
         // Control the time calls
         when(time.getTime()).thenReturn(1000L);
@@ -202,7 +165,6 @@ class RollComponentTest {
         assertEquals(1000L, rollComponent.getLastRollStarted());
         verify(keyboardMock).setRolling(true);
         assertTrue(rollComponent.getRolling());
-        assertEquals(0, rollComponent.getOffCollisions());
         assertEquals(1000L + rollComponent.ROLL_TIME, rollComponent.getLastRollEnded());
         verify(actionsMock).walk(Vector2Utils.LEFT.scl(rollComponent.ROLL_LENGTH));
     }

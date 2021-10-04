@@ -14,12 +14,16 @@ import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
+import com.deco2800.game.components.player.PlayerAnimationController;
+import com.deco2800.game.components.player.PlayerStateComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -46,12 +50,21 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTERIODS = 5;
   private static int lives = 5;
 
-  private GdxGame game;
-
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
-  private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
-  private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
+  private static final GameTime gameTime = new GameTime();
+  private long CAM_START_TIME;
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
   private static final float WALL_WIDTH = 0.1f;
+
+  private GdxGame game;
+  private static final GridPoint2 CHECKPOINT = new GridPoint2(18, 12);
+
+  private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
+
+  /**
+   * Asset loading is now handled in the LoadingScreen class.
+   *
+   * Add any new textures into it's forestTextures String[].
+   * */
   private static final String[] forestTextures = {
           "images/box_boy_leaf.png",
           "images/tree.png",
@@ -118,6 +131,7 @@ public class ForestGameArea extends GameArea {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
+          , "images/SerpentLevel1.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
@@ -146,7 +160,7 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     this.hasDied = hasDied;
-
+    CAM_START_TIME = gameTime.getTime();
   }
 
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, int lives) {
@@ -154,7 +168,7 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     ForestGameArea.lives = lives;
-
+    CAM_START_TIME = gameTime.getTime();
   }
 
   /**
@@ -185,6 +199,8 @@ public class ForestGameArea extends GameArea {
 
 
     //spawnGhosts();
+    spawnDeathWall();
+
 
     //spawnTrees();
 
@@ -211,6 +227,7 @@ public class ForestGameArea extends GameArea {
     spawnAlienMonster();
     spawnAlienSoldier();
     spawnAlienBoss();
+
   }
 
   private void displayUI() {
@@ -277,7 +294,7 @@ public class ForestGameArea extends GameArea {
         spawnEntityAt(
                 ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
         if (i != 0) {
-          // creates walls when floor level changes
+          // Create walls when floor level changes
           float height = (float) y/2;
           //float endHeight = (float) (previousY - y)/2;
           spawnEntityAt(
@@ -300,6 +317,18 @@ public class ForestGameArea extends GameArea {
             ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
             new GridPoint2(0, -1), false, false);
 
+  }
+
+  /**
+   * spawn a death wall that move from left to end
+   */
+  private void spawnDeathWall() {
+    // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
+    // target's y position is offset 4.5 upwards to remove the bug
+    Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
+    Entity deathWall = ObstacleFactory.createDeathWall(3f, terrain.getMapBounds(0).y *
+            terrain.getTileSize(), deathWallEndPos);
+    spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
   }
 
   private void spawnUFO() {
@@ -538,13 +567,47 @@ public class ForestGameArea extends GameArea {
   public void resetCam(CameraComponent camera) {
     float playerX = player.getPosition().x;
 
-    //System.out.println(playerX);
-    if (playerX >= 5 && playerX <= 35) {
+//    logger.info(String.valueOf(playerX));
+    if (playerX > 12 && playerX <= 35) {
       camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
       camera.getCamera().update();
     }
   }
 
+  /**
+   * introducing the death wall to player by making camera stay at the start with 3.5 second and move to target with
+   * constant speed
+   * @param startPos the position of the camera spawn
+   * @param distance the distance that the camera is going to move from start point
+   * @param duration the total time when the camera is moving
+   * @param camera the CameraComponent of the map
+   */
+  public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
+    long DEATH_WALL_SHOW_DUR = 3500;
+    float REFRESH_RATE = 60;
+    player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
+    player.getComponent(PlayerAnimationController.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
+
+    if (camera.getCamera().position.x - startPos.x < distance
+            && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
+      camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
+      camera.getCamera().update();
+    }
+  }
+
+  private void loadAssets() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadTextures(forestTextures);
+    resourceService.loadTextureAtlases(forestTextureAtlases);
+    resourceService.loadSounds(forestSounds);
+    resourceService.loadMusic(forestMusic);
+
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading... {}%", resourceService.getProgress());
+    }
+  }
 
   private void unloadAssets() {
     logger.debug("Unloading assets");

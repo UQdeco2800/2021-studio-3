@@ -14,6 +14,9 @@ import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.obstacle.UfoAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.CombatStatsComponent;
+
+
+import com.deco2800.game.components.tasks.MovingTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -126,7 +129,8 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     asteroidFire.scaleHeight(1.2f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(1f, 1.2f));
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.2f));
+
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
     asteroidFire.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0),asteroidFire.getCenterPosition());
@@ -479,6 +483,46 @@ public class ObstacleFactory {
     return checkpoint;
   }
 
+
+  /**
+   * Create a new death wall and start to move from left to end of map
+   * @param width the width of the death wall
+   * @param height the height of the death wall
+   * @param target the target that the death wall toward with.
+   *               Normally the target should be the right air wall of
+   *               the game
+   * @return A new Entity death wall
+   */
+  public static Entity createDeathWall(float width, float height, Vector2 target) {
+    DeathWallConfig config = configs.deathWall;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
+    animator.startAnimation("Serpent1.1");
+
+
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new MovingTask(target));
+
+    Entity deathWall = new Entity()
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new CombatStatsComponent(config.health, 100))
+            .addComponent(aiComponent)
+                    .addComponent(animator);
+
+    deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
+    deathWall.setScale(width, height);
+    return deathWall;
+  }
+
   /**
    * Creates a checkpoint entity on level 2.
    * @return entity
@@ -516,7 +560,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(checkpoint, 0.9f, 0.4f);
     return checkpoint;
   }
-
 
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");

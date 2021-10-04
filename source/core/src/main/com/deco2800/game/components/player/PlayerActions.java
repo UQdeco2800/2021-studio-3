@@ -23,7 +23,7 @@ public class PlayerActions extends Component {
   private static final Vector2 gravity = new Vector2 (0, -1f);
 
   // Sets player movement and adds gravity of 1 m/s
-  private Vector2 walkDirection = new Vector2 (0, -1f);
+  public Vector2 walkDirection = new Vector2 (0, -1f);
 
   /* True if the player is currently moving */
   private boolean moving = false;
@@ -66,6 +66,7 @@ public class PlayerActions extends Component {
    * */
   public void roll(Vector2 direction) {
     if (entity.getComponent(RollComponent.class).cantRoll()) {
+      entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(false);
       return;
     }
     entity.getComponent(RollComponent.class).handleRolling(direction);

@@ -45,6 +45,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   // Rolling
   private boolean isRolling = false; // true if the player is rolling
+  private boolean processingRoll = false; // true if a roll is currently being processed
+  private boolean onRollWalked = false; // true if the player attempted to walk while mid-roll
 
   public Timer sprintTimer = new Timer();
 
@@ -151,6 +153,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   /**
+   * Checks if a walk input was entered while the player was mid-roll. If the
+   * player tries to walk while mid-roll, the onRollWalked variable ensures the
+   * movements don't clash.
+   * */
+  private void checkOnRollWalked() {
+    if ((processingRoll | isRolling)) {
+      this.onRollWalked = true;
+    }
+  }
+
+  /**
    * Triggers player events on specific keycodes.
    *
    * @return whether the input was processed
@@ -162,16 +175,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         return jump();
       case Keys.A:
-        return handleWalk('A', "DOWN");
+        // The player can only walk if they are not currently rolling
+        checkOnRollWalked();
+        return (processingRoll | isRolling) || handleWalk('A', "DOWN");
       case Keys.D:
-        return handleWalk('D', "DOWN");
+        checkOnRollWalked();
+        return (processingRoll | isRolling) || handleWalk('D', "DOWN");
       case Keys.SHIFT_LEFT:
           return handleSprint(true);
       case Keys.Q:
-        // The player can only roll if they're not currently walking.
-        return !isStationary || setupRoll(Vector2Utils.LEFT);
+        // The player can only roll if they're not currently walking or rolling
+        return handleRollKeyInput(Vector2Utils.LEFT);
       case Keys.E:
-        return !isStationary || setupRoll(Vector2Utils.RIGHT);
+        return handleRollKeyInput(Vector2Utils.RIGHT);
       default:
         return false;
     }
@@ -187,14 +203,47 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Keys.A:
-        return handleWalk('A', "UP");
+        return handleWalkKeyInput('A', "UP");
       case Keys.D:
-        return handleWalk('D', "UP");
+        return handleWalkKeyInput('D', "UP");
       case Keys.SHIFT_LEFT:
         return handleSprint(false);
       default:
         return false;
     }
+  }
+
+  /**
+   * Handles the key input when a player attempts to roll left (Q) or right
+   * (E).
+   *
+   * The player can't roll if they are currently rolling, processing a
+   * roll or moving. If these conditions are met, the roll is handled.
+   *
+   * @param direction the direction the player rolls in.
+   * @return true to indicate that the input is processed.
+   * */
+  private boolean handleRollKeyInput(Vector2 direction) {
+    if (processingRoll | isRolling) {
+      return true;
+    }
+    return !isStationary || setupRoll(direction);
+  }
+
+  /**
+   * Ensures that if the player tried to walk while mid-roll, the player does
+   * not attempt to 'un-walk' when the roll ends (ie, walk backwards)
+   *
+   * @param key the key that was pressed (A or D)
+   * @param keyState whether the key was released or pressed. Currently, this
+   *                 function only handles release, ie "UP".
+   * */
+  private boolean handleWalkKeyInput(char key, String keyState) {
+    if (onRollWalked) {
+      this.onRollWalked = false;
+      return true;
+    }
+    return (processingRoll | isRolling) || handleWalk(key, keyState);
   }
 
   /**
@@ -205,9 +254,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * @return true when the input is processed.
    * */
   private boolean setupRoll(Vector2 direction) {
+    processingRoll = true;
     if (entity.getComponent(DoubleJumpComponent.class).isLanded()) {
+      isRolling = true;
       entity.getEvents().trigger("roll", direction);
     }
+    processingRoll = false;
     return true;
   }
 
@@ -287,6 +339,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     isSprinting = false;
     triggerSprintEvent(false);
     return true;
+  }
+
+  /**
+   * Determines the players current state based on several state-tracking
+   * variables, and updates their physical representation to reflect that.
+   * */
+  public void updatePlayerStateAnimation() {
+    entity.getComponent(PlayerStateComponent.class).manage(isJumping,
+            isSprinting, movingRight, movingLeft, isStationary);
+    entity.getEvents().trigger("playerStatusAnimation");
   }
 
   /**

@@ -130,7 +130,6 @@ public class PopupMenuActions extends Component {
     }
 
     public void onNextLevel() {
-        //MainGameScreen.changeLevel();
         if (this.currentLevel == 1) {
             game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
