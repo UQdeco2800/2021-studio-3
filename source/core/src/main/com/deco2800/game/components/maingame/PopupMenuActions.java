@@ -141,5 +141,9 @@ public class PopupMenuActions extends Component {
         //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
     }
 
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
 
 }
