@@ -122,7 +122,7 @@ public class GdxGame extends Game {
       case CHECKPOINT_REPLAY:
         return new MainGameScreen(this, 1, false, resourceService);
       case INTRO:
-        //return new
+        return new IntroScreen(this, resourceService);
         default:
         return null;
     }
