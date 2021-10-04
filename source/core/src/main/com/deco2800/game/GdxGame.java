@@ -3,13 +3,17 @@ package com.deco2800.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.files.UserSettings;
@@ -33,7 +37,6 @@ public class GdxGame extends Game {
   private GameState gameState;
   private ScreenType screenType;
   private ResourceService resourceService;
-  private SpriteBatch batch;
 
   @Override
   public void create() {
@@ -41,23 +44,17 @@ public class GdxGame extends Game {
     loadSettings();
 
     // Sets background to light yellow
-    batch = new SpriteBatch();
-    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 1);
+    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 0);
     ServiceLocator.registerResourceService(new ResourceService());
     resourceService = ServiceLocator.getResourceService();
     setScreen(ScreenType.MAIN_MENU);
   }
 
-  /*@Override
+  @Override
   public void render() {
+    super.render();
 
-    Texture background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
-    batch.begin();
-    batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    batch.end();
-    background.dispose();
-
-  }*/
+  }
   /**
    * Loads the game's settings.
    */
@@ -79,6 +76,7 @@ public class GdxGame extends Game {
     }
     setScreen(newScreen(screenType));
   }
+
   /**
    * Sets the game's screen to a new screen of the provided type.
    * @param screenType screen type

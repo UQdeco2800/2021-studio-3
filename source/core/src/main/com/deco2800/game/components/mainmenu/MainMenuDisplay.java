@@ -102,14 +102,13 @@ public class MainMenuDisplay extends UIComponent {
     table.setBackground(new TextureRegionDrawable(
             new TextureRegion(background)));
     table.row();
-    table.add(startBtn).padTop(30f);
+    table.add(startBtn).padTop(130f);
     table.row();
     table.add(loadBtn).padTop(15f);
     table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
-    stage.addActor(table2);
     stage.addActor(table);
 
   }
