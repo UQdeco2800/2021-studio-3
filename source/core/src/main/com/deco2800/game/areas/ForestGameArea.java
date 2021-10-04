@@ -56,7 +56,7 @@ public class ForestGameArea extends GameArea {
   private final long CAM_START_TIME;
   private final long DEATH_WALL_SHOW_DUR = 3500;
   private final float REFRESH_RATE = 60;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 11);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
   private static final float WALL_WIDTH = 0.1f;
 
   private GdxGame game;
@@ -239,7 +239,7 @@ public class ForestGameArea extends GameArea {
         spawnEntityAt(
                 ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
         if (i != 0) {
-          // creates walls when floor level changes
+          // Create walls when floor level changes
           float height = (float) y/2;
           //float endHeight = (float) (previousY - y)/2;
           spawnEntityAt(
