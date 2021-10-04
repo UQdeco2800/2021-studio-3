@@ -68,6 +68,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/JumpDamage(50-90).png",
             "images/JumpDamage(10-50).png",
             "images/IdleCharacters.png",
+            "images/Death.png",
             "images/0percent.png",
             "images/10percent.png",
             "images/20percent.png",
@@ -89,6 +90,17 @@ public class LoadingScreen extends ScreenAdapter {
             "images/lives_icon2.png",
             "images/vikings in space.png",
             "images/roll.png",
+            "images/alien_monster_weapon_01.png",
+            "images/alien_monster_weapon_02.png",
+            "images/alien_solider.png",
+            "images/alien_solider_weapon_01.png",
+            "images/alien_solider_weapon_02.png",
+            "images/alien_boss.png",
+            "images/alien_boss_weapon_01.png",
+            "images/vikings in space.png",
+            "images/lives_icon2.png",
+            "images/instence_fall.png",
+            "images/double_jump.png"
     };
 
     private static final String[] level2Textures = {"images/background_mars.png",
@@ -110,7 +122,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
     //private static String backgroundMusic = "sounds/maingame.mp3";
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3"};
+    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
 
     public LoadingScreen(GdxGame game, ResourceService resourceService) {
