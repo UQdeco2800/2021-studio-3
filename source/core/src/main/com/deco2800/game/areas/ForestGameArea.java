@@ -14,6 +14,7 @@ import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
+import com.deco2800.game.components.player.PlayerStateComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
@@ -21,9 +22,12 @@ import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
@@ -505,8 +509,8 @@ public class ForestGameArea extends GameArea {
   public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
     long DEATH_WALL_SHOW_DUR = 3500;
     float REFRESH_RATE = 60;
-
     player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
+    player.getComponent(PlayerStateComponent.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
 
     if (camera.getCamera().position.x - startPos.x < distance
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
