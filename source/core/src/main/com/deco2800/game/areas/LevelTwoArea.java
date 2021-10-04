@@ -25,6 +25,10 @@ import org.slf4j.LoggerFactory;
 
 import com.deco2800.game.components.player.DoubleJumpComponent;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
@@ -177,15 +181,15 @@ public class LevelTwoArea extends GameArea{
         //spawnGhosts();
 
         //spawnTrees();
-        spawnAsteriod();
-        spawnAsteroidFire();
+        //spawnAsteriod();
+        //spawnAsteroidFire();
         spawnRobot();
 
 
         //spawnBuilding();
         //spawnTrees();
         //spawnRocks();
-        spawnPlatform1();
+        spawnPlatforms();
         //spawnPlanet1();
         spawnUFO();
         //spawnBuffDebuffPickup();
@@ -245,9 +249,45 @@ public class LevelTwoArea extends GameArea{
                 false,
                 false);
         // Bottom
+        // LOGIC to create level terrain
+        int i = 0, x, y, distance;
+        // opens the levels file
+        try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelTwo.txt"))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            // parse file to load the floor
+            while (line != null) {
+                String[] values = line.split(" ");
+                distance = Integer.parseInt(values[0]) * 2;
+                x = Integer.parseInt(values[1]);
+                y = Integer.parseInt(values[2]);
+
+                // creates the floors wall
+                spawnEntityAt(
+                        ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+                if (i != 0) {
+                    // creates walls when floor level changes
+                    float height = (float) y/2;
+                    //float endHeight = (float) (previousY - y)/2;
+                    spawnEntityAt(
+                            ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+                    spawnEntityAt(
+                            ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+                }
+
+                line = br.readLine();
+                i++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Kills player upon falling into void
         spawnEntityAt(
-                //change a wall with high:10
-                ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), new GridPoint2(0, 10), false, false);
+                ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
+                new GridPoint2(0, -1), false, false);
     }
 
     private void spawnUFO() {
@@ -259,15 +299,23 @@ public class LevelTwoArea extends GameArea{
         spawnEntityAt(ufo, randomPos, true, true);
     }
 
-    private void spawnPlatform1() {
+    // calls all spawn platorms for this level
+    private void spawnPlatforms() {
+        spawnPlatform(20, 13);
+        spawnPlatform(24, 10);
+        spawnPlatform(27, 12);
+        spawnPlatform(34, 6);
+    }
+
+
+    private void spawnPlatform(int x, int y) {
         Entity platform1 = ObstacleFactory.createPlatform1();
         spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
 
-        GridPoint2 pos2 = new GridPoint2(20, 13);
+        GridPoint2 pos2 = new GridPoint2(x, y);
         Entity platform2 = ObstacleFactory.createPlatform2();
         spawnEntityAt(platform2, pos2, true, false);
     }
-
 
     /**private void spawnAsteroids() {
      GridPoint2 minPos = new GridPoint2(2, 20);
