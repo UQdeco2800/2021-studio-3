@@ -134,23 +134,21 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
 
     //spawnTrees();
-    //spawnAsteriod();
-    //spawnAsteroidFire();
-    //spawnRobot();
 
-
+    spawnAsteroids();
+    spawnAsteroidFires();
+    spawnRobot();
     //spawnBuilding();
     //spawnTrees();
     //spawnRocks();
-    //spawnPlatform1();
+    spawnPlatforms();
     //spawnPlanet1();
-    //spawnUFO();
+    spawnUFO();
     //spawnBuffDebuffPickup();
-    //spawnAsteroids();
 
     //spawnGhosts();
     //spawnGhostKing();
-    createCheckpoint();
+    //createCheckpoint();
     playMusic();
 
     //createCheckpoint();
@@ -158,7 +156,8 @@ public class ForestGameArea extends GameArea {
 
     //spawnAttackObstacle();
     spawnAlienMonster();
-    spawnAlienSolider();
+    spawnAlienSoldier();
+    spawnAlienBoss();
   }
 
   private void displayUI() {
@@ -246,7 +245,7 @@ public class ForestGameArea extends GameArea {
     //Kills player upon falling into void
     spawnEntityAt(
             ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
-            new GridPoint2(0, 1), false, false);
+            new GridPoint2(0, -1), false, false);
 
   }
 
@@ -259,15 +258,24 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(ufo, randomPos, true, true);
   }
 
-  private void spawnPlatform1() {
-    Entity platform1 = ObstacleFactory.createPlatform1();
-    spawnEntityAt(platform1, PLATFORM_SPAWN, true, false);
-
-    GridPoint2 pos2 = new GridPoint2(20, 13);
-    Entity platform2 = ObstacleFactory.createPlatform2();
-    spawnEntityAt(platform2, pos2, true, false);
+  /**
+   * spawns the platforms for the level
+   * */
+  private void spawnPlatforms() {
+    spawnPlatform(22, 15);
+    spawnPlatform(70, 18);
   }
 
+  /**
+   * spawns a platform at a give position
+   * param: int x, x position of the platform
+   *        int y, y position of the platform
+   * */
+  private void spawnPlatform(int x, int y) {
+    GridPoint2 pos = new GridPoint2(x, y);
+    Entity platform = ObstacleFactory.createPlatform2();
+    spawnEntityAt(platform, pos, true, false);
+  }
 
   /**private void spawnAsteroids() {
     GridPoint2 minPos = new GridPoint2(2, 20);
@@ -287,21 +295,17 @@ public class ForestGameArea extends GameArea {
     }
   }*/
 
-  private void spawnAsteriod() {
+  /**
+   * spawns the asteroids for the level
+   * */
+  private void spawnAsteroids() {
     //GridPoint2 minPos = new GridPoint2(2, 10);
     //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
 
-    GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
-    Entity asteriod1 = ObstacleFactory.createAsteroid();
-    spawnEntityAt(asteriod1, asteriodPosition1, true, false);
+    spawnAsteroid(60, 13);
+    spawnAsteroid(9, 10);
+    spawnAsteroid(45, 10);
 
-    GridPoint2 asteriodPosition2 = new GridPoint2(9, 10);
-    Entity asteriod2 = ObstacleFactory.createAsteroid();
-    spawnEntityAt(asteriod2, asteriodPosition2, true, false);
-
-    GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
-    Entity asteriod3 = ObstacleFactory.createAsteroid();
-    spawnEntityAt(asteriod3, asteriodPosition3, true, false);
 //    for (int i = 0; i < NUM_ASTERIODS; i++) {
 //      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
 //      Entity asteriod = ObstacleFactory.createAsteriod();
@@ -309,22 +313,42 @@ public class ForestGameArea extends GameArea {
 //    }
   }
 
-  private void spawnAsteroidFire() {
-    GridPoint2 pos1 = new GridPoint2(12,10);
-    Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
-    spawnEntityAt(attackObstacle1, pos1, true, false);
+  /**
+   * spawns an asteroid at a give position
+   * param: int x, x position of the asteroid
+   *        int y, y position of the asteroid
+   * */
+  private void spawnAsteroid(int x, int y) {
+    GridPoint2 asteroidPosition1 = new GridPoint2(x, y);
+    Entity asteroid1 = ObstacleFactory.createAsteroid();
+    spawnEntityAt(asteroid1, asteroidPosition1, true, false);
+  }
 
-    GridPoint2 pos2 = new GridPoint2(17,10);
-    Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
-    spawnEntityAt(attackObstacle2, pos2, true, false);
+  /**
+   * spawns the asteroidFires for the level
+   * */
+  private void spawnAsteroidFires() {
+    spawnAsteroidFire(5,10);
+    spawnAsteroidFire(15,11);
+    spawnAsteroidFire(22,8);
+    spawnAsteroidFire(36,10);
+    spawnAsteroidFire(48,10);
+    spawnAsteroidFire(55,13);
+  }
 
-    GridPoint2 pos3 = new GridPoint2(25,10);
-    Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
-    spawnEntityAt(attackObstacle3, pos3, true, false);
+  /**
+   * spawns an asteroidFire at a give position
+   * param: int x, x position of the asteroidFire
+   *        int y, y position of the asteroidFire
+   * */
+  private void spawnAsteroidFire(int x, int y) {
+    GridPoint2 pos = new GridPoint2(x,y);
+    Entity attackObstacle = ObstacleFactory.createAsteroidAnimatedFire(player);
+    spawnEntityAt(attackObstacle, pos, true, false);
   }
 
   private void spawnRobot() {
-    GridPoint2 pos1 = new GridPoint2(12, 16);
+    GridPoint2 pos1 = new GridPoint2(60, 13);
     Entity robot1 = ObstacleFactory.createRobot(player);
     spawnEntityAt(robot1, pos1, true, true);
   }
@@ -338,13 +362,22 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(alienMonster, pos1, true, true);
   }
 
-  private void spawnAlienSolider() {
+  private void spawnAlienSoldier() {
 //    GridPoint2 minPos = new GridPoint2(2, 20);
 //    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
 //    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     GridPoint2 pos1 = new GridPoint2(83, 20);
-    Entity alienMonster = EnemyFactory.createAlienSolider(player, this);
-    spawnEntityAt(alienMonster, pos1, true, true);
+    Entity alienSolider = EnemyFactory.createAlienSoldier(player, this);
+    spawnEntityAt(alienSolider, pos1, true, true);
+  }
+
+  private void spawnAlienBoss() {
+//    GridPoint2 minPos = new GridPoint2(2, 20);
+//    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
+//    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 pos1 = new GridPoint2(33, 20);
+    Entity alienBoss = EnemyFactory.createAlienBoss(player, this);
+    spawnEntityAt(alienBoss, pos1, true, true);
   }
 
   public boolean isDead() {
@@ -385,7 +418,7 @@ public class ForestGameArea extends GameArea {
 
   private void createCheckpoint() {
 
-    GridPoint2 checkPoint = new GridPoint2(20, 10);
+    GridPoint2 checkPoint = new GridPoint2(36, 12);
     Entity checkpoint = ObstacleFactory.createCheckpoint(player, this);
     spawnEntityAt(checkpoint, checkPoint, true, false);
 

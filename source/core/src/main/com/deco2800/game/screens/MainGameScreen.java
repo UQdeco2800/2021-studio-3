@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] mainGameTextures = {"images/heart.png", "images/lives_icon2.png"};
 
   private static final String[] LoadingTextures = {"images/0percent.png",
           "images/10percent.png", "images/20percent.png", "images/30percent.png",
@@ -136,6 +136,7 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   public static AssetManager load(){
+
     manager.load("images/invincible.png", Texture.class);
     manager.load("images/winReplay.png", Texture.class);
     manager.load("images/winMainMenu.png", Texture.class);
@@ -144,6 +145,7 @@ public class MainGameScreen extends ScreenAdapter {
     manager.load("images/infiniteSprint.png", Texture.class);
     manager.load("images/heart.png", Texture.class);
     manager.load("images/noJumping.png", Texture.class);
+    manager.load("images/lives_icon2.png", Texture.class);
     manager.finishLoading();
     return manager;
   }
