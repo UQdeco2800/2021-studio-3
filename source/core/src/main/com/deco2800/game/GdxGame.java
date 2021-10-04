@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,7 +34,6 @@ public class GdxGame extends Game {
   private ScreenType screenType;
   private ResourceService resourceService;
   private SpriteBatch batch;
-  private Texture background;
 
   @Override
   public void create() {
@@ -42,7 +42,7 @@ public class GdxGame extends Game {
 
     // Sets background to light yellow
     batch = new SpriteBatch();
-    //Gdx.gl.glClearColor(0f/255f, 0/255f, 100/255f, 1);
+    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 1);
     ServiceLocator.registerResourceService(new ResourceService());
     resourceService = ServiceLocator.getResourceService();
     setScreen(ScreenType.MAIN_MENU);
@@ -51,7 +51,7 @@ public class GdxGame extends Game {
   /*@Override
   public void render() {
 
-    background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
+    Texture background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
     batch.begin();
     batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     batch.end();

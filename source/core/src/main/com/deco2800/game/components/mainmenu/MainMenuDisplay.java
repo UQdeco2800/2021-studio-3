@@ -2,6 +2,7 @@ package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -42,18 +45,13 @@ public class MainMenuDisplay extends UIComponent {
       batch = new SpriteBatch();
       sprite = new Sprite();
       playBackgroundMusic();
+
     table = new Table();
     table2 = new Table();
     table.setFillParent(true);
     table2.setFillParent(true);
+
     background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
-    TextureRegion textureRegion =
-            new TextureRegion(background, 0, 0,
-                    Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    Image title = new Image(textureRegion);
-        /*new Image(
-            ServiceLocator.getResourceService()
-                .getAsset("images/main_screens-02.png", Texture.class));*/
 
     TextButton startBtn = new TextButton("START", skin);
     TextButton loadBtn = new TextButton("LOAD", skin);
@@ -101,7 +99,8 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    table2.add(title).center();
+    table.setBackground(new TextureRegionDrawable(
+            new TextureRegion(background)));
     table.row();
     table.add(startBtn).padTop(30f);
     table.row();
@@ -110,11 +109,7 @@ public class MainMenuDisplay extends UIComponent {
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
-
-    stage.draw();
-
     stage.addActor(table2);
-
     stage.addActor(table);
 
   }
@@ -122,9 +117,6 @@ public class MainMenuDisplay extends UIComponent {
   @Override
   public void draw(SpriteBatch batch) {
     // draw is handled by the stage
-      background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
-      batch.draw(background, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-      background.dispose();
   }
 
   private void playBackgroundMusic() {
@@ -142,6 +134,7 @@ public class MainMenuDisplay extends UIComponent {
   public void dispose() {
     table.clear();
     ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
+    stage.dispose();
     super.dispose();
   }
 
