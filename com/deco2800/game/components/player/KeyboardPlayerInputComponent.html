@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -143,7 +143,8 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SPRINT_MODIFIER">SPRINT_MODIFIER</a></span></code></th>
 <td class="colLast">
 <div class="block">SPRINT MODIFIER - This can be changed (when buffed, etc.)
- Change this value to control how fast the player moves whilst under the effect of sprint</div>
+ Change this value to control how fast the player moves whilst under the
+ effect of sprint</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -215,45 +216,74 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#applyMovement(com.badlogic.gdx.math.Vector2)">applyMovement</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;direction)</code></th>
+<td class="colLast">
+<div class="block">Applies change in players' movement direction when jumping or falling.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getIsJumping()">getIsJumping</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns whether or not the player is currently jumping</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#handleFalling()">handleFalling</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Handles the player falling after their total JUMP_TIME is up.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#keyDown(int)">keyDown</a></span>&#8203;(int&nbsp;keycode)</code></th>
 <td class="colLast">
 <div class="block">Triggers player events on specific keycodes.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#keyUp(int)">keyUp</a></span>&#8203;(int&nbsp;keycode)</code></th>
 <td class="colLast">
 <div class="block">Triggers player events on specific keycodes.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNoJumping(boolean)">setNoJumping</a></span>&#8203;(boolean&nbsp;noJumping)</code></th>
 <td class="colLast">
 <div class="block">Sets whether or not the player is under the effects of a No Jumping debuff</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRolling(boolean)">setRolling</a></span>&#8203;(boolean&nbsp;rolling)</code></th>
+<td class="colLast">
+<div class="block">Sets the players 'rolling' status to the status passed in.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWalkDirection(com.badlogic.gdx.math.Vector2)">setWalkDirection</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;newDirection)</code></th>
+<td class="colLast">
+<div class="block">Sets the player's walking direction, for usage in calls within this class.</div>
+</td>
+</tr>
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Handles jump-related behaviour every frame.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePlayerStateAnimation()">updatePlayerStateAnimation</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Determines the players current state based on several state-tracking
+ variables, and updates their physical representation to reflect that.</div>
 </td>
 </tr>
 </tbody>
@@ -293,7 +323,8 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 <h3><a id="SPRINT_MODIFIER">SPRINT_MODIFIER</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">SPRINT_MODIFIER</span></div>
 <div class="block">SPRINT MODIFIER - This can be changed (when buffed, etc.)
- Change this value to control how fast the player moves whilst under the effect of sprint</div>
+ Change this value to control how fast the player moves whilst under the
+ effect of sprint</div>
 </section>
 </li>
 <li class="blockList">
@@ -305,7 +336,7 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 <li class="blockList">
 <section class="detail">
 <h3><a id="walkDirection">walkDirection</a></h3>
-<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">walkDirection</span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">walkDirection</span></div>
 </section>
 </li>
 <li class="blockList">
@@ -361,6 +392,17 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="setWalkDirection(com.badlogic.gdx.math.Vector2)">setWalkDirection</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWalkDirection</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;newDirection)</span></div>
+<div class="block">Sets the player's walking direction, for usage in calls within this class.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newDirection</code> - the new direction the player is moving.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="handleFalling()">handleFalling</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">handleFalling</span>()</div>
 <div class="block">Handles the player falling after their total JUMP_TIME is up. The player's
@@ -375,12 +417,34 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="applyMovement(com.badlogic.gdx.math.Vector2)">applyMovement</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">applyMovement</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;direction)</span></div>
+<div class="block">Applies change in players' movement direction when jumping or falling.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>direction</code> - the new direction for the player to go in.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="setNoJumping(boolean)">setNoJumping</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setNoJumping</span>&#8203;(<span class="arguments">boolean&nbsp;noJumping)</span></div>
 <div class="block">Sets whether or not the player is under the effects of a No Jumping debuff</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>noJumping</code> - whether or not the player is able to jump.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setRolling(boolean)">setRolling</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setRolling</span>&#8203;(<span class="arguments">boolean&nbsp;rolling)</span></div>
+<div class="block">Sets the players 'rolling' status to the status passed in.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rolling</code> - true if the player is rolling, else false.</dd>
 </dl>
 </section>
 </li>
@@ -427,6 +491,14 @@ extends <a href="../../input/InputComponent.html" title="class in com.deco2800.g
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/InputProcessor.html?is-external=true#keyUp(int)" title="class or interface in com.badlogic.gdx" class="externalLink"><code>InputProcessor.keyUp(int)</code></a></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="updatePlayerStateAnimation()">updatePlayerStateAnimation</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updatePlayerStateAnimation</span>()</div>
+<div class="block">Determines the players current state based on several state-tracking
+ variables, and updates their physical representation to reflect that.</div>
 </section>
 </li>
 </ul>

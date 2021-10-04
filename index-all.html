@@ -196,6 +196,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Calculate the angle in degrees of a vector.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#animateRoll()">animateRoll()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Starts the roll animation when the player rolls</div>
+</dd>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering"><span class="typeNameLink">AnimationRenderComponent</span></a> - Class in <a href="com/deco2800/game/rendering/package-summary.html">com.deco2800.game.rendering</a></dt>
 <dd>
 <div class="block">Renders animations from a texture atlas on an entity.</div>
@@ -211,6 +215,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/PlayerBuffs.html#applyInvincibility(com.deco2800.game.entities.Entity)">applyInvincibility(Entity)</a></span> - Static method in class com.deco2800.game.components.<a href="com/deco2800/game/components/PlayerBuffs.html" title="class in com.deco2800.game.components">PlayerBuffs</a></dt>
 <dd>
 <div class="block">Applies invincibility to the player.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#applyMovement(com.badlogic.gdx.math.Vector2)">applyMovement(Vector2)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
+<dd>
+<div class="block">Applies change in players' movement direction when jumping or falling.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.html#applySettings(com.deco2800.game.files.UserSettings.Settings)">applySettings(UserSettings.Settings)</a></span> - Static method in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.html" title="class in com.deco2800.game.files">UserSettings</a></dt>
 <dd>
@@ -328,6 +336,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/CameraComponent.html#%3Cinit%3E(com.badlogic.gdx.graphics.Camera)">CameraComponent(Camera)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#cantRoll()">cantRoll()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns whether the player can roll based on whether or not they are
+ currently on a roll cool-down</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignX.html#CENTER">CENTER</a></span> - com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignX.html" title="enum in com.deco2800.game.physics.components">PhysicsComponent.AlignX</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html#CENTER">CENTER</a></span> - com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html" title="enum in com.deco2800.game.physics.components">PhysicsComponent.AlignY</a></dt>
@@ -360,6 +373,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/CheckPointComponent.html#%3Cinit%3E(short,com.deco2800.game.areas.LevelTwoArea)">CheckPointComponent(short, LevelTwoArea)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CheckPointComponent.html" title="class in com.deco2800.game.components">CheckPointComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#checkRollStatus()">checkRollStatus()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Handles checking if the player needs to stop rolling, and whether they
+ can roll again based on the cool down.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH">CLASSPATH</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#clear()">clear()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -1228,6 +1246,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Get a component of type T on the entity.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#getCoolDownRemaining()">getCoolDownRemaining()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns the time remaining on the roll cool-down.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#getCurrentAnimation()">getCurrentAnimation()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Get the name of the animation currently being played.</div>
@@ -1341,6 +1363,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/DoubleJumpComponent.html#getJumpState()">getJumpState()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/DoubleJumpComponent.html" title="class in com.deco2800.game.components.player">DoubleJumpComponent</a></dt>
 <dd>
 <div class="block">Returns the players' current jumping state.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#getLastRollEnded()">getLastRollEnded()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns the time at which the most recent roll ended, in absolute
+ milliseconds since game start.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#getLastRollStarted()">getLastRollStarted()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns the time at which the player started their current, or most
+ recent roll.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getLayer()">getLayer()</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -1460,6 +1492,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#getResourceService()">getResourceService()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#getRolling()">getRolling()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns whether or not the player is currently rolling.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getScale()">getScale()</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get the entity's scale.</div>
@@ -1610,6 +1646,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#handleFalling()">handleFalling()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
 <dd>
 <div class="block">Handles the player falling after their total JUMP_TIME is up.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#handleRolling(com.badlogic.gdx.math.Vector2)">handleRolling(Vector2)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Set-up code for rolling.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#handleStopRolling()">handleStopRolling()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Calls set-down code for rolling; the player is set to not rolling,
+ and will stop rolling.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#hasAnimation(java.lang.String)">hasAnimation(String)</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
@@ -2752,6 +2797,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/configs/RobotConfig.html#%3Cinit%3E()">RobotConfig()</a></span> - Constructor for class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/RobotConfig.html" title="class in com.deco2800.game.entities.configs">RobotConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerActions.html#roll(com.badlogic.gdx.math.Vector2)">roll(Vector2)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
+<dd>
+<div class="block">Rolls the player in a given direction.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#ROLL_COOL_DOWN">ROLL_COOL_DOWN</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#ROLL_LENGTH">ROLL_LENGTH</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#ROLL_TIME">ROLL_TIME</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player"><span class="typeNameLink">RollComponent</span></a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#%3Cinit%3E()">RollComponent()</a></span> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/GdxGame.GameState.html#RUNNING">RUNNING</a></span> - com.deco2800.game.<a href="com/deco2800/game/GdxGame.GameState.html" title="enum in com.deco2800.game">GdxGame.GameState</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -2851,6 +2910,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Closes the terminal and clears the stored message.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#setCoolDown(boolean)">setCoolDown(boolean)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Triggers the roll cool-down on or off.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/RenderService.html#setDebug(com.deco2800.game.rendering.DebugRenderer)">setDebug(DebugRenderer)</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/ColliderComponent.html#setDensity(float)">setDensity(float)</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
@@ -2930,6 +2993,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Sets the player to the 'LANDED' jumping state.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#setLastRollStarted(long)">setLastRollStarted(long)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Sets the time at which the player started their roll.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/ColliderComponent.html#setLayer(short)">setLayer(short)</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
 <dd>
 <div class="block">Set the collider layer, used in collision logic</div>
@@ -2998,6 +3065,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/ColliderComponent.html#setRestitution(float)">setRestitution(float)</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
 <dd>
 <div class="block">Set restitution</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#setRolling(boolean)">setRolling(boolean)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
+<dd>
+<div class="block">Sets the players 'rolling' status to the status passed in.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#setRolling(boolean)">setRolling(boolean)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Sets the player's 'rolling' status.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#setScale(float,float)">setScale(float, float)</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
@@ -3087,6 +3162,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates the buttons for the pop-up menu, and places them on the
  background in order</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#setWalkDirection(com.badlogic.gdx.math.Vector2)">setWalkDirection(Vector2)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
+<dd>
+<div class="block">Sets the player's walking direction, for usage in calls within this class.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html#SIDE_SCROLL_ER">SIDE_SCROLL_ER</a></span> - com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/raycast/SingleHitCallback.html" title="class in com.deco2800.game.physics.raycast"><span class="typeNameLink">SingleHitCallback</span></a> - Class in <a href="com/deco2800/game/physics/raycast/package-summary.html">com.deco2800.game.physics.raycast</a></dt>
@@ -3152,7 +3231,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#SPRINT_MODIFIER">SPRINT_MODIFIER</a></span> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
 <dd>
 <div class="block">SPRINT MODIFIER - This can be changed (when buffed, etc.)
- Change this value to control how fast the player moves whilst under the effect of sprint</div>
+ Change this value to control how fast the player moves whilst under the
+ effect of sprint</div>
 </dd>
 <dt><a href="com/deco2800/game/components/SprintComponent.html" title="class in com.deco2800.game.components"><span class="typeNameLink">SprintComponent</span></a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
 <dd>
@@ -3213,6 +3293,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#stopAnimation()">stopAnimation()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Stop the currently running animation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#stopRollAnimation()">stopRollAnimation()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Returns the player to their previous state after rolling</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerActions.html#stopRolling()">stopRolling()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
+<dd>
+<div class="block">Stops the player rolling.</div>
 </dd>
 <dt><a href="com/deco2800/game/utils/StringDecorator.html" title="class in com.deco2800.game.utils"><span class="typeNameLink">StringDecorator</span></a>&lt;<a href="com/deco2800/game/utils/StringDecorator.html" title="type parameter in StringDecorator">T</a>&gt; - Class in <a href="com/deco2800/game/utils/package-summary.html">com.deco2800.game.utils</a></dt>
 <dd>
@@ -3481,6 +3569,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerActions.html#update()">update()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#update()">update()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Handles checking the roll status per frame</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#update()">update()</a></span> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/AttackTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/AttackTask.html" title="class in com.deco2800.game.components.tasks">AttackTask</a></dt>
@@ -3529,6 +3621,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Updates the player's level progress on the UI</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#updatePlayerStateAnimation()">updatePlayerStateAnimation()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
+<dd>
+<div class="block">Determines the players current state based on several state-tracking
+ variables, and updates their physical representation to reflect that.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/ProgressComponent.html#updateProgress(float)">updateProgress(float)</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/ProgressComponent.html" title="class in com.deco2800.game.components">ProgressComponent</a></dt>
 <dd>
 <div class="block">function to determine the player's new progress based on an input updated on player movement.</div>
@@ -3536,6 +3633,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/LivesComponent.html#updateProgress(float)">updateProgress(float)</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/LivesComponent.html" title="class in com.deco2800.game.components.tasks">LivesComponent</a></dt>
 <dd>
 <div class="block">function to determine the player's new progress based on an input updated on player movement.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#updateRollDisplay(double)">updateRollDisplay(double)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
+<dd>
+<div class="block">Updates the roll status on the UI.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/RollComponent.html#updateRollEnd()">updateRollEnd()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/RollComponent.html" title="class in com.deco2800.game.components.player">RollComponent</a></dt>
+<dd>
+<div class="block">Updates the time that the player's current roll will end, based on the
+ time the roll started.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/ScoreComponent.html#updateScore()">updateScore()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/ScoreComponent.html" title="class in com.deco2800.game.components">ScoreComponent</a></dt>
 <dd>
@@ -3707,6 +3813,8 @@ the order they are declared.</div>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/WaitTask.html#%3Cinit%3E(float)">WaitTask(float)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WaitTask.html" title="class in com.deco2800.game.components.tasks">WaitTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html#walkDirection">walkDirection</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/KeyboardPlayerInputComponent.html" title="class in com.deco2800.game.components.player">KeyboardPlayerInputComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerActions.html#walkDirection">walkDirection</a></span> - Variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/WanderTask.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">WanderTask</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
 <dd>
