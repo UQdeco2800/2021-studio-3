@@ -134,8 +134,8 @@ public class ForestGameArea extends GameArea {
     //spawnGhosts();
 
     //spawnTrees();
-    //spawnAsteriod();
-    //spawnAsteroidFire();
+    spawnAsteriod();
+    spawnAsteroidFire();
     //spawnRobot();
 
 
@@ -292,7 +292,7 @@ public class ForestGameArea extends GameArea {
     //GridPoint2 minPos = new GridPoint2(2, 10);
     //GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 20);
 
-    GridPoint2 asteriodPosition1 = new GridPoint2(5, 10);
+    GridPoint2 asteriodPosition1 = new GridPoint2(60, 13);
     Entity asteriod1 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod1, asteriodPosition1, true, false);
 
@@ -300,7 +300,7 @@ public class ForestGameArea extends GameArea {
     Entity asteriod2 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod2, asteriodPosition2, true, false);
 
-    GridPoint2 asteriodPosition3 = new GridPoint2(14, 10);
+    GridPoint2 asteriodPosition3 = new GridPoint2(45, 10);
     Entity asteriod3 = ObstacleFactory.createAsteroid();
     spawnEntityAt(asteriod3, asteriodPosition3, true, false);
 //    for (int i = 0; i < NUM_ASTERIODS; i++) {
@@ -311,17 +311,33 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnAsteroidFire() {
-    GridPoint2 pos1 = new GridPoint2(12,10);
+    GridPoint2 pos1 = new GridPoint2(5,10);
     Entity attackObstacle1 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle1, pos1, true, false);
 
-    GridPoint2 pos2 = new GridPoint2(17,10);
+    GridPoint2 pos2 = new GridPoint2(15,11);
     Entity attackObstacle2 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle2, pos2, true, false);
 
-    GridPoint2 pos3 = new GridPoint2(25,10);
+    GridPoint2 pos3 = new GridPoint2(22,8);
     Entity attackObstacle3 = ObstacleFactory.createAsteroidAnimatedFire(player);
     spawnEntityAt(attackObstacle3, pos3, true, false);
+
+//    GridPoint2 pos4 = new GridPoint2(26,12);
+//    Entity attackObstacle4 = ObstacleFactory.createAsteroidAnimatedFire(player);
+//    spawnEntityAt(attackObstacle4, pos4, true, false);
+
+    GridPoint2 pos5 = new GridPoint2(36,10);
+    Entity attackObstacle5 = ObstacleFactory.createAsteroidAnimatedFire(player);
+    spawnEntityAt(attackObstacle5, pos5, true, false);
+
+    GridPoint2 pos6 = new GridPoint2(48,10);
+    Entity attackObstacle6 = ObstacleFactory.createAsteroidAnimatedFire(player);
+    spawnEntityAt(attackObstacle6, pos6, true, false);
+
+    GridPoint2 pos7 = new GridPoint2(55,13);
+    Entity attackObstacle7 = ObstacleFactory.createAsteroidAnimatedFire(player);
+    spawnEntityAt(attackObstacle7, pos7, true, false);
   }
 
   private void spawnRobot() {
