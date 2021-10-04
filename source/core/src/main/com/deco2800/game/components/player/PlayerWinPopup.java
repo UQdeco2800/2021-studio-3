@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.PlayerWinActions;
@@ -54,6 +56,22 @@ public class PlayerWinPopup extends UIComponent {
         this.game = game;
         this.player = ((ForestGameArea) currentMap).getPlayer();
         this.endOfMap = ((ForestGameArea) currentMap).getEndMap();
+        this.handler = winHandler;
+    }
+
+    public PlayerWinPopup(GdxGame game, LevelTwoArea currentMap,
+                          PopupUIHandler winHandler) {
+        this.game = game;
+        this.player = currentMap.getPlayer();
+        this.endOfMap = currentMap.getEndMap();
+        this.handler = winHandler;
+    }
+
+    public PlayerWinPopup(GdxGame game, LevelThreeArea currentMap,
+                          PopupUIHandler winHandler) {
+        this.game = game;
+        this.player = currentMap.getPlayer();
+        this.endOfMap = currentMap.getEndMap();
         this.handler = winHandler;
     }
 

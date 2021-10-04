@@ -1,9 +1,11 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,7 @@ public class PauseGameDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Array<Image> screenElements = new Array<>();
     private PopupUIHandler handler;
-
+    private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
     public PauseGameDisplay(PopupUIHandler handler) {
         this.handler = handler;
     }
@@ -36,7 +38,7 @@ public class PauseGameDisplay extends UIComponent {
         // Create the background image
         Table backgroundFrame = new Table();
         Image background = handler.setupBackground(backgroundFrame);
-
+        //playBackgroundMusic();
         // Create buttons from the images
         Table buttonHolder = new Table();
         ArrayList<Image> buttons =
@@ -72,8 +74,15 @@ public class PauseGameDisplay extends UIComponent {
         return Z_INDEX;
     }
 
+    private void playBackgroundMusic() {
+        Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+        menuSong.setLooping(true);
+        menuSong.setVolume(0.3f);
+        menuSong.play();
+    }
     @Override
     public void dispose() {
+        ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
         super.dispose();
     }
 }

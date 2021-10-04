@@ -1,22 +1,14 @@
 package com.deco2800.game.entities.factories;
 
-
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.SprintComponent;
-import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.*;
-
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -81,18 +73,27 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/PlayerMovementAnimations.atlas",
                             TextureAtlas.class));
-    animator.addAnimation("normal-stationary", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("normal-walk", 0.2f, Animation.PlayMode.LOOP);
-    animator.addAnimation("normal-sprint", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("normal-jump", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-stationary", 0.1f);
+    animator.addAnimation("normal-walk-left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-sprint-left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-jump-left", 0.1f);
+    animator.addAnimation("normal-walk-right", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-sprint-right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("normal-jump-right", 0.1f);
     animator.addAnimation("rough-stationary", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("rough-walk", 0.2f, Animation.PlayMode.LOOP);
-    animator.addAnimation("rough-sprint", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("rough-jump", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-walk-left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-sprint-left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-jump-left", 0.1f);
+    animator.addAnimation("rough-walk-right", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-sprint-right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("rough-jump-right", 0.1f);
     animator.addAnimation("damaged-stationary", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("damaged-walk", 0.2f, Animation.PlayMode.LOOP);
-    animator.addAnimation("damaged-sprint", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("damaged-jump", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-walk-left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-sprint-left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-jump-left", 0.1f);
+    animator.addAnimation("damaged-walk-right", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-sprint-right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("damaged-jump-right", 0.1f);
     animator.addAnimation("dead", 0.4f, Animation.PlayMode.LOOP);
 
     // Starts the idle animation
@@ -100,7 +101,6 @@ public class PlayerFactory {
 
     Entity player =
             new Entity()
-//            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent())
                     .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -112,12 +112,11 @@ public class PlayerFactory {
                     .addComponent(new SprintComponent(100))
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
-                    .addComponent(new PlayerStatsDisplay(manager,h));
-
+                    .addComponent(new PlayerStatsDisplay(manager,h))
+                    .addComponent(new DoubleJumpComponent());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-//    player.getComponent(TextureRenderComponent.class).scaleEntity();
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     return player;
   }
