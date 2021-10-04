@@ -11,6 +11,10 @@
     "health": 100,
     "baseAttack": 25
   },
+  "deathWall": {
+    "health": 100,
+    "baseAttack": 5
+  },
   "deathFloor": {
     "baseAttack": 101
   }
