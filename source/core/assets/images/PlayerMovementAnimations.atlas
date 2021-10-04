@@ -1140,3 +1140,178 @@ default
   orig: 400, 518
   offset: 74, 50
   index: 0
+
+
+double_jump.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+double_jump
+  rotate: false
+  xy: 10, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 2
+double_jump
+  rotate: false
+  xy: 10, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 7
+double_jump
+  rotate: false
+  xy: 421, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 12
+double_jump
+  rotate: false
+  xy: 10, 221
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 4
+double_jump
+  rotate: false
+  xy: 421, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 9
+double_jump
+  rotate: false
+  xy: 832, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 1
+double_jump
+  rotate: false
+  xy: 10, 10
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 6
+double_jump
+  rotate: false
+  xy: 421, 221
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 11
+double_jump
+  rotate: false
+  xy: 832, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 3
+double_jump
+  rotate: false
+  xy: 1243, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 8
+double_jump
+  rotate: false
+  xy: 421, 10
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 5
+double_jump
+  rotate: false
+  xy: 832, 221
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 10
+
+
+instence_fall.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+instance_fall
+  rotate: false
+  xy: 10, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 5
+instance_fall
+  rotate: false
+  xy: 10, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 10
+instance_fall
+  rotate: false
+  xy: 421, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 2
+instance_fall
+  rotate: false
+  xy: 10, 221
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 7
+instance_fall
+  rotate: false
+  xy: 421, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 4
+instance_fall
+  rotate: false
+  xy: 832, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 9
+instance_fall
+  rotate: false
+  xy: 10, 10
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 1
+instance_fall
+  rotate: false
+  xy: 421, 221
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 6
+instance_fall
+  rotate: false
+  xy: 832, 432
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 3
+instance_fall
+  rotate: false
+  xy: 1243, 643
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 8
+instance_fall
+  rotate: false
+  xy: 421, 10
+  size: 401, 201
+  orig: 401, 201
+  offset: 0, 0
+  index: 0
