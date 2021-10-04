@@ -121,7 +121,7 @@ public class LevelThreeArea extends GameArea {
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String backgroundMusic = "sounds/level3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
@@ -195,7 +195,7 @@ public class LevelThreeArea extends GameArea {
         spawnUFO();
         //spawnBuffDebuffPickup();
         //spawnAsteroids();
-
+        playMusic();
         //spawnGhosts();
         //spawnGhostKing();
         //createCheckpoint();

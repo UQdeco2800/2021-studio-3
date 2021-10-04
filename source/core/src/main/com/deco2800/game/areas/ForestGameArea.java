@@ -48,23 +48,76 @@ public class ForestGameArea extends GameArea {
 
   private GdxGame game;
 
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(0, 11);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(1, 11);
   private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
   private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
   private static final float WALL_WIDTH = 0.1f;
-
-  /**
-   * Asset loading is now handled in the LoadingScreen class.
-   *
-   * Add any new textures into it's forestTextures String[].
-   * */
-  private static final String[] forestTextures = {};
+  private static final String[] forestTextures = {
+          "images/box_boy_leaf.png",
+          "images/tree.png",
+          "images/ghost_king.png",
+          "images/ghost_1.png",
+          "images/lives_icon.png",
+          "images/box_boy.png",
+          "images/underground.png",
+          "images/sky.png",
+          "images/untouchedCheckpoint.png",
+          "images/longBackground.png",
+          "images/broken_asteriod.png",
+          "images/asteroid_fire1.png",
+          "images/robot1.png",
+          "images/rock1.png",
+          "images/rock2.png",
+          "images/rock3.png",
+          "images/rock4.png",
+          "images/asteroid.png",
+          "images/asteroid_2.png",
+          "images/platform1.png",
+          "images/platform2.png",
+          "images/platform3.png",
+          "images/platform4.png",
+          "images/platform5.png",
+          "images/building_1.png",
+          "images/planet1.png",
+          "images/ufo_2.png",
+          "images/rock_platform.png",
+          "images/Walking.png",
+          "images/WalkingDamage90-50.png",
+          "images/WalkingDamage50-10.png",
+          "images/Sprint.png",
+          "images/SprintDamage(50-90).png",
+          "images/SprintDamage(10-50).png",
+          "images/Jump.png",
+          "images/JumpDamage(50-90).png",
+          "images/JumpDamage(10-50).png",
+          "images/IdleCharacters.png",
+          "images/0percent.png",
+          "images/10percent.png",
+          "images/20percent.png",
+          "images/30percent.png",
+          "images/40percent.png",
+          "images/50percent.png",
+          "images/60percent.png",
+          "images/70percent.png",
+          "images/80percent.png",
+          "images/90percent.png",
+          "images/100percent.png",
+          "images/background_stars.png",
+          "images/background_sky.png",
+          "images/background_rock.png",
+          "images/background_star.png",
+          "images/background_surface.png",
+          "images/surface.png",
+          "images/roll.png",
+          "images/roll2.png",
+          "images/roll3.png"
+  };
 
   private static final String[] forestTextureAtlases = {
 
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
-          "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
+          "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
