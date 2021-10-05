@@ -486,14 +486,12 @@ public class ObstacleFactory {
 
   /**
    * Create a new death wall and start to move from left to end of map
-   * @param width the width of the death wall
-   * @param height the height of the death wall
    * @param target the target that the death wall toward with.
    *               Normally the target should be the right air wall of
    *               the game
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(float width, float height, Vector2 target) {
+  public static Entity createDeathWall(Vector2 target) {
     DeathWallConfig config = configs.deathWall;
 
     AnimationRenderComponent animator =
@@ -508,7 +506,7 @@ public class ObstacleFactory {
             new AITaskComponent()
                     .addTask(new MovingTask(target));
 
-    Entity deathWall = new Entity()
+    return new Entity()
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
@@ -517,10 +515,6 @@ public class ObstacleFactory {
             .addComponent(new CombatStatsComponent(config.health, 100))
             .addComponent(aiComponent)
                     .addComponent(animator);
-
-    deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
-    deathWall.setScale(width, height);
-    return deathWall;
   }
 
   /**
