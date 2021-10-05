@@ -1,11 +1,8 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.mainmenu.IntroDisplay;
-import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -54,14 +51,6 @@ public class IntroScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
-
-        // If all assets are loaded, then switch to start screen
-        /*if (resourceService.getAssetManager().update()) {
-            if (game.getScreenType() == GdxGame.ScreenType.MAIN_GAME) {
-                this.game.setScreen(GdxGame.ScreenType.LOADING);
-            }
-
-        }*/
         renderer.render();
     }
 
@@ -74,12 +63,10 @@ public class IntroScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         logger.debug("Disposing main menu screen");
-
         renderer.dispose();
         unloadAssets();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
-
         ServiceLocator.clear();
     }
 
@@ -98,7 +85,6 @@ public class IntroScreen extends ScreenAdapter {
      */
     private void unloadAssets() {
         logger.debug("Unloading assets");
-        //ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(screenTextures);
     }
 
@@ -110,7 +96,6 @@ public class IntroScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Entity ui = new Entity();
         ui.addComponent(new IntroDisplay(game));
-        //ui.addComponent(new LoadingDisplay(game)).addComponent(new InputDecorator(stage, 10));;
         ServiceLocator.getEntityService().register(ui);
     }
 }
