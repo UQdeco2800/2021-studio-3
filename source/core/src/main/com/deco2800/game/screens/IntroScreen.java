@@ -20,79 +20,7 @@ public class IntroScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(IntroScreen.class);
     private final Renderer renderer;
     private final GdxGame game;
-    private ResourceService resourceService;
-    private Table table;
-    private Stage stage;
-
-    private static final String[] forestTextures = {
-            "images/box_boy_leaf.png",
-            "images/tree.png",
-            "images/ghost_king.png",
-            "images/ghost_1.png",
-            "images/lives_icon.png",
-            "images/lives_icon2.png",
-            "images/grass_1.png",
-            "images/grass_2.png",
-            "images/grass_3.png",
-            "images/hex_grass_1.png",
-            "images/hex_grass_2.png",
-            "images/hex_grass_3.png",
-            "images/iso_grass_1.png",
-            "images/iso_grass_2.png",
-            "images/iso_grass_3.png",
-            "images/box_boy.png",
-            "images/underground.png",
-            "images/sky.png",
-            "images/untouchedCheckpoint.png",
-            "images/longBackground.png",
-            "images/broken_asteriod.png",
-            "images/asteroid_fire1.png",
-            "images/robot1.png",
-            "images/rock1.png",
-            "images/rock2.png",
-            "images/rock3.png",
-            "images/rock4.png",
-            "images/asteroid.png",
-            "images/asteroid_2.png",
-            "images/platform1.png",
-            "images/platform2.png",
-            "images/platform3.png",
-            "images/platform4.png",
-            "images/platform5.png",
-            "images/building_1.png",
-            "images/planet1.png",
-            "images/ufo_2.png",
-            "images/rock_platform.png",
-            "images/Walking.png",
-            "images/WalkingDamage90-50.png",
-            "images/WalkingDamage50-10.png",
-            "images/Sprint.png",
-            "images/SprintDamage(50-90).png",
-            "images/SprintDamage(10-50).png",
-            "images/Jump.png",
-            "images/JumpDamage(50-90).png",
-            "images/JumpDamage(10-50).png",
-            "images/IdleCharacters.png",
-            "images/0percent.png",
-            "images/10percent.png",
-            "images/20percent.png",
-            "images/30percent.png",
-            "images/40percent.png",
-            "images/50percent.png",
-            "images/60percent.png",
-            "images/70percent.png",
-            "images/80percent.png",
-            "images/90percent.png",
-            "images/100percent.png",
-            "images/background_stars.png",
-            "images/background_sky.png",
-            "images/background_rock.png",
-            "images/background_star.png",
-            "images/background_surface.png",
-            "images/surface.png",
-            "images/vikings_in_space.png",
-            "images/main_screens-02.png"
-    };
+    private final ResourceService resourceService;
 
     private static final String[] screenTextures = {
             "images/screen1.png",
@@ -102,13 +30,13 @@ public class IntroScreen extends ScreenAdapter {
             "images/screen5.png"
     };
 
-    private static final String[] forestTextureAtlases = {
-
-            "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
-            "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
-            "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas"
-    };
-
+    /**
+     * Constructor for the intro screen. Takes the current GdxGame
+     * as well as the resource Service as inputs, used to generate
+     * the sequence of intro scenes.
+     * @param game current game
+     * @param resourceService asset loading service
+     */
     public IntroScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
 
@@ -156,18 +84,18 @@ public class IntroScreen extends ScreenAdapter {
     }
 
     /**
-     * Loads all the assets required for the loading screen as well as the
-     * forest game area.
+     * Loads all the assets required for the game scenes.
      */
     private void loadAssets() {
         logger.debug("Loading assets");
 
         ServiceLocator.getResourceService().loadAll();
-        resourceService.loadTextures(forestTextures);
         resourceService.loadTextures(screenTextures);
-        resourceService.loadTextureAtlases(forestTextureAtlases);
     }
 
+    /**
+     * Unloads assets loaded through loadAssets.
+     */
     private void unloadAssets() {
         logger.debug("Unloading assets");
         //ResourceService resourceService = ServiceLocator.getResourceService();
@@ -175,7 +103,8 @@ public class IntroScreen extends ScreenAdapter {
     }
 
     /**
-     *
+     * Creates the ui for the game intro by create a new introDisplay
+     * instance for the game in which IntroDisplay will be called.
      */
     private void createUI() {
         logger.debug("Creating ui");

@@ -6,37 +6,42 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.screens.LoadingScreen;
-import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-
+/**
+ * This class handles the display of the intro scenes.
+ */
 public class IntroDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LoadingDisplay.class);
     private static final float Z_INDEX = 2f;
     GdxGame game;
     private Table background;
     private Table buttons;
+
+    /* Drawable texture regions for each scene */
     private TextureRegionDrawable scene1;
     private TextureRegionDrawable scene2;
     private TextureRegionDrawable scene3;
     private TextureRegionDrawable scene4;
     private TextureRegionDrawable scene5;
 
+    /* Main menu intro music */
     private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
 
+    /**
+     * Constructor for the display of the game intro scenes. Takes the current
+     * GdxGame as a parameter, as defined in the IntroScreen.java class.
+     * @param game game defined by IntroScreen.java
+     */
     public IntroDisplay(GdxGame game) {
         this.game = game;
     }
@@ -49,20 +54,42 @@ public class IntroDisplay extends UIComponent {
         entity.getEvents().addListener("skip", this::skipScene);
     }
 
-
+    /**
+     * Creates actors and positions them on the stage using background table
+     * for th background and buttons table for the buttons.
+     * @see Table for positioning options
+     */
     private void addActors() {
+        //Background and buttons tables
         background = new Table();
         buttons = new Table();
         background.setFillParent(true);
         buttons.setFillParent(true);
-        scene1 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("images/screen1.png"))));
-        scene2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("images/screen2.png"))));
-        scene3 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("images/screen3.png"))));
-        scene4 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("images/screen4.png"))));
-        scene5 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("images/screen5.png"))));
+
+        //Creating Drawable texture regions of the intro scenes
+        scene1 = new TextureRegionDrawable(
+                new TextureRegion(
+                        new Texture(Gdx.files.internal("images/screen1.png"))));
+
+        scene2 = new TextureRegionDrawable(
+                new TextureRegion(
+                        new Texture(Gdx.files.internal("images/screen2.png"))));
+
+        scene3 = new TextureRegionDrawable(
+                new TextureRegion(
+                        new Texture(Gdx.files.internal("images/screen3.png"))));
+
+        scene4 = new TextureRegionDrawable(
+                new TextureRegion(
+                        new Texture(Gdx.files.internal("images/screen4.png"))));
+
+        scene5 = new TextureRegionDrawable(
+                new TextureRegion(
+                        new Texture(Gdx.files.internal("images/screen5.png"))));
 
         background.setBackground(scene1);
 
+        //Next and skip buttons; next continues slideshow while skip heads to main game.
         TextButton nextBtn = new TextButton("Next", skin);
         TextButton skipBtn = new TextButton("Skip", skin);
 
@@ -98,6 +125,10 @@ public class IntroDisplay extends UIComponent {
         //
     }
 
+    /**
+     * Method call actives the next scene button, to trigger the scene change.
+     * Once all scenes have been played, starts the main game.
+     */
     public void nextScene() {
         if (background.getBackground().equals(scene1)) {
             background.setBackground(scene2);
@@ -112,6 +143,9 @@ public class IntroDisplay extends UIComponent {
         }
     }
 
+    /**
+     * Method call actives the skip scene button, which immediately starts the game.
+     */
     public void skipScene() {
         game.setScreen(GdxGame.ScreenType.LOADING);
     }
