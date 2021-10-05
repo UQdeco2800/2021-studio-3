@@ -123,7 +123,7 @@ public class ForestGameArea extends GameArea {
           "images/background_surface.png",
           "images/surface.png",
           "images/vikings_in_space.png",
-          "images/main_screens-02.png"
+          "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",
           "images/roll3.png"
@@ -361,7 +361,7 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(platform, pos, true, false);
   }
 
-  /**private void spawnAsteroids() {
+  /*private void spawnAsteroids() {
     GridPoint2 minPos = new GridPoint2(2, 20);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 5);
     Random r = new Random();
