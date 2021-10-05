@@ -3,6 +3,18 @@ package com.deco2800.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.files.UserSettings;
 
@@ -26,22 +38,23 @@ public class GdxGame extends Game {
   private ScreenType screenType;
   private ResourceService resourceService;
 
-
   @Override
   public void create() {
     logger.info("Creating game");
     loadSettings();
 
     // Sets background to light yellow
-    Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 0);
     ServiceLocator.registerResourceService(new ResourceService());
     resourceService = ServiceLocator.getResourceService();
-
-
-
     setScreen(ScreenType.MAIN_MENU);
   }
 
+  @Override
+  public void render() {
+    super.render();
+
+  }
   /**
    * Loads the game's settings.
    */
@@ -63,6 +76,7 @@ public class GdxGame extends Game {
     }
     setScreen(newScreen(screenType));
   }
+
   /**
    * Sets the game's screen to a new screen of the provided type.
    * @param screenType screen type
@@ -107,6 +121,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this, 1, true, resourceService);
       case CHECKPOINT_REPLAY:
         return new MainGameScreen(this, 1, false, resourceService);
+      case INTRO:
+        return new IntroScreen(this, resourceService);
         default:
         return null;
     }
@@ -129,8 +145,10 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT, CHECKPOINT_REPLAY,
-    LEVEL_TWO_GAME, LEVEL_THREE_GAME, LOADING
+    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT,
+    CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME,
+    LOADING, INTRO
+
   }
 
   public enum GameState {

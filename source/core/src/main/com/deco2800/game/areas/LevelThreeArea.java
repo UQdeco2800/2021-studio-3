@@ -44,6 +44,7 @@ public class LevelThreeArea extends GameArea {
             "images/ghost_king.png",
             "images/ghost_1.png",
             "images/lives_icon.png",
+            "images/lives_icon2.png",
             "images/grass_1.png",
             "images/grass_2.png",
             "images/grass_3.png",

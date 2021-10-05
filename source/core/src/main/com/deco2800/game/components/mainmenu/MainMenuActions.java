@@ -31,8 +31,10 @@ public class MainMenuActions extends Component {
    */
   private void onStart() {
     logger.info("Start game");
+    //Will need to create a condition for intro screen
     game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-    game.setScreen(GdxGame.ScreenType.LOADING);
+    game.setScreen(GdxGame.ScreenType.INTRO);
+    //game.setScreen(GdxGame.ScreenType.LOADING);
   }
 
   /**
