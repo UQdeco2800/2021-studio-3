@@ -32,8 +32,10 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+
 /**
- * The game screen containing the main game.
+ * The game screen containing the level one game area.
  *
  * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
  */
@@ -46,7 +48,6 @@ public class MainGameScreen extends ScreenAdapter {
           "images/40percent.png", "images/50percent.png", "images/50percent.png",
           "images/60percent.png", "images/70percent.png", "images/80percent.png",
           "images/90percent.png", "images/100percent.png"};
-
 
   /* Textures for the pause menu */
   private static final String[] pauseMenuTextures =
@@ -79,7 +80,6 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/noJumping.png",
                   "images/infiniteSprint.png"};
 
-
   private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
   /* background and click effect */
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
@@ -91,8 +91,6 @@ public class MainGameScreen extends ScreenAdapter {
   public static boolean isLevelChange = false;
   private int currentLevel = 1;
 
-  // We know the map is a ForestGameArea
-  // should make more general when new maps are added
   private ForestGameArea currentMap;
   private LevelTwoArea level2Map;
   private final TerrainFactory terrainFactory;
@@ -101,6 +99,9 @@ public class MainGameScreen extends ScreenAdapter {
   /* Manages buffs & debuffs in the game */
   private BuffManager buffManager;
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
   public MainGameScreen(GdxGame game, ResourceService resourceService) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
@@ -150,6 +151,9 @@ public class MainGameScreen extends ScreenAdapter {
     return manager;
   }
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
   public MainGameScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
@@ -173,7 +177,6 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
 
-
     logger.debug("Initialising main game screen entities");
     //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -185,6 +188,9 @@ public class MainGameScreen extends ScreenAdapter {
     //forestGameArea.spawnBuffDebuff(this.buffManager);
   }
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
   public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied, ResourceService resourceService) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
@@ -213,7 +219,6 @@ public class MainGameScreen extends ScreenAdapter {
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied);
 
-
     forestGameArea.create();
 
     this.currentMap = forestGameArea;
@@ -223,16 +228,13 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
     this.currentMap.resetCam(renderer.getCamera());
-    if (isLevelChange) {
-      generateNewLevel();
-    }
     if (game.getState() == GdxGame.GameState.RUNNING) {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
     renderer.render();
-
   }
 
   @Override
@@ -289,7 +291,6 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(lossMenuTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
-
   }
 
   /**
@@ -319,8 +320,6 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new PopupMenuActions(this.game, this.currentMap))
         .addComponent(this.buffManager = new BuffManager(this, currentMap));
 
-
-
     ServiceLocator.getEntityService().register(ui);
   }
 
@@ -328,30 +327,6 @@ public class MainGameScreen extends ScreenAdapter {
    * Returns the current game map
    * */
   public ForestGameArea getCurrentMap() {
-
       return this.currentMap;
-
-  }
-
-  public static void changeLevel() {
-    isLevelChange = true;
-  }
-
-  public void generateNewLevel () {
-    currentLevel += 1;
-    System.out.println(currentLevel);
-    currentMap.dispose();
-    buffManager.disposeAll();
-    ui.dispose();
-   // unloadAssets();
-    if (currentLevel == 2) {
-      System.out.println("load next level.");
-      load();
-//      this.terrainFactory = new TerrainFactory(renderer.getCamera());
-      level2Map = new LevelTwoArea(terrainFactory, 0, false);
-      level2Map.create();
-      createUI();
-    }
-    isLevelChange = false;
   }
 }

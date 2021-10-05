@@ -2,28 +2,21 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-
-import com.deco2800.game.components.obstacle.AttackListener;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
-
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-
-import com.deco2800.game.components.tasks.AttackTask;
 import com.deco2800.game.components.tasks.ChaseTask;
-
 import com.deco2800.game.components.CombatStatsComponent;
 
 
+import com.deco2800.game.components.tasks.MovingTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -136,9 +129,11 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     asteroidFire.scaleHeight(1.2f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(1f, 1.2f));
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.2f));
+
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
+    asteroidFire.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0),asteroidFire.getCenterPosition());
     return asteroidFire;
   }
 
@@ -488,6 +483,40 @@ public class ObstacleFactory {
     return checkpoint;
   }
 
+
+  /**
+   * Create a new death wall and start to move from left to end of map
+   * @param target the target that the death wall toward with.
+   *               Normally the target should be the right air wall of
+   *               the game
+   * @return A new Entity death wall
+   */
+  public static Entity createDeathWall(Vector2 target) {
+    DeathWallConfig config = configs.deathWall;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
+    animator.startAnimation("Serpent1.1");
+
+
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new MovingTask(target));
+
+    return new Entity()
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+            .addComponent(new CombatStatsComponent(config.health, 100))
+            .addComponent(aiComponent)
+                    .addComponent(animator);
+  }
+
   /**
    * Creates a checkpoint entity on level 2.
    * @return entity
@@ -525,7 +554,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(checkpoint, 0.9f, 0.4f);
     return checkpoint;
   }
-
 
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");

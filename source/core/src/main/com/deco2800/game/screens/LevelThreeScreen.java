@@ -29,6 +29,11 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The game screen containing the level three game area.
+ *
+ * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
+ */
 public class LevelThreeScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoScreen.class);
     private static final String[] mainGameTextures = {"images/heart.png", "images/lives_icon2.png"};
@@ -66,7 +71,6 @@ public class LevelThreeScreen extends ScreenAdapter {
 
 
     private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
-
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
@@ -82,6 +86,9 @@ public class LevelThreeScreen extends ScreenAdapter {
     /* Manages buffs & debuffs in the game */
     private BuffManager buffManager;
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -131,6 +138,9 @@ public class LevelThreeScreen extends ScreenAdapter {
         return manager;
     }
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -165,6 +175,9 @@ public class LevelThreeScreen extends ScreenAdapter {
         //forestGameArea.spawnBuffDebuff(this.buffManager);
     }
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, int checkpoint, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -201,9 +214,6 @@ public class LevelThreeScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         this.currentMap.resetCam(renderer.getCamera());
-//        if (isLevelChange) {
-//            generateNewLevel();
-//        }
         if (game.getState() == GdxGame.GameState.RUNNING) {
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
@@ -302,8 +312,6 @@ public class LevelThreeScreen extends ScreenAdapter {
      * Returns the current game map
      * */
     public LevelThreeArea getCurrentMap() {
-
         return this.currentMap;
-
     }
 }

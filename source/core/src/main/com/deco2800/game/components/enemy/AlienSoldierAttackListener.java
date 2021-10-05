@@ -5,11 +5,11 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EnemyFactory;
 
-public class AlienSoliderAttackListener extends Component {
+public class AlienSoldierAttackListener extends Component {
     private Entity target;
     private GameArea gameArea;
 
-    public AlienSoliderAttackListener(Entity target, GameArea gameArea) {
+    public AlienSoldierAttackListener(Entity target, GameArea gameArea) {
         this.target = target;
         this.gameArea = gameArea;
     }
@@ -20,6 +20,6 @@ public class AlienSoliderAttackListener extends Component {
     }
 
     void attack() {
-        EnemyFactory.createAlienSoliderWeapon(this.entity,target, gameArea);
+        EnemyFactory.createAlienSoldierWeapon(this.entity,target, gameArea);
     }
 }

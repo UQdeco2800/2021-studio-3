@@ -129,8 +129,10 @@ public class PopupMenuActions extends Component {
 
     }
 
+    /**
+     * Method actives when user clicks the next level button after winning
+     */
     public void onNextLevel() {
-        //MainGameScreen.changeLevel();
         if (this.currentLevel == 1) {
             game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
@@ -141,9 +143,11 @@ public class PopupMenuActions extends Component {
         //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
     }
 
+    /**
+     * Return the current level.
+     * @return int current level num
+     */
     public int getCurrentLevel() {
         return currentLevel;
     }
-
-
 }
