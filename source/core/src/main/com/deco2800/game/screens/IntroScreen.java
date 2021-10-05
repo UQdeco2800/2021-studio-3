@@ -180,7 +180,7 @@ public class IntroScreen extends ScreenAdapter {
     private void createUI() {
         logger.debug("Creating ui");
         Entity ui = new Entity();
-        ui.addComponent(new IntroDisplay());
+        ui.addComponent(new IntroDisplay(game));
         //ui.addComponent(new LoadingDisplay(game)).addComponent(new InputDecorator(stage, 10));;
         ServiceLocator.getEntityService().register(ui);
     }

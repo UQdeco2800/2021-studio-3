@@ -33,13 +33,12 @@ public class IntroDisplay extends UIComponent {
     private TextureRegionDrawable scene3;
     private TextureRegionDrawable scene4;
     private TextureRegionDrawable scene5;
-    private ResourceService resourceService;
 
     private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
 
-    public IntroDisplay() {
-        resourceService = ServiceLocator.getResourceService();
+    public IntroDisplay(GdxGame game) {
+        this.game = game;
     }
 
     @Override
