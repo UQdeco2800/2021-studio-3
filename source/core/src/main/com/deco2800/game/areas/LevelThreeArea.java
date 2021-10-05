@@ -190,7 +190,6 @@ public class LevelThreeArea extends GameArea {
         spawnAsteroidFire();
         spawnRobot();
 
-
         spawnPlatform1();
         spawnUFO();
 
@@ -205,6 +204,9 @@ public class LevelThreeArea extends GameArea {
         //spawnAttackObstacle();
     }
 
+    /**
+     * Display the UI components to this level.
+     */
     private void displayUI() {
         Entity ui = new Entity();
         ui.addComponent(new GameAreaDisplay("Box Forest"));

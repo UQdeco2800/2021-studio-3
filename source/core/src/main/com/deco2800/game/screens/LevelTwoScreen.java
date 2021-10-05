@@ -87,6 +87,9 @@ public class LevelTwoScreen extends ScreenAdapter {
     /* Manages buffs & debuffs in the game */
     private BuffManager buffManager;
 
+    /**
+     * Load the game screen for level two when the game is starting.
+     */
     public LevelTwoScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -136,6 +139,9 @@ public class LevelTwoScreen extends ScreenAdapter {
         return manager;
     }
 
+    /**
+     * Load the game screen for level two when the game is starting.
+     */
     public LevelTwoScreen(GdxGame game, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -170,6 +176,9 @@ public class LevelTwoScreen extends ScreenAdapter {
         //forestGameArea.spawnBuffDebuff(this.buffManager);
     }
 
+    /**
+     * Load the game screen for level two when the game is starting.
+     */
     public LevelTwoScreen(GdxGame game, int checkpoint, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -206,9 +215,6 @@ public class LevelTwoScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         this.currentMap.resetCam(renderer.getCamera());
-//        if (isLevelChange) {
-//            generateNewLevel();
-//        }
         if (game.getState() == GdxGame.GameState.RUNNING) {
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
@@ -307,8 +313,6 @@ public class LevelTwoScreen extends ScreenAdapter {
      * Returns the current game map
      * */
     public LevelTwoArea getCurrentMap() {
-
         return this.currentMap;
-
     }
 }

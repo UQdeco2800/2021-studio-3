@@ -6,16 +6,11 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.TouchAttackComponent;
-
 import com.deco2800.game.components.enemy.AlienBossAttackListener;
 import com.deco2800.game.components.enemy.AlienSoldierAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
-
 import com.deco2800.game.components.tasks.AttackTask;
-
 import com.deco2800.game.components.CombatStatsComponent;
-
-
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -28,15 +23,25 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
+/**
+ * Factory to create enemy entities that could have different methods to attack the player.
+ *
+ * <p>Each enemy entity type should have a creation method that returns a corresponding entity.
+ */
 public class EnemyFactory {
     private static final EnemyConfig configs =
             FileLoader.readClass(EnemyConfig.class, "configs/enemy.json");
 
+    /**
+     * Creates an alien monster enemy.
+     * @param target the target that the enemy aim to attack
+     * @param gameArea the game area
+     * @return
+     */
     public static Entity createAlienMonster(Entity target, GameArea gameArea) {
         AlienMonsterConfig config = configs.alienMonster;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        //.addTask(new FallTask(5f));
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 2, 10, 6f));
 
@@ -52,21 +57,18 @@ public class EnemyFactory {
                 .addComponent(aiComponent)
                 .addComponent(new AttackListener(target, gameArea));
 
-//    AnimationRenderComponent animator =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-//    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
-//    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
-//
-//    ufo.addComponent(animator);
-//    ufo.addComponent(new UfoAnimationController());
-//
-//    ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
         PhysicsUtils.setScaledCollider(alienMonster, 1f,1f);
         alienMonster.scaleHeight(2f);
         return alienMonster;
     }
 
+    /**
+     * Creates the weapon/bullet for the alien monster enemy.
+     * @param from the position of the alien monster that the weapon will be created from
+     * @param target the player character that the weapon aim to attack
+     * @param gameArea the game area
+     * @return the weapon/bullet entity of alien monster
+     */
     public static Entity createAlienMonsterWeapon(Entity from, Entity target, GameArea gameArea) {
 
         float x1 = from.getPosition().x;
@@ -100,11 +102,16 @@ public class EnemyFactory {
         return alienMonsterWeapon;
     }
 
+    /**
+     * Creates an alien soldier enemy.
+     * @param target the target that the enemy aim to attack
+     * @param gameArea the game area
+     * @return
+     */
     public static Entity createAlienSoldier(Entity target, GameArea gameArea) {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        //.addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 3, 10, 6f));
 
         Entity alienSoldier =
@@ -125,6 +132,13 @@ public class EnemyFactory {
         return alienSoldier;
     }
 
+    /**
+     * Creates the weapon/bullet for the alien soldier enemy.
+     * @param from the position of the alien soldier that the weapon will be created from
+     * @param target the player character that the weapon aim to attack
+     * @param gameArea the game area
+     * @return the weapon/bullet entity of alien soldier
+     */
     public static void createAlienSoldierWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
@@ -237,6 +251,12 @@ public class EnemyFactory {
         gameArea.spawnEntity(alienSoldierWeapon5);
     }
 
+    /**
+     * Creates an alien boss enemy.
+     * @param target the target that the enemy aim to attack
+     * @param gameArea the game area
+     * @return
+     */
     public static Entity createAlienBoss(Entity target, GameArea gameArea) {
         AlienBossConfig config = configs.alienBoss;
         AITaskComponent aiComponent =
@@ -262,23 +282,28 @@ public class EnemyFactory {
         return alienBoss;
     }
 
+    /**
+     * Creates the weapon/bullet for the alien boss enemy.
+     * @param from the position of the alien boss that the weapon will be created from
+     * @param target the player character that the weapon aim to attack
+     * @param gameArea the game area
+     * @return the weapon/bullet entity of alien boss
+     */
     public static void createAlienBossWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
         float x2 = target.getPosition().x;
         float y2 = target.getPosition().y;
 
-        Vector2 straightTarget = new Vector2(x2 - x1, y2 - y1); //straight through player
+        Vector2 straightTarget = new Vector2(x2 - x1, y2 - y1);
 
-        //Shifted up 45 degrees from the straight vector
-        double upX = (Math.cos((Math.PI)/4) * straightTarget.x) - (Math.sin((Math.PI)/4) * straightTarget.y);
-        double upY = (Math.sin((Math.PI)/4) * straightTarget.x) + (Math.cos((Math.PI)/4) * straightTarget.y);
-        Vector2 upRotate = new Vector2( (float) upX, (float) upY);
+        double upX = (Math.cos((Math.PI) / 4) * straightTarget.x) - (Math.sin((Math.PI) / 4) * straightTarget.y);
+        double upY = (Math.sin((Math.PI) / 4) * straightTarget.x) + (Math.cos((Math.PI) / 4) * straightTarget.y);
+        Vector2 upRotate = new Vector2((float) upX, (float) upY);
 
-        //Shifted down 45 degrees from the straight vector
-        double downX = (Math.cos(-(Math.PI)/4) * straightTarget.x) - (Math.sin(-(Math.PI)/4) * straightTarget.y);
-        double downY = (Math.sin(-(Math.PI)/4) * straightTarget.x) + (Math.cos(-(Math.PI)/4) * straightTarget.y);
-        Vector2 downRotate = new Vector2( (float) downX, (float) downY);
+        double downX = (Math.cos(-(Math.PI) / 4) * straightTarget.x) - (Math.sin(-(Math.PI) / 4) * straightTarget.y);
+        double downY = (Math.sin(-(Math.PI) / 4) * straightTarget.x) + (Math.cos(-(Math.PI) / 4) * straightTarget.y);
+        Vector2 downRotate = new Vector2((float) downX, (float) downY);
 
         straightTarget = straightTarget.scl(100);
         straightTarget = straightTarget.add(from.getPosition());
@@ -354,8 +379,6 @@ public class EnemyFactory {
         gameArea.spawnEntity(alienBossWeapon2);
         gameArea.spawnEntity(alienBossWeapon3);
     }
-
-
 }
 
 

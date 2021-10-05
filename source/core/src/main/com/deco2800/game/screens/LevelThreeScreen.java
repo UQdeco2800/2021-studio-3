@@ -86,6 +86,9 @@ public class LevelThreeScreen extends ScreenAdapter {
     /* Manages buffs & debuffs in the game */
     private BuffManager buffManager;
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -135,6 +138,9 @@ public class LevelThreeScreen extends ScreenAdapter {
         return manager;
     }
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -169,6 +175,9 @@ public class LevelThreeScreen extends ScreenAdapter {
         //forestGameArea.spawnBuffDebuff(this.buffManager);
     }
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
     public LevelThreeScreen(GdxGame game, int checkpoint, boolean hasDied) {
         this.game = game;
         game.setState(GdxGame.GameState.RUNNING);
@@ -205,9 +214,6 @@ public class LevelThreeScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         this.currentMap.resetCam(renderer.getCamera());
-//        if (isLevelChange) {
-//            generateNewLevel();
-//        }
         if (game.getState() == GdxGame.GameState.RUNNING) {
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
@@ -306,8 +312,6 @@ public class LevelThreeScreen extends ScreenAdapter {
      * Returns the current game map
      * */
     public LevelThreeArea getCurrentMap() {
-
         return this.currentMap;
-
     }
 }
