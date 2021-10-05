@@ -36,7 +36,7 @@ public class EnemyFactory {
      * Creates an alien monster enemy.
      * @param target the target that the enemy aim to attack
      * @param gameArea the game area
-     * @return
+     * @return the alien monster enemy entity
      */
     public static Entity createAlienMonster(Entity target, GameArea gameArea) {
         AlienMonsterConfig config = configs.alienMonster;
@@ -106,7 +106,7 @@ public class EnemyFactory {
      * Creates an alien soldier enemy.
      * @param target the target that the enemy aim to attack
      * @param gameArea the game area
-     * @return
+     * @return the alien soldier enemy entity
      */
     public static Entity createAlienSoldier(Entity target, GameArea gameArea) {
         AlienSoldierConfig config = configs.alienSolider;
@@ -137,7 +137,6 @@ public class EnemyFactory {
      * @param from the position of the alien soldier that the weapon will be created from
      * @param target the player character that the weapon aim to attack
      * @param gameArea the game area
-     * @return the weapon/bullet entity of alien soldier
      */
     public static void createAlienSoldierWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
@@ -255,7 +254,7 @@ public class EnemyFactory {
      * Creates an alien boss enemy.
      * @param target the target that the enemy aim to attack
      * @param gameArea the game area
-     * @return
+     * @return the alien boss enemy entity
      */
     public static Entity createAlienBoss(Entity target, GameArea gameArea) {
         AlienBossConfig config = configs.alienBoss;
@@ -287,7 +286,6 @@ public class EnemyFactory {
      * @param from the position of the alien boss that the weapon will be created from
      * @param target the player character that the weapon aim to attack
      * @param gameArea the game area
-     * @return the weapon/bullet entity of alien boss
      */
     public static void createAlienBossWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
