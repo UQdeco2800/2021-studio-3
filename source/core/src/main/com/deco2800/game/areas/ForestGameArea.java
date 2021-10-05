@@ -122,7 +122,6 @@ public class ForestGameArea extends GameArea {
           "images/background_star.png",
           "images/background_surface.png",
           "images/surface.png",
-          "images/vikings_in_space.png",
           "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",

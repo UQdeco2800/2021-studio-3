@@ -88,7 +88,6 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_surface.png",
             "images/surface.png",
             "images/alien_monster.png",
-            "images/vikings in space.png",
             "images/alien_monster.png",
             "images/lives_icon2.png",
             "images/roll.png",
@@ -99,7 +98,6 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_solider_weapon_02.png",
             "images/alien_boss.png",
             "images/alien_boss_weapon_01.png",
-            "images/vikings in space.png",
             "images/lives_icon2.png",
             "images/instence_fall.png",
             "images/double_jump.png"
