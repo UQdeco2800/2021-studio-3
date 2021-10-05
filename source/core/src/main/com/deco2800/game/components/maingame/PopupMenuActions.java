@@ -6,6 +6,10 @@ import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.LivesComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
 
 /**
  * Handles actions for the buttons pushed on the win, loss and pause pop-up
@@ -15,10 +19,10 @@ import com.deco2800.game.components.LivesComponent;
  * be changed centrally.
  * */
 public class PopupMenuActions extends Component {
+    private static final Logger logger = LoggerFactory.getLogger(PopupMenuActions.class);
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
     private ForestGameArea area = null;
-    //private int checkPointStatus;
     private LevelTwoArea area2 = null;
     private LevelThreeArea area3 = null;
     private int currentLevel = 0;
@@ -74,9 +78,11 @@ public class PopupMenuActions extends Component {
                 game.setScreen(GdxGame.ScreenType.LOADING);
             }
         } else if (area2 != null) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (area3 != null) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         }
     }
 
@@ -84,15 +90,6 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
-//        if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
-//            onHome();
-//        } else {
-//            if (area.getCheckPointStatus() == 1 ) {
-//                game.setScreen(GdxGame.ScreenType.CHECKPOINT);
-//            } else {
-//                game.setScreen(GdxGame.ScreenType.RESPAWN);
-//            }
-//        }
 
         if (area != null) {
             if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
@@ -107,9 +104,12 @@ public class PopupMenuActions extends Component {
                 }
             }
         } else if (area2 != null) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            logger.info("Player has lost and is now replaying level2");
+            game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (area3 != null) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         }
     }
 
@@ -129,15 +129,25 @@ public class PopupMenuActions extends Component {
 
     }
 
+    /**
+     * Method actives when user clicks the next level button after winning
+     */
     public void onNextLevel() {
-        //MainGameScreen.changeLevel();
         if (this.currentLevel == 1) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (this.currentLevel == 2) {
-            game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+            game.setScreen(GdxGame.ScreenType.LOADING);
         }
         //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
     }
 
-
+    /**
+     * Return the current level.
+     * @return int current level num
+     */
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 }

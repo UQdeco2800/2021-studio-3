@@ -95,6 +95,7 @@ public class PlayerFactory {
     animator.addAnimation("damaged-sprint-right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("damaged-jump-right", 0.1f);
     animator.addAnimation("dead", 0.4f, Animation.PlayMode.LOOP);
+    animator.addAnimation("roll", 0.025f, Animation.PlayMode.LOOP);
 
     // Starts the idle animation
     animator.startAnimation("normal-stationary");
@@ -113,9 +114,10 @@ public class PlayerFactory {
                     .addComponent(animator)
                     .addComponent(new PlayerAnimationController())
                     .addComponent(new PlayerStatsDisplay(manager,h))
-                    .addComponent(new DoubleJumpComponent());
+                    .addComponent(new DoubleJumpComponent())
+                    .addComponent(new RollComponent());
 
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+    PhysicsUtils.setScaledCollider(player, 0.5f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     return player;

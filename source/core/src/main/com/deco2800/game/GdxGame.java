@@ -108,9 +108,9 @@ public class GdxGame extends Game {
       case MAIN_GAME:
         return new MainGameScreen(this, resourceService);
       case LEVEL_TWO_GAME:
-        return new LevelTwoScreen(this);
+        return new LevelTwoScreen(this, resourceService);
       case LEVEL_THREE_GAME:
-        return new LevelThreeScreen(this);
+        return new LevelThreeScreen(this, resourceService);
       case RESPAWN:
         return new MainGameScreen(this, true, resourceService);
       case SETTINGS:
