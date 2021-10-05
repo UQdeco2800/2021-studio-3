@@ -412,7 +412,7 @@ public class ForestGameArea extends GameArea {
       lives -= 1;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
     } else {
-      if(lives < 5 && !isDead()) {
+      if(lives == 0 && !isDead()) {
         lives = 5;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
