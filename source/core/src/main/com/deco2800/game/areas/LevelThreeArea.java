@@ -16,6 +16,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -443,8 +444,9 @@ public class LevelThreeArea extends GameArea {
         // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
         // target's y position is offset 4.5 upwards to remove the bug
         Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-        Entity deathWall = ObstacleFactory.createDeathWall(3f, terrain.getMapBounds(0).y *
-                terrain.getTileSize(), deathWallEndPos);
+        Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos);
+        deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
+        deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
         spawnEntityAt(deathWall, new GridPoint2(0, 0), false, false);
     }
 

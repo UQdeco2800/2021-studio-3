@@ -19,10 +19,13 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 
 @ExtendWith(GameExtension.class)
 class GameAreaTest {
+  @Mock ResourceService resourceService;
+  @Mock GameArea gameArea;
   @Test
   void shouldSpawnEntities() {
     TerrainFactory factory = mock(TerrainFactory.class);
@@ -43,21 +46,9 @@ class GameAreaTest {
     verify(entity).dispose();
   }
 
-//    /**
-//     * A test to test the create method in ForestGameArea class
-//     */
-//  @Test
-//    void test() {
-//      ServiceLocator.registerResourceService(new ResourceService());
-//      ServiceLocator.registerEntityService(new EntityService());
-//      ServiceLocator.registerInputService(new InputService());
-//      ServiceLocator.registerPhysicsService(new PhysicsService());
-//      ServiceLocator.registerRenderService(new RenderService());
-//      ServiceLocator.registerTimeSource(new GameTime());
-//      ForestGameArea gameArea = new ForestGameArea(mock(TerrainFactory.class), 0, false);
-//      gameArea.create();
+//    @Test
+//    void shouldSpawnDeathWall() {
+//        gameArea.create();
 //
-//      verify(gameArea).create();
-//
-//  }
+//    }
 }
