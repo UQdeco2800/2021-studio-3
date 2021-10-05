@@ -63,6 +63,7 @@ public class IntroDisplay extends UIComponent {
         //Background and buttons tables
         background = new Table();
         buttons = new Table();
+        buttons.bottom().right();
         background.setFillParent(true);
         buttons.setFillParent(true);
 
@@ -93,8 +94,8 @@ public class IntroDisplay extends UIComponent {
         TextButton nextBtn = new TextButton("Next", skin);
         TextButton skipBtn = new TextButton("Skip", skin);
 
-        buttons.add(nextBtn).padTop(900f).padLeft(900f);
-        buttons.add(skipBtn).padTop(900f).padLeft(30f);
+        buttons.add(nextBtn).padBottom(15f).padRight(10f);
+        buttons.add(skipBtn).padBottom(15f).padRight(15f);;
 
         nextBtn.addListener(
                 new ChangeListener() {
