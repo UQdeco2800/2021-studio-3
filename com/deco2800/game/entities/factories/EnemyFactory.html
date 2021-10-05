@@ -98,6 +98,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">EnemyFactory</span>
 extends java.lang.Object</pre>
+<div class="block">Factory to create enemy entities that could have different methods to attack the player.
+
+ <p>Each enemy entity type should have a creation method that returns a corresponding entity.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -148,40 +151,52 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienBoss(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienBoss</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates an alien boss enemy.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienBossWeapon(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienBossWeapon</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates the weapon/bullet for the alien boss enemy.</div>
+</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienMonster(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienMonster</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates an alien monster enemy.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienMonsterWeapon(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienMonsterWeapon</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates the weapon/bullet for the alien monster enemy.</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienSoldier(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienSoldier</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates an alien soldier enemy.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAlienSoldierWeapon(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienSoldierWeapon</a></span>&#8203;(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates the weapon/bullet for the alien soldier enemy.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -226,6 +241,14 @@ extends java.lang.Object</pre>
 <h3><a id="createAlienMonster(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienMonster</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">createAlienMonster</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates an alien monster enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the target that the enemy aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the alien monster enemy entity</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -234,6 +257,15 @@ extends java.lang.Object</pre>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">createAlienMonsterWeapon</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates the weapon/bullet for the alien monster enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the position of the alien monster that the weapon will be created from</dd>
+<dd><code>target</code> - the player character that the weapon aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the weapon/bullet entity of alien monster</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -241,6 +273,14 @@ extends java.lang.Object</pre>
 <h3><a id="createAlienSoldier(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienSoldier</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">createAlienSoldier</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates an alien soldier enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the target that the enemy aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the alien soldier enemy entity</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -249,6 +289,13 @@ extends java.lang.Object</pre>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createAlienSoldierWeapon</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates the weapon/bullet for the alien soldier enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the position of the alien soldier that the weapon will be created from</dd>
+<dd><code>target</code> - the player character that the weapon aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -256,6 +303,14 @@ extends java.lang.Object</pre>
 <h3><a id="createAlienBoss(com.deco2800.game.entities.Entity,com.deco2800.game.areas.GameArea)">createAlienBoss</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">createAlienBoss</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates an alien boss enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the target that the enemy aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the alien boss enemy entity</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -264,6 +319,13 @@ extends java.lang.Object</pre>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createAlienBossWeapon</span>&#8203;(<span class="arguments"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;from,
 <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target,
 <a href="../../areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;gameArea)</span></div>
+<div class="block">Creates the weapon/bullet for the alien boss enemy.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the position of the alien boss that the weapon will be created from</dd>
+<dd><code>target</code> - the player character that the weapon aim to attack</dd>
+<dd><code>gameArea</code> - the game area</dd>
+</dl>
 </section>
 </li>
 </ul>
