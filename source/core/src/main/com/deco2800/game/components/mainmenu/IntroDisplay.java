@@ -88,7 +88,7 @@ public class IntroDisplay extends UIComponent {
                         entity.getEvents().trigger("skip");
                     }
                 });
-
+        Gdx.input.setInputProcessor(stage);
         stage.addActor(background);
         stage.addActor(buttons);
     }
@@ -99,7 +99,7 @@ public class IntroDisplay extends UIComponent {
         //
     }
 
-    private void nextScene() {
+    public void nextScene() {
         if (background.getBackground().equals(scene1)) {
             background.setBackground(scene2);
         } else if (background.getBackground().equals(scene2)) {
@@ -113,7 +113,7 @@ public class IntroDisplay extends UIComponent {
         }
     }
 
-    private void skipScene() {
+    public void skipScene() {
         game.setScreen(GdxGame.ScreenType.LOADING);
     }
 
