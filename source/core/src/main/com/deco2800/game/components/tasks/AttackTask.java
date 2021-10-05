@@ -6,6 +6,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 
+/** Attacks a target entity when it gets close to the enemy. */
 public class AttackTask extends DefaultTask implements PriorityTask {
     private final GameTime timeSource;
     private final Entity target;
@@ -14,6 +15,14 @@ public class AttackTask extends DefaultTask implements PriorityTask {
     private final float distance;
     private long endtime;
 
+    /**
+     * @param target The entity to attack.
+     * @param waitTime The waiting time between each attack.
+     * @param priority Task priority when chasing (0 when not chasing).
+     * @param distance The attack distance.
+     *
+     * Construct the AttackTask.
+     */
     public AttackTask(Entity target, float waitTime, int priority, float distance) {
         this.target = target;
         this.waitTime = waitTime;
@@ -25,7 +34,6 @@ public class AttackTask extends DefaultTask implements PriorityTask {
     @Override
     public void start() {
         super.start();
-        //this.owner.getEntity().getEvents().trigger("FallStart");
         endtime = timeSource.getTime() + (int)(waitTime * 1000);
     }
 
@@ -35,7 +43,6 @@ public class AttackTask extends DefaultTask implements PriorityTask {
             this.owner.getEntity().getEvents().trigger("attack");
             endtime = timeSource.getTime() + (int)(waitTime * 1000);
         }
-
     }
 
     @Override
@@ -48,7 +55,6 @@ public class AttackTask extends DefaultTask implements PriorityTask {
         if (status == Status.ACTIVE) {
             return Active();
         }
-
         return inActive();
     }
 
@@ -71,7 +77,4 @@ public class AttackTask extends DefaultTask implements PriorityTask {
         }
         return -1;
     }
-
-
-
 }

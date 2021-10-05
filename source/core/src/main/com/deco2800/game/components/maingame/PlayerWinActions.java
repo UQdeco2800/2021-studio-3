@@ -44,8 +44,6 @@ public class PlayerWinActions extends Component {
         entity.getEvents().addListener("homeMenu",
                 this.mainGameUI.getComponent(PopupMenuActions.class)::onHome);
 
-        /* Currently, there is only one level. 'continue' repeats the level. */
-
         // jump into the next level
         entity.getEvents().addListener("continue",
                 this.mainGameUI.getComponent(PopupMenuActions.class)::onNextLevel);

@@ -13,12 +13,17 @@ import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -27,6 +32,7 @@ import java.io.IOException;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
+  private static final Logger logger = LoggerFactory.getLogger(TerrainFactory.class);
   private static final GridPoint2 MAP_SIZE = new GridPoint2(100, 30);
   private static final int TUFT_TILE_COUNT = 30;
   private static final int ROCK_TILE_COUNT = 30;
@@ -380,6 +386,51 @@ public class TerrainFactory {
     }
   }
 
+  /**
+   * If a surface tile exists on the game map with the given x-coordinate, return
+   * the corresponding y-coordinate
+   * @param x
+   * @param screenType the current level screen of the game
+   * @return the corresponding y-coordinate of surface tile if it exists wih
+   * given x-coordinate
+   */
+  public int getYOfSurface(int x, GdxGame.ScreenType screenType) {
+    int y = 0;
+    String filename = null;
+    if (screenType == GdxGame.ScreenType.MAIN_GAME) {
+      filename = "level-floors/levelOne.txt";
+    } else if (screenType == GdxGame.ScreenType.LEVEL_TWO_GAME) {
+      filename = "level-floors/levelTwo.txt";
+    }
+    try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
+      String line = br.readLine();
+      int referenceX = 0, referenceY = 0, width = 0, distance = 0;
+
+      while (line != null) {
+        String[] values = line.split(" ");
+        width = Integer.parseInt(values[0]);
+        referenceX = Integer.parseInt(values[1]);
+        referenceY = Integer.parseInt(values[2]);
+        distance = (width * 2) + referenceX;
+
+        if (x >= referenceX && x <= distance) {
+          logger.debug("this is distance {}", distance);
+          logger.debug("this is reference x {}", referenceX);
+          y = referenceY;
+          break;
+        } else {
+          line = br.readLine();
+        }
+      }
+    } catch (FileNotFoundException e) {
+      logger.error("No file is found with the name {}", filename);
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    logger.debug("this is y {}", y);
+    return y;
+  }
 
   /**
    * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with

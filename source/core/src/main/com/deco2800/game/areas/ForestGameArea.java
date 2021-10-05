@@ -155,7 +155,6 @@ public class ForestGameArea extends GameArea {
      space the player is allowed to move within. */
   private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
-
   public ForestGameArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
     super();
     this.terrainFactory = terrainFactory;
@@ -225,10 +224,8 @@ public class ForestGameArea extends GameArea {
 //    playMusic();
 
     //spawnAttackObstacle();
-    spawnAlienMonster();
+    //spawnAlienMonster();
     spawnAlienSoldier();
-    spawnAlienBoss();
-
   }
 
   private void displayUI() {
@@ -519,10 +516,14 @@ public class ForestGameArea extends GameArea {
    *                and timeout-related functionality of this buff.
    * */
   public void spawnBuffDebuff(BuffManager manager) {
-    /* Get a random position based on map bounds */
-    GridPoint2 maxPos = new GridPoint2(terrain.getMapBounds(0).x,
-            PLAYER_SPAWN.y);
-    GridPoint2 randomPos = RandomUtils.random(PLAYER_SPAWN, maxPos);
+
+    /* Get a random x position based on map bounds */
+    int maxXPos = terrain.getMapBounds(0).x;
+    Random randomXPos = new Random();
+    int pos = randomXPos.nextInt(maxXPos);
+    logger.debug("this is x {}", pos);
+
+    GridPoint2 randomPos = new GridPoint2(pos - 1, terrainFactory.getYOfSurface(pos, GdxGame.ScreenType.MAIN_GAME));
 
     /* Pick a random buff */
     Random randomNumber = new Random();

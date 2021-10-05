@@ -8,6 +8,9 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 
+/**
+ * When this entity touches a valid enemy's bullet, deal damage to them and destroy the bullet.
+ */
 public class BulletHitPlayer extends Component {
     private Entity target;
     private HitboxComponent hitboxComponent;

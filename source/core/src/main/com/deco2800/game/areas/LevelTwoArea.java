@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -14,6 +15,7 @@ import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.AnimationRenderComponent;
@@ -23,9 +25,7 @@ import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.deco2800.game.components.player.DoubleJumpComponent;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
+/** Game area for the level two */
 public class LevelTwoArea extends GameArea{
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
@@ -110,7 +111,14 @@ public class LevelTwoArea extends GameArea{
             "images/background_mars.png",
             "images/background_mars_ground.png",
             "images/background_mars_surface.png",
-            "images/background_mars_star.png"
+            "images/background_mars_star.png",
+            "images/alien_monster_weapon_01.png",
+            "images/alien_monster_weapon_02.png",
+            "images/alien_solider.png",
+            "images/alien_solider_weapon_01.png",
+            "images/alien_solider_weapon_02.png",
+            "images/alien_boss.png",
+            "images/alien_boss_weapon_01.png"
     };
 
     private static final String[] forestTextureAtlases = {
@@ -186,7 +194,7 @@ public class LevelTwoArea extends GameArea{
         spawnAsteroids();
         spawnAsteroidFires();
         spawnRobot();
-
+        spawnAlienMonster();
 
         //spawnBuilding();
         //spawnTrees();
@@ -224,6 +232,9 @@ public class LevelTwoArea extends GameArea{
         checkpoint = status;
     }
 
+    /**
+     * Spawn the terrain onto this area.
+     */
     private void spawnTerrain() {
         // Background terrain
 
@@ -292,6 +303,9 @@ public class LevelTwoArea extends GameArea{
                 new GridPoint2(0, -1), false, false);
     }
 
+    /**
+     * Spawn the dynamic obstacle entity UFO.
+     */
     private void spawnUFO() {
         GridPoint2 minPos = new GridPoint2(2, 20);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 10);
@@ -353,12 +367,6 @@ public class LevelTwoArea extends GameArea{
         spawnAsteroid(46, 7);
         spawnAsteroid(55, 8);
         spawnAsteroid(87, 5);
-
-//    for (int i = 0; i < NUM_ASTERIODS; i++) {
-//      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-//      Entity asteriod = ObstacleFactory.createAsteriod();
-//      spawnEntityAt(asteriod, randomPos, true, false);
-//    }
     }
 
     /**
@@ -403,6 +411,17 @@ public class LevelTwoArea extends GameArea{
         Entity robot1 = ObstacleFactory.createRobot(player);
         spawnEntityAt(robot1, pos1, true, true);
     }
+
+
+    /**
+     * Spawns an alien monster for this level.
+     */
+    private void spawnAlienMonster() {
+        GridPoint2 pos1 = new GridPoint2(86, 20);
+        Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
+        spawnEntityAt(alienMonster, pos1, true, true);
+    }
+
 
 
     public boolean isDead() {
@@ -460,9 +479,12 @@ public class LevelTwoArea extends GameArea{
      * */
     public void spawnBuffDebuff(BuffManager manager) {
         /* Get a random position based on map bounds */
-        GridPoint2 maxPos = new GridPoint2(terrain.getMapBounds(0).x,
-                PLAYER_SPAWN.y);
-        GridPoint2 randomPos = RandomUtils.random(PLAYER_SPAWN, maxPos);
+        int maxXPos = terrain.getMapBounds(0).x;
+
+        Random randomXPos = new Random();
+        int pos = randomXPos.nextInt(maxXPos);
+        logger.info("this is x {}", pos);
+        GridPoint2 randomPos = new GridPoint2(pos - 1, terrainFactory.getYOfSurface(pos, GdxGame.ScreenType.LEVEL_TWO_GAME));
 
         /* Pick a random buff */
         Random randomNumber = new Random();
