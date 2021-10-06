@@ -2,6 +2,9 @@ package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.loadmenu.LoadMenuDisplay;
+import com.deco2800.game.components.mainmenu.IntroDisplay;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.rendering.RenderService;
@@ -26,6 +29,57 @@ public class LoadScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
         this.resourceService = ServiceLocator.getResourceService();
+        loadAssets();
+        createUI();
     }
 
+    @Override
+    public void render(float delta) {
+        ServiceLocator.getEntityService().update();
+        renderer.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        renderer.resize(width, height);
+        logger.trace("Resized renderer: ({} x {})", width, height);
+    }
+
+    @Override
+    public void dispose() {
+        logger.debug("Disposing main menu screen");
+        renderer.dispose();
+        unloadAssets();
+        ServiceLocator.getRenderService().dispose();
+        ServiceLocator.getEntityService().dispose();
+        ServiceLocator.clear();
+    }
+
+    /**
+     * Loads all the assets required for the game scenes.
+     */
+    private void loadAssets() {
+        logger.debug("Loading assets");
+
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    /**
+     * Unloads assets loaded through loadAssets.
+     */
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+    }
+
+    /**
+     * Creates the ui for the game intro by create a new introDisplay
+     * instance for the game in which IntroDisplay will be called.
+     */
+    private void createUI() {
+        logger.debug("Creating ui");
+        Entity ui = new Entity();
+        ui.addComponent(new LoadMenuDisplay(game));
+        ServiceLocator.getEntityService().register(ui);
+    }
 }
+
