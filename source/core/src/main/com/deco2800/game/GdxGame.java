@@ -43,8 +43,8 @@ public class GdxGame extends Game {
     logger.info("Creating game");
     loadSettings();
 
-    // Sets background to light yellow
-    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 0);
+    // Sets background to light blue
+    Gdx.gl.glClearColor(195/255f,206/255f,224/255f,1);
     ServiceLocator.registerResourceService(new ResourceService());
     resourceService = ServiceLocator.getResourceService();
     setScreen(ScreenType.MAIN_MENU);
