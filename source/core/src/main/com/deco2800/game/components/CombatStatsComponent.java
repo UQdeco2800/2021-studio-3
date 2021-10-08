@@ -3,6 +3,10 @@ package com.deco2800.game.components;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
  * which engage it combat should have an instance of this class registered. This class can be
@@ -110,7 +114,7 @@ public class CombatStatsComponent extends Component {
                 (this.health - (2 * (this.health - health))) : health;
 
         // If the double hurt caused negative health, set to 0.
-        this.health = this.health <= 0 ? 0 : this.health;
+        this.health = Math.max(this.health, 0);
       } else {
         this.health = 0;
       }
@@ -118,6 +122,26 @@ public class CombatStatsComponent extends Component {
         // Updates the player state and animations when healed
         entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
+
+          try {
+            saveFile = new File("save/save.txt");
+            if (saveFile.createNewFile()) {
+              logger.debug("New Save created!");
+            } else {
+              logger.debug("File already exists");
+            }
+
+            FileWriter fileWriter = new FileWriter("save/save.txt");
+            fileWriter.write((entity.getComponent(ScoreComponent.class).getScore()));
+            fileWriter.write((int) (entity.getComponent(ProgressComponent.class).getProgress()));
+            fileWriter.write((entity.getComponent(LivesComponent.class).getLives()));
+            fileWriter.close();
+            logger.debug("Successfully wrote to file");
+            System.out.println("Successfuly write t o file");
+          } catch (IOException e) {
+            e.printStackTrace();
+
+          }
           entity.getEvents().trigger("playerDeath");
         }
       }
