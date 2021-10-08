@@ -111,8 +111,12 @@ public class GdxGame extends Game {
         return new LevelTwoScreen(this, resourceService);
       case LEVEL_THREE_GAME:
         return new LevelThreeScreen(this, resourceService);
-      case RESPAWN:
+      case RESPAWN1:
         return new MainGameScreen(this, true, resourceService);
+      case RESPAWN2:
+        return new LevelTwoScreen(this, true, resourceService);
+      case RESPAWN3:
+        return new LevelThreeScreen(this, true, resourceService);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
@@ -145,7 +149,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT,
+    MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME,
     LOADING, INTRO
 

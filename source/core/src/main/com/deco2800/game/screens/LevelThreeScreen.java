@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelThreeArea;
+import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -205,6 +206,39 @@ public class LevelThreeScreen extends ScreenAdapter {
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
         LevelThreeArea levelThreeArea = new LevelThreeArea(terrainFactory, 1, hasDied);
+        levelThreeArea.create();
+
+        this.currentMap = levelThreeArea;
+        createUI();
+    }
+
+    public LevelThreeScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+
+        logger.debug("Initialising main game screen entities");
+        //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelThreeArea levelThreeArea = new LevelThreeArea(terrainFactory, 0, hasDied);
         levelThreeArea.create();
 
         this.currentMap = levelThreeArea;

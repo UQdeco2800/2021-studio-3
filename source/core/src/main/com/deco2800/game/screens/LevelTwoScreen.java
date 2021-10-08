@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
@@ -209,6 +210,39 @@ public class LevelTwoScreen extends ScreenAdapter {
         level2Area.create();
 
         this.currentMap = level2Area;
+        createUI();
+    }
+
+    public LevelTwoScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+
+        logger.debug("Initialising main game screen entities");
+        //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelTwoArea levelTwoArea = new LevelTwoArea(terrainFactory, 0, hasDied);
+        levelTwoArea.create();
+
+        this.currentMap = levelTwoArea;
         createUI();
     }
 
