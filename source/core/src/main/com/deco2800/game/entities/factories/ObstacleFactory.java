@@ -489,6 +489,7 @@ public class ObstacleFactory {
    * @param target the target that the death wall toward with.
    *               Normally the target should be the right air wall of
    *               the game
+   * @param speed the speed that a death wall should move
    * @return A new Entity death wall
    */
   public static Entity createDeathWall(Vector2 target, float speed) {

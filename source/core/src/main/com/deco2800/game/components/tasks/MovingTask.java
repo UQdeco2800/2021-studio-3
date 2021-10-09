@@ -40,6 +40,9 @@ public class MovingTask extends DefaultTask implements PriorityTask {
         movementTask.update();
     }
 
+    /**
+     * To update the death position by the speed
+     */
     private void updateSpeed () {
         Body body = this.owner.getEntity().getComponent(PhysicsComponent.class).getBody();
         Vector2 velocity = body.getLinearVelocity();

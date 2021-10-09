@@ -460,8 +460,6 @@ public class LevelThreeArea extends GameArea {
         }
     }
     private void spawnDeathWall() {
-        // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
-        // target's y position is offset 4.5 upwards to remove the bug
         float movingSpeed = 1.2f;
         Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
         Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
