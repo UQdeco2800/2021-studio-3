@@ -502,7 +502,6 @@ public class ObstacleFactory {
     animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
     animator.startAnimation("Serpent1.1");
 
-
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new MovingTask(target, speed));
@@ -515,7 +514,7 @@ public class ObstacleFactory {
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
             .addComponent(new CombatStatsComponent(config.health, 100))
             .addComponent(aiComponent)
-                    .addComponent(animator);
+            .addComponent(animator);
   }
 
   /**

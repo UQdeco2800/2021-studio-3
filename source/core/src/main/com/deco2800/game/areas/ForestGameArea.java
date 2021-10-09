@@ -497,7 +497,6 @@ public class ForestGameArea extends GameArea {
   }
 
   private void createCheckpoint() {
-
     GridPoint2 checkPoint = new GridPoint2(36, 12);
     Entity checkpoint = ObstacleFactory.createCheckpoint(player, this);
     spawnEntityAt(checkpoint, checkPoint, true, false);
@@ -594,6 +593,29 @@ public class ForestGameArea extends GameArea {
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
       camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
       camera.getCamera().update();
+    }
+  }
+
+  /**
+   * Check if the game is pause, and stop the animation playing
+   * @param state The game state
+   */
+  public void isPause(GdxGame.GameState state) {
+    if (state != GdxGame.GameState.RUNNING) {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
+        }
+      }
+    } else {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+        }
+      }
     }
   }
 

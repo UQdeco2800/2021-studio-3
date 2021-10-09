@@ -228,12 +228,14 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
-    this.currentMap.resetCam(renderer.getCamera());
     if (game.getState() == GdxGame.GameState.RUNNING) {
+      this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
+      this.currentMap.resetCam(renderer.getCamera());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
+    this.currentMap.isPause(game.getState());
+
     renderer.render();
   }
 
