@@ -12,6 +12,7 @@ import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.PlayerAnimationController;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
@@ -546,6 +547,32 @@ public class LevelTwoArea extends GameArea{
         }
     }
 
+
+    /**
+     * Check if the game is pause, and stop the animation playing
+     * @param state The game state
+     */
+    public void isPause(GdxGame.GameState state) {
+        if (state != GdxGame.GameState.RUNNING) {
+            for (Entity entity : areaEntities) {
+                if (entity.getComponent(AnimationRenderComponent.class) != null) {
+                    entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
+                }
+                if (entity.getComponent(PlayerAnimationController.class) != null) {
+                    entity.getComponent(PlayerAnimationController.class).setEnabled(false);
+                }
+            }
+        } else {
+            for (Entity entity : areaEntities) {
+                if (entity.getComponent(AnimationRenderComponent.class) != null) {
+                    entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+                }
+                if (entity.getComponent(PlayerAnimationController.class) != null) {
+                    entity.getComponent(PlayerAnimationController.class).setEnabled(true);
+                }
+            }
+        }
+    }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");

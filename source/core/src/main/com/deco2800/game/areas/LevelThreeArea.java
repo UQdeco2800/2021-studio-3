@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -11,6 +12,7 @@ import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
+import com.deco2800.game.components.player.PlayerAnimationController;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
@@ -459,6 +461,7 @@ public class LevelThreeArea extends GameArea {
             camera.getCamera().update();
         }
     }
+
     private void spawnDeathWall() {
         float movingSpeed = 1.2f;
         Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
@@ -466,6 +469,32 @@ public class LevelThreeArea extends GameArea {
         deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
         deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
         spawnEntityAt(deathWall, new GridPoint2(0, 0), false, false);
+    }
+
+    /**
+     * Check if the game is pause, and stop the animation playing
+     * @param state The game state
+     */
+    public void isPause(GdxGame.GameState state) {
+        if (state != GdxGame.GameState.RUNNING) {
+            for (Entity entity : areaEntities) {
+                if (entity.getComponent(AnimationRenderComponent.class) != null) {
+                    entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
+                }
+                if (entity.getComponent(PlayerAnimationController.class) != null) {
+                    entity.getComponent(PlayerAnimationController.class).setEnabled(false);
+                }
+            }
+        } else {
+            for (Entity entity : areaEntities) {
+                if (entity.getComponent(AnimationRenderComponent.class) != null) {
+                    entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+                }
+                if (entity.getComponent(PlayerAnimationController.class) != null) {
+                    entity.getComponent(PlayerAnimationController.class).setEnabled(true);
+                }
+            }
+        }
     }
 
     private void unloadAssets() {
