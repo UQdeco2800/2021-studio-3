@@ -123,7 +123,7 @@ public class CombatStatsComponent extends Component {
         entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
 
-          try {
+          /*try {
             saveFile = new File("save/save.txt");
             if (saveFile.createNewFile()) {
               logger.debug("New Save created!");
@@ -141,7 +141,7 @@ public class CombatStatsComponent extends Component {
           } catch (IOException e) {
             e.printStackTrace();
 
-          }
+          }*/
           entity.getEvents().trigger("playerDeath");
         }
       }
