@@ -165,9 +165,17 @@ public class LoadingScreen extends ScreenAdapter {
                     logger.info("Setting screen to CHECKPOINT");
                     this.game.setScreen(GdxGame.ScreenType.CHECKPOINT);
                     break;
-                case RESPAWN:
-                    logger.info("Setting screen to RESPAWN");
-                    this.game.setScreen(GdxGame.ScreenType.RESPAWN);
+                case RESPAWN1:
+                    logger.info("Setting screen to RESPAWN1");
+                    this.game.setScreen(GdxGame.ScreenType.RESPAWN1);
+                    break;
+                case RESPAWN2:
+                    logger.info("Setting screen to RESPAWN2");
+                    this.game.setScreen(GdxGame.ScreenType.RESPAWN2);
+                    break;
+                case RESPAWN3:
+                    logger.info("Setting screen to RESPAWN3");
+                    this.game.setScreen(GdxGame.ScreenType.RESPAWN3);
                     break;
                 case LEVEL_TWO_GAME:
                     logger.info("Setting screen to LEVEL_TWO_GAME");
@@ -216,11 +224,13 @@ public class LoadingScreen extends ScreenAdapter {
         resourceService.loadTextureAtlases(forestTextureAtlases);
         resourceService.loadSounds(forestSounds);
         resourceService.loadMusic(forestMusic);
-        if (game.getScreenType() == GdxGame.ScreenType.LEVEL_TWO_GAME) {
+        if (game.getScreenType() == GdxGame.ScreenType.LEVEL_TWO_GAME
+                || game.getScreenType() == GdxGame.ScreenType.RESPAWN2) {
             logger.info("loading level2 assets");
             resourceService.loadTextures(level2Textures);
 
-        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_THREE_GAME) {
+        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_THREE_GAME
+                || game.getScreenType() == GdxGame.ScreenType.RESPAWN3) {
             logger.info("loading level3 assets");
             resourceService.loadTextures(level3Textures);
         }
