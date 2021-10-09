@@ -29,7 +29,7 @@ public class LoadScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
         this.resourceService = ServiceLocator.getResourceService();
-        loadAssets();
+
         createUI();
     }
 
@@ -47,7 +47,7 @@ public class LoadScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing main menu screen");
+        logger.debug("Disposing load menu screen");
         renderer.dispose();
         unloadAssets();
         ServiceLocator.getRenderService().dispose();

@@ -42,9 +42,9 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void onLoad() {
+    logger.info("Launching load screen");
     game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-    game.setScreenType(GdxGame.ScreenType.LOAD);
-    logger.info("Load game");
+    game.setScreen(GdxGame.ScreenType.LOAD);
   }
 
   /**
