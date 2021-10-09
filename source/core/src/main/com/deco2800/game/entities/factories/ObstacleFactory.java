@@ -58,6 +58,24 @@ public class ObstacleFactory {
   }
 
   /**
+   * Creates a portal entity.
+   * @return entity
+   */
+  public static Entity createPortal() {
+    Entity portal =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/tree.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    portal.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
+    return portal;
+  }
+
+  /**
    * Creates a asteroid entity.
    * @return entity
    */

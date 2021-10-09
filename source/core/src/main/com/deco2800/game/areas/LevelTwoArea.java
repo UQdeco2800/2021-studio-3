@@ -140,6 +140,9 @@ public class LevelTwoArea extends GameArea{
     /* End of this map */
     private Entity endOfMap;
 
+    /* The end portal of this map */
+    private Entity endPortal;
+
     private int checkpoint;
 
     private boolean hasDied;
@@ -175,6 +178,13 @@ public class LevelTwoArea extends GameArea{
         return endOfMap;
     }
 
+    /**
+     * Returns the end of the current map.
+     * */
+    public Entity getEndPortal() {
+        return endPortal;
+    }
+
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
@@ -186,7 +196,7 @@ public class LevelTwoArea extends GameArea{
         player = spawnPlayer();
         spawnDeathWall();
         //spawnTrees();
-
+        spawnPortal();
 
         //spawnGhosts();
 
@@ -412,6 +422,12 @@ public class LevelTwoArea extends GameArea{
         spawnEntityAt(robot1, pos1, true, true);
     }
 
+    private void spawnPortal() {
+        GridPoint2 tileBounds = terrain.getMapBounds(0);
+        GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, 7);
+        this.endPortal = ObstacleFactory.createPortal();
+        spawnEntityAt(this.endPortal, pos1, true, true);
+    }
 
     /**
      * Spawns an alien monster for this level.
@@ -421,8 +437,6 @@ public class LevelTwoArea extends GameArea{
         Entity alienMonster = EnemyFactory.createAlienMonster(player, this);
         spawnEntityAt(alienMonster, pos1, true, true);
     }
-
-
 
     public boolean isDead() {
         return hasDied;

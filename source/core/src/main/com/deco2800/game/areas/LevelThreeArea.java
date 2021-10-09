@@ -140,6 +140,9 @@ public class LevelThreeArea extends GameArea {
     /* End of this map */
     private Entity endOfMap;
 
+    /* The end portal of this map */
+    private Entity endPortal;
+
     private int checkpoint;
 
     private boolean hasDied;
@@ -175,6 +178,13 @@ public class LevelThreeArea extends GameArea {
         return endOfMap;
     }
 
+    /**
+     * Returns the end of the current map.
+     * */
+    public Entity getEndPortal() {
+        return endPortal;
+    }
+
     /** Create the game area, including terrain, static entities (asteroids, asteroid fire), dynamic entities (enemies, robot, ufo) */
     @Override
     public void create() {
@@ -183,6 +193,7 @@ public class LevelThreeArea extends GameArea {
 
         spawnTerrain();
         player = spawnPlayer();
+        spawnPortal();
 
         //spawnTrees();
         spawnDeathWall();
@@ -340,6 +351,13 @@ public class LevelThreeArea extends GameArea {
         GridPoint2 pos1 = new GridPoint2(12, 16);
         Entity robot1 = ObstacleFactory.createRobot(player);
         spawnEntityAt(robot1, pos1, true, true);
+    }
+
+    private void spawnPortal() {
+        GridPoint2 tileBounds = terrain.getMapBounds(0);
+        GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, 12);
+        this.endPortal = ObstacleFactory.createPortal();
+        spawnEntityAt(this.endPortal, pos1, true, true);
     }
 
     /**

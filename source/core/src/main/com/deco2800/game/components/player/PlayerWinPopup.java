@@ -37,6 +37,9 @@ public class PlayerWinPopup extends UIComponent {
     /* The end of the map. The menu checks for collisions between the player and this */
     private Entity endOfMap;
 
+    /* The end portal of the map. The menu checks for collisions between the player and this */
+    private Entity endPortal;
+
     /* Lets the menu change the game screen */
     private GdxGame game;
 
@@ -56,6 +59,7 @@ public class PlayerWinPopup extends UIComponent {
         this.game = game;
         this.player = ((ForestGameArea) currentMap).getPlayer();
         this.endOfMap = ((ForestGameArea) currentMap).getEndMap();
+        this.endPortal = ((ForestGameArea) currentMap).getEndPortal();
         this.handler = winHandler;
     }
 
@@ -64,6 +68,7 @@ public class PlayerWinPopup extends UIComponent {
         this.game = game;
         this.player = currentMap.getPlayer();
         this.endOfMap = currentMap.getEndMap();
+        this.endPortal = currentMap.getEndPortal();
         this.handler = winHandler;
     }
 
@@ -72,6 +77,7 @@ public class PlayerWinPopup extends UIComponent {
         this.game = game;
         this.player = currentMap.getPlayer();
         this.endOfMap = currentMap.getEndMap();
+        this.endPortal = currentMap.getEndPortal();
         this.handler = winHandler;
     }
 
@@ -81,7 +87,8 @@ public class PlayerWinPopup extends UIComponent {
      * @return the Fixture associated with the end of the map
      * */
     public Fixture getMapFixture() {
-        return endOfMap.getComponent(ColliderComponent.class).getFixture();
+        //return endOfMap.getComponent(ColliderComponent.class).getFixture();
+        return endPortal.getComponent(ColliderComponent.class).getFixture();
     }
 
     /**
@@ -101,7 +108,7 @@ public class PlayerWinPopup extends UIComponent {
         logger.debug("Creating player win ui");
         Entity ui = new Entity();
         int score = player.getComponent(ScoreComponent.class).getScore();
-        player.getComponent(ProgressComponent.class).updateProgress(endOfMap.getPosition().x);
+        player.getComponent(ProgressComponent.class).updateProgress(endPortal.getPosition().x);
         ui.addComponent(new PlayerWinActions(game, entity))
                 .addComponent(new PlayerWinDisplay(handler, player));
 
