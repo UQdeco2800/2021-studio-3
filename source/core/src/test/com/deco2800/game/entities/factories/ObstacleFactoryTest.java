@@ -42,7 +42,7 @@ public class ObstacleFactoryTest {
         when(ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
                 TextureAtlas.class)).thenReturn(atlas);
 
-        ObstacleFactory.createDeathWall(new Vector2(6f, 6f));
+        ObstacleFactory.createDeathWall(new Vector2(6f, 6f), 0.4f);
         verify(resourceService).getAsset("images/SerpentLevel1.atlas",
                 TextureAtlas.class);
     }

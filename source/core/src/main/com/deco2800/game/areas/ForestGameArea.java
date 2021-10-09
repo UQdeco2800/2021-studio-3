@@ -15,9 +15,7 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
 import com.deco2800.game.components.player.PlayerAnimationController;
-import com.deco2800.game.components.player.PlayerStateComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
-import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.entities.factories.EnemyFactory;
@@ -325,8 +323,9 @@ public class ForestGameArea extends GameArea {
   private void spawnDeathWall() {
     // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
     // target's y position is offset 4.5 upwards to remove the bug
+    float movingSpeed = 0.4f;
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
     spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);

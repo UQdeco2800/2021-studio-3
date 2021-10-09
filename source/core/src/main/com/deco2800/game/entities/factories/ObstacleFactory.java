@@ -491,7 +491,7 @@ public class ObstacleFactory {
    *               the game
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(Vector2 target) {
+  public static Entity createDeathWall(Vector2 target, float speed) {
     DeathWallConfig config = configs.deathWall;
 
     AnimationRenderComponent animator =
@@ -504,7 +504,7 @@ public class ObstacleFactory {
 
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new MovingTask(target));
+                    .addTask(new MovingTask(target, speed));
 
     return new Entity()
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))

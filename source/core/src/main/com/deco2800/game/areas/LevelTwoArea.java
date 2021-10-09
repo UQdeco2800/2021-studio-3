@@ -517,8 +517,9 @@ public class LevelTwoArea extends GameArea{
     }
 
     private void spawnDeathWall() {
+        float movingSpeed = 0.8f;
         Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-        Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos);
+        Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
         deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
         deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
         spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
