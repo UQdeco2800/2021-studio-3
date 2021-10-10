@@ -280,7 +280,7 @@ public class ForestGameArea extends GameArea {
     // LOGIC to create level terrain
     int i = 0, x, y, distance;
     // opens the levels file
-    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOneGround.txt"))) {
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       // parse file to load the floor
