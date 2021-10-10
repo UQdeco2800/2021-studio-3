@@ -449,7 +449,8 @@ public class ForestGameArea extends GameArea {
 
   private void spawnPortal() {
     GridPoint2 tileBounds = terrain.getMapBounds(0);
-    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, 12);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, GdxGame.ScreenType.MAIN_GAME);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
     this.endPortal = ObstacleFactory.createPortal();
     spawnEntityAt(this.endPortal, pos1, true, true);
   }

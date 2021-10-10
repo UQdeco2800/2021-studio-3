@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -355,6 +356,11 @@ public class LevelThreeArea extends GameArea {
 
     private void spawnPortal() {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
+
+        // Use this when text file is supplied
+        // int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, GdxGame.ScreenType.LEVEL_THREE_GAME);
+        // GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
+
         GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, 12);
         this.endPortal = ObstacleFactory.createPortal();
         spawnEntityAt(this.endPortal, pos1, true, true);
