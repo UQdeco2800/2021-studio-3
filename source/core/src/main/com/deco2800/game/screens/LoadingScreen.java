@@ -127,6 +127,9 @@ public class LoadingScreen extends ScreenAdapter {
 
     private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
+    private static final String[] loadingScreenMusic = {"sounds/loading_background_music.mp3"};
+
+
 
     /**
      * The game screen displayed when the level is loading.
@@ -217,13 +220,20 @@ public class LoadingScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
 
+        ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(LoadingTextures);
+
+        // load background music for the loading screen
+        resourceService.loadMusic(loadingScreenMusic);
         ServiceLocator.getResourceService().loadAll();
 
         resourceService.loadTextures(forestTextures);
         resourceService.loadTextureAtlases(forestTextureAtlases);
         resourceService.loadSounds(forestSounds);
         resourceService.loadMusic(forestMusic);
+
+
+
         if (game.getScreenType() == GdxGame.ScreenType.LEVEL_TWO_GAME
                 || game.getScreenType() == GdxGame.ScreenType.RESPAWN2) {
             logger.info("loading level2 assets");
@@ -242,6 +252,7 @@ public class LoadingScreen extends ScreenAdapter {
     private void unloadAssets() {
         logger.debug("Unloading assets");
         resourceService.unloadAssets(LoadingTextures);
+        resourceService.unloadAssets(loadingScreenMusic);
     }
 
     /**
