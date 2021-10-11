@@ -49,7 +49,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
-  private static int lives = 1;
+  private static int lives = 5;
 
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
