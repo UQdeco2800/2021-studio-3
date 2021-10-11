@@ -118,9 +118,10 @@ public class CombatStatsComponent extends Component {
         // Updates the player state and animations when healed
         entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
-          if (entity.getComponent(LivesComponent.class).getLives() == 0) {
-            entity.getEvents().trigger("playerFinalDeath");
-          } else {
+          if (entity.getComponent(LivesComponent.class) != null) {
+            if (entity.getComponent(LivesComponent.class).getLives() == 0) {
+              entity.getEvents().trigger("playerFinalDeath");
+            }
             entity.getEvents().trigger("playerDeath");
           }
         }
