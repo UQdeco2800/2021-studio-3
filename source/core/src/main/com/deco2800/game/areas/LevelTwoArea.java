@@ -37,6 +37,7 @@ import java.util.Random;
 public class LevelTwoArea extends GameArea{
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
     private static int lives = 5;
+    private boolean hasSave = false;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(5, 11);
     private static final GridPoint2 CHECKPOINT = new GridPoint2(20, 11);
     private static final GridPoint2 PLATFORM_SPAWN = new GridPoint2(7,14);
@@ -144,6 +145,8 @@ public class LevelTwoArea extends GameArea{
 
     private boolean hasDied;
 
+    private String saveState;
+
     private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
     public LevelTwoArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
@@ -158,6 +161,14 @@ public class LevelTwoArea extends GameArea{
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
         LevelTwoArea.lives = lives;
+    }
+
+    public LevelTwoArea(TerrainFactory terrainFactory, String saveState) {
+        super();
+        this.terrainFactory = terrainFactory;
+        this.checkpoint = 0;
+        this.saveState = saveState;
+        this.hasSave = true;
     }
 
     /**
@@ -184,6 +195,9 @@ public class LevelTwoArea extends GameArea{
 
         spawnTerrain();
         player = spawnPlayer();
+        if (hasSave) {
+            loadSave(player, this.saveState);
+        }
         spawnDeathWall();
         //spawnTrees();
 

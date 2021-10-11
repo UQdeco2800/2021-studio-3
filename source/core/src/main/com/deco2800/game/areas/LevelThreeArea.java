@@ -144,6 +144,10 @@ public class LevelThreeArea extends GameArea {
 
     private boolean hasDied;
 
+    private boolean hasSave = false;
+
+    private String saveState;
+
     private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
 
     public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
@@ -158,6 +162,13 @@ public class LevelThreeArea extends GameArea {
         this.terrainFactory = terrainFactory;
         this.checkpoint = checkpoint;
         LevelThreeArea.lives = lives;
+    }
+
+    public LevelThreeArea(TerrainFactory terrainFactory, String saveState) {
+        super();
+        this.terrainFactory = terrainFactory;
+        this.saveState = saveState;
+        this.hasSave = true;
     }
 
     /**
@@ -183,7 +194,9 @@ public class LevelThreeArea extends GameArea {
 
         spawnTerrain();
         player = spawnPlayer();
-
+        if (hasSave) {
+            loadSave(player, this.saveState);
+        }
         //spawnTrees();
         spawnDeathWall();
         //spawnGhosts();

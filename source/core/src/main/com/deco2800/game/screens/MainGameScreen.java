@@ -225,6 +225,42 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
   }
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
+  public MainGameScreen(GdxGame game, String saveState, ResourceService resourceService) {
+    this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
+    logger.debug("Initialising main game screen services");
+    ServiceLocator.registerTimeSource(new GameTime());
+
+    PhysicsService physicsService = new PhysicsService();
+    ServiceLocator.registerPhysicsService(physicsService);
+    physicsEngine = physicsService.getPhysics();
+
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(resourceService);
+
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+    loadAssets();
+
+    logger.debug("Initialising main game screen entities");
+    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, saveState);
+    forestGameArea.create();
+
+    this.currentMap = forestGameArea;
+    createUI();
+    //forestGameArea.spawnBuffDebuff(this.buffManager);
+  }
 
   @Override
   public void render(float delta) {

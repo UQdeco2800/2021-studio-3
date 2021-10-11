@@ -7,10 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -151,8 +148,11 @@ public class ForestGameArea extends GameArea {
 
   private int checkpoint;
 
+  private boolean hasSave = false;
+
   private boolean hasDied;
 
+  private String saveState;
   /* The edges (Entity objects) of this map.  This region defines the
      space the player is allowed to move within. */
   private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
@@ -170,6 +170,14 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     ForestGameArea.lives = lives;
+    CAM_START_TIME = gameTime.getTime();
+  }
+
+  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.saveState = saveState;
+    this.hasSave = true;
     CAM_START_TIME = gameTime.getTime();
   }
 
@@ -194,39 +202,18 @@ public class ForestGameArea extends GameArea {
     //loadAssets();
 
     displayUI();
-
     spawnTerrain();
     player = spawnPlayer();
-    //spawnTrees();
-
-
-    //spawnGhosts();
+    if (hasSave) {
+      loadSave(player, this.saveState);
+    }
     spawnDeathWall();
-
-
-    //spawnTrees();
-
     spawnAsteroids();
     spawnAsteroidFires();
     spawnRobot();
-    //spawnBuilding();
-    //spawnTrees();
-    //spawnRocks();
     spawnPlatforms();
-    //spawnPlanet1();
     spawnUFO();
-    //spawnBuffDebuffPickup();
-
-    //spawnGhosts();
-    //spawnGhostKing();
-    //createCheckpoint();
     playMusic();
-
-    //createCheckpoint();
-//    playMusic();
-
-    //spawnAttackObstacle();
-    //spawnAlienMonster();
     spawnAlienSoldier();
   }
 
@@ -466,7 +453,7 @@ public class ForestGameArea extends GameArea {
   public boolean isDead() {
     return hasDied;
   }
-
+  
   private Entity spawnPlayer() {
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
@@ -490,7 +477,7 @@ public class ForestGameArea extends GameArea {
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);
-    } else {
+    } else if (this.hasSave == false) {
       spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     }
 

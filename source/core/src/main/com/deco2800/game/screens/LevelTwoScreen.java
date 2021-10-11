@@ -126,6 +126,44 @@ public class LevelTwoScreen extends ScreenAdapter {
         //level2Area.spawnBuffDebuff(this.buffManager);
     }
 
+    /**
+     * Load the game screen for level two when the game is starting.
+     */
+    public LevelTwoScreen(GdxGame game, String saveState, ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+
+        logger.debug("Initialising main game screen entities");
+        //terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, saveState);
+        level2Area.create();
+
+        load();
+        this.currentMap = level2Area;
+        createUI();
+        //level2Area.spawnBuffDebuff(this.buffManager);
+    }
+
     public static AssetManager load(){
         manager.load("images/invincible.png", Texture.class);
         manager.load("images/winReplay.png", Texture.class);
