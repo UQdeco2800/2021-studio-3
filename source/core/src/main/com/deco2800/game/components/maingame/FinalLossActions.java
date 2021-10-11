@@ -36,7 +36,7 @@ public class FinalLossActions extends Component {
         super.create();
         entity.getEvents().addListener("homeMenu",
                 this.mainMenuUI.getComponent(PopupMenuActions.class)::onHome);
-        entity.getEvents().addListener("replayLevelLoss",
+        entity.getEvents().addListener("finalLoss",
                 this.mainMenuUI.getComponent(PopupMenuActions.class)::onReplayLossFinal);
     }
 }

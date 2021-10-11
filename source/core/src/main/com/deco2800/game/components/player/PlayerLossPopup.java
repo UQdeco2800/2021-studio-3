@@ -2,11 +2,10 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.LivesComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
-import com.deco2800.game.components.maingame.PlayerLossActions;
-import com.deco2800.game.components.maingame.PlayerLossDisplay;
-import com.deco2800.game.components.maingame.PopupUIHandler;
+import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -54,6 +53,7 @@ public class PlayerLossPopup extends UIComponent {
     public void create() {
         super.create();
         player.getEvents().addListener("playerDeath", this::onDeath);
+
     }
 
     /**
@@ -71,11 +71,14 @@ public class PlayerLossPopup extends UIComponent {
     public void createUI() {
         logger.debug("Creating player loss ui");
         Entity ui = new Entity();
-
-        ui.addComponent(new PlayerLossActions(game, entity))
-                .addComponent(new PlayerLossDisplay(handler, player));
-
-        ServiceLocator.getEntityService().register(ui);
+        if (player.getComponent(LivesComponent.class).getLives() < 1) {
+            ui.addComponent(new FinalLossActions(game, entity))
+                    .addComponent(new FinalLossDisplay(handler));
+        } else {
+            ui.addComponent(new PlayerLossActions(game, entity))
+                    .addComponent(new PlayerLossDisplay(handler, player));
+            ServiceLocator.getEntityService().register(ui);
+        }
     }
 
     @Override

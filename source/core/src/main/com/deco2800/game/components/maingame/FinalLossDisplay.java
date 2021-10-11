@@ -34,14 +34,16 @@ public class FinalLossDisplay extends UIComponent {
         Table background = new Table();
         handler.setupBackground(background);
 
+
         // Create buttons from the images
         Table buttonHolder = new Table();
+        buttonHolder.center();
         ArrayList<Image> buttons =
-                handler.setupButtons(buttonHolder, 150, 35, true);
+                handler.setupButtons(buttonHolder, 90, 35, true);
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
-        final String[] actions = {"homeMenu", "replayLevelLoss"};
+        final String[] actions = {"homeMenu", "finalLoss"};
         handler.setupButtonClicks(buttons, actions, entity);
 
         stage.addActor(background);
