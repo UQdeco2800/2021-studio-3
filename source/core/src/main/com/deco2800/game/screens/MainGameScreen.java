@@ -10,7 +10,6 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
-import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
@@ -31,8 +30,6 @@ import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
 
 /**
  * The game screen containing the level one game area.
