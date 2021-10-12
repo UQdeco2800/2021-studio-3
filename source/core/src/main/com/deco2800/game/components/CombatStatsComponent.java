@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.deco2800.game.SaveData.SaveData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int maxHealth;
   private int baseAttack;
+  private SaveData saveData;
 
   /* Whether or not the player is currently invincible (timed buff) */
   private boolean invincible = false;
@@ -29,6 +31,7 @@ public class CombatStatsComponent extends Component {
     setMaxHealth(health);
     setHealth(health);
     setBaseAttack(baseAttack);
+    saveData = new SaveData(entity);
   }
 
   /**
@@ -142,7 +145,10 @@ public class CombatStatsComponent extends Component {
             e.printStackTrace();
 
           }*/
+          saveData.savePlayerData(entity);
           entity.getEvents().trigger("playerDeath");
+
+
         }
       }
     }
