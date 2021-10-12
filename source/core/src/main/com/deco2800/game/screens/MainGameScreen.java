@@ -66,6 +66,12 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
+  /* Textures for the continue loss menu*/
+  private static final String[] finalLossTextures =
+          {"images/continue.png",
+                  "images/no.png",
+                  "images/yes.png"};
+
   /* Textures for the buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
           {"images/invincible.png",
@@ -274,6 +280,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(pauseMenuTextures);
     resourceService.loadTextures(winMenuTextures);
     resourceService.loadTextures(lossMenuTextures);
+    resourceService.loadTextures(finalLossTextures);
     resourceService.loadTextures(buffsAndDebuffsTextures);
     resourceService.loadSounds(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
@@ -286,6 +293,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(pauseMenuTextures);
     resourceService.unloadAssets(winMenuTextures);
     resourceService.unloadAssets(lossMenuTextures);
+    resourceService.unloadAssets(finalLossTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
   }
@@ -314,6 +322,8 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
+        .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
+                new PopupUIHandler(finalLossTextures)))
         .addComponent(new PopupMenuActions(this.game, this.currentMap))
         .addComponent(this.buffManager = new BuffManager(this, currentMap));
 
