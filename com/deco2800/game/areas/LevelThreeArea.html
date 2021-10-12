@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -93,7 +93,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
 <div class="inheritance"><a href="GameArea.html" title="class in com.deco2800.game.areas">com.deco2800.game.areas.GameArea</a>
+<div class="inheritance"><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">com.deco2800.game.areas.ForestGameArea</a>
 <div class="inheritance">com.deco2800.game.areas.LevelThreeArea</div>
+</div>
 </div>
 </div>
 <section class="description">
@@ -103,7 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">LevelThreeArea</span>
-extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></pre>
+extends <a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></pre>
 <div class="block">Game area for the level three</div>
 </section>
 <section class="summary">
@@ -114,6 +116,11 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <!--   -->
 </a>
 <h2>Field Summary</h2>
+<div class="inheritedList">
+<h3>Fields inherited from class&nbsp;com.deco2800.game.areas.<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></h3>
+<a id="fields.inherited.from.class.com.deco2800.game.areas.ForestGameArea">
+<!--   -->
+</a><code><a href="ForestGameArea.html#lives">lives</a></code></div>
 <div class="inheritedList">
 <h3>Fields inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.areas.GameArea">
@@ -141,12 +148,6 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">LevelThreeArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">LevelThreeArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint,
-int&nbsp;lives)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -187,64 +188,21 @@ int&nbsp;lives)</code></th>
 </td>
 </tr>
 <tr class="altColor" id="i2">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCheckPointStatus()">getCheckPointStatus</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the check point status.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i3">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEndMap()">getEndMap</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the end of the current map.</div>
-</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the player spawned into this area.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDead()">isDead</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></span>&#8203;(<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</code></th>
 <td class="colLast">
 <div class="block">reset the camera position when refresh every frame</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCheckPointStatus(int)">setCheckPointStatus</a></span>&#8203;(int&nbsp;status)</code></th>
-<td class="colLast">
-<div class="block">sets the check point status.</div>
-</td>
-</tr>
-<tr class="altColor" id="i8">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a></span>&#8203;(<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
-<td class="colLast">
-<div class="block">Spawns buffs or debuffs onto the current map in a random position.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i9">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a></span>&#8203;(<a href="../components/maingame/BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup,
-<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
-<td class="colLast">
-<div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
-</td>
-</tr>
 </tbody>
 </table>
 </div>
 </div>
+<div class="inheritedList">
+<h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></h3>
+<a id="methods.inherited.from.class.com.deco2800.game.areas.ForestGameArea">
+<!--   -->
+</a><code><a href="ForestGameArea.html#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a>, <a href="ForestGameArea.html#displayUI(java.lang.String)">displayUI</a>, <a href="ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus</a>, <a href="ForestGameArea.html#getEndMap()">getEndMap</a>, <a href="ForestGameArea.html#getPlayer()">getPlayer</a>, <a href="ForestGameArea.html#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a>, <a href="ForestGameArea.html#isDead()">isDead</a>, <a href="ForestGameArea.html#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a>, <a href="ForestGameArea.html#playMusic(java.lang.String)">playMusic</a>, <a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a>, <a href="ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus</a>, <a href="ForestGameArea.html#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a>, <a href="ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a>, <a href="ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a>, <a href="ForestGameArea.html#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a>, <a href="ForestGameArea.html#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a>, <a href="ForestGameArea.html#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a>, <a href="ForestGameArea.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a>, <a href="ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a>, <a href="ForestGameArea.html#spawnDeathWall()">spawnDeathWall</a>, <a href="ForestGameArea.html#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a>, <a href="ForestGameArea.html#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a>, <a href="ForestGameArea.html#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a>, <a href="ForestGameArea.html#spawnRobots(java.util.ArrayList)">spawnRobots</a>, <a href="ForestGameArea.html#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a>, <a href="ForestGameArea.html#spawnUFO()">spawnUFO</a>, <a href="ForestGameArea.html#unloadAssets()">unloadAssets</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
@@ -276,14 +234,6 @@ int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</span></div>
 </section>
 </li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">LevelThreeArea</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelThreeArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint,
-int&nbsp;lives)</span></div>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -296,80 +246,12 @@ int&nbsp;lives)</span></div>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="getPlayer()">getPlayer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getPlayer</span>()</div>
-<div class="block">Returns the player spawned into this area. Allows upper menus to access
- the players' status.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getEndMap()">getEndMap</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getEndMap</span>()</div>
-<div class="block">Returns the end of the current map.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="create()">create</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
 <div class="block">Create the game area, including terrain, static entities (asteroids, asteroid fire), dynamic entities (enemies, robot, ufo)</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="GameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getCheckPointStatus()">getCheckPointStatus</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getCheckPointStatus</span>()</div>
-<div class="block">Returns the check point status.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setCheckPointStatus(int)">setCheckPointStatus</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setCheckPointStatus</span>&#8203;(<span class="arguments">int&nbsp;status)</span></div>
-<div class="block">sets the check point status.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="isDead()">isDead</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isDead</span>()</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBuffDebuff</span>&#8203;(<span class="arguments"><a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</span></div>
-<div class="block">Spawns buffs or debuffs onto the current map in a random position. Buffs
- are spawned on the ground only (not platforms). Buffs can spawn anywhere
- across the game map (horizontally). A random buff type is chosen to be
- spawned.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>manager</code> - the BuffManager which will handle the actions, despawning
-                and timeout-related functionality of this buff.</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">spawnBuffDebuffPickup</span>&#8203;(<span class="arguments"><a href="../components/maingame/BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup,
-<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</span></div>
-<div class="block">Spawns a floating animation when a HP buff/debuff is picked up.
- Spawns at the player and floats up</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pickup</code> - the type of animation that will be released based on which
-               buff is picked up</dd>
-<dd><code>manager</code> - the Buff Manger which will handle the actions and despawning
-                functionality of the animation</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the floating animation that is spawned.</dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ForestGameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
 </dl>
 </section>
 </li>
@@ -379,6 +261,8 @@ int&nbsp;lives)</span></div>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resetCam</span>&#8203;(<span class="arguments"><a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</span></div>
 <div class="block">reset the camera position when refresh every frame</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>camera</code> - the CameraComponent of the map</dd>
 </dl>
@@ -394,7 +278,7 @@ int&nbsp;lives)</span></div>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx.utils" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="GameArea.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></code></dd>
+<dd><code><a href="ForestGameArea.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
 </dl>
 </section>
 </li>

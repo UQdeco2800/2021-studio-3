@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -62,7 +62,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -101,6 +101,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></code>, <code><a href="LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">ForestGameArea</span>
 extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></pre>
@@ -114,6 +118,25 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <!--   -->
 </a>
 <h2>Field Summary</h2>
+<div class="memberSummary">
+<table>
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<thead>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>protected static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lives">lives</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="inheritedList">
 <h3>Fields inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.areas.GameArea">
@@ -141,12 +164,6 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint,
-int&nbsp;lives)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -180,34 +197,45 @@ int&nbsp;lives)</code></th>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a>&nbsp;area)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#displayUI(java.lang.String)">displayUI</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Dispose of all internal entities in the area</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCheckPointStatus()">getCheckPointStatus</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the check point status.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEndMap()">getEndMap</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the end of the current map.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the player spawned into this area.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;startPos,
 float&nbsp;distance,
@@ -218,39 +246,147 @@ float&nbsp;duration,
  constant speed</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDead()">isDead</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a></span>&#8203;(<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area,
+int&nbsp;lives)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playMusic(java.lang.String)">playMusic</a></span>&#8203;(java.lang.String&nbsp;musicName)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></span>&#8203;(<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</code></th>
 <td class="colLast">
 <div class="block">reset the camera position when refresh every frame</div>
 </td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="altColor" id="i12">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a></span>&#8203;(<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera,
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;type)</code></th>
+<td class="colLast">
+<div class="block">reset the camera position when refresh every frame</div>
+</td>
+</tr>
+<tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCheckPointStatus(int)">setCheckPointStatus</a></span>&#8203;(int&nbsp;status)</code></th>
 <td class="colLast">
 <div class="block">sets the check point status.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i14">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
+<td class="colLast">
+<div class="block">Sets the player for the area</div>
+</td>
+</tr>
+<tr class="rowColor" id="i15">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i16">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i17">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i18">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
+<td class="colLast">
+<div class="block">spawns the asteroidFires for the level</div>
+</td>
+</tr>
+<tr class="rowColor" id="i19">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
+<td class="colLast">
+<div class="block">spawns the asteroids for the level</div>
+</td>
+</tr>
+<tr class="altColor" id="i20">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a></span>&#8203;(<a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
 <td class="colLast">
 <div class="block">Spawns buffs or debuffs onto the current map in a random position.</div>
 </td>
 </tr>
-<tr class="altColor" id="i10">
+<tr class="rowColor" id="i21">
 <td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a></span>&#8203;(<a href="../components/maingame/BuffManager.BuffPickup.html" title="enum in com.deco2800.game.components.maingame">BuffManager.BuffPickup</a>&nbsp;pickup,
 <a href="../components/maingame/BuffManager.html" title="class in com.deco2800.game.components.maingame">BuffManager</a>&nbsp;manager)</code></th>
 <td class="colLast">
 <div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
 </td>
+</tr>
+<tr class="altColor" id="i22">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnDeathWall()">spawnDeathWall</a></span>()</code></th>
+<td class="colLast">
+<div class="block">spawn a death wall that move from left to end</div>
+</td>
+</tr>
+<tr class="rowColor" id="i23">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
+<td class="colLast">
+<div class="block">spawns the platforms for the level</div>
+</td>
+</tr>
+<tr class="altColor" id="i24">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
+<td class="colLast">
+<div class="block">spawns the platforms for the level</div>
+</td>
+</tr>
+<tr class="rowColor" id="i25">
+<td class="colFirst"><code>protected <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i26">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnRobots(java.util.ArrayList)">spawnRobots</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i27">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a></span>&#8203;(<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;type,
+java.lang.String&nbsp;levelFile)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i28">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnUFO()">spawnUFO</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Spawns a UFO in a random position on the map</div>
+</td>
+</tr>
+<tr class="rowColor" id="i29">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unloadAssets()">unloadAssets</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -272,6 +408,22 @@ float&nbsp;duration,
 </section>
 <section class="details">
 <ul class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<li class="blockList">
+<section class="fieldDetails"><a id="field.detail">
+<!--   -->
+</a>
+<h2>Field Details</h2>
+<ul class="blockList">
+<li class="blockList">
+<section class="detail">
+<h3><a id="lives">lives</a></h3>
+<div class="memberSignature"><span class="modifiers">protected static</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">lives</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li class="blockList">
 <section class="constructorDetails"><a id="constructor.detail">
@@ -287,14 +439,6 @@ int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</span></div>
 </section>
 </li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,int,int)">ForestGameArea</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-int&nbsp;checkpoint,
-int&nbsp;lives)</span></div>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -305,6 +449,13 @@ int&nbsp;lives)</span></div>
 </a>
 <h2>Method Details</h2>
 <ul class="blockList">
+<li class="blockList">
+<section class="detail">
+<h3><a id="setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPlayer</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
+<div class="block">Sets the player for the area</div>
+</section>
+</li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getPlayer()">getPlayer</a></h3>
@@ -333,6 +484,12 @@ int&nbsp;lives)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="displayUI(java.lang.String)">displayUI</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">displayUI</span>&#8203;(<span class="arguments">java.lang.String&nbsp;name)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="getCheckPointStatus()">getCheckPointStatus</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getCheckPointStatus</span>()</div>
 <div class="block">Returns the check point status.</div>
@@ -347,8 +504,105 @@ int&nbsp;lives)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnTerrain</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;type,
+java.lang.String&nbsp;levelFile)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnDeathWall()">spawnDeathWall</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnDeathWall</span>()</div>
+<div class="block">spawn a death wall that move from left to end</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnUFO()">spawnUFO</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnUFO</span>()</div>
+<div class="block">Spawns a UFO in a random position on the map</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatformsTypeTwo</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</span></div>
+<div class="block">spawns the platforms for the level</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatformsTypeOne</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</span></div>
+<div class="block">spawns the platforms for the level</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnAsteroids</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</span></div>
+<div class="block">spawns the asteroids for the level</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnAsteroidFires</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</span></div>
+<div class="block">spawns the asteroidFires for the level</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnRobots(java.util.ArrayList)">spawnRobots</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnRobots</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnAlienMonsters</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnAlienSoldiers</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnAlienBosses</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="isDead()">isDead</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isDead</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">livesCondition</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area,
+int&nbsp;lives)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">spawnPlayer</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createCheckpoints</span>&#8203;(<span class="arguments">java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions,
+<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a>&nbsp;area)</span></div>
 </section>
 </li>
 <li class="blockList">
@@ -386,6 +640,24 @@ int&nbsp;lives)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="playMusic(java.lang.String)">playMusic</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">playMusic</span>&#8203;(<span class="arguments">java.lang.String&nbsp;musicName)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resetCam</span>&#8203;(<span class="arguments"><a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera,
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;type)</span></div>
+<div class="block">reset the camera position when refresh every frame</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>camera</code> - the CameraComponent of the map</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resetCam</span>&#8203;(<span class="arguments"><a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</span></div>
 <div class="block">reset the camera position when refresh every frame</div>
@@ -411,6 +683,12 @@ float&nbsp;duration,
 <dd><code>duration</code> - the total time when the camera is moving</dd>
 <dd><code>camera</code> - the CameraComponent of the map</dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="unloadAssets()">unloadAssets</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unloadAssets</span>()</div>
 </section>
 </li>
 <li class="blockList">
@@ -466,7 +744,7 @@ float&nbsp;duration,
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
