@@ -134,6 +134,11 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lives">lives</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveState">saveState</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -164,6 +169,11 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,java.lang.String)">ForestGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+java.lang.String&nbsp;saveState)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -361,8 +371,9 @@ int&nbsp;lives)</code></th>
 </tr>
 <tr class="rowColor" id="i25">
 <td class="colFirst"><code>protected <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
-<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area,
+boolean&nbsp;save)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i26">
@@ -396,7 +407,7 @@ java.lang.String&nbsp;levelFile)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
 <!--   -->
-</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#spawnEntityAtVector(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.Vector2)">spawnEntityAtVector</a></code></div>
+</a><code><a href="GameArea.html#loadSave(com.deco2800.game.entities.Entity,java.lang.String)">loadSave</a>, <a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#spawnEntityAtVector(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.Vector2)">spawnEntityAtVector</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -421,6 +432,12 @@ java.lang.String&nbsp;levelFile)</code></th>
 <div class="memberSignature"><span class="modifiers">protected static</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">lives</span></div>
 </section>
 </li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="saveState">saveState</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">saveState</span></div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -437,6 +454,13 @@ java.lang.String&nbsp;levelFile)</code></th>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,java.lang.String)">ForestGameArea</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ForestGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+java.lang.String&nbsp;saveState)</span></div>
 </section>
 </li>
 </ul>
@@ -593,9 +617,10 @@ int&nbsp;lives)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a></h3>
+<h3><a id="spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a></h3>
 <div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">spawnPlayer</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
-<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area)</span></div>
+<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area,
+boolean&nbsp;save)</span></div>
 </section>
 </li>
 <li class="blockList">

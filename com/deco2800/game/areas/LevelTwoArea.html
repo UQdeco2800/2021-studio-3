@@ -120,7 +120,7 @@ extends <a href="ForestGameArea.html" title="class in com.deco2800.game.areas">F
 <h3>Fields inherited from class&nbsp;com.deco2800.game.areas.<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.areas.ForestGameArea">
 <!--   -->
-</a><code><a href="ForestGameArea.html#lives">lives</a></code></div>
+</a><code><a href="ForestGameArea.html#lives">lives</a>, <a href="ForestGameArea.html#saveState">saveState</a></code></div>
 <div class="inheritedList">
 <h3>Fields inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.areas.GameArea">
@@ -148,6 +148,11 @@ extends <a href="ForestGameArea.html" title="class in com.deco2800.game.areas">F
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean)">LevelTwoArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,java.lang.String)">LevelTwoArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+java.lang.String&nbsp;saveState)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -202,12 +207,12 @@ boolean&nbsp;hasDied)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.ForestGameArea">
 <!--   -->
-</a><code><a href="ForestGameArea.html#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a>, <a href="ForestGameArea.html#displayUI(java.lang.String)">displayUI</a>, <a href="ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus</a>, <a href="ForestGameArea.html#getEndMap()">getEndMap</a>, <a href="ForestGameArea.html#getPlayer()">getPlayer</a>, <a href="ForestGameArea.html#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a>, <a href="ForestGameArea.html#isDead()">isDead</a>, <a href="ForestGameArea.html#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a>, <a href="ForestGameArea.html#playMusic(java.lang.String)">playMusic</a>, <a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a>, <a href="ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus</a>, <a href="ForestGameArea.html#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a>, <a href="ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a>, <a href="ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a>, <a href="ForestGameArea.html#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a>, <a href="ForestGameArea.html#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a>, <a href="ForestGameArea.html#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a>, <a href="ForestGameArea.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a>, <a href="ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a>, <a href="ForestGameArea.html#spawnDeathWall()">spawnDeathWall</a>, <a href="ForestGameArea.html#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a>, <a href="ForestGameArea.html#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a>, <a href="ForestGameArea.html#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">spawnPlayer</a>, <a href="ForestGameArea.html#spawnRobots(java.util.ArrayList)">spawnRobots</a>, <a href="ForestGameArea.html#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a>, <a href="ForestGameArea.html#spawnUFO()">spawnUFO</a>, <a href="ForestGameArea.html#unloadAssets()">unloadAssets</a></code></div>
+</a><code><a href="ForestGameArea.html#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a>, <a href="ForestGameArea.html#displayUI(java.lang.String)">displayUI</a>, <a href="ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus</a>, <a href="ForestGameArea.html#getEndMap()">getEndMap</a>, <a href="ForestGameArea.html#getPlayer()">getPlayer</a>, <a href="ForestGameArea.html#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a>, <a href="ForestGameArea.html#isDead()">isDead</a>, <a href="ForestGameArea.html#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a>, <a href="ForestGameArea.html#playMusic(java.lang.String)">playMusic</a>, <a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a>, <a href="ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus</a>, <a href="ForestGameArea.html#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a>, <a href="ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a>, <a href="ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a>, <a href="ForestGameArea.html#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a>, <a href="ForestGameArea.html#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a>, <a href="ForestGameArea.html#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a>, <a href="ForestGameArea.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a>, <a href="ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a>, <a href="ForestGameArea.html#spawnDeathWall()">spawnDeathWall</a>, <a href="ForestGameArea.html#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a>, <a href="ForestGameArea.html#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a>, <a href="ForestGameArea.html#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a>, <a href="ForestGameArea.html#spawnRobots(java.util.ArrayList)">spawnRobots</a>, <a href="ForestGameArea.html#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a>, <a href="ForestGameArea.html#spawnUFO()">spawnUFO</a>, <a href="ForestGameArea.html#unloadAssets()">unloadAssets</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
 <!--   -->
-</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#spawnEntityAtVector(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.Vector2)">spawnEntityAtVector</a></code></div>
+</a><code><a href="GameArea.html#loadSave(com.deco2800.game.entities.Entity,java.lang.String)">loadSave</a>, <a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#spawnEntityAtVector(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.Vector2)">spawnEntityAtVector</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -232,6 +237,13 @@ boolean&nbsp;hasDied)</code></th>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
 int&nbsp;checkpoint,
 boolean&nbsp;hasDied)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,java.lang.String)">LevelTwoArea</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+java.lang.String&nbsp;saveState)</span></div>
 </section>
 </li>
 </ul>
