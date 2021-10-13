@@ -1,0 +1,7 @@
+Level:levelOne
+SCORE:9000
+LIVES:3
+HEALTH:80
+SPRINT:900
+X:22
+Y:16

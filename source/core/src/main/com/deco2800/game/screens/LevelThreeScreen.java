@@ -59,6 +59,12 @@ public class LevelThreeScreen extends ScreenAdapter {
                     "images/lossMainMenu.png",
                     "images/lossReplay.png"};
 
+    /* Textures for the continue loss menu*/
+    private static final String[] finalLossTextures =
+            {"images/continue.png",
+                    "images/no.png",
+                    "images/yes.png"};
+
     /* Textures for the buffs and debuffs */
     private static final String[] buffsAndDebuffsTextures =
             {"images/invincible.png",
@@ -125,6 +131,44 @@ public class LevelThreeScreen extends ScreenAdapter {
         //level2Area.spawnBuffDebuff(this.buffManager);
     }
 
+    /**
+     * Load the game screen for level three when the game is starting.
+     */
+    public LevelThreeScreen(GdxGame game, String saveState,ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+        load();
+        logger.debug("Initialising main game screen entities");
+        //terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelThreeArea levelThreeArea = new LevelThreeArea(terrainFactory, saveState);
+        levelThreeArea.create();
+
+        load();
+        this.currentMap = levelThreeArea;
+        createUI();
+        //level2Area.spawnBuffDebuff(this.buffManager);
+    }
+
     public static AssetManager load(){
         manager.load("images/invincible.png", Texture.class);
         manager.load("images/winReplay.png", Texture.class);
@@ -164,7 +208,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
-
+        load();
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -296,6 +340,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         resourceService.loadTextures(pauseMenuTextures);
         resourceService.loadTextures(winMenuTextures);
         resourceService.loadTextures(lossMenuTextures);
+        resourceService.loadTextures(finalLossTextures);
         resourceService.loadTextures(buffsAndDebuffsTextures);
         ServiceLocator.getResourceService().loadAll();
     }
@@ -307,6 +352,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         resourceService.unloadAssets(pauseMenuTextures);
         resourceService.unloadAssets(winMenuTextures);
         resourceService.unloadAssets(lossMenuTextures);
+        resourceService.unloadAssets(finalLossTextures);
         resourceService.unloadAssets(buffsAndDebuffsTextures);
     }
 
@@ -334,6 +380,8 @@ public class LevelThreeScreen extends ScreenAdapter {
                         new PopupUIHandler(winMenuTextures)))
                 .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                         new PopupUIHandler(lossMenuTextures)))
+                .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
+                        new PopupUIHandler(finalLossTextures)))
                 .addComponent(new PopupMenuActions(this.game, this.currentMap));
         //.addComponent(this.buffManager = new BuffManager(this, currentMap));
 
