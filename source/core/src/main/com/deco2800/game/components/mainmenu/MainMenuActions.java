@@ -67,6 +67,7 @@ public class MainMenuActions extends Component {
     }
     game.setScreenType(screenType, "saves/saveOne.txt");
     game.setScreen(GdxGame.ScreenType.LOADING);
+    logger.info("Launching load screen");
   }
 
   /**

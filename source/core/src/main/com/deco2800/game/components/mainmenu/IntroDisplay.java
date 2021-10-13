@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * This class handles the display of the intro scenes.
  */
 public class IntroDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(LoadingDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(IntroDisplay.class);
     private static final float Z_INDEX = 2f;
     GdxGame game;
     private Table background;
@@ -168,7 +168,6 @@ public class IntroDisplay extends UIComponent {
     public void dispose() {
         background.clear();
         buttons.clear();
-        ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
         stage.dispose();
         super.dispose();
     }
