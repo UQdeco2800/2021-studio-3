@@ -4,8 +4,6 @@ import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-
 /**
  * Core component class from which all components inherit. Contains logic for creating, updating,
  * and disposing. Components can be attached to an entity to give it specific behaviour. It is
@@ -15,7 +13,6 @@ public class Component {
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
   protected Entity entity;
   protected boolean enabled = true;
-  protected File saveFile;
 
   /**
    * Called when the entity is created and registered. Initial logic such as calls to GetComponent

@@ -54,8 +54,8 @@ public class GdxGame extends Game {
     logger.info("Creating game");
     loadSettings();
 
-    // Sets background to light blue
-    Gdx.gl.glClearColor(195/255f,206/255f,224/255f,1);
+    // Sets background to light yellow
+    Gdx.gl.glClearColor(0f/255f, 0/255f, 75/255f, 0);
     ServiceLocator.registerResourceService(new ResourceService());
     resourceService = ServiceLocator.getResourceService();
     setScreen(ScreenType.MAIN_MENU);
@@ -154,8 +154,6 @@ public class GdxGame extends Game {
         return new MainGameScreen(this, 1, false, resourceService);
       case INTRO:
         return new IntroScreen(this, resourceService);
-      case LOAD:
-        return new LoadScreen(this, resourceService);
         default:
         return null;
     }
@@ -217,7 +215,7 @@ public class GdxGame extends Game {
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME,
-    LOADING, INTRO, SAVE_STATE, LOAD
+    LOADING, INTRO, SAVE_STATE
 
   }
 
