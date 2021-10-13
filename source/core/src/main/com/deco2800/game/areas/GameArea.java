@@ -41,7 +41,9 @@ public abstract class GameArea implements Disposable {
     for (Entity entity : areaEntities) {
       entity.dispose();
     }
-    player.dispose();
+    if (player != null) {
+      player.dispose();
+    }
   }
 
   /**
