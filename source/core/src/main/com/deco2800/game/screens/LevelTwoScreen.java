@@ -119,6 +119,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
+        load();
 
         logger.debug("Initialising main game screen entities");
         //terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -209,6 +210,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
+        load();
 
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());

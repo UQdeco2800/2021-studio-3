@@ -156,7 +156,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
-
+        load();
         logger.debug("Initialising main game screen entities");
         //terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -208,7 +208,7 @@ public class LevelThreeScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
-
+        load();
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
