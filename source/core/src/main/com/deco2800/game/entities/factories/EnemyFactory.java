@@ -7,6 +7,7 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.enemy.AlienBossAttackListener;
+import com.deco2800.game.components.enemy.AlienHorizontalAttackListener;
 import com.deco2800.game.components.enemy.AlienSoldierAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
 import com.deco2800.game.components.tasks.AttackTask;
@@ -376,6 +377,67 @@ public class EnemyFactory {
         gameArea.spawnEntity(alienBossWeapon1);
         gameArea.spawnEntity(alienBossWeapon2);
         gameArea.spawnEntity(alienBossWeapon3);
+    }
+
+    public static Entity createAlienSoldierHorizontal(Entity target, GameArea gameArea) {
+        AlienSoldierConfig config = configs.alienSolider;
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new AttackTask(target, 2, 10, 100f));
+
+        Entity alienSoldier =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+                        .addComponent(aiComponent)
+                        .addComponent(new AlienHorizontalAttackListener(target, gameArea));
+
+        PhysicsUtils.setScaledCollider(alienSoldier, 1f,1f);
+        alienSoldier.scaleHeight(1.5f);
+        return alienSoldier;
+    }
+
+    public static void createAlienSoldierHorizontalWeapon(Entity from, Entity target, GameArea gameArea) {
+        float x1 = from.getPosition().x;
+        float y1 = from.getPosition().y;
+
+        Vector2 target1 = new Vector2(0, 10);
+
+
+        Entity alienSoldierWeapon1 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+
+        alienSoldierWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienSoldierWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienSoldierWeapon1, 0.3f, 0.3f);
+
+
+
+        alienSoldierWeapon1.setPosition(x1 - alienSoldierWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienSoldierWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
+
+
+        alienSoldierWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
+        alienSoldierWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienSoldierWeapon1.getComponent(ColliderComponent.class).setSensor(true);
+
+
+
+        gameArea.spawnEntity(alienSoldierWeapon1);
+
     }
 }
 

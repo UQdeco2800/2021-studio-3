@@ -262,7 +262,17 @@ public class ForestGameArea extends GameArea {
 
     playMusic(backgroundMusic);
 
+
+    //createCheckpoint();
+//    playMusic();
+
+    //spawnAttackObstacle();
+    //spawnAlienMonster();
+   // spawnAlienSoldier();
+    spawnAlienHorizontal();
+
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+
   }
 
   protected void displayUI(String name) {
@@ -445,6 +455,11 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(EnemyFactory.createAlienBoss(player, area),
               pos, true, true);
     }
+  }
+  private void spawnAlienHorizontal() {
+    GridPoint2 pos1 = new GridPoint2(70, 20);
+    Entity alienHorizon = EnemyFactory.createAlienSoldierHorizontal(player, this);
+    spawnEntityAt(alienHorizon, pos1, true, true);
   }
 
   public boolean isDead() {
