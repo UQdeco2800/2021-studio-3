@@ -171,6 +171,10 @@ public class CombatStatsComponent extends Component {
 
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - attacker.getBaseAttack();
+    // The player has hit the wall
+    if (attacker.getBaseAttack() == this.maxHealth) {
+      setInvincibility(false);
+    }
     setHealth(newHealth);
   }
 }
