@@ -126,26 +126,6 @@ public class CombatStatsComponent extends Component {
         entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
 
-          /*try {
-            saveFile = new File("save/save.txt");
-            if (saveFile.createNewFile()) {
-              logger.debug("New Save created!");
-            } else {
-              logger.debug("File already exists");
-            }
-
-            FileWriter fileWriter = new FileWriter("save/save.txt");
-            fileWriter.write((entity.getComponent(ScoreComponent.class).getScore()));
-            fileWriter.write((int) (entity.getComponent(ProgressComponent.class).getProgress()));
-            fileWriter.write((entity.getComponent(LivesComponent.class).getLives()));
-            fileWriter.close();
-            logger.debug("Successfully wrote to file");
-            System.out.println("Successfuly write t o file");
-          } catch (IOException e) {
-            e.printStackTrace();
-
-          }*/
-          saveData.savePlayerData(entity);
           entity.getEvents().trigger("playerDeath");
 
 

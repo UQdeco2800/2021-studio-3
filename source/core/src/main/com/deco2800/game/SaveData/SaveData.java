@@ -1,5 +1,7 @@
 package com.deco2800.game.SaveData;
 
+import com.badlogic.gdx.Game;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.LivesComponent;
 import com.deco2800.game.components.ProgressComponent;
@@ -17,6 +19,7 @@ public class SaveData {
     private static final Logger logger = LoggerFactory.getLogger(SaveData.class);
     public Entity player;
     protected File saveFile;
+    private GdxGame game;
 
     public SaveData(Entity player, int saveFileNumber) {
         this.player = player;
@@ -44,13 +47,18 @@ public class SaveData {
                     }
 
                     FileWriter fileWriter = new FileWriter(saveFile);
+                    fileWriter.write("Level:");
+                    fileWriter.write(game.getScreen().toString());
+                    fileWriter.write("\n");
                     fileWriter.write(String.valueOf(player.getComponent(ScoreComponent.class).getScore()));
+                    fileWriter.write("\n");
                     fileWriter.write(String.valueOf(player.getComponent(ProgressComponent.class).getProgress()));
+                    fileWriter.write("\n");
                     fileWriter.write(String.valueOf(player.getComponent(LivesComponent.class).getLives()));
+                    fileWriter.write("\n");
                     fileWriter.write(String.valueOf(player.getComponent(CombatStatsComponent.class).getHealth()));
                     fileWriter.close();
-                    logger.debug("Successfully wrote to file");
-                    System.out.println("Successfully write to file");
+                    logger.info("Successfully wrote to file");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

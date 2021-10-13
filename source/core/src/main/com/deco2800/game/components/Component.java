@@ -15,7 +15,6 @@ public class Component {
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
   protected Entity entity;
   protected boolean enabled = true;
-  protected File saveFile;
 
   /**
    * Called when the entity is created and registered. Initial logic such as calls to GetComponent
