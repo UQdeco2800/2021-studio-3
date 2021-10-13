@@ -19,13 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
-var pathtoroot = "../../../../";
+<script type="text/javascript">var pathtoroot = "../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -55,16 +49,16 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <div class="navListSearch"><label for="search">SEARCH:</label>
@@ -93,7 +87,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
 <div class="inheritance"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">com.badlogic.gdx.ScreenAdapter</a>
+<div class="inheritance"><a href="MainGameScreen.html" title="class in com.deco2800.game.screens">com.deco2800.game.screens.MainGameScreen</a>
 <div class="inheritance">com.deco2800.game.screens.LevelTwoScreen</div>
+</div>
 </div>
 </div>
 <section class="description">
@@ -103,38 +99,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">LevelTwoScreen</span>
-extends <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></pre>
+extends <a href="MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></pre>
 <div class="block">The game screen containing the level two game area.
 
  <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens</div>
 </section>
 <section class="summary">
 <ul class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li class="blockList">
+<section class="nestedClassSummary"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h2>Nested Class Summary</h2>
+<div class="inheritedList">
+<h2>Nested classes/interfaces inherited from class&nbsp;com.deco2800.game.screens.<a href="MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></h2>
+<a id="nested.classes.inherited.from.class.com.deco2800.game.screens.MainGameScreen">
+<!--   -->
+</a><code><a href="MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a></code></div>
+</section>
+</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li class="blockList">
 <section class="fieldSummary"><a id="field.summary">
 <!--   -->
 </a>
 <h2>Field Summary</h2>
-<div class="memberSummary">
-<table>
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<thead>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html?is-external=true" title="class or interface in com.badlogic.gdx.assets" class="externalLink">AssetManager</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#manager">manager</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div class="inheritedList">
+<h3>Fields inherited from class&nbsp;com.deco2800.game.screens.<a href="MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></h3>
+<a id="fields.inherited.from.class.com.deco2800.game.screens.MainGameScreen">
+<!--   -->
+</a><code><a href="MainGameScreen.html#manager">manager</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -154,40 +149,25 @@ extends <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badl
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,boolean)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-boolean&nbsp;hasDied)</code></th>
-<td class="colLast">
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,boolean,com.deco2800.game.services.ResourceService)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,boolean,com.deco2800.game.services.ResourceService,com.deco2800.game.screens.MainGameScreen.Level)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
 boolean&nbsp;hasDied,
-<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</code></th>
+<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService,
+<a href="MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;level)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,int,boolean)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-int&nbsp;checkpoint,
-boolean&nbsp;hasDied)</code></th>
-<td class="colLast">
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</td>
-</tr>
 <tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,com.deco2800.game.services.ResourceService)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,com.deco2800.game.services.ResourceService,com.deco2800.game.screens.MainGameScreen.Level)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
+<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService,
+<a href="MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;level)</code></th>
 <td class="colLast">
-<div class="block">Load the game screen for level two when the game is starting.</div>
+<div class="block">Load the game screen for level two.</div>
 </td>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,java.lang.String,com.deco2800.game.services.ResourceService)">LevelTwoScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
 java.lang.String&nbsp;saveState,
 <a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</code></th>
-<td class="colLast">
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -200,60 +180,11 @@ java.lang.String&nbsp;saveState,
 <!--   -->
 </a>
 <h2>Method Summary</h2>
-<div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="tableTab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
-<div id="memberSummary_tabpanel" role="tabpanel">
-<table aria-labelledby="t0">
-<thead>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Method</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="altColor" id="i0">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i1">
-<td class="colFirst"><code><a href="../areas/LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentMap()">getCurrentMap</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the current game map</div>
-</td>
-</tr>
-<tr class="altColor" id="i2">
-<td class="colFirst"><code>static <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html?is-external=true" title="class or interface in com.badlogic.gdx.assets" class="externalLink">AssetManager</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#load()">load</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i3">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pause()">pause</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#render(float)">render</a></span>&#8203;(float&nbsp;delta)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resize(int,int)">resize</a></span>&#8203;(int&nbsp;width,
-int&nbsp;height)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i6">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resume()">resume</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<div class="inheritedList">
+<h3>Methods inherited from class&nbsp;com.deco2800.game.screens.<a href="MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></h3>
+<a id="methods.inherited.from.class.com.deco2800.game.screens.MainGameScreen">
+<!--   -->
+</a><code><a href="MainGameScreen.html#dispose()">dispose</a>, <a href="MainGameScreen.html#getCurrentMap()">getCurrentMap</a>, <a href="MainGameScreen.html#load()">load</a>, <a href="MainGameScreen.html#pause()">pause</a>, <a href="MainGameScreen.html#render(float)">render</a>, <a href="MainGameScreen.html#resize(int,int)">resize</a>, <a href="MainGameScreen.html#resume()">resume</a>, <a href="MainGameScreen.html#selectGameArea(com.deco2800.game.areas.terrain.TerrainFactory,int,boolean,com.deco2800.game.screens.MainGameScreen.Level)">selectGameArea</a>, <a href="MainGameScreen.html#setAreaAndUI(com.deco2800.game.areas.ForestGameArea)">setAreaAndUI</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.badlogic.gdx.<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></h3>
 <a id="methods.inherited.from.class.com.badlogic.gdx.ScreenAdapter">
@@ -270,22 +201,6 @@ int&nbsp;height)</code></th>
 </section>
 <section class="details">
 <ul class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<li class="blockList">
-<section class="fieldDetails"><a id="field.detail">
-<!--   -->
-</a>
-<h2>Field Details</h2>
-<ul class="blockList">
-<li class="blockList">
-<section class="detail">
-<h3><a id="manager">manager</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html?is-external=true" title="class or interface in com.badlogic.gdx.assets" class="externalLink">AssetManager</a></span>&nbsp;<span class="memberName">manager</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li class="blockList">
 <section class="constructorDetails"><a id="constructor.detail">
@@ -295,10 +210,20 @@ int&nbsp;height)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,com.deco2800.game.services.ResourceService)">LevelTwoScreen</a></h3>
+<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,com.deco2800.game.services.ResourceService,com.deco2800.game.screens.MainGameScreen.Level)">LevelTwoScreen</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</span></div>
-<div class="block">Load the game screen for level two when the game is starting.</div>
+<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService,
+<a href="MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;level)</span></div>
+<div class="block">Load the game screen for level two.</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,boolean,com.deco2800.game.services.ResourceService,com.deco2800.game.screens.MainGameScreen.Level)">LevelTwoScreen</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
+boolean&nbsp;hasDied,
+<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService,
+<a href="MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;level)</span></div>
 </section>
 </li>
 <li class="blockList">
@@ -307,116 +232,6 @@ int&nbsp;height)</code></th>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
 java.lang.String&nbsp;saveState,
 <a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</span></div>
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,boolean)">LevelTwoScreen</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-boolean&nbsp;hasDied)</span></div>
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,int,boolean)">LevelTwoScreen</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-int&nbsp;checkpoint,
-boolean&nbsp;hasDied)</span></div>
-<div class="block">Load the game screen for level two when the game is starting.</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,boolean,com.deco2800.game.services.ResourceService)">LevelTwoScreen</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelTwoScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
-boolean&nbsp;hasDied,
-<a href="../services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a>&nbsp;resourceService)</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ============ METHOD DETAIL ========== -->
-<li class="blockList">
-<section class="methodDetails"><a id="method.detail">
-<!--   -->
-</a>
-<h2>Method Details</h2>
-<ul class="blockList">
-<li class="blockList">
-<section class="detail">
-<h3><a id="load()">load</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html?is-external=true" title="class or interface in com.badlogic.gdx.assets" class="externalLink">AssetManager</a></span>&nbsp;<span class="memberName">load</span>()</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="render(float)">render</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">render</span>&#8203;(<span class="arguments">float&nbsp;delta)</span></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true#render(float)" title="class or interface in com.badlogic.gdx" class="externalLink">render</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">Screen</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true#render(float)" title="class or interface in com.badlogic.gdx" class="externalLink">render</a></code>&nbsp;in class&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="resize(int,int)">resize</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resize</span>&#8203;(<span class="arguments">int&nbsp;width,
-int&nbsp;height)</span></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true#resize(int,int)" title="class or interface in com.badlogic.gdx" class="externalLink">resize</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">Screen</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true#resize(int,int)" title="class or interface in com.badlogic.gdx" class="externalLink">resize</a></code>&nbsp;in class&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="pause()">pause</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">pause</span>()</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true#pause()" title="class or interface in com.badlogic.gdx" class="externalLink">pause</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">Screen</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true#pause()" title="class or interface in com.badlogic.gdx" class="externalLink">pause</a></code>&nbsp;in class&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="resume()">resume</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resume</span>()</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true#resume()" title="class or interface in com.badlogic.gdx" class="externalLink">resume</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">Screen</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true#resume()" title="class or interface in com.badlogic.gdx" class="externalLink">resume</a></code>&nbsp;in class&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="dispose()">dispose</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">Screen</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx" class="externalLink">dispose</a></code>&nbsp;in class&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/ScreenAdapter.html?is-external=true" title="class or interface in com.badlogic.gdx" class="externalLink">ScreenAdapter</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getCurrentMap()">getCurrentMap</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../areas/LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></span>&nbsp;<span class="memberName">getCurrentMap</span>()</div>
-<div class="block">Returns the current game map</div>
 </section>
 </li>
 </ul>
@@ -451,16 +266,16 @@ int&nbsp;height)</span></div>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 </div>

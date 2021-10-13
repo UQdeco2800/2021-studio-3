@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -106,7 +106,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">LevelThreeArea</span>
 extends <a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></pre>
-<div class="block">Game area for the level three</div>
+<div class="block">Game area for level three</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -193,6 +193,23 @@ java.lang.String&nbsp;saveState)</code></th>
 </td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code><a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAreaType()">getAreaType</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the area type for this area.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;startPos,
+float&nbsp;distance,
+float&nbsp;duration,
+<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</code></th>
+<td class="colLast">
+<div class="block">Method signature to ensure a call to the superclass isn't made.</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetCam(com.deco2800.game.components.CameraComponent)">resetCam</a></span>&#8203;(<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</code></th>
 <td class="colLast">
@@ -207,7 +224,7 @@ java.lang.String&nbsp;saveState)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.ForestGameArea">
 <!--   -->
-</a><code><a href="ForestGameArea.html#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a>, <a href="ForestGameArea.html#displayUI(java.lang.String)">displayUI</a>, <a href="ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus</a>, <a href="ForestGameArea.html#getEndMap()">getEndMap</a>, <a href="ForestGameArea.html#getPlayer()">getPlayer</a>, <a href="ForestGameArea.html#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a>, <a href="ForestGameArea.html#isDead()">isDead</a>, <a href="ForestGameArea.html#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a>, <a href="ForestGameArea.html#playMusic(java.lang.String)">playMusic</a>, <a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a>, <a href="ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus</a>, <a href="ForestGameArea.html#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a>, <a href="ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a>, <a href="ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a>, <a href="ForestGameArea.html#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a>, <a href="ForestGameArea.html#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a>, <a href="ForestGameArea.html#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a>, <a href="ForestGameArea.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuff</a>, <a href="ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a>, <a href="ForestGameArea.html#spawnDeathWall()">spawnDeathWall</a>, <a href="ForestGameArea.html#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a>, <a href="ForestGameArea.html#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a>, <a href="ForestGameArea.html#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a>, <a href="ForestGameArea.html#spawnRobots(java.util.ArrayList)">spawnRobots</a>, <a href="ForestGameArea.html#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a>, <a href="ForestGameArea.html#spawnUFO()">spawnUFO</a>, <a href="ForestGameArea.html#unloadAssets()">unloadAssets</a></code></div>
+</a><code><a href="ForestGameArea.html#createCheckpoints(java.util.ArrayList,com.deco2800.game.areas.ForestGameArea)">createCheckpoints</a>, <a href="ForestGameArea.html#displayUI(java.lang.String)">displayUI</a>, <a href="ForestGameArea.html#getCheckPointStatus()">getCheckPointStatus</a>, <a href="ForestGameArea.html#getEndMap()">getEndMap</a>, <a href="ForestGameArea.html#getPlayer()">getPlayer</a>, <a href="ForestGameArea.html#isDead()">isDead</a>, <a href="ForestGameArea.html#livesCondition(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,int)">livesCondition</a>, <a href="ForestGameArea.html#playMusic(java.lang.String)">playMusic</a>, <a href="ForestGameArea.html#resetCam(com.deco2800.game.components.CameraComponent,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType)">resetCam</a>, <a href="ForestGameArea.html#setCheckPointStatus(int)">setCheckPointStatus</a>, <a href="ForestGameArea.html#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a>, <a href="ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses</a>, <a href="ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters</a>, <a href="ForestGameArea.html#spawnAlienSoldiers(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienSoldiers</a>, <a href="ForestGameArea.html#spawnAsteroidFires(java.util.ArrayList)">spawnAsteroidFires</a>, <a href="ForestGameArea.html#spawnAsteroids(java.util.ArrayList)">spawnAsteroids</a>, <a href="ForestGameArea.html#spawnBuffDebuff(com.deco2800.game.components.maingame.BuffManager,com.deco2800.game.screens.MainGameScreen.Level)">spawnBuffDebuff</a>, <a href="ForestGameArea.html#spawnBuffDebuffPickup(com.deco2800.game.components.maingame.BuffManager.BuffPickup,com.deco2800.game.components.maingame.BuffManager)">spawnBuffDebuffPickup</a>, <a href="ForestGameArea.html#spawnDeathWall()">spawnDeathWall</a>, <a href="ForestGameArea.html#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a>, <a href="ForestGameArea.html#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a>, <a href="ForestGameArea.html#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a>, <a href="ForestGameArea.html#spawnRobots(java.util.ArrayList)">spawnRobots</a>, <a href="ForestGameArea.html#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String)">spawnTerrain</a>, <a href="ForestGameArea.html#spawnUFO()">spawnUFO</a>, <a href="ForestGameArea.html#unloadAssets()">unloadAssets</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
@@ -282,6 +299,25 @@ java.lang.String&nbsp;saveState)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">introCam</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;startPos,
+float&nbsp;distance,
+float&nbsp;duration,
+<a href="../components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a>&nbsp;camera)</span></div>
+<div class="block">Method signature to ensure a call to the superclass isn't made.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ForestGameArea.html#introCam(com.badlogic.gdx.math.Vector2,float,float,com.deco2800.game.components.CameraComponent)">introCam</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>startPos</code> - the position of the camera spawn</dd>
+<dd><code>distance</code> - the distance that the camera is going to move from start point</dd>
+<dd><code>duration</code> - the total time when the camera is moving</dd>
+<dd><code>camera</code> - the CameraComponent of the map</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="dispose()">dispose</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="GameArea.html#dispose()">GameArea</a></code></span></div>
@@ -291,6 +327,19 @@ java.lang.String&nbsp;saveState)</span></div>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx.utils" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="ForestGameArea.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getAreaType()">getAreaType</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a></span>&nbsp;<span class="memberName">getAreaType</span>()</div>
+<div class="block">Returns the area type for this area.
+
+ Allows for differentiation between the four areas.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ForestGameArea.html#getAreaType()">getAreaType</a></code>&nbsp;in class&nbsp;<code><a href="ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></dd>
 </dl>
 </section>
 </li>
