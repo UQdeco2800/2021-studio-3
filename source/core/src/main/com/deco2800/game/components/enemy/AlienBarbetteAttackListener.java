@@ -6,11 +6,11 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EnemyFactory;
 
 
-    public class AlienHorizontalAttackListener extends Component {
+    public class AlienBarbetteAttackListener extends Component {
         private Entity target;
         private GameArea gameArea;
 
-        public AlienHorizontalAttackListener(Entity target, GameArea gameArea) {
+        public AlienBarbetteAttackListener(Entity target, GameArea gameArea) {
             this.target = target;
             this.gameArea = gameArea;
         }
@@ -21,7 +21,7 @@ import com.deco2800.game.entities.factories.EnemyFactory;
         }
 
         void attack() {
-            EnemyFactory.createAlienSoldierHorizontalWeapon(this.entity,target, gameArea);
+            EnemyFactory.createAlienBarbetteWeapon(this.entity,target, gameArea);
         }
     }
 
