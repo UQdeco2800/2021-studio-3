@@ -40,7 +40,7 @@ public class LoadingDisplay extends UIComponent {
     /* The resource service that holds all the assets required for the UI */
     private ResourceService resourceService;
 
-    private static final String MUSIC_FILE_PATH = "sounds/loading_background_music.mp3";
+    private static final String MUSIC_FILE_PATH = "sounds/loading_background_music_new.mp3";
 
     public LoadingDisplay(){
         resourceService = ServiceLocator.getResourceService();
