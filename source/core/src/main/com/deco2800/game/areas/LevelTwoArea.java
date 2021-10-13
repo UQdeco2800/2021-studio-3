@@ -2,9 +2,11 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,9 @@ public class LevelTwoArea extends ForestGameArea {
         setupSpawns();
     }
 
+    /**
+     * Sets up the spawn locations for the different entities in the area
+     * */
     private void setupSpawns() {
         setupPlatformSpawns();
         setupAsteroidSpawns();
@@ -47,6 +52,9 @@ public class LevelTwoArea extends ForestGameArea {
         setupCheckPointSpawns();
     }
 
+    /**
+     * Sets up platform one spawn locations
+     * */
     private void setupPlatformSpawns() {
         this.PLATFORM_SPAWNS.add(new GridPoint2(7,14));
         this.PLATFORM_SPAWNS.add(new GridPoint2(20, 13));
@@ -55,6 +63,9 @@ public class LevelTwoArea extends ForestGameArea {
         this.PLATFORM_SPAWNS.add(new GridPoint2(34, 6));
     }
 
+    /**
+     * Sets up Asteroid spawn locations
+     * */
     private void setupAsteroidSpawns() {
         this.ASTEROID_SPAWNS.add(new GridPoint2(38, 5));
         this.ASTEROID_SPAWNS.add(new GridPoint2(46, 7));
@@ -62,6 +73,9 @@ public class LevelTwoArea extends ForestGameArea {
         this.ASTEROID_SPAWNS.add(new GridPoint2(87, 5));
     }
 
+    /**
+     * Sets up Asteroid Fire spawn locations
+     * */
     private void setupAsteroidFireSpawns() {
         this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(22,3));
         this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(21,3));
@@ -74,14 +88,23 @@ public class LevelTwoArea extends ForestGameArea {
         this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(85,5));
     }
 
+    /**
+     * Sets up robot spawn locations
+     * */
     private void setupRobotSpawns() {
         this.ROBOT_SPAWNS.add(new GridPoint2(12, 16));
     }
 
+    /**
+     * Sets up Alien Monster spawn locations
+     * */
     private void setupAlienMonsterSpawns() {
         this.ALIEN_MONSTER_SPAWNS.add(new GridPoint2(86, 20));
     }
 
+    /**
+     * Sets up checkpoint spawn locations
+     * */
     private void setupCheckPointSpawns() {
         this.CHECKPOINT_SPAWNS.add(new GridPoint2(20, 10));
     }
@@ -118,10 +141,27 @@ public class LevelTwoArea extends ForestGameArea {
         super.resetCam(camera, TerrainType.LEVEL_TWO_TERRAIN);
     }
 
+    /**
+     * Method signature to ensure a call to the superclass isn't made
+     * */
+    public void introCam(Vector2 startPos, float distance, float duration,
+            CameraComponent camera) {
+        // Do nothing
+    }
+
     @Override
     public void dispose() {
         super.dispose();
         ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
         this.unloadAssets();
+    }
+
+    /**
+     * Returns the area type for this area.
+     *
+     * Allows for differentiation between the four areas.
+     * */
+    public MainGameScreen.Level getAreaType() {
+        return MainGameScreen.Level.TWO;
     }
 }
