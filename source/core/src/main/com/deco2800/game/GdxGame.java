@@ -16,6 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.files.UserSettings;
 
 import com.deco2800.game.screens.*;
@@ -24,6 +28,11 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import static com.badlogic.gdx.Gdx.app;
 
@@ -37,6 +46,8 @@ public class GdxGame extends Game {
   private GameState gameState;
   private ScreenType screenType;
   private ResourceService resourceService;
+  private String saveState;
+  private boolean loadState = false;
 
   @Override
   public void create() {
@@ -102,17 +113,37 @@ public class GdxGame extends Game {
    * @return new screen
    */
   private Screen newScreen(ScreenType screenType) {
+
     switch (screenType) {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this, resourceService);
+        if (loadState) {
+          loadState = false;
+          return new MainGameScreen(this, saveState, resourceService);
+        } else {
+          return new MainGameScreen(this, resourceService);
+        }
       case LEVEL_TWO_GAME:
-        return new LevelTwoScreen(this, resourceService);
+        if (loadState) {
+          loadState = false;
+          return new LevelTwoScreen(this, saveState, resourceService);
+        } else {
+          return new LevelTwoScreen(this, resourceService);
+        }
       case LEVEL_THREE_GAME:
-        return new LevelThreeScreen(this, resourceService);
-      case RESPAWN:
+        if (loadState) {
+          loadState = false;
+          return new LevelThreeScreen(this, saveState, resourceService);
+        } else {
+          return new LevelThreeScreen(this, resourceService);
+        }
+      case RESPAWN1:
         return new MainGameScreen(this, true, resourceService);
+      case RESPAWN2:
+        return new LevelTwoScreen(this, true, resourceService);
+      case RESPAWN3:
+        return new LevelThreeScreen(this, true, resourceService);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
@@ -128,8 +159,45 @@ public class GdxGame extends Game {
     }
   }
 
+  /**
+   * Create a new screen of the provided saveState.
+   * @param saveState save file
+   * @return new screen
+   */
+  private Screen loadState(String saveState) {
+    Screen currentScreen = getScreen();
+    if (currentScreen != null) {
+      currentScreen.dispose();
+    }
+    setScreen(newScreen(ScreenType.MAIN_GAME));
+
+    try(BufferedReader br = new BufferedReader(new FileReader(saveState))) {
+      String line = br.readLine();
+      // parse file to load the floor
+      String[] values = line.split(":");
+      switch(values[1]) {
+        case "levelOne":
+          setScreenType(ScreenType.MAIN_GAME);
+          return new MainGameScreen(this,  resourceService);
+        case "levelTwo":
+          //return new LevelTwoScreen(this, saveState, resourceService);
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
   public void setScreenType(ScreenType screenType) {
     this.screenType = screenType;
+  }
+
+  public void setScreenType(ScreenType screenType, String saveState) {
+    this.screenType = screenType;
+    this.saveState = saveState;
+    this.loadState = true;
   }
 
   public ScreenType getScreenType() {
@@ -145,9 +213,9 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN, SETTINGS, CHECKPOINT,
+    MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME,
-    LOADING, INTRO
+    LOADING, INTRO, SAVE_STATE
 
   }
 
