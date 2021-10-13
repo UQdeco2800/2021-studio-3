@@ -93,33 +93,21 @@ public class PopupMenuActions extends Component {
 
         if (area != null) {
             logger.info("Player has lost and is now replaying level 1");
-            if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
-                onHome();
-            } else {
                 if (area.getCheckPointStatus() == 1 ) {
                     game.setScreenType(GdxGame.ScreenType.CHECKPOINT);
-                    game.setScreen(GdxGame.ScreenType.LOADING);
                 } else {
                     game.setScreenType(GdxGame.ScreenType.RESPAWN1);
-                    game.setScreen(GdxGame.ScreenType.LOADING);
                 }
-            }
+            game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (area2 != null) {
             logger.info("Player has lost and is now replaying level2");
-            if (area2.getPlayer().getComponent(LivesComponent.class).getLives() < 1) {
-                onHome();
-            } else {
                     game.setScreenType(GdxGame.ScreenType.RESPAWN2);
                     game.setScreen(GdxGame.ScreenType.LOADING);
-            }
+
         } else if (area3 != null) {
             logger.info("Player has lost and is now replaying level3");
-            if (area3.getPlayer().getComponent(LivesComponent.class).getLives() < 1) {
-                onHome();
-            } else {
                     game.setScreenType(GdxGame.ScreenType.RESPAWN3);
                     game.setScreen(GdxGame.ScreenType.LOADING);
-            }
         }
     }
 
@@ -127,9 +115,21 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying with no lives left.
      */
     public void onReplayLossFinal() {
-            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-            game.setScreen(GdxGame.ScreenType.INTRO);
+        if (area != null) {
+            area.getPlayer().getComponent(LivesComponent.class).setLives(3);
+           game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+        } else if (area2 != null) {
+            area2.getPlayer().getComponent(LivesComponent.class).setLives(3);
+          game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        } else if (area3 != null) {
+            area3.getPlayer().getComponent(LivesComponent.class).setLives(3);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+        }
+        logger.info("Player lives reset");
+        game.setScreen(GdxGame.ScreenType.LOADING);
+
     }
+
 
     /**
      * Method actives when user clicks the replay button after winning
