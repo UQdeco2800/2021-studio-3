@@ -37,7 +37,7 @@ import java.util.Random;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  protected static int lives = 5;
+  protected static int lives = 2;
 
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
@@ -143,7 +143,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   /* Player on the map */
-  private Entity player;
+  //public static Entity player;
 
   /* End of this map */
   private Entity endOfMap;
@@ -474,15 +474,20 @@ public class ForestGameArea extends GameArea {
       case LEVEL_TWO_TERRAIN:
       case LEVEL_THREE_TERRAIN:
       case LEVEL_FOUR_TERRAIN:
-        return lives < 5;
+        return lives < 0;
     }
     return false;
   }
 
   protected Entity spawnPlayer(GridPoint2 playerSpawn, TerrainType area, boolean save) {
     //need to change it to the horizon view
+    Entity newPlayer;
+    if (player != null) {
+      newPlayer = player;
+    } else {
+      newPlayer = PlayerFactory.createPlayer();
+    }
     float tileSize = terrain.getTileSize();
-    Entity newPlayer = PlayerFactory.createPlayer();
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
@@ -494,7 +499,7 @@ public class ForestGameArea extends GameArea {
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
     } else {
       if(livesCondition(area, lives) && !isDead()) {
-        lives = 5;
+        lives = 3;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
     }
@@ -502,7 +507,7 @@ public class ForestGameArea extends GameArea {
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);
-    } else if (save == false){
+    } else if (!save){
       spawnEntityAt(newPlayer, playerSpawn, true, true);
     }
 
