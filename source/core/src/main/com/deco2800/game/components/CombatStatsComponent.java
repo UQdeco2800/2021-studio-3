@@ -110,7 +110,7 @@ public class CombatStatsComponent extends Component {
                 (this.health - (2 * (this.health - health))) : health;
 
         // If the double hurt caused negative health, set to 0.
-        this.health = this.health <= 0 ? 0 : this.health;
+        this.health = Math.max(this.health, 0);
       } else {
         this.health = 0;
       }
@@ -118,7 +118,12 @@ public class CombatStatsComponent extends Component {
         // Updates the player state and animations when healed
         entity.getEvents().trigger("playerStatusAnimation");
         if (isDead()) {
-          entity.getEvents().trigger("playerDeath");
+          if (entity.getComponent(LivesComponent.class) != null) {
+            if (entity.getComponent(LivesComponent.class).getLives() == 0) {
+              entity.getEvents().trigger("playerFinalDeath");
+            }
+            entity.getEvents().trigger("playerDeath");
+          }
         }
       }
     }

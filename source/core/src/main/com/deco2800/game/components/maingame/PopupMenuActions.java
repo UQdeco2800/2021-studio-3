@@ -127,7 +127,8 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying with no lives left.
      */
     public void onReplayLossFinal() {
-        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+            game.setScreen(GdxGame.ScreenType.INTRO);
     }
 
     /**

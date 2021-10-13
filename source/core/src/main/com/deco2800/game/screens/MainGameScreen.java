@@ -10,7 +10,6 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
-import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
@@ -31,8 +30,6 @@ import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
 
 /**
  * The game screen containing the level one game area.
@@ -68,6 +65,12 @@ public class MainGameScreen extends ScreenAdapter {
           {"images/lossMenuBackground.png",
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
+
+  /* Textures for the continue loss menu*/
+  private static final String[] finalLossTextures =
+          {"images/continue.png",
+                  "images/no.png",
+                  "images/yes.png"};
 
   /* Textures for the buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
@@ -313,6 +316,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(pauseMenuTextures);
     resourceService.loadTextures(winMenuTextures);
     resourceService.loadTextures(lossMenuTextures);
+    resourceService.loadTextures(finalLossTextures);
     resourceService.loadTextures(buffsAndDebuffsTextures);
     resourceService.loadSounds(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
@@ -325,6 +329,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(pauseMenuTextures);
     resourceService.unloadAssets(winMenuTextures);
     resourceService.unloadAssets(lossMenuTextures);
+    resourceService.unloadAssets(finalLossTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
   }
@@ -353,6 +358,8 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
+        .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
+                new PopupUIHandler(finalLossTextures)))
         .addComponent(new PopupMenuActions(this.game, this.currentMap))
         .addComponent(this.buffManager = new BuffManager(this, currentMap));
 
