@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsService;
@@ -30,6 +31,7 @@ class RollComponentTest {
     @Mock PhysicsComponent physicsMock;
     @Mock PhysicsService physicsServiceMock;
     @Mock AnimationRenderComponent mockAnimation;
+    @Mock CombatStatsComponent combatStatsMock;
 
     private RollComponent rollComponent;
 
@@ -74,7 +76,8 @@ class RollComponentTest {
         Entity player = new Entity()
                 .addComponent(mockRoll)
                 .addComponent(keyboardMock)
-                .addComponent(actionsMock);
+                .addComponent(actionsMock)
+                .addComponent(combatStatsMock);
 
         // Tell the player they started rolling at time 0
         mockRoll.setLastRollStarted(0);
@@ -153,7 +156,8 @@ class RollComponentTest {
                 .addComponent(rollComponent)
                 .addComponent(keyboardMock)
                 .addComponent(actionsMock)
-                .addComponent(mockAnimation);
+                .addComponent(mockAnimation)
+                .addComponent(combatStatsMock);
 
         // Control the time calls
         when(time.getTime()).thenReturn(1000L);

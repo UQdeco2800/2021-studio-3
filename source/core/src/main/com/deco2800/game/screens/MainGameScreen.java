@@ -60,6 +60,12 @@ public class MainGameScreen extends ScreenAdapter {
                   "images/lossMainMenu.png",
                   "images/lossReplay.png"};
 
+  /* Textures for the continue loss menu*/
+  private static final String[] finalLossTextures =
+          {"images/continue.png",
+                  "images/no.png",
+                  "images/yes.png"};
+
   /* Textures for the buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
           {"images/invincible.png",
@@ -165,7 +171,7 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-
+    load();
     logger.debug("Initialising main game screen entities");
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
 
@@ -198,7 +204,7 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-
+    load();
     logger.debug("Initialising main game screen entities");
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
 
@@ -246,6 +252,42 @@ public class MainGameScreen extends ScreenAdapter {
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
   }
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
+  public MainGameScreen(GdxGame game, String saveState, ResourceService resourceService) {
+    this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
+    logger.debug("Initialising main game screen services");
+    ServiceLocator.registerTimeSource(new GameTime());
+
+    PhysicsService physicsService = new PhysicsService();
+    ServiceLocator.registerPhysicsService(physicsService);
+    physicsEngine = physicsService.getPhysics();
+
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(resourceService);
+
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+    loadAssets();
+    load();
+    logger.debug("Initialising main game screen entities");
+    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, saveState);
+    forestGameArea.create();
+
+    this.currentMap = forestGameArea;
+    createUI();
+    //forestGameArea.spawnBuffDebuff(this.buffManager);
+  }
 
   @Override
   public void render(float delta) {
@@ -301,6 +343,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(pauseMenuTextures);
     resourceService.loadTextures(winMenuTextures);
     resourceService.loadTextures(lossMenuTextures);
+    resourceService.loadTextures(finalLossTextures);
     resourceService.loadTextures(buffsAndDebuffsTextures);
     resourceService.loadSounds(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
@@ -313,6 +356,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(pauseMenuTextures);
     resourceService.unloadAssets(winMenuTextures);
     resourceService.unloadAssets(lossMenuTextures);
+    resourceService.unloadAssets(finalLossTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
   }
@@ -341,6 +385,8 @@ public class MainGameScreen extends ScreenAdapter {
                 new PopupUIHandler(winMenuTextures)))
         .addComponent(new PlayerLossPopup(this.game, this.currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
+        .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
+                new PopupUIHandler(finalLossTextures)))
         .addComponent(new PopupMenuActions(this.game, this.currentMap))
         .addComponent(this.buffManager = new BuffManager(this,
                 this.currentMap));

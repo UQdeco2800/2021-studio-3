@@ -10,6 +10,11 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import static com.badlogic.gdx.Gdx.app;
 
 /**
@@ -22,6 +27,8 @@ public class GdxGame extends Game {
   private GameState gameState;
   private ScreenType screenType;
   private ResourceService resourceService;
+  private String saveState;
+  private boolean loadState = false;
 
   @Override
   public void create() {
@@ -87,15 +94,31 @@ public class GdxGame extends Game {
    * @return new screen
    */
   private Screen newScreen(ScreenType screenType) {
+
     switch (screenType) {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this, resourceService, MainGameScreen.Level.ONE);
+        if (loadState) {
+          loadState = false;
+          return new MainGameScreen(this, saveState, resourceService);
+        } else {
+          return new MainGameScreen(this, resourceService, MainGameScreen.Level.ONE);
+        }
       case LEVEL_TWO_GAME:
-        return new LevelTwoScreen(this, resourceService, MainGameScreen.Level.TWO);
+        if (loadState) {
+          loadState = false;
+          return new LevelTwoScreen(this, saveState, resourceService);
+        } else {
+          return new LevelTwoScreen(this, resourceService, MainGameScreen.Level.TWO);
+        }
       case LEVEL_THREE_GAME:
-        return new LevelThreeScreen(this, resourceService, MainGameScreen.Level.THREE);
+        if (loadState) {
+          loadState = false;
+          return new LevelThreeScreen(this, saveState, resourceService);
+        } else {
+          return new LevelThreeScreen(this, resourceService, MainGameScreen.Level.THREE);
+        }
       case RESPAWN1:
         return new MainGameScreen(this, true, resourceService, MainGameScreen.Level.ONE);
       case RESPAWN2:
@@ -117,8 +140,45 @@ public class GdxGame extends Game {
     }
   }
 
+  /**
+   * Create a new screen of the provided saveState.
+   * @param saveState save file
+   * @return new screen
+   */
+  private Screen loadState(String saveState) {
+    Screen currentScreen = getScreen();
+    if (currentScreen != null) {
+      currentScreen.dispose();
+    }
+    setScreen(newScreen(ScreenType.MAIN_GAME));
+
+    try(BufferedReader br = new BufferedReader(new FileReader(saveState))) {
+      String line = br.readLine();
+      // parse file to load the floor
+      String[] values = line.split(":");
+      switch(values[1]) {
+        case "levelOne":
+          setScreenType(ScreenType.MAIN_GAME);
+          return new MainGameScreen(this,  resourceService, MainGameScreen.Level.ONE);
+        case "levelTwo":
+          //return new LevelTwoScreen(this, saveState, resourceService);
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
   public void setScreenType(ScreenType screenType) {
     this.screenType = screenType;
+  }
+
+  public void setScreenType(ScreenType screenType, String saveState) {
+    this.screenType = screenType;
+    this.saveState = saveState;
+    this.loadState = true;
   }
 
   public ScreenType getScreenType() {
@@ -136,8 +196,7 @@ public class GdxGame extends Game {
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME, LEVEL_FOUR_GAME,
-    LOADING, INTRO
-
+    LOADING, INTRO, SAVE_STATE
   }
 
   public enum GameState {

@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -148,8 +145,11 @@ public class ForestGameArea extends GameArea {
 
   private int checkpoint;
 
+  private boolean hasSave;
+
   private boolean hasDied;
 
+  protected String saveState;
   /* The edges (Entity objects) of this map.  This region defines the
      space the player is allowed to move within. */
   private LinkedHashMap<String, Entity> mapFixtures = new LinkedHashMap<>();
@@ -159,6 +159,7 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.checkpoint = checkpoint;
     this.hasDied = hasDied;
+    this.hasSave = false;
     CAM_START_TIME = gameTime.getTime();
     setupSpawns();
   }
@@ -234,6 +235,15 @@ public class ForestGameArea extends GameArea {
     this.player = player;
   }
 
+  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.saveState = saveState;
+    this.hasSave = true;
+    CAM_START_TIME = gameTime.getTime();
+    setupSpawns();
+  }
+
   /**
    * Returns the player spawned into this area. Allows upper menus to access
    * the players' status.
@@ -254,8 +264,11 @@ public class ForestGameArea extends GameArea {
   public void create() {
     displayUI("Level One");
 
-    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOne.txt");
-    player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER);
+    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOneGround.txt");
+    player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER, hasSave);
+    if (hasSave) {
+      loadSave(player, this.saveState);
+    }
     spawnDeathWall();
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
@@ -266,7 +279,17 @@ public class ForestGameArea extends GameArea {
 
     playMusic(backgroundMusic);
 
+
+    //createCheckpoint();
+//    playMusic();
+
+    //spawnAttackObstacle();
+    //spawnAlienMonster();
+   // spawnAlienSoldier();
+    spawnAlienHorizontal();
+
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+
   }
 
   /**
@@ -328,36 +351,37 @@ public class ForestGameArea extends GameArea {
             false);
     // Bottom
     // LOGIC to create level terrain
-    int i = 0, x, y, distance;
+
+    int i = 0, x, y, distanceX, distanceY;
     // opens the levels file
+
     try(BufferedReader br = new BufferedReader(new FileReader(levelFile))) {
-      StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       // parse file to load the floor
       while (line != null) {
         String[] values = line.split(" ");
-        distance = Integer.parseInt(values[0]) * 2;
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
+        distanceX = Integer.parseInt(values[0]) * 2;
+        distanceY = (int) (Float.parseFloat(values[1]) * 2);
+        x = Integer.parseInt(values[2]);
+        y = Integer.parseInt(values[3]);
 
         // creates the floors wall
         spawnEntityAt(
-                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
         if (i != 0) {
           // Create walls when floor level changes
-          float height = (float) y/2;
+          //float height = (float) y/2;
+          float height = Float.parseFloat(values[1]);
           //float endHeight = (float) (previousY - y)/2;
           spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, y), false, false);
           spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
         }
 
         line = br.readLine();
         i++;
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -366,7 +390,6 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
             ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
             new GridPoint2(0, -1), false, false);
-
   }
 
   /**
@@ -495,6 +518,11 @@ public class ForestGameArea extends GameArea {
               pos, true, true);
     }
   }
+  private void spawnAlienHorizontal() {
+    GridPoint2 pos1 = new GridPoint2(70, 20);
+    Entity alienHorizon = EnemyFactory.createAlienSoldierHorizontal(player, this);
+    spawnEntityAt(alienHorizon, pos1, true, true);
+  }
 
   public boolean isDead() {
     return hasDied;
@@ -530,7 +558,8 @@ public class ForestGameArea extends GameArea {
    *
    * @return the new player entity.
    * */
-  protected Entity spawnPlayer(GridPoint2 playerSpawn, TerrainType area) {
+  protected Entity spawnPlayer(GridPoint2 playerSpawn, TerrainType area,
+          boolean save) {
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
     Entity newPlayer = PlayerFactory.createPlayer();
@@ -553,7 +582,7 @@ public class ForestGameArea extends GameArea {
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     if (this.checkpoint == 1) {
       spawnEntityAt(newPlayer, CHECKPOINT, true, true);
-    } else {
+    } else if (save == false){
       spawnEntityAt(newPlayer, playerSpawn, true, true);
     }
 

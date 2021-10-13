@@ -28,8 +28,17 @@ public class LevelThreeArea extends ForestGameArea {
 
     private static final String backgroundMusic = "sounds/level3.mp3";
 
+    private boolean hasSave;
+
     public LevelThreeArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super(terrainFactory, checkpoint, hasDied);
+        this.hasSave = false;
+        setupSpawns();
+    }
+
+    public LevelThreeArea(TerrainFactory terrainFactory, String saveState) {
+        super(terrainFactory, saveState);
+        this.hasSave = true;
         setupSpawns();
     }
 
@@ -118,7 +127,10 @@ public class LevelThreeArea extends ForestGameArea {
 
         // Spawning Terrain and player
         spawnTerrain(TerrainType.LEVEL_THREE_TERRAIN, "level-floors/levelThree.txt");
-        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_THREE_TERRAIN));
+        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_THREE_TERRAIN, hasSave));
+        if (hasSave) {
+            loadSave(getPlayer(), this.saveState);
+        }
         spawnDeathWall();
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);

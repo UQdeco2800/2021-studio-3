@@ -22,7 +22,7 @@ public class LevelTwoArea extends ForestGameArea {
     private ArrayList<GridPoint2> ROBOT_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> ALIEN_MONSTER_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
-
+    private boolean hasSave;
     //private int lives = 5;
 
     /* Music specific to this level */
@@ -30,6 +30,13 @@ public class LevelTwoArea extends ForestGameArea {
 
     public LevelTwoArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super(terrainFactory, checkpoint, hasDied);
+        this.hasSave = false;
+        setupSpawns();
+    }
+
+    public LevelTwoArea(TerrainFactory terrainFactory, String saveState) {
+        super(terrainFactory, saveState);
+        this.hasSave = true;
         setupSpawns();
     }
 
@@ -110,7 +117,10 @@ public class LevelTwoArea extends ForestGameArea {
 
         // Spawning Terrain and player
         spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwo.txt");
-        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_TWO_TERRAIN));
+        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_TWO_TERRAIN, this.hasSave));
+        if (this.hasSave) {
+            loadSave(getPlayer(), this.saveState);
+        }
         spawnDeathWall();
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);

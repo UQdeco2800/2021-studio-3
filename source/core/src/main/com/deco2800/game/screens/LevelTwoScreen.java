@@ -26,4 +26,9 @@ public class LevelTwoScreen extends MainGameScreen {
             ResourceService resourceService, MainGameScreen.Level level) {
         super(game, hasDied, resourceService, level);
     }
+
+    public LevelTwoScreen(GdxGame game, String saveState,
+            ResourceService resourceService) {
+        super(game, saveState, resourceService);
+    }
 }

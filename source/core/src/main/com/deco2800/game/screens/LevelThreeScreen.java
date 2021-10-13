@@ -21,10 +21,14 @@ public class LevelThreeScreen extends MainGameScreen {
         super(game, resourceService, level);
     }
 
-
     public LevelThreeScreen(GdxGame game, boolean hasDied,
             ResourceService resourceService, MainGameScreen.Level level) {
         super(game, hasDied, resourceService, level);
+    }
+
+    public LevelThreeScreen(GdxGame game, String saveState,
+            ResourceService resourceService) {
+        super(game, saveState, resourceService);
     }
 
 }
