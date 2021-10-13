@@ -11,9 +11,9 @@ import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -359,13 +359,17 @@ public class TerrainFactory {
    * @return the corresponding y-coordinate of surface tile if it exists wih
    * given x-coordinate
    */
-  public int getYOfSurface(int x, GdxGame.ScreenType screenType) {
+  public int getYOfSurface(int x, MainGameScreen.Level screenType) {
     int y = 0;
     String filename = null;
-    if (screenType == GdxGame.ScreenType.MAIN_GAME) {
+    if (screenType == MainGameScreen.Level.ONE) {
       filename = "level-floors/levelOne.txt";
-    } else if (screenType == GdxGame.ScreenType.LEVEL_TWO_GAME) {
+    } else if (screenType == MainGameScreen.Level.TWO) {
       filename = "level-floors/levelTwo.txt";
+    } else if (screenType == MainGameScreen.Level.THREE) {
+      filename = "level-floors/levelThree.txt";
+    } else if (screenType == MainGameScreen.Level.FOUR) {
+      filename = "level-floors/levelFour.txt";
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
