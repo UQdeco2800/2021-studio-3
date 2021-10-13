@@ -378,28 +378,9 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
     // parses the level files
-    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelThree.txt"))) {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
-      int x = 0, y = 0, width = 0, distance = 0, i = 0;
-      while (line != null) {
-        String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
-        distance = (width * 2) + x;
-        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
-        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
-        line = br.readLine();
-        i++;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    addGroundTiles(layer, underground, surface, "level-floors/levelThreeGround.txt");
     tiledMap.getLayers().add(layer);
-    tiledMap.getLayers().add(layer);
+
     return tiledMap;
   }
 
