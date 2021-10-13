@@ -174,10 +174,6 @@ public class TerrainFactory {
   private TiledMap createSideScrollTiles(
           GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     TiledMap tiledMap = new TiledMap();
-    TerrainTile surfaceTile = new TerrainTile(surface);
-    TerrainTile undergroundTile = new TerrainTile(underground);
-    TerrainTile skyTile = new TerrainTile(sky);
-    TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
@@ -236,24 +232,43 @@ public class TerrainFactory {
     return tiledMap;
   }
 
+  /**
+   * Adds the ground tiles to the map based on the values given inside the text file.
+   * @param layer the TiledMap layer
+   * @param underground the underground tile TextureRegion
+   * @param surface the surface tile TextureRegion
+   * @param filename the name of the text file containing information regarding tile placement.
+   */
   private void addGroundTiles(TiledMapTileLayer layer, TextureRegion underground,
                               TextureRegion surface, String filename) {
     TerrainTile surfaceTile = new TerrainTile(surface);
     TerrainTile undergroundTile = new TerrainTile(underground);
     ArrayList<String> terrainLayout = readFile(filename);
 
-    int x, y, width, distanceX;
+    float width, height;
+    int x, y, distanceX, distanceY;
     for (String s : terrainLayout) {
       String[] values = s.split(" ");
-      width = Integer.parseInt(values[0]);
-      x = Integer.parseInt(values[1]);
-      y = Integer.parseInt(values[2]);
-      distanceX = (width * 2) + x;
-      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, y - 1), undergroundTile);
-      fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distanceX, y), surfaceTile);
+      width = Float.parseFloat(values[0]);
+      height = Float.parseFloat(values[1]);
+      x = Integer.parseInt(values[2]);
+      y = Integer.parseInt(values[3]);
+      distanceX = (int) (( width * 2) + x);
+      distanceY = (int) (( height * 2) + y);
+      // Fills underground tiles, leaves one layer on top for surface tiles
+      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      // Fills surface tiles
+      fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
     }
   }
 
+  /**
+   * Adds the sky tiles to the map based on the values given inside the text file.
+   * @param layer the TiledMap layer
+   * @param sky the sky tile TextureRegion
+   * @param star the star tile TextureRegion
+   * @param filename the name of the text file containing information regarding tile placement.
+   */
   private void addSkyTiles(TiledMapTileLayer layer, TextureRegion sky,
                            TextureRegion star, String filename) {
     TerrainTile skyTile = new TerrainTile(sky);
@@ -280,6 +295,11 @@ public class TerrainFactory {
     }
   }
 
+  /**
+   * Reads the text file given and returns each line of text as an arrayList of strings.
+   * @param filename the name of the text file
+   * @return a string array with each element containing a line from the text file
+   */
   private ArrayList<String> readFile(String filename) {
     ArrayList<String> terrainLayout = new ArrayList<>();
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -467,19 +487,21 @@ public class TerrainFactory {
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
-      int referenceX = 0, referenceY = 0, width = 0, distance = 0;
-
+      int referenceX = 0, referenceY = 0, distanceX = 0, distanceY = 0;
+      float width = 0, height = 0;
       while (line != null) {
         String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        referenceX = Integer.parseInt(values[1]);
-        referenceY = Integer.parseInt(values[2]);
-        distance = (width * 2) + referenceX;
+        width = Float.parseFloat(values[0]);
+        height = Float.parseFloat(values[1]);
+        referenceX = Integer.parseInt(values[2]);
+        referenceY = Integer.parseInt(values[3]);
+        distanceX = (int) (width * 2) + referenceX;
+        distanceY = (int) (height * 2) + referenceY;
 
-        if (x >= referenceX && x <= distance) {
-          logger.debug("this is distance {}", distance);
+        if (x >= referenceX && x <= distanceX) {
+          logger.debug("this is distance {}", distanceX);
           logger.debug("this is reference x {}", referenceX);
-          y = referenceY;
+          y = distanceY;
           break;
         } else {
           line = br.readLine();

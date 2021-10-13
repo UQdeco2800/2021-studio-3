@@ -278,7 +278,8 @@ public class ForestGameArea extends GameArea {
             false);
     // Bottom
     // LOGIC to create level terrain
-    int i = 0, x, y, distance;
+
+    int i = 0, x, y, distanceX, distanceY;
     // opens the levels file
     try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOneGround.txt"))) {
       StringBuilder sb = new StringBuilder();
@@ -286,21 +287,23 @@ public class ForestGameArea extends GameArea {
       // parse file to load the floor
       while (line != null) {
         String[] values = line.split(" ");
-        distance = Integer.parseInt(values[0]) * 2;
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
+        distanceX = Integer.parseInt(values[0]) * 2;
+        distanceY = (int) (Float.parseFloat(values[1]) * 2);
+        x = Integer.parseInt(values[2]);
+        y = Integer.parseInt(values[3]);
 
         // creates the floors wall
         spawnEntityAt(
-                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, y), false, false);
+                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
         if (i != 0) {
           // Create walls when floor level changes
-          float height = (float) y/2;
+          //float height = (float) y/2;
+          float height = Float.parseFloat(values[1]);
           //float endHeight = (float) (previousY - y)/2;
           spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, 0), false, false);
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, y), false, false);
           spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distance, 0), false, false);
+                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
         }
 
         line = br.readLine();
