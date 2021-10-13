@@ -104,6 +104,7 @@ public abstract class GameArea implements Disposable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
     GridPoint2 spawnPoint = new GridPoint2(x, y);
     spawnEntityAt(player, spawnPoint, true, true);
     player.getComponent(ProgressComponent.class).setProgress();

@@ -119,18 +119,21 @@ public class GdxGame extends Game {
         return new MainMenuScreen(this);
       case MAIN_GAME:
         if (loadState) {
+          loadState = false;
           return new MainGameScreen(this, saveState, resourceService);
         } else {
           return new MainGameScreen(this, resourceService);
         }
       case LEVEL_TWO_GAME:
         if (loadState) {
+          loadState = false;
           return new LevelTwoScreen(this, saveState, resourceService);
         } else {
           return new LevelTwoScreen(this, resourceService);
         }
       case LEVEL_THREE_GAME:
         if (loadState) {
+          loadState = false;
           return new LevelThreeScreen(this, saveState, resourceService);
         } else {
           return new LevelThreeScreen(this, resourceService);
