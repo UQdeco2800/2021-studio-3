@@ -293,13 +293,12 @@ public class LevelTwoScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         if (game.getState() == GdxGame.GameState.RUNNING) {
             this.currentMap.resetCam(renderer.getCamera());
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
         }
-        this.currentMap.isPause(game.getState());
+        this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
         renderer.render();
 
     }

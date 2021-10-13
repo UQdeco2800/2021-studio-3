@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.*;
+import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -26,12 +29,13 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -618,7 +622,7 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state) {
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
     if (state != GdxGame.GameState.RUNNING) {
       for (Entity entity : areaEntities) {
         if (entity.getComponent(AnimationRenderComponent.class) != null) {
@@ -632,6 +636,9 @@ public class ForestGameArea extends GameArea {
       for (Entity entity : areaEntities) {
         if (entity.getComponent(AnimationRenderComponent.class) != null) {
           entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
         }
       }
     }

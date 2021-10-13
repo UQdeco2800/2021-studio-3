@@ -295,7 +295,7 @@ public class LevelThreeScreen extends ScreenAdapter {
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
         }
-        this.currentMap.isPause(game.getState());
+        this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
         renderer.render();
 
     }
