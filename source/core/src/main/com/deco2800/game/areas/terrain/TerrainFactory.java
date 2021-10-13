@@ -431,14 +431,11 @@ public class TerrainFactory {
       filename = "level-floors/levelOneGround.txt";
     } else if (screenType == MainGameScreen.Level.TWO) {
       filename = "level-floors/levelTwoGround.txt";
-    }
-
-    /* else if (screenType == MainGameScreen.Level.THREE) {
-      filename = "level-floors/levelThree.txt";
+    } else if (screenType == MainGameScreen.Level.THREE) {
+      filename = "level-floors/levelThreeGround.txt";
     } else if (screenType == MainGameScreen.Level.FOUR) {
-      filename = "level-floors/levelFour.txt";
+      filename = "level-floors/levelThreeGround.txt"; // Placeholder
     }
-    */
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
       int referenceX = 0, referenceY = 0, distanceX = 0, distanceY = 0;
