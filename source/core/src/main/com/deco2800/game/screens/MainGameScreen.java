@@ -10,7 +10,6 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
-import com.deco2800.game.components.mainmenu.LoadingDisplay;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
 import com.deco2800.game.entities.Entity;
@@ -31,8 +30,6 @@ import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
 
 /**
  * The game screen containing the level one game area.
@@ -182,7 +179,7 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-
+    load();
     logger.debug("Initialising main game screen entities");
     //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -219,7 +216,7 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
-
+    load();
     logger.debug("Initialising main game screen entities");
     //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -231,6 +228,42 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
   }
 
+  /**
+   * Load the game screen for level one when the game is starting.
+   */
+  public MainGameScreen(GdxGame game, String saveState, ResourceService resourceService) {
+    this.game = game;
+    game.setState(GdxGame.GameState.RUNNING);
+
+    logger.debug("Initialising main game screen services");
+    ServiceLocator.registerTimeSource(new GameTime());
+
+    PhysicsService physicsService = new PhysicsService();
+    ServiceLocator.registerPhysicsService(physicsService);
+    physicsEngine = physicsService.getPhysics();
+
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(resourceService);
+
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+    loadAssets();
+    load();
+    logger.debug("Initialising main game screen entities");
+    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    this.terrainFactory = new TerrainFactory(renderer.getCamera());
+    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, saveState);
+    forestGameArea.create();
+
+    this.currentMap = forestGameArea;
+    createUI();
+    //forestGameArea.spawnBuffDebuff(this.buffManager);
+  }
 
   @Override
   public void render(float delta) {
