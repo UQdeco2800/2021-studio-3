@@ -1,6 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
@@ -26,6 +27,7 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea area2 = null;
     private LevelThreeArea area3 = null;
     private int currentLevel = 0;
+    private SaveData saveData;
 
     public PopupMenuActions(GdxGame game) {
         this.game = game;
@@ -35,17 +37,20 @@ public class PopupMenuActions extends Component {
         this.game = game;
         this.area = area;
         this.currentLevel = 1;
+        saveData = new SaveData(game, area.getPlayer());
     }
 
     public PopupMenuActions(GdxGame game, LevelTwoArea area) {
         this.game = game;
         this.area2 = area;
         this.currentLevel = 2;
+        saveData = new SaveData(game, area2.getPlayer());
     }
 
     public PopupMenuActions(GdxGame game, LevelThreeArea area) {
         this.game = game;
         this.area3 = area;
+        saveData = new SaveData(game, area3.getPlayer());
     }
 
     /**
@@ -53,8 +58,8 @@ public class PopupMenuActions extends Component {
      * Changes the screen to be the main menu screen
      * */
     public void onHome() {
+
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
-        //area.getPlayer().getComponent(LivesComponent.class).resetLives();
     }
 
     /**
@@ -105,12 +110,15 @@ public class PopupMenuActions extends Component {
             }
         } else if (area2 != null) {
             logger.info("Player has lost and is now replaying level2");
+
             game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (area3 != null) {
+
             game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
         }
+        saveData.savePlayerData();
     }
 
     /**
@@ -118,6 +126,8 @@ public class PopupMenuActions extends Component {
      */
     public void onReplayLossFinal() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+
+        saveData.savePlayerData();
     }
 
     /**
@@ -141,6 +151,7 @@ public class PopupMenuActions extends Component {
             game.setScreen(GdxGame.ScreenType.LOADING);
         }
         //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        saveData.savePlayerData();
     }
 
     /**

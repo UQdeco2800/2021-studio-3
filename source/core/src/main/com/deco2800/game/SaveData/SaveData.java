@@ -21,23 +21,25 @@ public class SaveData {
     protected File saveFile;
     private GdxGame game;
 
-    public SaveData(Entity player, int saveFileNumber) {
+    public SaveData(GdxGame game, Entity player, int saveFileNumber) {
+        this.game = game;
         this.player = player;
         saveFile = new File(String.format("save/File %d.txt", saveFileNumber));
-        savePlayerData(player);
+        //savePlayerData(player);
     }
 
-    public SaveData(Entity player) {
+    public SaveData(GdxGame game, Entity player) {
+        this.game = game;
         this.player = player;
         saveFile = new File("save/save.txt");
-        savePlayerData(player);
+        //savePlayerData(player);
     }
 
     public Entity getPlayer() {
         return player;
     }
 
-    public void savePlayerData(Entity player) {
+    public void savePlayerData() {
             if (player != null) {
                 try {
                     if (saveFile.createNewFile()) {
@@ -48,7 +50,7 @@ public class SaveData {
 
                     FileWriter fileWriter = new FileWriter(saveFile);
                     fileWriter.write("Level:");
-                    fileWriter.write(game.getScreen().toString());
+                    fileWriter.write(game.getScreenType().name());
                     fileWriter.write("\n");
                     fileWriter.write(String.valueOf(player.getComponent(ScoreComponent.class).getScore()));
                     fileWriter.write("\n");

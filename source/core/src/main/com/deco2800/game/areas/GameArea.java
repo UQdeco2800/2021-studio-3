@@ -27,6 +27,7 @@ public abstract class GameArea implements Disposable {
   protected GameArea() {
     areaEntities = new ArrayList<>();
   }
+  protected Entity player;
 
   /** Create the game area in the world. */
   public abstract void create();
@@ -35,6 +36,10 @@ public abstract class GameArea implements Disposable {
   public void dispose() {
     for (Entity entity : areaEntities) {
       entity.dispose();
+    }
+
+    if (player != null) {
+      player.dispose();
     }
   }
 

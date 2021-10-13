@@ -49,7 +49,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_ASTEROIDS = 5;
   private static final int NUM_GHOSTS = 2;
   private static final int NUM_ASTERIODS = 5;
-  private static int lives = 5;
+  private static int lives = 3;
 
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
@@ -143,8 +143,8 @@ public class ForestGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
 
-  /* Player on the map */
-  private Entity player;
+  /* Player on the map
+  private static Entity player;*/
 
   /* End of this map */
   private Entity endOfMap;
@@ -468,9 +468,16 @@ public class ForestGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
+    Entity newPlayer;
+
+    if (player != null) {
+      newPlayer = player;
+    } else {
+      newPlayer = PlayerFactory.createPlayer();
+    }
     //need to change it to the horizon view
     float tileSize = terrain.getTileSize();
-    Entity newPlayer = PlayerFactory.createPlayer();
+
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));

@@ -31,7 +31,6 @@ public class CombatStatsComponent extends Component {
     setMaxHealth(health);
     setHealth(health);
     setBaseAttack(baseAttack);
-    saveData = new SaveData(entity);
   }
 
   /**
