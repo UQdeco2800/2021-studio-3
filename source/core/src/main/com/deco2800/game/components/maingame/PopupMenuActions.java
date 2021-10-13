@@ -115,16 +115,17 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying with no lives left.
      */
     public void onReplayLossFinal() {
-
         if (area != null) {
             area.getPlayer().getComponent(LivesComponent.class).setLives(3);
+           game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
         } else if (area2 != null) {
             area2.getPlayer().getComponent(LivesComponent.class).setLives(3);
+          game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
         } else if (area3 != null) {
             area3.getPlayer().getComponent(LivesComponent.class).setLives(3);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
         }
         logger.info("Player lives reset");
-        game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
         game.setScreen(GdxGame.ScreenType.LOADING);
 
     }
