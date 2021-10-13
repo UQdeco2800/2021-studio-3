@@ -125,7 +125,7 @@ public class PopupMenuActions extends Component {
         }
         logger.info("Player lives reset");
         game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-        game.setScreen(GdxGame.ScreenType.INTRO);
+        game.setScreen(GdxGame.ScreenType.LOADING);
 
     }
 
