@@ -5,8 +5,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.LevelTwoArea;
-import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.PlayerWinActions;
@@ -63,31 +61,12 @@ public class PlayerWinPopup extends UIComponent {
         this.handler = winHandler;
     }
 
-    public PlayerWinPopup(GdxGame game, LevelTwoArea currentMap,
-                          PopupUIHandler winHandler) {
-        this.game = game;
-        this.player = currentMap.getPlayer();
-        this.endOfMap = currentMap.getEndMap();
-        this.endPortal = currentMap.getEndPortal();
-        this.handler = winHandler;
-    }
-
-    public PlayerWinPopup(GdxGame game, LevelThreeArea currentMap,
-                          PopupUIHandler winHandler) {
-        this.game = game;
-        this.player = currentMap.getPlayer();
-        this.endOfMap = currentMap.getEndMap();
-        this.endPortal = currentMap.getEndPortal();
-        this.handler = winHandler;
-    }
-
     /**
      * Allows the right-most wall of the current map to be identified.
      *
      * @return the Fixture associated with the end of the map
      * */
     public Fixture getMapFixture() {
-        //return endOfMap.getComponent(ColliderComponent.class).getFixture();
         return endPortal.getComponent(ColliderComponent.class).getFixture();
     }
 

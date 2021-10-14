@@ -79,7 +79,7 @@ public class PopupMenuActionsLevel2 extends Component {
         } else if (area2.getCheckPointStatus() == 1) {
             game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
         } else {
-            game.setScreen(GdxGame.ScreenType.RESPAWN);
+            game.setScreen(GdxGame.ScreenType.RESPAWN2);
         }
 
     }

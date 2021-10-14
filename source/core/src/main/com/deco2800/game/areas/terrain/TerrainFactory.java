@@ -3,22 +3,17 @@ package com.deco2800.game.areas.terrain;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.entities.factories.ObstacleFactory;
-import com.deco2800.game.screens.MainMenuScreen;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -29,13 +24,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
   private static final Logger logger = LoggerFactory.getLogger(TerrainFactory.class);
   private static final GridPoint2 MAP_SIZE = new GridPoint2(100, 30);
-  private static final int TUFT_TILE_COUNT = 30;
-  private static final int ROCK_TILE_COUNT = 30;
 
   private final OrthographicCamera camera;
   private final TerrainOrientation orientation;
@@ -70,30 +64,6 @@ public class TerrainFactory {
   public TerrainComponent createTerrain(TerrainType terrainType) {
     ResourceService resourceService = ServiceLocator.getResourceService();
     switch (terrainType) {
-//      case FOREST_DEMO:
-//        TextureRegion orthoGrass =
-//            new TextureRegion(resourceService.getAsset("images/grass_1.png", Texture.class));
-//        TextureRegion orthoTuft =
-//            new TextureRegion(resourceService.getAsset("images/grass_2.png", Texture.class));
-//        TextureRegion orthoRocks =
-//            new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
-//        return createForestDemoTerrain(0.5f, orthoGrass, orthoTuft, orthoRocks);
-//      case FOREST_DEMO_ISO:
-//        TextureRegion isoGrass =
-//            new TextureRegion(resourceService.getAsset("images/iso_grass_1.png", Texture.class));
-//        TextureRegion isoTuft =
-//            new TextureRegion(resourceService.getAsset("images/iso_grass_2.png", Texture.class));
-//        TextureRegion isoRocks =
-//            new TextureRegion(resourceService.getAsset("images/iso_grass_3.png", Texture.class));
-//        return createForestDemoTerrain(1f, isoGrass, isoTuft, isoRocks);
-//      case FOREST_DEMO_HEX:
-//        TextureRegion hexGrass =
-//            new TextureRegion(resourceService.getAsset("images/hex_grass_1.png", Texture.class));
-//        TextureRegion hexTuft =
-//            new TextureRegion(resourceService.getAsset("images/hex_grass_2.png", Texture.class));
-//        TextureRegion hexRocks =
-//            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
-//        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       case SIDE_SCROLL_ER:
         TextureRegion surface = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
         TextureRegion underground = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
@@ -120,6 +90,8 @@ public class TerrainFactory {
         TextureRegion europa_star =
                 new TextureRegion(resourceService.getAsset("images/background_europa_star.png", Texture.class));
         return createLevelThreeTerrain(0.5f, europa_surface, europa_underground, europa_sky, europa_star);
+      case LEVEL_FOUR_TERRAIN:
+        return createTerrain(TerrainType.LEVEL_THREE_TERRAIN); // Placeholder
       default:
         return null;
     }
@@ -148,14 +120,6 @@ public class TerrainFactory {
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
 
-//  private TerrainComponent createForestDemoTerrain(
-//      float tileWorldSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
-//    GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
-//    TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
-//    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
-//    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
-//  }
-
   private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
     switch (orientation) {
       case ORTHOGONAL:
@@ -173,16 +137,11 @@ public class TerrainFactory {
   private TiledMap createSideScrollTiles(
           GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     TiledMap tiledMap = new TiledMap();
-    TerrainTile surfaceTile = new TerrainTile(surface);
-    TerrainTile undergroundTile = new TerrainTile(underground);
-    TerrainTile skyTile = new TerrainTile(sky);
-    TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // Create base grass
-    //fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
-    //fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
-    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
+
+    /*fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
     fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
     fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
@@ -206,9 +165,12 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
+    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);*/
+
+    addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
+
     // parses the level files
-    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
+    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       int x = 0, y = 0, width = 0, distance = 0, i = 0;
@@ -227,9 +189,93 @@ public class TerrainFactory {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-    }
+    }*/
+    addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
+  }
+
+  /**
+   * Adds the ground tiles to the map based on the values given inside the text file.
+   * @param layer the TiledMap layer
+   * @param underground the underground tile TextureRegion
+   * @param surface the surface tile TextureRegion
+   * @param filename the name of the text file containing information regarding tile placement.
+   */
+  private void addGroundTiles(TiledMapTileLayer layer, TextureRegion underground,
+                              TextureRegion surface, String filename) {
+    TerrainTile surfaceTile = new TerrainTile(surface);
+    TerrainTile undergroundTile = new TerrainTile(underground);
+    ArrayList<String> terrainLayout = readFile(filename);
+
+    float width, height;
+    int x, y, distanceX, distanceY;
+    for (String s : terrainLayout) {
+      String[] values = s.split(" ");
+      width = Float.parseFloat(values[0]);
+      height = Float.parseFloat(values[1]);
+      x = Integer.parseInt(values[2]);
+      y = Integer.parseInt(values[3]);
+      distanceX = (int) (( width * 2) + x);
+      distanceY = (int) (( height * 2) + y);
+      // Fills underground tiles, leaves one layer on top for surface tiles
+      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      // Fills surface tiles
+      fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
+    }
+  }
+
+  /**
+   * Adds the sky tiles to the map based on the values given inside the text file.
+   * @param layer the TiledMap layer
+   * @param sky the sky tile TextureRegion
+   * @param star the star tile TextureRegion
+   * @param filename the name of the text file containing information regarding tile placement.
+   */
+  private void addSkyTiles(TiledMapTileLayer layer, TextureRegion sky,
+                           TextureRegion star, String filename) {
+    TerrainTile skyTile = new TerrainTile(sky);
+    TerrainTile starTile = new TerrainTile(star);
+    ArrayList<String> terrainLayout = readFile(filename);
+
+    float width, height;
+    int x, y, distanceX, distanceY;
+    for (String s : terrainLayout) {
+      String[] values = s.split(" ");
+      width = Float.parseFloat(values[1]);
+      height = Float.parseFloat(values[2]);
+      x = Integer.parseInt(values[3]);
+      y = Integer.parseInt(values[4]);
+      distanceX = (int) (( width * 2) + x);
+      distanceY = (int) (( height * 2) + y);
+      if (values[0].equals("#")) {
+        logger.debug("creating sky tile at {}, {}", x, y);
+        fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), skyTile);
+      } else if (values[0].equals("*")) {
+        logger.debug("Creating star tile at {}, {}", x, y);
+        fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), starTile);
+      }
+    }
+  }
+
+  /**
+   * Reads the text file given and returns each line of text as an arrayList of strings.
+   * @param filename the name of the text file
+   * @return a string array with each element containing a line from the text file
+   */
+  private ArrayList<String> readFile(String filename) {
+    ArrayList<String> terrainLayout = new ArrayList<>();
+    try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
+      String line = br.readLine();
+      terrainLayout.add(line);
+      while (line != null) {
+        terrainLayout.add(line);
+        line = br.readLine();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return terrainLayout;
   }
 
   private TiledMap createLevelTwoTiles(GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
@@ -269,7 +315,7 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
     // parses the level files
-    try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelTwo.txt"))) {
+    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelTwo.txt"))) {
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
       int x = 0, y = 0, width = 0, distance = 0, i = 0;
@@ -288,7 +334,8 @@ public class TerrainFactory {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-    }
+    }*/
+    addGroundTiles(layer, underground, surface, "level-floors/levelTwoGround.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -301,8 +348,10 @@ public class TerrainFactory {
     TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
-    fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    //fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
+    //fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
+    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
+    fillTilesAt(layer, new GridPoint2(25, 0), new GridPoint2(50, 10), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
     fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
@@ -328,30 +377,12 @@ public class TerrainFactory {
     fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
     fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
+    // parses the level files
+    addGroundTiles(layer, underground, surface, "level-floors/levelThreeGround.txt");
     tiledMap.getLayers().add(layer);
+
     return tiledMap;
   }
-
-//  //this is the place that control the place that spawning the background
-//  private TiledMap createForestDemoTiles(
-//      GridPoint2 tileSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
-//    TiledMap tiledMap = new TiledMap();
-//    TerrainTile grassTile = new TerrainTile(grass);
-//    TerrainTile grassTuftTile = new TerrainTile(grassTuft);
-//    TerrainTile rockTile = new TerrainTile(rocks);
-//    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
-//
-//    // Create base grass
-//    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(30, 10), grassTile);
-//
-//    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(30, 30), rockTile);
-//    // Add some grass and rocks
-//    fillTilesAtRandom(layer, MAP_SIZE, grassTuftTile, TUFT_TILE_COUNT);
-//    fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
-//
-//    tiledMap.getLayers().add(layer);
-//    return tiledMap;
-//  }
 
   private static void fillTilesAtRandom(
       TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
@@ -393,29 +424,35 @@ public class TerrainFactory {
    * @return the corresponding y-coordinate of surface tile if it exists wih
    * given x-coordinate
    */
-  public int getYOfSurface(int x, GdxGame.ScreenType screenType) {
+  public int getYOfSurface(int x, MainGameScreen.Level screenType) {
     int y = 0;
     String filename = null;
-    if (screenType == GdxGame.ScreenType.MAIN_GAME) {
-      filename = "level-floors/levelOne.txt";
-    } else if (screenType == GdxGame.ScreenType.LEVEL_TWO_GAME) {
-      filename = "level-floors/levelTwo.txt";
+    if (screenType == MainGameScreen.Level.ONE) {
+      filename = "level-floors/levelOneGround.txt";
+    } else if (screenType == MainGameScreen.Level.TWO) {
+      filename = "level-floors/levelTwoGround.txt";
+    } else if (screenType == MainGameScreen.Level.THREE) {
+      filename = "level-floors/levelThreeGround.txt";
+    } else if (screenType == MainGameScreen.Level.FOUR) {
+      filename = "level-floors/levelThreeGround.txt"; // Placeholder
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
-      int referenceX = 0, referenceY = 0, width = 0, distance = 0;
-
+      int referenceX = 0, referenceY = 0, distanceX = 0, distanceY = 0;
+      float width = 0, height = 0;
       while (line != null) {
         String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        referenceX = Integer.parseInt(values[1]);
-        referenceY = Integer.parseInt(values[2]);
-        distance = (width * 2) + referenceX;
+        width = Float.parseFloat(values[0]);
+        height = Float.parseFloat(values[1]);
+        referenceX = Integer.parseInt(values[2]);
+        referenceY = Integer.parseInt(values[3]);
+        distanceX = (int) (width * 2) + referenceX;
+        distanceY = (int) (height * 2) + referenceY;
 
-        if (x >= referenceX && x <= distance) {
-          logger.debug("this is distance {}", distance);
+        if (x >= referenceX && x <= distanceX) {
+          logger.debug("this is distance {}", distanceX);
           logger.debug("this is reference x {}", referenceX);
-          y = referenceY;
+          y = distanceY;
           break;
         } else {
           line = br.readLine();
@@ -432,16 +469,14 @@ public class TerrainFactory {
   }
 
   /**
-   * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
-   * the same oerientation. But for demonstration purposes, the base code has the same level in 3
-   * different orientations.
+   * This enum should contain the different terrains in your game, e.g. forest,
+   * cave, home, all with the same orientation. But for demonstration purposes,
+   * the base code has the same level in 3 different orientations.
    */
   public enum TerrainType {
-    FOREST_DEMO,
-    FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX,
     SIDE_SCROLL_ER,
     LEVEL_TWO_TERRAIN,
-    LEVEL_THREE_TERRAIN
+    LEVEL_THREE_TERRAIN,
+    LEVEL_FOUR_TERRAIN
   }
 }

@@ -1,26 +1,17 @@
-package com.deco2800.game.components.player;
+package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
-import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Class controlling the pop-up menu which appears when a player dies. A
- * player is 'dead' if their health reaches 0.
- * */
-public class PlayerLossPopup extends UIComponent {
+public class FinalLossPopUp extends UIComponent {
     /* Debugging */
     private static final Logger logger =
-            LoggerFactory.getLogger(PlayerLossPopup.class);
+            LoggerFactory.getLogger(FinalLossPopUp.class);
 
     /* Allows the game-state to be changed from the pop-up menu */
     private GdxGame game;
@@ -39,8 +30,8 @@ public class PlayerLossPopup extends UIComponent {
      * @param lossHandler a UI handler which sets up UI elements for the loss
      *                    pop-up menu.
      * */
-    public PlayerLossPopup(GdxGame game, Entity player,
-            PopupUIHandler lossHandler) {
+    public FinalLossPopUp(GdxGame game, Entity player,
+                           PopupUIHandler lossHandler) {
         this.game = game;
         this.player = player;
         this.handler = lossHandler;
@@ -52,7 +43,7 @@ public class PlayerLossPopup extends UIComponent {
     @Override
     public void create() {
         super.create();
-        player.getEvents().addListener("playerDeath", this::onDeath);
+        player.getEvents().addListener("playerFinalDeath", this::onFinalDeath);
 
     }
 
@@ -60,7 +51,7 @@ public class PlayerLossPopup extends UIComponent {
      * Creates the loss pop-up menu when the players' health drops to 0. The
      * game state is set to OVER to cease combat.
      * */
-    public void onDeath() {
+    public void onFinalDeath() {
         createUI();
         game.setState(GdxGame.GameState.OVER);
     }
@@ -71,14 +62,9 @@ public class PlayerLossPopup extends UIComponent {
     public void createUI() {
         logger.debug("Creating player loss ui");
         Entity ui = new Entity();
-        if (player.getComponent(LivesComponent.class).getLives() < 1) {
-            ui.addComponent(new FinalLossActions(game, entity))
-                    .addComponent(new FinalLossDisplay(handler));
-        } else {
-            ui.addComponent(new PlayerLossActions(game, entity))
-                    .addComponent(new PlayerLossDisplay(handler, player));
-            ServiceLocator.getEntityService().register(ui);
-        }
+        ui.addComponent(new FinalLossActions(game, entity))
+                .addComponent(new FinalLossDisplay(handler));
+        ServiceLocator.getEntityService().register(ui);
     }
 
     @Override

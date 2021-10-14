@@ -1,6 +1,7 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -39,6 +40,8 @@ public class LoadingDisplay extends UIComponent {
     /* The resource service that holds all the assets required for the UI */
     private ResourceService resourceService;
 
+    private static final String MUSIC_FILE_PATH = "sounds/loading_background_music_new.mp3";
+
     public LoadingDisplay(){
         resourceService = ServiceLocator.getResourceService();
     }
@@ -71,6 +74,8 @@ public class LoadingDisplay extends UIComponent {
 
         stage.addActor(background);
         stage.addActor(loadTable);
+
+        playBackgroundMusic();
     }
 
     /**
@@ -138,5 +143,12 @@ public class LoadingDisplay extends UIComponent {
         loadingStatus.clear();
         loadTable.clear();
         super.dispose();
+    }
+
+    private void playBackgroundMusic() {
+        Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+        menuSong.setLooping(true);
+        menuSong.setVolume(0.5f);
+        menuSong.play();
     }
 }
