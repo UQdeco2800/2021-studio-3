@@ -164,6 +164,15 @@ public class ForestGameArea extends GameArea {
     setupSpawns();
   }
 
+  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.saveState = saveState;
+    this.hasSave = true;
+    CAM_START_TIME = gameTime.getTime();
+    setupSpawns();
+  }
+
   /**
    * Calls the appropriate spawn functions for all of the different assets of
    * this level.
@@ -233,15 +242,6 @@ public class ForestGameArea extends GameArea {
    * */
   public void setPlayer(Entity player) {
     this.player = player;
-  }
-
-  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
-    super();
-    this.terrainFactory = terrainFactory;
-    this.saveState = saveState;
-    this.hasSave = true;
-    CAM_START_TIME = gameTime.getTime();
-    setupSpawns();
   }
 
   /**
