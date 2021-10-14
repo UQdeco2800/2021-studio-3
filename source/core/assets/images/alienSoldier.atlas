@@ -1,0 +1,54 @@
+alien_soldier_animation.png
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+float
+  rotate: false
+  xy: 2, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 2
+float
+  rotate: false
+  xy: 234, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 7
+float
+  rotate: false
+  xy: 466, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 4
+float
+  rotate: false
+  xy: 698, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 1
+float
+  rotate: false
+  xy: 930, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 6
+float
+  rotate: false
+  xy: 1162, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 3
+float
+  rotate: false
+  xy: 1394, 2
+  size: 230, 190
+  orig: 230, 190
+  offset: 0, 0
+  index: 5
