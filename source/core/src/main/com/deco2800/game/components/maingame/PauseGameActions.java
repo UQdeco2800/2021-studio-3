@@ -1,9 +1,6 @@
 package com.deco2800.game.components.maingame;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;

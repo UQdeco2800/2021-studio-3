@@ -189,6 +189,10 @@ public class LoadingScreen extends ScreenAdapter {
                     logger.info("Setting screen to LEVEL_THREE_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
                     break;
+                case LEVEL_FOUR_GAME:
+                    logger.info("Setting screen to LEVEL_FOUR_GAME");
+                    this.game.setScreen(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+                    break;
             }
         } else {
             logger.info("Loading... {}%", (int) (resourceService.getAssetManager().getProgress() * 100));

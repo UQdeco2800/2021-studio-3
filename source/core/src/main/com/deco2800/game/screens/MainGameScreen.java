@@ -233,8 +233,8 @@ public class MainGameScreen extends ScreenAdapter {
         return new LevelTwoArea(factory, checkpoint, hasDied);
       case THREE:
         return new LevelThreeArea(factory, checkpoint, hasDied);
-      //case FOUR:
-      //  return new LevelFourArea(factory, checkpoint, hasDied);
+      case FOUR:
+        return new LevelFourArea(factory, checkpoint, hasDied);
     }
     return null; // Unreachable
   }
