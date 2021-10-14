@@ -489,9 +489,10 @@ public class ObstacleFactory {
    * @param target the target that the death wall toward with.
    *               Normally the target should be the right air wall of
    *               the game
+   * @param speed the speed that a death wall should move
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(Vector2 target) {
+  public static Entity createDeathWall(Vector2 target, float speed) {
     DeathWallConfig config = configs.deathWall;
 
     AnimationRenderComponent animator =
@@ -501,10 +502,9 @@ public class ObstacleFactory {
     animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
     animator.startAnimation("Serpent1.1");
 
-
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new MovingTask(target));
+                    .addTask(new MovingTask(target, speed));
 
     return new Entity()
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
@@ -514,7 +514,7 @@ public class ObstacleFactory {
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
             .addComponent(new CombatStatsComponent(config.health, 100))
             .addComponent(aiComponent)
-                    .addComponent(animator);
+            .addComponent(animator);
   }
 
   /**
