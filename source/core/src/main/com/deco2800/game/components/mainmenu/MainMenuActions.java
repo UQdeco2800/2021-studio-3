@@ -48,20 +48,22 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void onLoad() {
-    GdxGame.ScreenType screenType = GdxGame.ScreenType.MAIN_GAME;;
+    GdxGame.ScreenType screenType = null;
     logger.info("Load game");
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
       String line = br.readLine();
       String[] values = line.split(":");
-      if (values[1] == "levelOne") {
-        screenType = GdxGame.ScreenType.MAIN_GAME;
-      } else if (values[1] == "levelTwo") {
-        screenType = GdxGame.ScreenType.LEVEL_TWO_GAME;
-      } else if (values[1] == "levelThree") {
-        screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
+      switch (values[1]) {
+        case "levelOne":
+          screenType = GdxGame.ScreenType.MAIN_GAME;
+          break;
+        case "levelTwo":
+          screenType = GdxGame.ScreenType.LEVEL_TWO_GAME;
+          break;
+        case "levelThree":
+          screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
+          break;
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
