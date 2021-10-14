@@ -42,7 +42,6 @@ import java.util.Random;
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   protected static int lives = 5;
-
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
@@ -629,6 +628,12 @@ public class ForestGameArea extends GameArea {
    * @param camera the CameraComponent of the map
    */
   public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
+    if (lives < 5){
+      player.setEnabled(true);
+      player.getComponent(PlayerAnimationController.class).setEnabled(true);
+      camera.getCamera().update();
+      return;
+    }
     long DEATH_WALL_SHOW_DUR = 3500;
     float REFRESH_RATE = 60;
     player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
@@ -639,6 +644,8 @@ public class ForestGameArea extends GameArea {
       camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
       camera.getCamera().update();
     }
+
+
   }
 
   /**
