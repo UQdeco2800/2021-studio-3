@@ -100,7 +100,8 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_boss_weapon_01.png",
             "images/lives_icon2.png",
             "images/instence_fall.png",
-            "images/double_jump.png"
+            "images/double_jump.png",
+
     };
 
     /* Textures only needed for level 2*/
@@ -120,7 +121,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
-            "images/SerpentLevel1.atlas"
+            "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
