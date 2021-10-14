@@ -19,7 +19,6 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int maxHealth;
   private int baseAttack;
-  private SaveData saveData;
 
   /* Whether or not the player is currently invincible (timed buff) */
   private boolean invincible = false;
@@ -31,7 +30,6 @@ public class CombatStatsComponent extends Component {
     setMaxHealth(health);
     setHealth(health);
     setBaseAttack(baseAttack);
-    saveData = new SaveData(entity);
   }
 
   /**
