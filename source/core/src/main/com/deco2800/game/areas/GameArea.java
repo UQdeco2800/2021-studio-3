@@ -4,13 +4,17 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.RandomUtils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -77,6 +81,39 @@ public abstract class GameArea implements Disposable {
     spawnEntity(entity);
   }
 
+  protected void loadSave(Entity player, String saveState) {
+    int x = 18, y = 12;
+    try(BufferedReader br = new BufferedReader(new FileReader(saveState))) {
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(":");
+        switch (values[0]) {
+          case "SCORE":
+            player.getComponent(ScoreComponent.class).setScore(Integer.parseInt(values[1]));
+          case "LIVES":
+            player.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
+          case "HEALTH":
+            player.getComponent(CombatStatsComponent.class).setHealth(Integer.parseInt(values[1]));
+          case "SPRINT":
+            player.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
+          case "X":
+            x = Integer.parseInt(values[1]);
+          case "Y":
+            y = Integer.parseInt(values[1]);
+        }
+        line = br.readLine();
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    GridPoint2 spawnPoint = new GridPoint2(x, y);
+    spawnEntityAt(player, spawnPoint, true, true);
+    player.getComponent(ProgressComponent.class).setProgress();
+  }
   /**
    * Spawn entity at a position vector.
    * @param entity Entity (not yet registered)

@@ -97,6 +97,7 @@ public class PopupMenuActions extends Component {
     public void onReplayLoss() {
 
         if (area != null) {
+            logger.info("Player has lost and is now replaying level 1");
             if (area.getPlayer().getComponent(LivesComponent.class).getLives() < 1 ) {
                 onHome();
             } else {
@@ -104,17 +105,15 @@ public class PopupMenuActions extends Component {
                     game.setScreenType(GdxGame.ScreenType.CHECKPOINT);
                     game.setScreen(GdxGame.ScreenType.LOADING);
                 } else {
-                    game.setScreenType(GdxGame.ScreenType.RESPAWN);
+                    game.setScreenType(GdxGame.ScreenType.RESPAWN1);
                     game.setScreen(GdxGame.ScreenType.LOADING);
                 }
             }
         } else if (area2 != null) {
             logger.info("Player has lost and is now replaying level2");
-
             game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
         } else if (area3 != null) {
-
             game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
             game.setScreen(GdxGame.ScreenType.LOADING);
         }

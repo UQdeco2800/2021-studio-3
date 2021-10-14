@@ -18,7 +18,7 @@ public class IntroScreen extends ScreenAdapter {
     private final Renderer renderer;
     private final GdxGame game;
     private final ResourceService resourceService;
-
+    private static final String[] introScreenMusic = {"sounds/intro_story_background_music.mp3"};
     private static final String[] screenTextures = {
             "images/screen1.png",
             "images/screen2.png",
@@ -75,9 +75,12 @@ public class IntroScreen extends ScreenAdapter {
      */
     private void loadAssets() {
         logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadMusic(introScreenMusic);
+
+        resourceService.loadTextures(screenTextures);
 
         ServiceLocator.getResourceService().loadAll();
-        resourceService.loadTextures(screenTextures);
     }
 
     /**
@@ -85,7 +88,9 @@ public class IntroScreen extends ScreenAdapter {
      */
     private void unloadAssets() {
         logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(screenTextures);
+        resourceService.unloadAssets(introScreenMusic);
     }
 
     /**

@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * This class handles the display of the intro scenes.
  */
 public class IntroDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(IntroDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoadingDisplay.class);
     private static final float Z_INDEX = 2f;
     GdxGame game;
     private Table background;
@@ -34,7 +34,7 @@ public class IntroDisplay extends UIComponent {
     private TextureRegionDrawable scene5;
 
     /* Main menu intro music */
-    private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
+    private static final String MUSIC_FILE_PATH = "sounds/intro_story_background_music.mp3";
 
 
     /**
@@ -66,6 +66,8 @@ public class IntroDisplay extends UIComponent {
         buttons.bottom().right();
         background.setFillParent(true);
         buttons.setFillParent(true);
+
+        playBackgroundMusic();
 
         //Creating Drawable texture regions of the intro scenes
         scene1 = new TextureRegionDrawable(
@@ -156,10 +158,17 @@ public class IntroDisplay extends UIComponent {
         return Z_INDEX;
     }
 
+    private void playBackgroundMusic() {
+        Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+        menuSong.setLooping(true);
+        menuSong.setVolume(0.5f);
+        menuSong.play();
+    }
     @Override
     public void dispose() {
         background.clear();
         buttons.clear();
+        ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
         stage.dispose();
         super.dispose();
     }

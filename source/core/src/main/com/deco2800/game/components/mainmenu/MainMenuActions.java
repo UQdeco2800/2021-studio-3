@@ -1,10 +1,16 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.Screen;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.Component;
+import com.deco2800.game.components.*;
 import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * This class listens to events relevant to the Main Menu Screen and does something when one of the
@@ -42,9 +48,25 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void onLoad() {
-    logger.info("Launching load screen");
-    game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-    game.setScreen(GdxGame.ScreenType.LOAD);
+    GdxGame.ScreenType screenType = GdxGame.ScreenType.MAIN_GAME;;
+    logger.info("Load game");
+    try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
+      String line = br.readLine();
+      String[] values = line.split(":");
+      if (values[1] == "levelOne") {
+        screenType = GdxGame.ScreenType.MAIN_GAME;
+      } else if (values[1] == "levelTwo") {
+        screenType = GdxGame.ScreenType.LEVEL_TWO_GAME;
+      } else if (values[1] == "levelThree") {
+        screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    game.setScreenType(screenType, "saves/saveOne.txt");
+    game.setScreen(GdxGame.ScreenType.LOADING);
   }
 
   /**

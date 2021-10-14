@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
@@ -57,6 +58,12 @@ public class LevelTwoScreen extends ScreenAdapter {
             {"images/lossMenuBackground.png",
                     "images/lossMainMenu.png",
                     "images/lossReplay.png"};
+
+    /* Textures for the continue loss menu*/
+    private static final String[] finalLossTextures =
+            {"images/continue.png",
+                    "images/no.png",
+                    "images/yes.png"};
 
     /* Textures for the buffs and debuffs */
     private static final String[] buffsAndDebuffsTextures =
@@ -112,11 +119,50 @@ public class LevelTwoScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
+        load();
 
         logger.debug("Initialising main game screen entities");
         //terrainFactory = new TerrainFactory(renderer.getCamera());
         this.terrainFactory = new TerrainFactory(renderer.getCamera());
         LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, 0, false);
+        level2Area.create();
+
+        load();
+        this.currentMap = level2Area;
+        createUI();
+        //level2Area.spawnBuffDebuff(this.buffManager);
+    }
+
+    /**
+     * Load the game screen for level two when the game is starting.
+     */
+    public LevelTwoScreen(GdxGame game, String saveState, ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+
+        logger.debug("Initialising main game screen entities");
+        //terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, saveState);
         level2Area.create();
 
         load();
@@ -164,6 +210,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         loadAssets();
+        load();
 
         logger.debug("Initialising main game screen entities");
         //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -209,6 +256,39 @@ public class LevelTwoScreen extends ScreenAdapter {
         level2Area.create();
 
         this.currentMap = level2Area;
+        createUI();
+    }
+
+    public LevelTwoScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
+        this.game = game;
+        game.setState(GdxGame.GameState.RUNNING);
+
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        physicsEngine = physicsService.getPhysics();
+
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(resourceService);
+
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+        loadAssets();
+
+        logger.debug("Initialising main game screen entities");
+        //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+        this.terrainFactory = new TerrainFactory(renderer.getCamera());
+        LevelTwoArea levelTwoArea = new LevelTwoArea(terrainFactory, 0, hasDied);
+        levelTwoArea.create();
+
+        this.currentMap = levelTwoArea;
         createUI();
     }
 
@@ -263,6 +343,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         resourceService.loadTextures(pauseMenuTextures);
         resourceService.loadTextures(winMenuTextures);
         resourceService.loadTextures(lossMenuTextures);
+        resourceService.loadTextures(finalLossTextures);
         resourceService.loadTextures(buffsAndDebuffsTextures);
         ServiceLocator.getResourceService().loadAll();
     }
@@ -274,6 +355,7 @@ public class LevelTwoScreen extends ScreenAdapter {
         resourceService.unloadAssets(pauseMenuTextures);
         resourceService.unloadAssets(winMenuTextures);
         resourceService.unloadAssets(lossMenuTextures);
+        resourceService.unloadAssets(finalLossTextures);
         resourceService.unloadAssets(buffsAndDebuffsTextures);
     }
 
@@ -301,6 +383,8 @@ public class LevelTwoScreen extends ScreenAdapter {
                         new PopupUIHandler(winMenuTextures)))
                 .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
                         new PopupUIHandler(lossMenuTextures)))
+                .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
+                        new PopupUIHandler(finalLossTextures)))
                 .addComponent(new PopupMenuActions(this.game, this.currentMap));
                 //.addComponent(this.buffManager = new BuffManager(this, currentMap));
 
