@@ -256,7 +256,7 @@ public class ForestGameArea extends GameArea {
     if (hasSave) {
       loadSave(player, this.saveState);
     }
-    spawnDeathWall(0.4f);
+    spawnDeathWall(1);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
     spawnRobots(this.ROBOT_SPAWNS);
@@ -359,14 +359,37 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * @param levelNumber the current level
+   * @return the serpent moving speed for each level
+   */
+  float serpentLevelSpeed(int levelNumber){
+    float movingSpeed = 0.2f;
+    switch (levelNumber){
+      case 1:
+        movingSpeed = 0.4f;
+        break;
+      case 2:
+        movingSpeed = 0.85f;
+        break;
+      case 3:
+        movingSpeed = 1.1f;
+        break;
+    }
+    return movingSpeed;
+  }
+
+  /**
    * spawn a death wall that move from left to end
    */
-  protected void spawnDeathWall(float movingSpeed) {
+  protected void spawnDeathWall(int levelNumber) {
+    float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
     Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
-    spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
+    int startX;
+    startX = levelNumber == 1 ? -5 : -8;
+    spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
   }
 
   /**
