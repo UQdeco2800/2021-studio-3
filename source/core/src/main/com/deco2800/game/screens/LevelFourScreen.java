@@ -14,7 +14,7 @@ public class LevelFourScreen extends MainGameScreen {
     private static final Logger logger = LoggerFactory.getLogger(LevelFourScreen.class);
 
     /**
-     * Load the game screen for level three.
+     * Load the game screen for level four.
      */
     public LevelFourScreen(GdxGame game, ResourceService resourceService,
             MainGameScreen.Level level) {
