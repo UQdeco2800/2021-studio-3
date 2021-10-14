@@ -127,7 +127,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
 
-    private static final String[] loadingScreenMusic = {"sounds/loading_background_music.mp3"};
+    private static final String[] loadingScreenMusic = {"sounds/loading_background_music_new.mp3"};
 
 
 
@@ -225,10 +225,10 @@ public class LoadingScreen extends ScreenAdapter {
         logger.debug("Loading assets");
 
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(LoadingTextures);
 
         // load background music for the loading screen
         resourceService.loadMusic(loadingScreenMusic);
+        resourceService.loadTextures(LoadingTextures);
         ServiceLocator.getResourceService().loadAll();
 
         resourceService.loadTextures(forestTextures);
