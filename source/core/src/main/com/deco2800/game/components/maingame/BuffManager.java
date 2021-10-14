@@ -49,6 +49,9 @@ public class BuffManager extends Component {
     /* Allows the BuffManager to check for collisions with buffs */
     private Entity player;
 
+    /* The current map */
+    private ForestGameArea map;
+
     /* Keep track of when the last buff was spawned */
     private long lastBuffSpawn;
 
@@ -126,6 +129,7 @@ public class BuffManager extends Component {
      * */
     public BuffManager(MainGameScreen mainGame, GameArea currentMap) {
         this.mainGame = mainGame;
+        this.map = (ForestGameArea) currentMap;
         this.currentBuffs = new LinkedHashMap<>();
         this.timedBuffs = new LinkedHashMap<>();
         this.buffPickups = new LinkedHashMap<>();
@@ -446,7 +450,8 @@ public class BuffManager extends Component {
      * Spawns a new, random buff and registers it with the BuffManager
      * */
     private void addNewBuff() {
-        mainGame.getCurrentMap().spawnBuffDebuff(this);
+        mainGame.getCurrentMap().spawnBuffDebuff(this,
+                this.map.getAreaType());
     }
 
 

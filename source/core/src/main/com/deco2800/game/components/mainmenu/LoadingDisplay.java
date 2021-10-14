@@ -2,19 +2,13 @@ package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -40,7 +34,7 @@ public class LoadingDisplay extends UIComponent {
     /* The resource service that holds all the assets required for the UI */
     private ResourceService resourceService;
 
-    private static final String MUSIC_FILE_PATH = "sounds/loading_background_music.mp3";
+    private static final String MUSIC_FILE_PATH = "sounds/loading_background_music_new.mp3";
 
     public LoadingDisplay(){
         resourceService = ServiceLocator.getResourceService();

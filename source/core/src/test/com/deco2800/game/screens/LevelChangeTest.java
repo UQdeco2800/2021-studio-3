@@ -6,11 +6,9 @@ import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.PopupMenuActions;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -24,7 +22,8 @@ public class LevelChangeTest {
     void changeToLevelTwoTest() {
         GdxGame game = mock(GdxGame.class);
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-        ForestGameArea area = mock(ForestGameArea.class);
+        TerrainFactory terrain = mock(TerrainFactory.class);
+        ForestGameArea area = new ForestGameArea(terrain, 0, true);
         PopupMenuActions winPopMenuActions = new PopupMenuActions(game, area);
         winPopMenuActions.onNextLevel();
         verify(game).setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
@@ -38,7 +37,8 @@ public class LevelChangeTest {
     void changeToLevelThreeTest() {
         GdxGame game = mock(GdxGame.class);
         game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
-        LevelTwoArea area = mock(LevelTwoArea.class);
+        TerrainFactory terrain = mock(TerrainFactory.class);
+        LevelTwoArea area = new LevelTwoArea(terrain, 0, true);
         PopupMenuActions winPopMenuActions = new PopupMenuActions(game, area);
         winPopMenuActions.onNextLevel();
         verify(game).setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);

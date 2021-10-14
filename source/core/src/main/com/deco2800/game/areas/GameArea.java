@@ -27,6 +27,7 @@ public abstract class GameArea implements Disposable {
   protected GameArea() {
     areaEntities = new ArrayList<>();
   }
+  protected Entity player;
 
   /** Create the game area in the world. */
   public abstract void create();
@@ -35,6 +36,9 @@ public abstract class GameArea implements Disposable {
   public void dispose() {
     for (Entity entity : areaEntities) {
       entity.dispose();
+    }
+    if (player != null) {
+      player.dispose();
     }
   }
 
@@ -81,6 +85,14 @@ public abstract class GameArea implements Disposable {
   }
 
   protected void loadSave(Entity player, String saveState) {
+
+    Entity newPLayer;
+
+    if (this.player != null) {
+      newPLayer = this.player;
+    } else {
+      newPLayer = player;
+    }
     int x = 18, y = 12;
     try(BufferedReader br = new BufferedReader(new FileReader(saveState))) {
       String line = br.readLine();
@@ -89,13 +101,13 @@ public abstract class GameArea implements Disposable {
         String[] values = line.split(":");
         switch (values[0]) {
           case "SCORE":
-            player.getComponent(ScoreComponent.class).setScore(Integer.parseInt(values[1]));
+            newPLayer.getComponent(ScoreComponent.class).setScore(Integer.parseInt(values[1]));
           case "LIVES":
-            player.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
+            newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
           case "HEALTH":
-            player.getComponent(CombatStatsComponent.class).setHealth(Integer.parseInt(values[1]));
+            newPLayer.getComponent(CombatStatsComponent.class).setHealth(Integer.parseInt(values[1]));
           case "SPRINT":
-            player.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
+            newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":
             x = Integer.parseInt(values[1]);
           case "Y":
@@ -110,8 +122,8 @@ public abstract class GameArea implements Disposable {
     }
 
     GridPoint2 spawnPoint = new GridPoint2(x, y);
-    spawnEntityAt(player, spawnPoint, true, true);
-    player.getComponent(ProgressComponent.class).setProgress();
+    spawnEntityAt(newPLayer, spawnPoint, true, true);
+    newPLayer.getComponent(ProgressComponent.class).setProgress();
   }
   /**
    * Spawn entity at a position vector.
