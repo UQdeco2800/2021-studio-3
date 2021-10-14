@@ -125,7 +125,9 @@ public class ForestGameArea extends GameArea {
           "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",
-          "images/roll3.png"
+          "images/roll3.png",
+          "images/portal.png",
+          "images/Spaceship.png"
 
   };
 

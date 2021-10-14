@@ -100,7 +100,9 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_boss_weapon_01.png",
             "images/lives_icon2.png",
             "images/instence_fall.png",
-            "images/double_jump.png"
+            "images/double_jump.png",
+            "images/portal.png",
+            "images/Spaceship.png"
     };
 
     /* Textures only needed for level 2*/

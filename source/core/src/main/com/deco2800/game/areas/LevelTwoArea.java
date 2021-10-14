@@ -118,7 +118,9 @@ public class LevelTwoArea extends GameArea{
             "images/alien_solider_weapon_01.png",
             "images/alien_solider_weapon_02.png",
             "images/alien_boss.png",
-            "images/alien_boss_weapon_01.png"
+            "images/alien_boss_weapon_01.png",
+            "images/portal.png",
+            "images/Spaceship.png"
     };
 
     private static final String[] forestTextureAtlases = {

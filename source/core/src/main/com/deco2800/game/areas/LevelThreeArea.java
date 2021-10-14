@@ -121,7 +121,9 @@ public class LevelThreeArea extends GameArea {
             "images/alien_solider_weapon_01.png",
             "images/alien_solider_weapon_02.png",
             "images/alien_boss.png",
-            "images/alien_boss_weapon_01.png"
+            "images/alien_boss_weapon_01.png",
+            "images/portal.png",
+            "images/Spaceship.png"
     };
 
     private static final String[] forestTextureAtlases = {
@@ -194,7 +196,7 @@ public class LevelThreeArea extends GameArea {
 
         spawnTerrain();
         player = spawnPlayer();
-        spawnPortal();
+        spawnSpaceship();
 
         //spawnTrees();
         spawnDeathWall();
@@ -354,7 +356,7 @@ public class LevelThreeArea extends GameArea {
         spawnEntityAt(robot1, pos1, true, true);
     }
 
-    private void spawnPortal() {
+    private void spawnSpaceship() {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
 
         // Use this when text file is supplied
@@ -362,7 +364,7 @@ public class LevelThreeArea extends GameArea {
         // GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
 
         GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, 12);
-        this.endPortal = ObstacleFactory.createPortal();
+        this.endPortal = ObstacleFactory.createSpaceship();
         spawnEntityAt(this.endPortal, pos1, true, true);
     }
 
