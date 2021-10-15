@@ -29,7 +29,7 @@ import java.util.ArrayList;
 /** Factory for creating game terrains. */
 public class TerrainFactory {
   private static final Logger logger = LoggerFactory.getLogger(TerrainFactory.class);
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(100, 30);
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(210, 30);
 
   private final OrthographicCamera camera;
   private final TerrainOrientation orientation;
