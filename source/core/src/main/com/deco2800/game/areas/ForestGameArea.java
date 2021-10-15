@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.*;
+import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -27,18 +30,18 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   protected static int lives = 2;
-
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 6);
@@ -129,7 +132,7 @@ public class ForestGameArea extends GameArea {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
-          , "images/SerpentLevel1.atlas"
+          , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
@@ -294,7 +297,7 @@ public class ForestGameArea extends GameArea {
     if (hasSave) {
       loadSave(player, this.saveState);
     }
-    spawnDeathWall();
+    spawnDeathWall(1);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
     spawnRobots(this.ROBOT_SPAWNS);
@@ -407,16 +410,40 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * @param levelNumber the current level
+   * @return the serpent moving speed for each level
+   */
+  float serpentLevelSpeed(int levelNumber){
+    float movingSpeed = 0.2f;
+    switch (levelNumber){
+      case 1:
+        movingSpeed = 0.4f;
+        break;
+      case 2:
+        movingSpeed = 0.85f;
+        break;
+      case 3:
+        movingSpeed = 1.1f;
+        break;
+      case 4:
+        movingSpeed = 1.2f;
+        break;
+    }
+    return movingSpeed;
+  }
+
+  /**
    * Spawns the death wall that moves from left to right
    */
-  protected void spawnDeathWall() {
-    // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
-    // target's y position is offset 4.5 upwards to remove the bug
+  protected void spawnDeathWall(int levelNumber) {
+    float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
-    spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
+    int startX;
+    startX = levelNumber == 1 ? -5 : -8;
+    spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
   }
 
   /**
@@ -758,8 +785,7 @@ public class ForestGameArea extends GameArea {
    * @param duration the total time when the camera is moving
    * @param camera the CameraComponent of the map
    */
-  public void introCam(Vector2 startPos, float distance, float duration,
-          CameraComponent camera) {
+  public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
     long DEATH_WALL_SHOW_DUR = 3500;
     float REFRESH_RATE = 60;
     player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
@@ -769,6 +795,32 @@ public class ForestGameArea extends GameArea {
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
       camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
       camera.getCamera().update();
+    }
+  }
+
+  /**
+   * Check if the game is pause, and stop the animation playing
+   * @param state The game state
+   */
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
+    if (state != GdxGame.GameState.RUNNING) {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
+        }
+      }
+    } else {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
+        }
+      }
     }
   }
 

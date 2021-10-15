@@ -97,7 +97,7 @@ public class LevelFourArea extends ForestGameArea {
         // Spawning Terrain and player
         spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
-        spawnDeathWall();
+        spawnDeathWall(4);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);

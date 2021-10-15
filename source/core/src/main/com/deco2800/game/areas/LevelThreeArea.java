@@ -131,7 +131,7 @@ public class LevelThreeArea extends ForestGameArea {
         if (hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
-        spawnDeathWall();
+        spawnDeathWall(3);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);

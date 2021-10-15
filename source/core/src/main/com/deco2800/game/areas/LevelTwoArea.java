@@ -121,14 +121,13 @@ public class LevelTwoArea extends ForestGameArea {
         if (this.hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
-        spawnDeathWall();
+        spawnDeathWall(2);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
         spawnAlienMonsters(this.ALIEN_MONSTER_SPAWNS, this);
         spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
         // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints yet
-
         // Music
         playMusic(backgroundMusic);
     }
