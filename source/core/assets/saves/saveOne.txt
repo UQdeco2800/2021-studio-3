@@ -1,7 +1,7 @@
-Level:levelOne
-SCORE:290
-LIVES:3
+Level:levelTwo
+SCORE:0
+LIVES:5
 HEALTH:0
-SPRINT:0
-X:33
-Y:8
+SPRINT:9814
+X:12
+Y:-1
