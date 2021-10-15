@@ -17,6 +17,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 
 
 import com.deco2800.game.components.tasks.MovingTask;
+import com.deco2800.game.components.tasks.PlatformTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -362,13 +363,21 @@ public class ObstacleFactory {
    * @return entity
    */
   public static Entity createPlatform3() {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new PlatformTask(3f,1));
+
     Entity platform3 =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/platform3.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(aiComponent);
 
-    platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+
+
+    platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform3.getComponent(TextureRenderComponent.class).scaleEntity();
     platform3.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(platform3, 0.5f, 0.3f);
