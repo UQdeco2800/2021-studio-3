@@ -752,7 +752,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createDeathFloor(float,float)">createDeathFloor(float, float)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createDeathWall(com.badlogic.gdx.math.Vector2)">createDeathWall(Vector2)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createDeathWall(com.badlogic.gdx.math.Vector2,float)">createDeathWall(Vector2, float)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
 <div class="block">Create a new death wall and start to move from left to end of map</div>
 </dd>
@@ -1292,6 +1292,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/DebugRenderer.html#getActive()">getActive()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/DebugRenderer.html" title="class in com.deco2800.game.rendering">DebugRenderer</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/GameArea.html#getAllEntities()">getAllEntities()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></dt>
+<dd>
+<div class="block">Get all the entities of game area</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getAreaType()">getAreaType()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
 <div class="block">Returns the TYPE associated with this area.</div>
@@ -1916,6 +1920,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#isOpen()">isOpen()</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#isPause(com.deco2800.game.GdxGame.GameState,java.util.List)">isPause(GdxGame.GameState, List&lt;Entity&gt;)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Check if the game is pause, and stop the animation playing</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/SortedIntMap.html#iterator()">iterator()</a></span> - Method in class com.deco2800.game.utils.<a href="com/deco2800/game/utils/SortedIntMap.html" title="class in com.deco2800.game.utils">SortedIntMap</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -2317,7 +2325,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A class that move toward a target in constant speed</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/MovingTask.html#%3Cinit%3E(com.badlogic.gdx.math.Vector2)">MovingTask(Vector2)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovingTask.html" title="class in com.deco2800.game.components.tasks">MovingTask</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/MovingTask.html#%3Cinit%3E(com.badlogic.gdx.math.Vector2,float)">MovingTask(Vector2, float)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovingTask.html" title="class in com.deco2800.game.components.tasks">MovingTask</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a id="I:N">
@@ -3400,9 +3408,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Create a sorted intmap with the specified capacity</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnAlienBarbettes(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBarbettes(ArrayList&lt;GridPoint2&gt;, GameArea)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Spawns the Alien Barbette(s) at the given position(s).</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnAlienBosses(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienBosses(ArrayList&lt;GridPoint2&gt;, GameArea)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
 <div class="block">Spawns the Alien Boss(es) for the level.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnAlienLaserHoles(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienLaserHoles(ArrayList&lt;GridPoint2&gt;, GameArea)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>
+<div class="block">Spawns the Alien Laser Hole(s) as the given position(s).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnAlienMonsters(java.util.ArrayList,com.deco2800.game.areas.GameArea)">spawnAlienMonsters(ArrayList&lt;GridPoint2&gt;, GameArea)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
@@ -3428,7 +3444,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Spawns a floating animation when a HP buff/debuff is picked up.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnDeathWall()">spawnDeathWall()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#spawnDeathWall(int)">spawnDeathWall(int)</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
 <div class="block">Spawns the death wall that moves from left to right</div>
 </dd>
