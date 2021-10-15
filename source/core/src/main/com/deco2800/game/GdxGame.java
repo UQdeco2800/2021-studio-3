@@ -154,6 +154,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this, 1, false, resourceService);
       case INTRO:
         return new IntroScreen(this, resourceService);
+      case LOAD:
+        return new LoadScreen(this, resourceService);
         default:
         return null;
     }

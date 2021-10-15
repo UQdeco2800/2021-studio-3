@@ -43,11 +43,16 @@ public class MainMenuActions extends Component {
     //game.setScreen(GdxGame.ScreenType.LOADING);
   }
 
+  private void onLoad() {
+    game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+    game.setScreen(GdxGame.ScreenType.LOAD);
+  }
+
   /**
    * Intended for loading a saved game state.
    * Load functionality is not actually implemented.
    */
-  private void onLoad() {
+  private void loadData() {
     GdxGame.ScreenType screenType = null;
     logger.info("Load game");
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
