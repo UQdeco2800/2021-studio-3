@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.GameTime;
@@ -102,7 +103,7 @@ public class RollComponent extends Component {
     public void handleStopRolling() {
         // Reset the player to their old visual representation
         stopRollAnimation();
-
+        entity.getComponent(CombatStatsComponent.class).setInvincibility(false);
         // The players roll cool-down begins
         setCoolDown(true);
 
@@ -140,6 +141,7 @@ public class RollComponent extends Component {
 
         // Inform relevant classes that the player is rolling
         entity.getComponent(KeyboardPlayerInputComponent.class).setRolling(true);
+        entity.getComponent(CombatStatsComponent.class).setInvincibility(true);
         this.rolling = true;
 
         // Set the new roll ending time

@@ -1,5 +1,7 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.AITaskComponent;
@@ -7,12 +9,13 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BulletHitPlayer;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.enemy.AlienBossAttackListener;
-import com.deco2800.game.components.enemy.AlienHorizontalAttackListener;
+import com.deco2800.game.components.enemy.AlienBarbetteAttackListener;
+import com.deco2800.game.components.enemy.AlienLaserAttackListener;
 import com.deco2800.game.components.enemy.AlienSoldierAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
-import com.deco2800.game.components.tasks.AttackTask;
+import com.deco2800.game.components.obstacle.ObstacleAnimationController;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -22,7 +25,9 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Factory to create enemy entities that could have different methods to attack the player.
@@ -46,8 +51,14 @@ public class EnemyFactory {
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 2, 10, 6f));
 
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienMonster.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+
         Entity alienMonster = new Entity()
-                .addComponent(new TextureRenderComponent("images/alien_monster.png"))
+                //.addComponent(new TextureRenderComponent("images/alien_monster.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent())
@@ -57,6 +68,9 @@ public class EnemyFactory {
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                 .addComponent(aiComponent)
                 .addComponent(new AttackListener(target, gameArea));
+
+        alienMonster.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienMonster, 1f,1f);
         alienMonster.scaleHeight(2f);
@@ -113,11 +127,18 @@ public class EnemyFactory {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 3, 10, 6f));
+                        .addTask(new AttackTask(target, 3, 10, 6f))
+                        .addTask(new WanderTask(new Vector2(0f, 0f), 0f));
+
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienSoldier.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
 
         Entity alienSoldier =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_solider.png"))
+                        //.addComponent(new TextureRenderComponent("images/alien_solider.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -127,6 +148,9 @@ public class EnemyFactory {
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
                 .addComponent(new AlienSoldierAttackListener(target, gameArea));
+
+        alienSoldier.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienSoldier, 1f,1f);
         alienSoldier.scaleHeight(1.5f);
@@ -153,7 +177,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -161,7 +185,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -169,7 +193,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -177,7 +201,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -185,7 +209,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -264,9 +288,15 @@ public class EnemyFactory {
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 1, 10, 6f));
 
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienBoss.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+
         Entity alienBoss =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_boss.png"))
+                        //.addComponent(new TextureRenderComponent("images/alien_boss.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -276,6 +306,9 @@ public class EnemyFactory {
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
                         .addComponent(new AlienBossAttackListener(target, gameArea));
+
+        alienBoss.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienBoss, 1f,1f);
         alienBoss.scaleHeight(1.5f);
@@ -321,7 +354,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotation))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -329,7 +362,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationUp))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -337,7 +370,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationDown))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -379,13 +412,19 @@ public class EnemyFactory {
         gameArea.spawnEntity(alienBossWeapon3);
     }
 
-    public static Entity createAlienSoldierHorizontal(Entity target, GameArea gameArea) {
+    /**
+     * Creates an alien barbette enemy.
+     * @param target the target that the enemy aim to attack
+     * @param gameArea the game area
+     * @return the alien barbette enemy entity
+     */
+    public static Entity createALienBarbette(Entity target, GameArea gameArea) {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 2, 10, 100f));
+                        .addTask(new AttackTask(target, 1f, 10, 100f));
 
-        Entity alienSoldier =
+        Entity alienBarbette =
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider.png"))
                         .addComponent(new PhysicsComponent())
@@ -396,49 +435,111 @@ public class EnemyFactory {
                         .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
-                        .addComponent(new AlienHorizontalAttackListener(target, gameArea));
+                        .addComponent(new AlienBarbetteAttackListener(target, gameArea));
 
-        PhysicsUtils.setScaledCollider(alienSoldier, 1f,1f);
-        alienSoldier.scaleHeight(1.5f);
-        return alienSoldier;
+        PhysicsUtils.setScaledCollider(alienBarbette, 1f,1f);
+        alienBarbette.scaleHeight(1.5f);
+        return alienBarbette;
     }
 
-    public static void createAlienSoldierHorizontalWeapon(Entity from, Entity target, GameArea gameArea) {
+    /**
+     * Creates the weapon/bullet for the alien barbette enemy.
+     * @param from the position of the alien barbette that the bullet will be created from
+     * @param target the player character that the weapon aim to attack
+     * @param gameArea the current game area
+     */
+    public static void createAlienBarbetteWeapon(Entity from, Entity target, GameArea gameArea) {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
 
         Vector2 target1 = new Vector2(0, 10);
 
-
-        Entity alienSoldierWeapon1 =
+        Entity alienBarbetteWeapon1 =
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
+        alienBarbetteWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienBarbetteWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienBarbetteWeapon1, 0.3f, 0.3f);
 
-        alienSoldierWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
-        alienSoldierWeapon1.scaleHeight(0.3f);
-        PhysicsUtils.setScaledCollider(alienSoldierWeapon1, 0.3f, 0.3f);
+        alienBarbetteWeapon1.setPosition(x1 - alienBarbetteWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienBarbetteWeapon1.getScale().y / 2 + from.getScale().y / 2);
 
+        alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
+        alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienBarbetteWeapon1.getComponent(ColliderComponent.class).setSensor(true);
 
-
-        alienSoldierWeapon1.setPosition(x1 - alienSoldierWeapon1.getScale().x / 2 + from.getScale().x / 2,
-                y1 - alienSoldierWeapon1.getScale().y / 2 + from.getScale().y / 2);
-
-
-
-        alienSoldierWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
-        alienSoldierWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
-        alienSoldierWeapon1.getComponent(ColliderComponent.class).setSensor(true);
-
-
-
-        gameArea.spawnEntity(alienSoldierWeapon1);
-
+        gameArea.spawnEntity(alienBarbetteWeapon1);
     }
+
+    /**
+     * Creates an alien laser hole enemy.
+     * @param target the target that the enemy aim to attack
+     * @param gameArea the game area
+     * @return the alien laser hole enemy entity
+     */
+    public static Entity createAlienLaserHole(Entity target, GameArea gameArea) {
+        AlienSoldierConfig config = configs.alienSolider;
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new AttackTask(target, 1f, 10, 100f));
+
+        Entity alienBarbette =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+                        .addComponent(aiComponent)
+                        .addComponent(new AlienLaserAttackListener(target, gameArea));
+
+        PhysicsUtils.setScaledCollider(alienBarbette, 1f,1f);
+        alienBarbette.scaleHeight(1.5f);
+        return alienBarbette;
+    }
+
+    /**
+     * Creates the weapon/bullet for the alien laser hole enemy.
+     * @param from the position of the alien barbette that the bullet will be created from
+     * @param target the player character that the weapon aim to attack
+     * @param gameArea the current game area
+     */
+    public static void createAlienLaserHoleWeapon(Entity from, Entity target, GameArea gameArea) {
+        float x1 = from.getPosition().x;
+        float y1 = from.getPosition().y;
+
+        Vector2 target1 = new Vector2(25, 0);
+
+        Entity alienBarbetteWeapon1 =
+                new Entity()
+                        .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new BulletHitPlayer(target, gameArea));
+
+        alienBarbetteWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
+        alienBarbetteWeapon1.scaleHeight(0.3f);
+        PhysicsUtils.setScaledCollider(alienBarbetteWeapon1, 0.3f, 0.3f);
+
+        alienBarbetteWeapon1.setPosition(x1 - alienBarbetteWeapon1.getScale().x / 2 + from.getScale().x / 2,
+                y1 - alienBarbetteWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
+        alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
+        alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        alienBarbetteWeapon1.getComponent(ColliderComponent.class).setSensor(true);
+
+        gameArea.spawnEntity(alienBarbetteWeapon1);
+    }
+
 }
 
 

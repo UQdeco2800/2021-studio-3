@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -39,13 +39,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png", "images/lives_icon2.png"};
-
-  private static final String[] LoadingTextures = {"images/0percent.png",
-          "images/10percent.png", "images/20percent.png", "images/30percent.png",
-          "images/40percent.png", "images/50percent.png", "images/50percent.png",
-          "images/60percent.png", "images/70percent.png", "images/80percent.png",
-          "images/90percent.png", "images/100percent.png"};
+  private static final String[] mainGameTextures = {"images/heart.png",
+          "images/lives_icon2.png"};
 
   /* Textures for the pause menu */
   private static final String[] pauseMenuTextures =
@@ -90,16 +85,16 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  public static AssetManager manager =  new  AssetManager ();
   public SaveData saveData;
-
-  public static boolean isLevelChange = false;
-  private int currentLevel = 1;
+  public static AssetManager manager =  new  AssetManager();
 
   private ForestGameArea currentMap;
-  private LevelTwoArea level2Map;
   private final TerrainFactory terrainFactory;
   private Entity ui;
+
+  public enum Level {
+    ONE, TWO, THREE, FOUR
+  }
 
   /* Manages buffs & debuffs in the game */
   private BuffManager buffManager;
@@ -107,7 +102,8 @@ public class MainGameScreen extends ScreenAdapter {
   /**
    * Load the game screen for level one when the game is starting.
    */
-  public MainGameScreen(GdxGame game, ResourceService resourceService) {
+  public MainGameScreen(GdxGame game, ResourceService resourceService,
+          MainGameScreen.Level level) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -132,14 +128,10 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, false);
-    forestGameArea.create();
 
     load();
-    this.currentMap = forestGameArea;
-    createUI();
-    forestGameArea.spawnBuffDebuff(this.buffManager);
-    saveData = new SaveData(game, forestGameArea.getPlayer());
+    setAreaAndUI(selectGameArea(terrainFactory, 0, false, level));
+    saveData = new SaveData(game, level.getPlayer());
     saveData.savePlayerData();
   }
 
@@ -161,7 +153,8 @@ public class MainGameScreen extends ScreenAdapter {
   /**
    * Load the game screen for level one when the game is starting.
    */
-  public MainGameScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
+  public MainGameScreen(GdxGame game, boolean hasDied,
+          ResourceService resourceService, MainGameScreen.Level level) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -185,22 +178,17 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
     load();
     logger.debug("Initialising main game screen entities");
-    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 0, hasDied);
-    forestGameArea.create();
-
-    this.currentMap = forestGameArea;
-    createUI();
-    //forestGameArea.spawnBuffDebuff(this.buffManager);
-    saveData = new SaveData(game, forestGameArea.getPlayer());
+    setAreaAndUI(selectGameArea(terrainFactory, 0, hasDied, level));
+    saveData = new SaveData(game, level.getPlayer());
     saveData.savePlayerData();
   }
 
   /**
    * Load the game screen for level one when the game is starting.
    */
-  public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied, ResourceService resourceService) {
+  public MainGameScreen(GdxGame game, int checkpoint, boolean hasDied,
+          ResourceService resourceService, MainGameScreen.Level level) {
     this.game = game;
     game.setState(GdxGame.GameState.RUNNING);
 
@@ -224,16 +212,51 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
     load();
     logger.debug("Initialising main game screen entities");
-    //TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory, 1, hasDied);
 
-    forestGameArea.create();
+    setAreaAndUI(selectGameArea(terrainFactory, 1, hasDied, level));
+  }
 
-    this.currentMap = forestGameArea;
+  /**
+   * Determines, creates and returns the correct ForestGameArea class based on
+   * the level passed in. For every different level, a different ForestGameArea
+   * type is spawned.
+   *
+   * @param factory the TerrainFactory for the level
+   * @param checkpoint the checkpoint the player reached on their last run
+   * @param hasDied whether or not the player has died, ie this area
+   *                instantiation is actually the player respawning.
+   * @param level the level to spawn: ONE, TWO, THREE or FOUR.
+   *
+   * @return the new area to be created.
+   * */
+  public ForestGameArea selectGameArea(TerrainFactory factory, int checkpoint,
+          boolean hasDied, MainGameScreen.Level level) {
+    switch (level) {
+      case ONE:
+        return new ForestGameArea(factory, checkpoint, hasDied);
+      case TWO:
+        return new LevelTwoArea(factory, checkpoint, hasDied);
+      case THREE:
+        return new LevelThreeArea(factory, checkpoint, hasDied);
+      case FOUR:
+        return new LevelFourArea(factory, checkpoint, hasDied);
+    }
+    return null; // Unreachable
+  }
+
+  /**
+   * Instantiates the new player area, creates the UI for the level and begins
+   * the buff spawning mechanism.
+   *
+   * @param area the area which is going to be created.
+   * */
+  public void setAreaAndUI(ForestGameArea area) {
+    area.create();
+    this.currentMap = area;
     createUI();
-
-    saveData = new SaveData(game, forestGameArea.getPlayer());
+    area.spawnBuffDebuff(this.buffManager, area.getAreaType());
+    saveData = new SaveData(game, level.getPlayer());
     saveData.savePlayerData();
   }
 
@@ -279,12 +302,14 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
-    this.currentMap.resetCam(renderer.getCamera());
     if (game.getState() == GdxGame.GameState.RUNNING) {
+      this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
+      this.currentMap.resetCam(renderer.getCamera());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
+    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
+
     renderer.render();
   }
 
@@ -315,6 +340,8 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
+
+    this.buffManager.disposeAll();
 
     ServiceLocator.clear();
   }
@@ -347,8 +374,8 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
-   * Creates the main game's ui including components for rendering ui elements to the screen and
-   * capturing and handling ui input.
+   * Creates the main game's ui including components for rendering ui elements
+   * to the screen and capturing and handling ui input.
    */
   private void createUI() {
     logger.debug("Creating ui");
@@ -363,17 +390,18 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay(manager,currentMap))
+        .addComponent(new TerminalDisplay(manager, this.currentMap))
         .addComponent(new PauseGamePopUp(this.game,
                 new PopupUIHandler(pauseMenuTextures)))
-        .addComponent(new PlayerWinPopup(this.game, currentMap,
+        .addComponent(new PlayerWinPopup(this.game, this.currentMap,
                 new PopupUIHandler(winMenuTextures)))
-        .addComponent(new PlayerLossPopup(this.game, currentMap.getPlayer(),
+        .addComponent(new PlayerLossPopup(this.game, this.currentMap.getPlayer(),
                 new PopupUIHandler(lossMenuTextures)))
         .addComponent(new FinalLossPopUp(this.game, currentMap.getPlayer(),
                 new PopupUIHandler(finalLossTextures)))
         .addComponent(new PopupMenuActions(this.game, this.currentMap))
-        .addComponent(this.buffManager = new BuffManager(this, currentMap));
+        .addComponent(this.buffManager = new BuffManager(this,
+                this.currentMap));
 
     ServiceLocator.getEntityService().register(ui);
   }

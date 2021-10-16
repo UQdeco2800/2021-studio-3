@@ -49,7 +49,7 @@ public abstract class PlayerBuffs {
      * @param player the player
      * */
     public static void setInfiniteStamina(Entity player) {
-        player.getComponent(SprintComponent.class).setSprint(100);
+        player.getComponent(SprintComponent.class).setSprint(10000);
         player.getComponent(SprintComponent.class).setStamina(true);
     }
 
