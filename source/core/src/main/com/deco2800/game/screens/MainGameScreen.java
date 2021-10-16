@@ -90,7 +90,7 @@ public class MainGameScreen extends ScreenAdapter {
   private Entity ui;
 
   public enum Level {
-    ONE, TWO, THREE, FOUR
+    TUTORIAL, ONE, TWO, THREE, FOUR
   }
 
   /* Manages buffs & debuffs in the game */
@@ -227,6 +227,8 @@ public class MainGameScreen extends ScreenAdapter {
   public ForestGameArea selectGameArea(TerrainFactory factory, int checkpoint,
           boolean hasDied, MainGameScreen.Level level) {
     switch (level) {
+      case TUTORIAL:
+        return new TutorialArea(factory, checkpoint, hasDied);
       case ONE:
         return new ForestGameArea(factory, checkpoint, hasDied);
       case TWO:

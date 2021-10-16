@@ -29,6 +29,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Table livesTable;
   private Table buffTable;
   private Table rollTable;
+  private Table informTable;
 
   private Image levelStatus;
 
@@ -37,6 +38,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label progressLabel;
   private Label livesLabel;
   private Label rollLabel;
+  private Label informLabel;
 
   private Texture level10percent;
   private Texture level20percent;
@@ -80,6 +82,7 @@ public class PlayerStatsDisplay extends UIComponent {
     entity.getEvents().addListener("updateProgress", this::updatePlayerProgressUI);
     entity.getEvents().addListener("updateScore", this::updateScoreUI);
     entity.getEvents().addListener("updateLives", this::updateLivesUI);
+    entity.getEvents().addListener("updateInformation", this::updateInformationUI);
   }
 
   /**
@@ -143,7 +146,8 @@ public class PlayerStatsDisplay extends UIComponent {
     progressTable = setupUITable(25f, 0f, UIPosition.CENTRE);
     buffTable = setupUITable(95f, 5f, UIPosition.CENTRE);
     rollTable = setupUITable(90f, 10f, UIPosition.LEFT);
-
+    informTable = new Table();
+    informTable.center().setFillParent(true);
     /* Images for UI */
     Image livesImage = new Image(ServiceLocator.getResourceService().getAsset("images/lives_icon2.png", Texture.class));
 
@@ -160,6 +164,11 @@ public class PlayerStatsDisplay extends UIComponent {
     int score = entity.getComponent(ScoreComponent.class).getScore();
     CharSequence scoreText = String.format("score: %d", score);
     scoreLabel = new Label(scoreText, skin, "font_large", "white");
+
+    // informPlayer Text
+    String information = entity.getComponent(InformPlayerComponent.class).getText();
+    CharSequence informText = String.format("%s", information);
+    informLabel = new Label(informText, skin, "font_large", "white");
 
     // Buff / Debuff Text
     buffText = "Current buffs: \n";
@@ -198,6 +207,7 @@ public class PlayerStatsDisplay extends UIComponent {
     livesTable.add(livesImage).size(40f).pad(5);
     livesTable.add(livesLabel);
     rollTable.add(rollLabel);
+    informTable.add(informLabel).center();
 
     // Adding tables to stages
     stage.addActor(sprintTable);
@@ -206,6 +216,7 @@ public class PlayerStatsDisplay extends UIComponent {
     stage.addActor(scoreTable);
     stage.addActor(buffTable);
     stage.addActor(rollTable);
+    stage.addActor(informTable);
   }
 
     /**
@@ -402,6 +413,15 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updateLivesUI(int lives) {
     CharSequence text = String.format("x%d", lives);
     livesLabel.setText(text);
+  }
+
+  /**
+   * Updates the player's score on the ui.
+   * @param inform information for playerd
+   */
+  public void updateInformationUI(String inform) {
+    CharSequence text = String.format("%s", inform);
+    informLabel.setText(text);
   }
 
   @Override

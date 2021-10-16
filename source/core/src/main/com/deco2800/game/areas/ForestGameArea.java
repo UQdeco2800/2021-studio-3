@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -304,6 +301,7 @@ public class ForestGameArea extends GameArea {
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
+
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
     playMusic(backgroundMusic);
@@ -637,7 +635,7 @@ public class ForestGameArea extends GameArea {
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
     newPlayer.addComponent(new LivesComponent(lives));
-
+    newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       lives -= 1;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);

@@ -101,6 +101,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/lives_icon2.png",
             "images/instence_fall.png",
             "images/double_jump.png",
+            "images/harmless_egg.png"
 
     };
 
@@ -192,6 +193,10 @@ public class LoadingScreen extends ScreenAdapter {
                 case LEVEL_FOUR_GAME:
                     logger.info("Setting screen to LEVEL_FOUR_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+                    break;
+                case TUTORIAL:
+                    logger.info("Setting screen to TUTORIAL");
+                    this.game.setScreen(GdxGame.ScreenType.TUTORIAL);
                     break;
             }
         } else {

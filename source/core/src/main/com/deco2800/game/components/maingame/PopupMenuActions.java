@@ -1,10 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.LevelFourArea;
-import com.deco2800.game.areas.LevelTwoArea;
-import com.deco2800.game.areas.LevelThreeArea;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.LivesComponent;
 import org.slf4j.Logger;
@@ -29,7 +26,7 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea areaTwo = null;
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
-
+    private TutorialArea areaTutorial = null;
     /* The current level */
     private int currentLevel;
 
@@ -40,6 +37,10 @@ public class PopupMenuActions extends Component {
     public PopupMenuActions(GdxGame game, ForestGameArea area) {
         this.game = game;
         switch (area.getAreaType()) {
+            case TUTORIAL:
+                this.areaTutorial = (TutorialArea) area;
+                this.currentLevel = 0;
+                break;
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
@@ -161,6 +162,10 @@ public class PopupMenuActions extends Component {
      */
     public void onNextLevel() {
         switch (this.currentLevel) {
+            case 0:
+                game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
             case 1:
                 game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
                 game.setScreen(GdxGame.ScreenType.LOADING);
