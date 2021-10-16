@@ -37,9 +37,9 @@ public class FinalLossDisplay extends UIComponent {
 
         // Create buttons from the images
         Table buttonHolder = new Table();
-        buttonHolder.center();
+        //buttonHolder.center();
         ArrayList<Image> buttons =
-                handler.setupButtons(buttonHolder, 90, 35, true);
+                handler.setupButtons(buttonHolder, 90, 30, true);
 
         // Set up actions to trigger for this menu.
         // These must be in order of the buttons on the menu.
