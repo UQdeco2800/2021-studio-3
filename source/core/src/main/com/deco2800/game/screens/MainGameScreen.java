@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -90,6 +91,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager ();
+  public SaveData saveData;
 
   public static boolean isLevelChange = false;
   private int currentLevel = 1;
@@ -137,6 +139,8 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     forestGameArea.spawnBuffDebuff(this.buffManager);
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   public static AssetManager load(){
@@ -189,6 +193,8 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     //forestGameArea.spawnBuffDebuff(this.buffManager);
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -226,6 +232,9 @@ public class MainGameScreen extends ScreenAdapter {
 
     this.currentMap = forestGameArea;
     createUI();
+
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -263,6 +272,9 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     //forestGameArea.spawnBuffDebuff(this.buffManager);
+
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   @Override

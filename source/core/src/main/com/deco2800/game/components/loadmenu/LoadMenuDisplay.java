@@ -23,7 +23,8 @@ public class LoadMenuDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     GdxGame game;
     Table loadTable;
-    Table buttonTable;
+    Table backButtonTable;
+    Table fileButtonTable;
     Table labelTable;
     private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
@@ -42,12 +43,12 @@ public class LoadMenuDisplay extends UIComponent {
 
     private void addActors() {
         loadTable = new Table();
-        buttonTable = new Table();
+        backButtonTable = new Table();
         labelTable = new Table();
         playBackgroundMusic();
 
         loadTable.setFillParent(true);
-        buttonTable.setFillParent(true);
+        backButtonTable.setFillParent(true);
         labelTable.setFillParent(true);
         labelTable.center().top();
         loadTable.setBackground(new TextureRegionDrawable(
@@ -56,8 +57,8 @@ public class LoadMenuDisplay extends UIComponent {
         labelTable.add(title);
 
         TextButton backBtn = new TextButton("BACK", skin);
-        buttonTable.bottom().right();
-        buttonTable.add(backBtn).padBottom(15f).padRight(15f);;
+        backButtonTable.bottom().right();
+        backButtonTable.add(backBtn).padBottom(15f).padRight(15f);;
 
         backBtn.addListener(
                 new ChangeListener() {
@@ -70,7 +71,7 @@ public class LoadMenuDisplay extends UIComponent {
 
         Gdx.input.setInputProcessor(stage);
         stage.addActor(loadTable);
-        stage.addActor(buttonTable);
+        stage.addActor(backButtonTable);
         stage.addActor(labelTable);
     }
 
@@ -98,7 +99,7 @@ public class LoadMenuDisplay extends UIComponent {
     @Override
     public void dispose() {
         loadTable.clear();
-        buttonTable.clear();
+        backButtonTable.clear();
         stage.dispose();
         ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
         super.dispose();
