@@ -116,7 +116,7 @@ public class LevelTwoArea extends ForestGameArea {
         displayUI("Level Two");
 
         // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwoGround.txt");
+        spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwoGround.txt", "level-floors/levelOneFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_TWO_TERRAIN, this.hasSave));
         if (this.hasSave) {
             loadSave(getPlayer(), this.saveState);

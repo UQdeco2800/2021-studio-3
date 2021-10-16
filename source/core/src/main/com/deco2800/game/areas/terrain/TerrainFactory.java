@@ -197,27 +197,9 @@ public class TerrainFactory {
     addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
 
     // parses the level files
-    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
-      int x = 0, y = 0, width = 0, distance = 0, i = 0;
-      while (line != null) {
-        String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
-        distance = (width * 2) + x;
-        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
-        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
-        line = br.readLine();
-        i++;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }*/
+
     addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelOneFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -246,9 +228,32 @@ public class TerrainFactory {
       distanceX = (int) (( width * 2) + x);
       distanceY = (int) (( height * 2) + y);
       // Fills underground tiles, leaves one layer on top for surface tiles
-      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
       // Fills surface tiles
       fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
+    }
+  }
+
+  private void addFloatTiles(TiledMapTileLayer layer, TextureRegion underground,
+                           TextureRegion surface, String filename) {
+    TerrainTile undergroundTile = new TerrainTile(underground);
+    TerrainTile surfaceTile = new TerrainTile(surface);
+    ArrayList<String> terrainLayout = readFile(filename);
+
+    float width, height;
+    int x, y, distanceX, distanceY;
+    for (String s : terrainLayout) {
+      String[] values = s.split(" ");
+      width = Float.parseFloat(values[0]);
+      height = Float.parseFloat(values[1]);
+      x = Integer.parseInt(values[2]);
+      y = Integer.parseInt(values[3]);
+      distanceX = (int) (( width * 2) + x);
+      distanceY = (int) (( height * 2) + y);
+
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, distanceY), new GridPoint2(distanceX, distanceY + 1), surfaceTile);
+
     }
   }
 

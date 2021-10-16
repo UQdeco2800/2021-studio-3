@@ -95,7 +95,7 @@ public class LevelFourArea extends ForestGameArea {
         displayUI("Level Four");
 
         // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt");
+        spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelOneFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
         spawnDeathWall(4);
         spawnSpaceship(MainGameScreen.Level.FOUR);
