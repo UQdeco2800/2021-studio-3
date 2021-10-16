@@ -28,7 +28,7 @@ public class LevelFourArea extends ForestGameArea {
     private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
 
     // Placeholder music
-    private static final String backgroundMusic = "sounds/level3.mp3";
+    private static final String backgroundMusic = "sounds/level4_background_music_1.mp3";
 
     public LevelFourArea(TerrainFactory terrainFactory, int checkpoint,
             boolean hasDied) {
