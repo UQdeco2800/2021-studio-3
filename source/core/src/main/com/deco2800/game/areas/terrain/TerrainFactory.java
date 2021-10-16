@@ -199,7 +199,7 @@ public class TerrainFactory {
     // parses the level files
 
     addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
-    addFloatTiles(layer, underground, surface, "level-floors/levelOneFloat.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelOneFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -228,7 +228,7 @@ public class TerrainFactory {
       distanceX = (int) (( width * 2) + x);
       distanceY = (int) (( height * 2) + y);
       // Fills underground tiles, leaves one layer on top for surface tiles
-      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
       // Fills surface tiles
       fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
     }
@@ -252,7 +252,7 @@ public class TerrainFactory {
       distanceY = (int) (( height * 2) + y);
 
       fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), undergroundTile);
-      fillTilesAt(layer, new GridPoint2(x, distanceY -2), new GridPoint2(distanceX, distanceY - 1), surfaceTile);
+      fillTilesAt(layer, new GridPoint2(x, distanceY), new GridPoint2(distanceX, distanceY + 1), surfaceTile);
 
     }
   }
