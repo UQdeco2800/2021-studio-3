@@ -23,8 +23,11 @@ public class SettingsScreen extends ScreenAdapter {
 
   private final GdxGame game;
   private final Renderer renderer;
+  ResourceService resourceService;
 
-  public SettingsScreen(GdxGame game) {
+  private static final String[] mainMenuMusic = {"sounds/background.mp3"};
+
+  public SettingsScreen(GdxGame game, ResourceService resourceService) {
     this.game = game;
 
     logger.debug("Initialising settings screen services");
@@ -36,7 +39,9 @@ public class SettingsScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(5f, 5f);
+    this.resourceService = ServiceLocator.getResourceService();
 
+    loadAssets();
     createUI();
   }
 
@@ -56,8 +61,20 @@ public class SettingsScreen extends ScreenAdapter {
     renderer.dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getEntityService().dispose();
-
     ServiceLocator.clear();
+  }
+
+  private void loadAssets() {
+    logger.debug("Loading music");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadMusic(mainMenuMusic);
+    ServiceLocator.getResourceService().loadAll();
+  }
+
+  private void unloadAssets() {
+    logger.debug("Unloading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.unloadAssets(mainMenuMusic);
   }
 
   /**

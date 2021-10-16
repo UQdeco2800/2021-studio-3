@@ -3,6 +3,7 @@ package com.deco2800.game.components.settingsmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Graphics.Monitor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,6 +37,7 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
+  private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
   public SettingsMenuDisplay(GdxGame game) {
     super();
@@ -52,6 +54,7 @@ public class SettingsMenuDisplay extends UIComponent {
     Label title = new Label("Settings", skin, "title");
     Table settingsTable = makeSettingsTable();
     Table menuBtns = makeMenuBtns();
+    playBackgroundMusic();
 
     rootTable = new Table();
     rootTable.setFillParent(true);
@@ -217,6 +220,13 @@ public class SettingsMenuDisplay extends UIComponent {
     }
   }
 
+  private void playBackgroundMusic() {
+    Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+    menuSong.setLooping(true);
+    menuSong.setVolume(0.5f);
+    menuSong.play();
+  }
+
   @Override
   protected void draw(SpriteBatch batch) {
     // draw is handled by the stage
@@ -229,6 +239,7 @@ public class SettingsMenuDisplay extends UIComponent {
 
   @Override
   public void dispose() {
+    ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
     rootTable.clear();
     super.dispose();
   }

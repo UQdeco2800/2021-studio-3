@@ -145,7 +145,7 @@ public class GdxGame extends Game {
       case RESPAWN3:
         return new LevelThreeScreen(this, true, resourceService);
       case SETTINGS:
-        return new SettingsScreen(this);
+        return new SettingsScreen(this, resourceService);
       case LOADING:
         return new LoadingScreen(this, resourceService);
       case CHECKPOINT:

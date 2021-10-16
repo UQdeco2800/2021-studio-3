@@ -7,6 +7,7 @@ import com.deco2800.game.components.mainmenu.IntroDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
+import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.ResourceService;
@@ -19,17 +20,21 @@ public class LoadScreen extends ScreenAdapter {
     private final Renderer renderer;
     GdxGame game;
     ResourceService resourceService;
+    private static final String[] mainMenuMusic = {"sounds/background.mp3"};
 
     public LoadScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
 
-        ServiceLocator.registerResourceService(resourceService);
+        //ServiceLocator.registerResourceService(resourceService);
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
         renderer = RenderFactory.createRenderer();
         this.resourceService = ServiceLocator.getResourceService();
 
+        loadAssets();
         createUI();
     }
 
@@ -45,22 +50,14 @@ public class LoadScreen extends ScreenAdapter {
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
 
-    @Override
-    public void dispose() {
-        logger.debug("Disposing load menu screen");
-        renderer.dispose();
-        unloadAssets();
-        ServiceLocator.getRenderService().dispose();
-        ServiceLocator.getEntityService().dispose();
-        ServiceLocator.clear();
-    }
 
     /**
      * Loads all the assets required for the game scenes.
      */
     private void loadAssets() {
-        logger.debug("Loading assets");
-
+        logger.debug("Loading music");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadMusic(mainMenuMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -69,6 +66,18 @@ public class LoadScreen extends ScreenAdapter {
      */
     private void unloadAssets() {
         logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(mainMenuMusic);
+    }
+
+    @Override
+    public void dispose() {
+        logger.debug("Disposing load menu screen");
+        renderer.dispose();
+        unloadAssets();
+        ServiceLocator.getRenderService().dispose();
+        ServiceLocator.getEntityService().dispose();
+        ServiceLocator.clear();
     }
 
     /**

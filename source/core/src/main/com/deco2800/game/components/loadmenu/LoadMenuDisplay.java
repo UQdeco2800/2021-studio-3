@@ -25,6 +25,7 @@ public class LoadMenuDisplay extends UIComponent {
     Table loadTable;
     Table buttonTable;
     Table labelTable;
+    private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
 
     public LoadMenuDisplay(GdxGame game) {
@@ -43,6 +44,7 @@ public class LoadMenuDisplay extends UIComponent {
         loadTable = new Table();
         buttonTable = new Table();
         labelTable = new Table();
+        playBackgroundMusic();
 
         loadTable.setFillParent(true);
         buttonTable.setFillParent(true);
@@ -76,6 +78,13 @@ public class LoadMenuDisplay extends UIComponent {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
+    private void playBackgroundMusic() {
+        Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+        menuSong.setLooping(true);
+        menuSong.setVolume(0.5f);
+        menuSong.play();
+    }
+
     @Override
     protected void draw(SpriteBatch batch) {
         //
@@ -91,6 +100,7 @@ public class LoadMenuDisplay extends UIComponent {
         loadTable.clear();
         buttonTable.clear();
         stage.dispose();
+        ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
         super.dispose();
     }
 }
