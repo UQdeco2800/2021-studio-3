@@ -109,14 +109,6 @@ public class LevelTwoArea extends ForestGameArea {
         this.CHECKPOINT_SPAWNS.add(new GridPoint2(20, 10));
     }
 
-    //    private void spawnPortal() {
-//        GridPoint2 tileBounds = terrain.getMapBounds(0);
-//        int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, GdxGame.ScreenType.LEVEL_TWO_GAME);
-//        GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
-//        this.endPortal = ObstacleFactory.createPortal();
-//        spawnEntityAt(this.endPortal, pos1, true, true);
-//    }
-
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {

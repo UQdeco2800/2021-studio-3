@@ -56,6 +56,9 @@ public class LevelThreeArea extends ForestGameArea {
         setupAlienBossSpawns();
     }
 
+    /**
+     * Sets up the Platform One spawn locations
+     * */
     private void setupPlatformOneSpawns() {
         this.PLATFORM_ONE_SPAWNS.add(new GridPoint2(7,14));
     }
