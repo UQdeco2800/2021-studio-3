@@ -119,7 +119,11 @@ public class ForestGameArea extends GameArea {
           "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",
-          "images/roll3.png"
+          "images/roll3.png",
+          "images/alien_wasp.png",
+          "images/alien_wasp_weapon.png",
+          "images/alien_squid.png",
+          "images/alien_squid_weapon.png"
 
   };
 
@@ -287,8 +291,8 @@ public class ForestGameArea extends GameArea {
     //spawnAttackObstacle();
     //spawnAlienMonster();
    // spawnAlienSoldier();
-    //spawnAlienBarbette();
-    //spawnAlienLaserHole();
+    spawnAlienBarbette();
+    spawnAlienLaserHole();
 
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
 
