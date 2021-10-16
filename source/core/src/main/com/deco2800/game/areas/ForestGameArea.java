@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -302,7 +303,7 @@ public class ForestGameArea extends GameArea {
   public void create() {
     displayUI("Level One");
 
-    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOneGround.txt");
+    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOneGround.txt", "level-floors/levelOneFloat.txt");
     player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER, hasSave);
     if (hasSave) {
       loadSave(player, this.saveState);
@@ -349,7 +350,7 @@ public class ForestGameArea extends GameArea {
    * @param type the type of terrain (terrain types differ between all levels)
    * @param levelFile the file to read the level from.
    * */
-  protected void spawnTerrain(TerrainType type, String levelFile) {
+  protected void spawnTerrain(TerrainType type, String levelFile, String floatFile) {
     // Background terrain
     terrain = terrainFactory.createTerrain(type);
     spawnEntity(new Entity().addComponent(terrain));
@@ -390,23 +391,26 @@ public class ForestGameArea extends GameArea {
         distanceY = (int) (Float.parseFloat(values[1]) * 2);
         x = Integer.parseInt(values[2]);
         y = Integer.parseInt(values[3]);
+        float height = Float.parseFloat(values[1]);
 
         // creates the floors wall
-        spawnEntityAt(
-                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
-        if (i != 0) {
+        //spawnEntityAt(
+                //ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
+        //if (i != 0) {
           // Create walls when floor level changes
           //float height = (float) y/2;
-          float height = Float.parseFloat(values[1]);
-          //float endHeight = (float) (previousY - y)/2;
-          spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, y), false, false);
-          spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
-        }
 
+          //float endHeight = (float) (previousY - y)/2;
+        spawnEntityAt(
+                ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
+                        distanceY * terrain.getTileSize()), new GridPoint2(x, y), false, false);
+          //spawnEntityAt(
+                  //ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
+        //}
+
+        spawnFloatPlatform(floatFile);
         line = br.readLine();
-        i++;
+
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -417,6 +421,33 @@ public class ForestGameArea extends GameArea {
             ObstacleFactory.createDeathFloor(worldBounds.x, WALL_WIDTH),
             new GridPoint2(0, -1), false, false);
   }
+
+  protected void spawnFloatPlatform(String floatFile) {
+    //float width, height;
+    int x, y, distanceX, distanceY;
+    try(BufferedReader br = new BufferedReader(new FileReader(floatFile))) {
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(" ");
+        distanceX = Integer.parseInt(values[0]) * 2;
+        distanceY = (int) (Float.parseFloat(values[1]) * 2);
+        x = Integer.parseInt(values[2]);
+        y = Integer.parseInt(values[3]);
+        float height = Float.parseFloat(values[1]);
+        spawnEntityAt(
+                ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
+                        (terrain.getTileSize() * distanceY) + terrain.getTileSize()), new GridPoint2(x, y - 1), false, false);
+
+        line = br.readLine();
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 
   /**
    * @param levelNumber the current level
