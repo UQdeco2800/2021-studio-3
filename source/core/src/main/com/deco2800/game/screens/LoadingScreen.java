@@ -103,6 +103,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/double_jump.png",
             "images/portal.png",
             "images/Spaceship.png"
+
     };
 
     /* Textures only needed for level 2*/
@@ -122,7 +123,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
-            "images/SerpentLevel1.atlas"
+            "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
@@ -189,6 +190,10 @@ public class LoadingScreen extends ScreenAdapter {
                 case LEVEL_THREE_GAME:
                     logger.info("Setting screen to LEVEL_THREE_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_THREE_GAME);
+                    break;
+                case LEVEL_FOUR_GAME:
+                    logger.info("Setting screen to LEVEL_FOUR_GAME");
+                    this.game.setScreen(GdxGame.ScreenType.LEVEL_FOUR_GAME);
                     break;
             }
         } else {

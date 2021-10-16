@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.*;
+import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.components.ProgressComponent;
+import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -27,22 +30,21 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   protected static int lives = 2;
-
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 6);
   private static final float WALL_WIDTH = 0.1f;
 
   private GdxGame game;
@@ -53,6 +55,8 @@ public class ForestGameArea extends GameArea {
   private ArrayList<GridPoint2> ROBOT_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_SOLDIER_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> ALIEN_LASER_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> ALIEN_BARBETTE_SPAWNS = new ArrayList<>();
 
 
   /**
@@ -130,7 +134,7 @@ public class ForestGameArea extends GameArea {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
-          , "images/SerpentLevel1.atlas"
+          , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
@@ -169,26 +173,57 @@ public class ForestGameArea extends GameArea {
     setupSpawns();
   }
 
+  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
+    super();
+    this.terrainFactory = terrainFactory;
+    this.saveState = saveState;
+    this.hasSave = true;
+    CAM_START_TIME = gameTime.getTime();
+    setupSpawns();
+  }
+
   /**
    * Calls the appropriate spawn functions for all of the different assets of
    * this level.
    * */
   private void setupSpawns() {
     setupPlatformSpawns();
-    setupAsteroidSpawns();
+    setupAlienBarbetteSpawns();
     setupAsteroidFireSpawns();
     setupRobotSpawns();
-    setupAlienSoldierSpawns();
-    setupCheckpointSpawns();
+  }
+
+  /**
+   * Defines the Alien Barbette spawns for this level.
+   * */
+  private void setupAlienBarbetteSpawns() {
+    this.ALIEN_BARBETTE_SPAWNS.add(new GridPoint2(89, 14));
+
+    this.ALIEN_BARBETTE_SPAWNS.add(new GridPoint2(143, 23));
+  }
+
+  /**
+   * Defines the Alien Laser spawns for this level.
+   * */
+  private void setupAlienLaserSpawns() {
+    this.ALIEN_LASER_SPAWNS.add(new GridPoint2(93, 12));
   }
 
   /**
    * Defines the platform spawns for this level.
    * */
   private void setupPlatformSpawns() {
-    this.PLATFORM_SPAWNS.add(new GridPoint2(7,14));
-    this.PLATFORM_SPAWNS.add(new GridPoint2(22, 15));
-    this.PLATFORM_SPAWNS.add(new GridPoint2(70, 18));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(52, 13));
+
+    this.PLATFORM_SPAWNS.add(new GridPoint2(95,8));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(99, 10));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(95, 12));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(99, 14));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(104, 17));
+
+    this.PLATFORM_SPAWNS.add(new GridPoint2(155, 8));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(162, 7));
+    this.PLATFORM_SPAWNS.add(new GridPoint2(157, 4));
   }
 
   /**
@@ -204,19 +239,21 @@ public class ForestGameArea extends GameArea {
    * Defines the asteroid fire spawns for this level.
    * */
   private void setupAsteroidFireSpawns() {
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(5,10));
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(15,11));
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(22,8));
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(36,10));
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(48,10));
-    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(55,13));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(54,6));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(51,6));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(50,6));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(55,6));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(52,6));
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(53,6));
+
+    this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(194,7));
   }
 
   /**
    * Defines the robot spawns for this level
    * */
   private void setupRobotSpawns() {
-    this.ROBOT_SPAWNS.add(new GridPoint2(60, 13));
+    this.ROBOT_SPAWNS.add(new GridPoint2(70, 7));
   }
 
   /**
@@ -238,15 +275,6 @@ public class ForestGameArea extends GameArea {
    * */
   public void setPlayer(Entity player) {
     this.player = player;
-  }
-
-  public ForestGameArea(TerrainFactory terrainFactory, String saveState) {
-    super();
-    this.terrainFactory = terrainFactory;
-    this.saveState = saveState;
-    this.hasSave = true;
-    CAM_START_TIME = gameTime.getTime();
-    setupSpawns();
   }
 
   /**
@@ -281,15 +309,15 @@ public class ForestGameArea extends GameArea {
     if (hasSave) {
       loadSave(player, this.saveState);
     }
-    spawnDeathWall();
+    spawnDeathWall(1);
     spawnPortal(MainGameScreen.Level.ONE);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
     spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+    spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
-    spawnUFO();
 
     // Music
     playMusic(backgroundMusic);
@@ -396,16 +424,40 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * @param levelNumber the current level
+   * @return the serpent moving speed for each level
+   */
+  float serpentLevelSpeed(int levelNumber){
+    float movingSpeed = 0.2f;
+    switch (levelNumber){
+      case 1:
+        movingSpeed = 0.4f;
+        break;
+      case 2:
+        movingSpeed = 0.85f;
+        break;
+      case 3:
+        movingSpeed = 1.1f;
+        break;
+      case 4:
+        movingSpeed = 1.2f;
+        break;
+    }
+    return movingSpeed;
+  }
+
+  /**
    * Spawns the death wall that moves from left to right
    */
-  protected void spawnDeathWall() {
-    // this.endOfMap.getPosition() causes the death wall to slowly traverse downwards, hence the
-    // target's y position is offset 4.5 upwards to remove the bug
+  protected void spawnDeathWall(int levelNumber) {
+    float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
-    spawnEntityAt(deathWall, new GridPoint2(-5, 0), false, false);
+    int startX;
+    startX = levelNumber == 1 ? -5 : -8;
+    spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
   }
 
   /**
@@ -548,6 +600,33 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawns the Alien Barbette(s) at the given position(s).
+   *
+   * @param positions the position(s) to spawn the enemy at.
+   * @param area the game area.
+   * */
+  protected void spawnAlienBarbettes(ArrayList<GridPoint2> positions,
+          GameArea area) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(EnemyFactory.createALienBarbette(player, area),
+              pos, true, true);
+    }
+  }
+
+  /**
+   * Spawns the Alien Laser Hole(s) as the given position(s).
+   *
+   * @param positions the position(s) to spawn the enemy at.
+   * @param area the game area.
+   * */
+  protected void spawnAlienLaserHoles(ArrayList<GridPoint2> positions,
+          GameArea area) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(EnemyFactory.createAlienLaserHole(player, area),
+              pos, true, true);
+    }
+  }
   public boolean isDead() {
     return hasDied;
   }
@@ -722,7 +801,7 @@ public class ForestGameArea extends GameArea {
     }
 
 //    logger.info(String.valueOf(playerX));
-    if (playerX > lower && playerX <= 35) {
+    if (playerX > lower && playerX <= 90) {
       camera.getCamera().translate(playerX - camera.getCamera().position.x + 5, 0,0);
       camera.getCamera().update();
     }
@@ -744,8 +823,7 @@ public class ForestGameArea extends GameArea {
    * @param duration the total time when the camera is moving
    * @param camera the CameraComponent of the map
    */
-  public void introCam(Vector2 startPos, float distance, float duration,
-          CameraComponent camera) {
+  public void introCam(Vector2 startPos, float distance, float duration, CameraComponent camera) {
     long DEATH_WALL_SHOW_DUR = 3500;
     float REFRESH_RATE = 60;
     player.setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= DEATH_WALL_SHOW_DUR + duration * 1000);
@@ -755,6 +833,32 @@ public class ForestGameArea extends GameArea {
             && gameTime.getTimeSince(CAM_START_TIME) > DEATH_WALL_SHOW_DUR) {
       camera.getCamera().translate((distance/duration)/ REFRESH_RATE, 0,0);
       camera.getCamera().update();
+    }
+  }
+
+  /**
+   * Check if the game is pause, and stop the animation playing
+   * @param state The game state
+   */
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
+    if (state != GdxGame.GameState.RUNNING) {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
+        }
+      }
+    } else {
+      for (Entity entity : areaEntities) {
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
+        }
+        if (entity.getComponent(PlayerAnimationController.class) != null) {
+          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
+        }
+      }
     }
   }
 
