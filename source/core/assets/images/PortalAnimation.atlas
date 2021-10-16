@@ -1,0 +1,48 @@
+
+PortalAnimation.png
+size: 1514, 524
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Portal
+  rotate: false
+  xy: 2, 4
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 1
+Portal
+  rotate: false
+  xy: 304, 4
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 2
+Portal
+  rotate: false
+  xy: 606, 4
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 3
+Portal
+  rotate: false
+  xy: 908, 4
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 4
+Portal
+  rotate: false
+  xy: 1210, 4
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 5
+default
+  rotate: false
+  xy: 1514, 0
+  size: 300, 518
+  orig: 300, 518
+  offset: 0, 0
+  index: 0
