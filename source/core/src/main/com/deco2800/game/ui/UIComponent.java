@@ -16,8 +16,6 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected Stage stage;
-  public static final String MUSIC_FILE_PATH = "sounds/background.mp3";
-  public static Music menuSong = ServiceLocator.getResourceService().getAsset("sounds/background.mp3", Music.class);
   @Override
   public void create() {
     super.create();
