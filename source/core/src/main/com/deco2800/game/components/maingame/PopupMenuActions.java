@@ -30,6 +30,8 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea areaTwo = null;
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
+
+    /*Player savae file*/
     private SaveData saveData;
 
     /* The current level */
@@ -138,6 +140,7 @@ public class PopupMenuActions extends Component {
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
 
+
     }
 
 
@@ -159,7 +162,9 @@ public class PopupMenuActions extends Component {
                 game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
                 break;
         }
-            game.setScreen(GdxGame.ScreenType.LOADING);
+
+        game.setScreen(GdxGame.ScreenType.LOADING);
+        saveData.savePlayerData();
     }
 
     /**

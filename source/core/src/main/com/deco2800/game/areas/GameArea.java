@@ -37,6 +37,7 @@ public abstract class GameArea implements Disposable {
     for (Entity entity : areaEntities) {
       entity.dispose();
     }
+
     if (player != null) {
       player.dispose();
     }
@@ -106,6 +107,7 @@ public abstract class GameArea implements Disposable {
             newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
           case "HEALTH":
             player.getComponent(CombatStatsComponent.class).setFullHeal();
+
           case "SPRINT":
             newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":
