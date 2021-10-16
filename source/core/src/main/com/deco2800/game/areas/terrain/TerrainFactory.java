@@ -192,7 +192,7 @@ public class TerrainFactory {
     TiledMap tiledMap = new TiledMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
+    addSkyTiles(layer, sky, star, "level-floors/TutorialSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/TutorialGround.txt");
 
     tiledMap.getLayers().add(layer);

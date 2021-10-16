@@ -51,9 +51,9 @@ public class TutorialArea extends ForestGameArea {
      * Sets up the spawn locations for the different entities in the area
      * */
     private void setupSpawns() {
-       setupPlatformSpawns();
-//        setupAsteroidSpawns();
-//        setupAsteroidFireSpawns();
+        setupPlatformSpawns();
+        setupAsteroidSpawns();
+        setupAsteroidFireSpawns();
         setupRobotSpawns();
 //        setupAlienMonsterSpawns();
 //        setupCheckPointSpawns();
@@ -76,25 +76,25 @@ public class TutorialArea extends ForestGameArea {
      * Sets up Asteroid spawn locations
      * */
     private void setupAsteroidSpawns() {
-        this.ASTEROID_SPAWNS.add(new GridPoint2(38, 5));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(38, 7));
         this.ASTEROID_SPAWNS.add(new GridPoint2(46, 7));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(55, 8));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(87, 5));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(55, 14));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(87, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(104, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(112, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(132, 10));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(150, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(173, 6));
     }
 
     /**
      * Sets up Asteroid Fire spawn locations
      * */
     private void setupAsteroidFireSpawns() {
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(22,3));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(21,3));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(25,4));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(40,5));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(41,5));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(50,7));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(61,11));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(65,15));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(85,5));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(1,5));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(3,5));
+        //this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(25,4));
+        //this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(40,5));
     }
 
     /**
@@ -133,8 +133,10 @@ public class TutorialArea extends ForestGameArea {
         }
         spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
+        spawnAsteroids(this.ASTEROID_SPAWNS);
+        spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         Entity egg = ObstacleFactory.createDragonEgg();
-        spawnEntityAt(egg, new GridPoint2(20,5), true, true);
+        spawnEntityAt(egg, new GridPoint2(200,5), true, true);
         // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
         playMusic(backgroundMusic);
@@ -145,8 +147,9 @@ public class TutorialArea extends ForestGameArea {
         triggerPoints.put(19, "Press Space Midair to Double Jump");
         triggerPoints.put(23, "Watch Out For Pit Falls");
         triggerPoints.put(35, "Avoid The friendly Aliens");
+        triggerPoints.put(48, "Press Q or R to Roll");
         triggerPoints.put(60, "Press Shift to Sprint");
-        triggerPoints.put(85, "CONGRADULATIONS!!! collect your prize");
+        triggerPoints.put(85, "CONGRATULATIONS!!! collect your prize");
     }
 
     /**
