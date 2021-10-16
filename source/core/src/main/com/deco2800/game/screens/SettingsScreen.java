@@ -27,7 +27,7 @@ public class SettingsScreen extends ScreenAdapter {
 
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
 
-  public SettingsScreen(GdxGame game, ResourceService resourceService) {
+  public SettingsScreen(GdxGame game) {
     this.game = game;
 
     logger.debug("Initialising settings screen services");
@@ -59,6 +59,7 @@ public class SettingsScreen extends ScreenAdapter {
   @Override
   public void dispose() {
     renderer.dispose();
+    unloadAssets();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.clear();
