@@ -123,7 +123,9 @@ public class ForestGameArea extends GameArea {
           "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",
-          "images/roll3.png"
+          "images/roll3.png",
+          "images/portal.png",
+          "images/Spaceship.png"
 
   };
 
@@ -146,6 +148,9 @@ public class ForestGameArea extends GameArea {
 
   /* End of this map */
   private Entity endOfMap;
+
+  /* The end portal/spaceship of this map */
+  private Entity endPortal;
 
   private int checkpoint;
 
@@ -287,6 +292,13 @@ public class ForestGameArea extends GameArea {
     return endOfMap;
   }
 
+  /**
+   * Returns the end of the current map.
+   * */
+  public Entity getEndPortal() {
+    return endPortal;
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -298,6 +310,7 @@ public class ForestGameArea extends GameArea {
       loadSave(player, this.saveState);
     }
     spawnDeathWall(1);
+    spawnPortal(MainGameScreen.Level.ONE);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
     spawnRobots(this.ROBOT_SPAWNS);
@@ -306,6 +319,7 @@ public class ForestGameArea extends GameArea {
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
+    // Music
     playMusic(backgroundMusic);
   }
 
@@ -547,6 +561,32 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the portals to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnPortal(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
+    this.endPortal = ObstacleFactory.createPortal();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
+   * Spawns the spaceship to finish the game
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnSpaceship(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
+    this.endPortal = ObstacleFactory.createSpaceship();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the Alien Boss(es) for the level.
    *
    * @param positions the position(s) to spawn the Alien Boss(es) at.
@@ -587,7 +627,6 @@ public class ForestGameArea extends GameArea {
               pos, true, true);
     }
   }
-
   public boolean isDead() {
     return hasDied;
   }
@@ -673,7 +712,6 @@ public class ForestGameArea extends GameArea {
               pos, true, false);
     }
   }
-
 
   /**
    * Spawns buffs or debuffs onto the current map in a random position. Buffs
