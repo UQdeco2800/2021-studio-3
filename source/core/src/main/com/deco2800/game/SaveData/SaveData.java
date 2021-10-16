@@ -85,9 +85,9 @@ public class SaveData {
                     fileWriter.write("\nSPRINT:");
                     fileWriter.write(String.valueOf(player.getComponent(SprintComponent.class).getSprint()));
                     fileWriter.write("\nX:");
-                    fileWriter.write(String.valueOf((int) Math.floor(player.getPosition().x)));
+                    fileWriter.write(String.valueOf((int) Math.floor(player.getCenterPosition().x*2)));
                     fileWriter.write("\nY:");
-                    fileWriter.write(String.valueOf((int) Math.floor(player.getPosition().y)));
+                    fileWriter.write(String.valueOf((int) Math.floor(player.getCenterPosition().y*2)));
                     fileWriter.close();
                     logger.info("Successfully saved player data");
                 } catch (IOException e) {
