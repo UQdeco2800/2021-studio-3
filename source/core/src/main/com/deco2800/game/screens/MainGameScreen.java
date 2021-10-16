@@ -7,6 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.*;
+import com.deco2800.game.SaveData.SaveData;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -84,6 +88,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager();
+  public SaveData saveData;
 
   private ForestGameArea currentMap;
   private final TerrainFactory terrainFactory;
@@ -176,6 +181,7 @@ public class MainGameScreen extends ScreenAdapter {
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
 
     setAreaAndUI(selectGameArea(terrainFactory, 0, hasDied, level));
+
   }
 
   /**
@@ -250,6 +256,8 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = area;
     createUI();
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
+    saveData = new SaveData(game, area.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -287,6 +295,9 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     //forestGameArea.spawnBuffDebuff(this.buffManager);
+
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   @Override

@@ -26,6 +26,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
+  ResourceService resourceService;
 
   private static final String[] LoadingTextures = {"images/0percent.png",
           "images/10percent.png", "images/20percent.png", "images/30percent.png",
@@ -43,7 +44,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.registerRenderService(new RenderService());
 
     renderer = RenderFactory.createRenderer();
-
+    this.resourceService = ServiceLocator.getResourceService();
     loadAssets();
     createUI();
   }

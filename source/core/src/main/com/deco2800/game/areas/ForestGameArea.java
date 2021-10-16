@@ -684,6 +684,7 @@ public class ForestGameArea extends GameArea {
     return false;
   }
 
+
   /**
    * Spawns the player on the current terrain
    *
@@ -702,6 +703,7 @@ public class ForestGameArea extends GameArea {
       newPlayer = PlayerFactory.createPlayer();
     }
     float tileSize = terrain.getTileSize();
+
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
