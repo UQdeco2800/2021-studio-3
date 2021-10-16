@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -82,7 +83,8 @@ public class LevelTwoScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
-    public static AssetManager manager =  new  AssetManager ();
+    public static AssetManager manager =  new  AssetManager();
+    public SaveData saveData;
 
     //public static boolean isLevelChange = false;
     //private int currentLevel = 1;
@@ -131,6 +133,8 @@ public class LevelTwoScreen extends ScreenAdapter {
         this.currentMap = level2Area;
         createUI();
         //level2Area.spawnBuffDebuff(this.buffManager);
+        saveData = new SaveData(game, level2Area.getPlayer());
+        saveData.savePlayerData();
     }
 
     /**
@@ -168,6 +172,9 @@ public class LevelTwoScreen extends ScreenAdapter {
         load();
         this.currentMap = level2Area;
         createUI();
+
+        saveData = new SaveData(game, level2Area.getPlayer());
+        saveData.savePlayerData();
         //level2Area.spawnBuffDebuff(this.buffManager);
     }
 
@@ -221,6 +228,8 @@ public class LevelTwoScreen extends ScreenAdapter {
         this.currentMap = level2Area;
         createUI();
         //forestGameArea.spawnBuffDebuff(this.buffManager);
+        saveData = new SaveData(game, level2Area.getPlayer());
+        saveData.savePlayerData();
     }
 
     /**
@@ -255,8 +264,12 @@ public class LevelTwoScreen extends ScreenAdapter {
         LevelTwoArea level2Area = new LevelTwoArea(terrainFactory, 1, hasDied);
         level2Area.create();
 
+
         this.currentMap = level2Area;
         createUI();
+
+        saveData = new SaveData(game, level2Area.getPlayer());
+        saveData.savePlayerData();
     }
 
     public LevelTwoScreen(GdxGame game, boolean hasDied, ResourceService resourceService) {
@@ -290,6 +303,9 @@ public class LevelTwoScreen extends ScreenAdapter {
 
         this.currentMap = levelTwoArea;
         createUI();
+
+        saveData = new SaveData(game, levelTwoArea.getPlayer());
+        saveData.savePlayerData();
     }
 
     @Override
