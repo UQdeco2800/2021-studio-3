@@ -62,14 +62,22 @@ public class ObstacleFactory {
    * @return entity
    */
   public static Entity createPortal() {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/PortalAnimation.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Portal", 0.2f, Animation.PlayMode.LOOP);
+    // Starts the idle animation
+    animator.startAnimation("Portal");
     Entity portal =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/portal.png"))
+                    //.addComponent(new TextureRenderComponent("images/portal.png"))
+                    .addComponent(animator)
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    //portal.getComponent(TextureRenderComponent.class).scaleEntity();
     portal.scaleHeight(2.5f);
     PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
     return portal;
