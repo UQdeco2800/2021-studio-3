@@ -459,16 +459,16 @@ public class ForestGameArea extends GameArea {
     float movingSpeed = 0.2f;
     switch (levelNumber){
       case 1:
-        movingSpeed = 0.4f;
+        movingSpeed = 4f;
         break;
       case 2:
-        movingSpeed = 0.85f;
+        movingSpeed = 0.65f;
         break;
       case 3:
-        movingSpeed = 1.1f;
+        movingSpeed = 0.75f;
         break;
       case 4:
-        movingSpeed = 1.2f;
+        movingSpeed = 0.85f;
         break;
     }
     return movingSpeed;
