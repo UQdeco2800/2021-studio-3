@@ -28,7 +28,7 @@ public class LevelFourArea extends ForestGameArea {
     private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
 
     // Placeholder music
-    private static final String backgroundMusic = "sounds/level3.mp3";
+    private static final String backgroundMusic = "sounds/level4_background_music_1.mp3";
 
     public LevelFourArea(TerrainFactory terrainFactory, int checkpoint,
             boolean hasDied) {
@@ -98,6 +98,7 @@ public class LevelFourArea extends ForestGameArea {
         spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelOneFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
         spawnDeathWall(4);
+        spawnSpaceship(MainGameScreen.Level.FOUR);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);

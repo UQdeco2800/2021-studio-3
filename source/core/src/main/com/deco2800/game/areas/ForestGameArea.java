@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -124,7 +121,9 @@ public class ForestGameArea extends GameArea {
           "images/main_screens-02.png",
           "images/roll.png",
           "images/roll2.png",
-          "images/roll3.png"
+          "images/roll3.png",
+          "images/portal.png",
+          "images/Spaceship.png"
 
   };
 
@@ -147,6 +146,9 @@ public class ForestGameArea extends GameArea {
 
   /* End of this map */
   private Entity endOfMap;
+
+  /* The end portal/spaceship of this map */
+  private Entity endPortal;
 
   private int checkpoint;
 
@@ -288,6 +290,13 @@ public class ForestGameArea extends GameArea {
     return endOfMap;
   }
 
+  /**
+   * Returns the end of the current map.
+   * */
+  public Entity getEndPortal() {
+    return endPortal;
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -299,14 +308,17 @@ public class ForestGameArea extends GameArea {
       loadSave(player, this.saveState);
     }
     spawnDeathWall(1);
+    spawnPortal(MainGameScreen.Level.ONE);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
     //spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
+    spawnMovingPlatform(this);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
+    // Music
     playMusic(backgroundMusic);
   }
 
@@ -450,16 +462,16 @@ public class ForestGameArea extends GameArea {
     float movingSpeed = 0.2f;
     switch (levelNumber) {
       case 1:
-        movingSpeed = 0.4f;
+        movingSpeed = 4f;
         break;
       case 2:
-        movingSpeed = 0.85f;
+        movingSpeed = 0.65f;
         break;
       case 3:
-        movingSpeed = 1.1f;
+        movingSpeed = 0.75f;
         break;
       case 4:
-        movingSpeed = 1.2f;
+        movingSpeed = 0.85f;
         break;
     }
     return movingSpeed;
@@ -580,6 +592,32 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the portals to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnPortal(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
+    this.endPortal = ObstacleFactory.createPortal();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
+   * Spawns the spaceship to finish the game
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnSpaceship(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
+    this.endPortal = ObstacleFactory.createSpaceship();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the Alien Boss(es) for the level.
    *
    * @param positions the position(s) to spawn the Alien Boss(es) at.
@@ -621,6 +659,18 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnMovingPlatform(GameArea area) {
+      GridPoint2 pos = new GridPoint2(40,13);
+      spawnEntityAt(ObstacleFactory.createMovingPlatform(),
+              pos, true, true);
+
+  }
+
   public boolean isDead() {
     return hasDied;
   }
@@ -647,6 +697,7 @@ public class ForestGameArea extends GameArea {
     return false;
   }
 
+
   /**
    * Spawns the player on the current terrain
    *
@@ -665,6 +716,7 @@ public class ForestGameArea extends GameArea {
       newPlayer = PlayerFactory.createPlayer();
     }
     float tileSize = terrain.getTileSize();
+
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
@@ -706,7 +758,6 @@ public class ForestGameArea extends GameArea {
               pos, true, false);
     }
   }
-
 
   /**
    * Spawns buffs or debuffs onto the current map in a random position. Buffs
@@ -835,24 +886,18 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
-    if (state != GdxGame.GameState.RUNNING) {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
-        }
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration) {
+    boolean status = state == GdxGame.GameState.RUNNING;
+
+    for (Entity entity : areaEntities) {
+      if (entity.getComponent(AnimationRenderComponent.class) != null) {
+        entity.getComponent(AnimationRenderComponent.class).setEnabled(status);
       }
-    } else {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
-        }
+      if (entity.getComponent(PlayerAnimationController.class) != null) {
+        entity.getComponent(PlayerAnimationController.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+      }
+      if (entity.getComponent(SprintComponent.class) != null) {
+        entity.getComponent(SprintComponent.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
       }
     }
   }

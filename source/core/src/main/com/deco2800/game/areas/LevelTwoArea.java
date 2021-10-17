@@ -121,6 +121,7 @@ public class LevelTwoArea extends ForestGameArea {
         if (this.hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
+        spawnPortal(MainGameScreen.Level.TWO);
         spawnDeathWall(2);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
