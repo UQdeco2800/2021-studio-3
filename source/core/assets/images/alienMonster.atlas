@@ -1,0 +1,47 @@
+alien_monster_animation.png
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+float
+  rotate: false
+  xy: 2, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 2
+float
+  rotate: false
+  xy: 324, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 4
+float
+  rotate: false
+  xy: 646, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 1
+float
+  rotate: false
+  xy: 968, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 6
+float
+  rotate: false
+  xy: 1290, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 3
+float
+  rotate: false
+  xy: 1612, 2
+  size: 320, 180
+  orig: 320, 180
+  offset: 0, 0
+  index: 5

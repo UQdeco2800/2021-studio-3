@@ -55,8 +55,8 @@ public class MainMenuDisplay extends UIComponent {
 
     background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
 
-    TextButton startBtn = new TextButton("START", skin);
-    TextButton loadBtn = new TextButton("LOAD", skin);
+    TextButton startBtn = new TextButton("CONTINUE", skin);
+    TextButton loadBtn = new TextButton("NEW GAME", skin);
     TextButton settingsBtn = new TextButton("SETTINGS", skin);
     TextButton exitBtn = new TextButton("EXIT", skin);
 
@@ -71,7 +71,7 @@ public class MainMenuDisplay extends UIComponent {
             ui.getComponent(LoadingDisplay.class).create();*/
               Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
               buttonClickSound.play();
-            entity.getEvents().trigger("start");
+            entity.getEvents().trigger("loadData");
           }
         });
 
@@ -82,7 +82,7 @@ public class MainMenuDisplay extends UIComponent {
             logger.debug("Load button clicked");
               Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
               buttonClickSound.play();
-            entity.getEvents().trigger("load");
+            entity.getEvents().trigger("start");
           }
         });
 

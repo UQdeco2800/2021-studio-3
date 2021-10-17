@@ -29,7 +29,7 @@ import java.util.ArrayList;
 /** Factory for creating game terrains. */
 public class TerrainFactory {
   private static final Logger logger = LoggerFactory.getLogger(TerrainFactory.class);
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(100, 30);
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(210, 30);
 
   private final OrthographicCamera camera;
   private final TerrainOrientation orientation;
@@ -91,7 +91,16 @@ public class TerrainFactory {
                 new TextureRegion(resourceService.getAsset("images/background_europa_star.png", Texture.class));
         return createLevelThreeTerrain(0.5f, europa_surface, europa_underground, europa_sky, europa_star);
       case LEVEL_FOUR_TERRAIN:
-        return createTerrain(TerrainType.LEVEL_THREE_TERRAIN); // Placeholder
+        // Placeholder : uses Level 1 Terrain and Layout.
+        TextureRegion surfaceFour =
+                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+        TextureRegion undergroundFour =
+                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+        TextureRegion skyFour =
+                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion starFour =
+                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        return createLevelFourTerrain(0.5f, surfaceFour, undergroundFour, skyFour, starFour);
       default:
         return null;
     }
@@ -116,6 +125,24 @@ public class TerrainFactory {
   private TerrainComponent createLevelThreeTerrain(float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
     TiledMap tiledMap = createLevelThreeTiles(tilePixelSize, surface, underground, sky, star);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
+
+  /**
+   * Creates the terrain for the Level Four Area.
+   *
+   * @param tileWorldSize the size of the tiles within the world
+   * @param surface the texture for the Surface of the map
+   * @param underground the texture for the Underground of the map
+   * @param sky the texture for the Sky of the map
+   * @param star the texture for the Stars in the Sky of the map.
+   *
+   * @return a new terrain with these textures and orientation.
+   * */
+  private TerrainComponent createLevelFourTerrain(float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
+    TiledMap tiledMap = createLevelFourTiles(tilePixelSize, surface, underground, sky, star);
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -170,27 +197,9 @@ public class TerrainFactory {
     addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
 
     // parses the level files
-    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
-      int x = 0, y = 0, width = 0, distance = 0, i = 0;
-      while (line != null) {
-        String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
-        distance = (width * 2) + x;
-        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
-        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
-        line = br.readLine();
-        i++;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }*/
+
     addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelOneFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -219,9 +228,32 @@ public class TerrainFactory {
       distanceX = (int) (( width * 2) + x);
       distanceY = (int) (( height * 2) + y);
       // Fills underground tiles, leaves one layer on top for surface tiles
-      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
       // Fills surface tiles
       fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
+    }
+  }
+
+  private void addFloatTiles(TiledMapTileLayer layer, TextureRegion underground,
+                           TextureRegion surface, String filename) {
+    TerrainTile undergroundTile = new TerrainTile(underground);
+    TerrainTile surfaceTile = new TerrainTile(surface);
+    ArrayList<String> terrainLayout = readFile(filename);
+
+    float width, height;
+    int x, y, distanceX, distanceY;
+    for (String s : terrainLayout) {
+      String[] values = s.split(" ");
+      width = Float.parseFloat(values[0]);
+      height = Float.parseFloat(values[1]);
+      x = Integer.parseInt(values[2]);
+      y = Integer.parseInt(values[3]);
+      distanceX = (int) (( width * 2) + x);
+      distanceY = (int) (( height * 2) + y);
+
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, distanceY), new GridPoint2(distanceX, distanceY + 1), surfaceTile);
+
     }
   }
 
@@ -384,6 +416,31 @@ public class TerrainFactory {
     return tiledMap;
   }
 
+  /**
+   * Spawns in the tiles for the Level Four game area.
+   *
+   * @param tileSize the size of the tiles
+   * @param surface the texture for the Surface of the map
+   * @param underground the texture for the Underground of the map
+   * @param sky the texture for the Sky of the map
+   * @param star the texture for the Stars in the sky on the map.
+   *
+   * @return the new tiled area.
+   * */
+  private TiledMap createLevelFourTiles(GridPoint2 tileSize,
+          TextureRegion surface, TextureRegion underground, TextureRegion sky,
+          TextureRegion star) {
+
+    TiledMap tiledMap = new TiledMap();
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+
+    // Create the terrain and sky
+    addSkyTiles(layer, sky, star, "level-floors/levelFourSky.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelFourGround.txt");
+    tiledMap.getLayers().add(layer);
+    return tiledMap;
+  }
+
   private static void fillTilesAtRandom(
       TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
     GridPoint2 min = new GridPoint2(0, 0);
@@ -434,7 +491,7 @@ public class TerrainFactory {
     } else if (screenType == MainGameScreen.Level.THREE) {
       filename = "level-floors/levelThreeGround.txt";
     } else if (screenType == MainGameScreen.Level.FOUR) {
-      filename = "level-floors/levelThreeGround.txt"; // Placeholder
+      filename = "level-floors/levelFourGround.txt";
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();

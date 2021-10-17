@@ -1,5 +1,7 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.AITaskComponent;
@@ -11,6 +13,7 @@ import com.deco2800.game.components.enemy.AlienBarbetteAttackListener;
 import com.deco2800.game.components.enemy.AlienLaserAttackListener;
 import com.deco2800.game.components.enemy.AlienSoldierAttackListener;
 import com.deco2800.game.components.obstacle.AttackListener;
+import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
@@ -22,7 +25,9 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Factory to create enemy entities that could have different methods to attack the player.
@@ -46,8 +51,14 @@ public class EnemyFactory {
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 2, 10, 6f));
 
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienMonster.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+
         Entity alienMonster = new Entity()
-                .addComponent(new TextureRenderComponent("images/alien_monster.png"))
+                //.addComponent(new TextureRenderComponent("images/alien_monster.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent())
@@ -57,6 +68,9 @@ public class EnemyFactory {
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                 .addComponent(aiComponent)
                 .addComponent(new AttackListener(target, gameArea));
+
+        alienMonster.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienMonster, 1f,1f);
         alienMonster.scaleHeight(2f);
@@ -113,11 +127,18 @@ public class EnemyFactory {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 3, 10, 6f));
+                        .addTask(new AttackTask(target, 3, 10, 6f))
+                        .addTask(new WanderTask(new Vector2(0f, 0f), 0f));
+
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienSoldier.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
 
         Entity alienSoldier =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_solider.png"))
+                        //.addComponent(new TextureRenderComponent("images/alien_solider.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -127,6 +148,9 @@ public class EnemyFactory {
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
                 .addComponent(new AlienSoldierAttackListener(target, gameArea));
+
+        alienSoldier.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienSoldier, 1f,1f);
         alienSoldier.scaleHeight(1.5f);
@@ -264,9 +288,15 @@ public class EnemyFactory {
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                         .addTask(new AttackTask(target, 1, 10, 6f));
 
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienBoss.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+
         Entity alienBoss =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_boss.png"))
+                        //.addComponent(new TextureRenderComponent("images/alien_boss.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -276,6 +306,9 @@ public class EnemyFactory {
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
                         .addComponent(new AlienBossAttackListener(target, gameArea));
+
+        alienBoss.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienBoss, 1f,1f);
         alienBoss.scaleHeight(1.5f);

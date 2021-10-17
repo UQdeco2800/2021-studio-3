@@ -7,6 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.*;
+import com.deco2800.game.SaveData.SaveData;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
@@ -85,6 +89,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager();
+  public SaveData saveData;
 
   private ForestGameArea currentMap;
   private final TerrainFactory terrainFactory;
@@ -177,6 +182,7 @@ public class MainGameScreen extends ScreenAdapter {
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
 
     setAreaAndUI(selectGameArea(terrainFactory, 0, hasDied, level));
+
   }
 
   /**
@@ -234,8 +240,8 @@ public class MainGameScreen extends ScreenAdapter {
         return new LevelTwoArea(factory, checkpoint, hasDied);
       case THREE:
         return new LevelThreeArea(factory, checkpoint, hasDied);
-      //case FOUR:
-      //  return new LevelFourArea(factory, checkpoint, hasDied);
+      case FOUR:
+        return new LevelFourArea(factory, checkpoint, hasDied);
     }
     return null; // Unreachable
   }
@@ -251,6 +257,8 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = area;
     createUI();
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
+    saveData = new SaveData(game, area.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -288,17 +296,21 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     //forestGameArea.spawnBuffDebuff(this.buffManager);
+
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   @Override
   public void render(float delta) {
-    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f,
-            renderer.getCamera());
-    this.currentMap.resetCam(renderer.getCamera());
     if (game.getState() == GdxGame.GameState.RUNNING) {
+      this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
+      this.currentMap.resetCam(renderer.getCamera());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
+    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
+
     renderer.render();
   }
 

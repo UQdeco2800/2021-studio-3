@@ -5,11 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.components.*;
-import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.BuffFactory;
 import com.deco2800.game.services.ServiceLocator;
-import com.deco2800.game.utils.math.RandomUtils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,7 +14,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Represents an area in the game, such as a level, indoor area, etc. An area has a terrain and
@@ -41,9 +37,18 @@ public abstract class GameArea implements Disposable {
     for (Entity entity : areaEntities) {
       entity.dispose();
     }
+
     if (player != null) {
       player.dispose();
     }
+  }
+
+  /**
+   * Get all the entities of game area
+   * @return All the entities of the game area
+   */
+  public List<Entity> getAllEntities() {
+    return areaEntities;
   }
 
   /**
@@ -101,7 +106,8 @@ public abstract class GameArea implements Disposable {
           case "LIVES":
             newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
           case "HEALTH":
-            newPLayer.getComponent(CombatStatsComponent.class).setHealth(Integer.parseInt(values[1]));
+            player.getComponent(CombatStatsComponent.class).setFullHeal();
+
           case "SPRINT":
             newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":
@@ -111,8 +117,6 @@ public abstract class GameArea implements Disposable {
         }
         line = br.readLine();
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
