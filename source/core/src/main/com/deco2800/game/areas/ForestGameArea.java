@@ -873,7 +873,7 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration) {
     if (state != GdxGame.GameState.RUNNING) {
       for (Entity entity : areaEntities) {
         if (entity.getComponent(AnimationRenderComponent.class) != null) {
@@ -889,7 +889,7 @@ public class ForestGameArea extends GameArea {
           entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
         }
         if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
+          entity.getComponent(PlayerAnimationController.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
         }
       }
     }
