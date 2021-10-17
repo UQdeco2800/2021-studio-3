@@ -137,6 +137,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this, 1, false, resourceService, MainGameScreen.Level.ONE);
       case INTRO:
         return new IntroScreen(this, resourceService);
+      case LOAD:
+        return new LoadScreen(this, resourceService);
         default:
         return null;
     }
@@ -198,7 +200,8 @@ public class GdxGame extends Game {
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME, LEVEL_FOUR_GAME,
-    LOADING, INTRO, SAVE_STATE
+    LOADING, INTRO, SAVE_STATE, LOAD
+
   }
 
   public enum GameState {

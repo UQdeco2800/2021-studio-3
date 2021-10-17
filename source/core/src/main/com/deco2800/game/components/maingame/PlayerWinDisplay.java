@@ -24,7 +24,7 @@ public class PlayerWinDisplay extends UIComponent {
     private int progress;
     private int steps;
     private int health;
-
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
     public PlayerWinDisplay(PopupUIHandler handler, Entity player) {
         this.handler = handler;
         this.score = player.getComponent(ScoreComponent.class).getScore();

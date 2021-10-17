@@ -2,6 +2,7 @@ package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -34,6 +35,7 @@ public class MainMenuDisplay extends UIComponent {
   SpriteBatch batch;
   Sprite sprite;
   private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
+  private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
 
   @Override
   public void create() {
@@ -53,8 +55,8 @@ public class MainMenuDisplay extends UIComponent {
 
     background = new Texture(Gdx.files.internal("images/main_screens-02.png"));
 
-    TextButton startBtn = new TextButton("START", skin);
-    TextButton loadBtn = new TextButton("LOAD", skin);
+    TextButton startBtn = new TextButton("CONTINUE", skin);
+    TextButton loadBtn = new TextButton("NEW GAME", skin);
     TextButton settingsBtn = new TextButton("SETTINGS", skin);
     TextButton exitBtn = new TextButton("EXIT", skin);
 
@@ -67,7 +69,9 @@ public class MainMenuDisplay extends UIComponent {
             Entity ui = new Entity();
             /*ui.addComponent(new LoadingDisplay());
             ui.getComponent(LoadingDisplay.class).create();*/
-            entity.getEvents().trigger("start");
+              Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+              buttonClickSound.play();
+            entity.getEvents().trigger("loadData");
           }
         });
 
@@ -76,7 +80,9 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Load button clicked");
-            entity.getEvents().trigger("load");
+              Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+              buttonClickSound.play();
+            entity.getEvents().trigger("start");
           }
         });
 
@@ -85,6 +91,8 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Settings button clicked");
+            Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+            buttonClickSound.play();
             entity.getEvents().trigger("settings");
           }
         });
@@ -95,6 +103,8 @@ public class MainMenuDisplay extends UIComponent {
           public void changed(ChangeEvent changeEvent, Actor actor) {
 
             logger.debug("Exit button clicked");
+              Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+              buttonClickSound.play();
             entity.getEvents().trigger("exit");
           }
         });
