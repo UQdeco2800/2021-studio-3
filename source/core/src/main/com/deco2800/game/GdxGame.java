@@ -119,6 +119,8 @@ public class GdxGame extends Game {
         } else {
           return new LevelThreeScreen(this, resourceService, MainGameScreen.Level.THREE);
         }
+      case LEVEL_FOUR_GAME:
+        return new LevelFourScreen(this, resourceService, MainGameScreen.Level.FOUR);
       case RESPAWN1:
         return new MainGameScreen(this, true, resourceService, MainGameScreen.Level.ONE);
       case RESPAWN2:

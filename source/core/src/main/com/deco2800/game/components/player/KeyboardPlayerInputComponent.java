@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -51,13 +52,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public Timer sprintTimer = new Timer();
 
   /**
-   * Handles jump-related behaviour every frame.
+   * Handles jump-related behaviour every frame. Ensures the player loses if
+   * they fall off the map.
    *
    * @see DoubleJumpComponent#checkJumpOnUpdate()
    * */
   @Override
   public void update() {
     entity.getComponent(DoubleJumpComponent.class).checkJumpOnUpdate();
+    // The player loses if they fall off the map
+    if (entity.getCenterPosition().y < 0.5) {
+      entity.getComponent(CombatStatsComponent.class).setHealth(0);
+    }
   }
 
   /**

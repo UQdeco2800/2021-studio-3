@@ -56,6 +56,9 @@ public class LevelThreeArea extends ForestGameArea {
         setupAlienBossSpawns();
     }
 
+    /**
+     * Sets up the Platform One spawn locations
+     * */
     private void setupPlatformOneSpawns() {
         this.PLATFORM_ONE_SPAWNS.add(new GridPoint2(7,14));
     }
@@ -129,8 +132,8 @@ public class LevelThreeArea extends ForestGameArea {
         if (hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
-        spawnDeathWall();
-        spawnSpaceship(MainGameScreen.Level.THREE);
+        spawnDeathWall(3);
+        spawnPortal(MainGameScreen.Level.THREE);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);

@@ -2,6 +2,7 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.LevelFourArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
@@ -25,8 +26,9 @@ public class PopupMenuActions extends Component {
 
     /* The current Area */
     private ForestGameArea area = null;
-    private LevelTwoArea area2 = null;
-    private LevelThreeArea area3 = null;
+    private LevelTwoArea areaTwo = null;
+    private LevelThreeArea areaThree = null;
+    private LevelFourArea areaFour = null;
 
     /* The current level */
     private int currentLevel;
@@ -43,15 +45,15 @@ public class PopupMenuActions extends Component {
                 this.currentLevel = 1;
                 break;
             case TWO:
-                this.area2 = (LevelTwoArea) area;
+                this.areaTwo = (LevelTwoArea) area;
                 this.currentLevel = 2;
                 break;
             case THREE:
-                this.area3 = (LevelThreeArea) area;
+                this.areaThree = (LevelThreeArea) area;
                 this.currentLevel = 3;
                 break;
             case FOUR:
-                // Nothing yet
+                this.areaFour = (LevelFourArea) area;
                 this.currentLevel = 4;
                 break;
         }
@@ -73,18 +75,17 @@ public class PopupMenuActions extends Component {
         if (area != null) {
             if (area.getCheckPointStatus() == 1) {
                 game.setScreenType(GdxGame.ScreenType.CHECKPOINT_REPLAY);
-                game.setScreen(GdxGame.ScreenType.LOADING);
             } else {
                 game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-                game.setScreen(GdxGame.ScreenType.LOADING);
             }
-        } else if (area2 != null) {
+        } else if (areaTwo != null) {
             game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
-            game.setScreen(GdxGame.ScreenType.LOADING);
-        } else if (area3 != null) {
+        } else if (areaThree != null) {
             game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
-            game.setScreen(GdxGame.ScreenType.LOADING);
+        } else if (areaFour != null) {
+            game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
         }
+        game.setScreen(GdxGame.ScreenType.LOADING);
     }
 
     /**
@@ -93,37 +94,40 @@ public class PopupMenuActions extends Component {
     public void onReplayLoss() {
         if (area != null) {
             logger.info("Player has lost and is now replaying level 1");
-                if (area.getCheckPointStatus() == 1 ) {
+                if (area.getCheckPointStatus() == 1) {
                     game.setScreenType(GdxGame.ScreenType.CHECKPOINT);
                 } else {
                     game.setScreenType(GdxGame.ScreenType.RESPAWN1);
                 }
-            game.setScreen(GdxGame.ScreenType.LOADING);
-        } else if (area2 != null) {
-            logger.info("Player has lost and is now replaying level2");
-                    game.setScreenType(GdxGame.ScreenType.RESPAWN2);
-                    game.setScreen(GdxGame.ScreenType.LOADING);
 
-        } else if (area3 != null) {
+        } else if (areaTwo != null) {
+            logger.info("Player has lost and is now replaying level2");
+            game.setScreenType(GdxGame.ScreenType.RESPAWN2);
+        } else if (areaThree != null) {
             logger.info("Player has lost and is now replaying level3");
-                    game.setScreenType(GdxGame.ScreenType.RESPAWN3);
-                    game.setScreen(GdxGame.ScreenType.LOADING);
+            game.setScreenType(GdxGame.ScreenType.RESPAWN3);
         }
+
+        game.setScreen(GdxGame.ScreenType.LOADING);
     }
 
     /**
-     * Method actives when user clicks the replay button after dying with no lives left.
+     * Method actives when user clicks the replay button after dying with no
+     * lives left.
      */
     public void onReplayLossFinal() {
         if (area != null) {
             area.getPlayer().getComponent(LivesComponent.class).setLives(3);
            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-        } else if (area2 != null) {
-            area2.getPlayer().getComponent(LivesComponent.class).setLives(3);
+        } else if (areaTwo != null) {
+            areaTwo.getPlayer().getComponent(LivesComponent.class).setLives(3);
           game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
-        } else if (area3 != null) {
-            area3.getPlayer().getComponent(LivesComponent.class).setLives(3);
+        } else if (areaThree != null) {
+            areaThree.getPlayer().getComponent(LivesComponent.class).setLives(3);
             game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+        } else if (areaFour != null) {
+            areaFour.getPlayer().getComponent(LivesComponent.class).setLives(3);
+            game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
         }
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
@@ -146,9 +150,8 @@ public class PopupMenuActions extends Component {
                 game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
                 break;
             case 4:
-                // Nothing right now
-                //game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
-                //break;
+                game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+                break;
         }
             game.setScreen(GdxGame.ScreenType.LOADING);
     }
@@ -157,13 +160,25 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the next level button after winning
      */
     public void onNextLevel() {
-        if (this.currentLevel == 1) {
-            game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
-            game.setScreen(GdxGame.ScreenType.LOADING);
-        } else if (this.currentLevel == 2) {
-            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
-            game.setScreen(GdxGame.ScreenType.LOADING);
+        switch (this.currentLevel) {
+            case 1:
+                game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
+            case 2:
+                game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
+            case 3:
+                game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
+            case 4:
+                // Return to main menu
+                onHome();
+                break;
         }
+
     }
 
     /**

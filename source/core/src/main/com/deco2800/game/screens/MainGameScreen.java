@@ -233,8 +233,8 @@ public class MainGameScreen extends ScreenAdapter {
         return new LevelTwoArea(factory, checkpoint, hasDied);
       case THREE:
         return new LevelThreeArea(factory, checkpoint, hasDied);
-      //case FOUR:
-      //  return new LevelFourArea(factory, checkpoint, hasDied);
+      case FOUR:
+        return new LevelFourArea(factory, checkpoint, hasDied);
     }
     return null; // Unreachable
   }
@@ -291,13 +291,14 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    this.currentMap.introCam(CAMERA_POSITION,7, 2.5f,
-            renderer.getCamera());
-    this.currentMap.resetCam(renderer.getCamera());
     if (game.getState() == GdxGame.GameState.RUNNING) {
+      this.currentMap.introCam(CAMERA_POSITION,7, 2.5f, renderer.getCamera());
+      this.currentMap.resetCam(renderer.getCamera());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
+    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
+
     renderer.render();
   }
 

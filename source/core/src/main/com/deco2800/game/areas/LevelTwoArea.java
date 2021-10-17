@@ -109,14 +109,6 @@ public class LevelTwoArea extends ForestGameArea {
         this.CHECKPOINT_SPAWNS.add(new GridPoint2(20, 10));
     }
 
-    //    private void spawnPortal() {
-//        GridPoint2 tileBounds = terrain.getMapBounds(0);
-//        int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, GdxGame.ScreenType.LEVEL_TWO_GAME);
-//        GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY + 2);
-//        this.endPortal = ObstacleFactory.createPortal();
-//        spawnEntityAt(this.endPortal, pos1, true, true);
-//    }
-
     /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
     @Override
     public void create() {
@@ -129,15 +121,14 @@ public class LevelTwoArea extends ForestGameArea {
         if (this.hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
-        spawnDeathWall();
         spawnPortal(MainGameScreen.Level.TWO);
+        spawnDeathWall(2);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
         spawnAlienMonsters(this.ALIEN_MONSTER_SPAWNS, this);
         spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
         // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints yet
-
         // Music
         playMusic(backgroundMusic);
     }
