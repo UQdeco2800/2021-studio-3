@@ -339,8 +339,8 @@ public class ForestGameArea extends GameArea {
     //spawnAttackObstacle();
     //spawnAlienMonster();
    // spawnAlienSoldier();
-    spawnAlienBarbette();
-    spawnAlienLaserHole();
+    //spawnAlienBarbette();
+    //spawnAlienLaserHole();
 
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
 
