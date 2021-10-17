@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.BulletHitPlayer;
@@ -447,6 +448,7 @@ public class EnemyFactory {
         alienBarbette.addComponent(animator)
                 .addComponent(new ObstacleAnimationController());
 
+        alienBarbette.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         PhysicsUtils.setScaledCollider(alienBarbette, 1f,1f);
         alienBarbette.scaleHeight(1.2f);
         alienBarbette.scaleWidth(1.5f);
@@ -479,6 +481,7 @@ public class EnemyFactory {
 
         alienBarbetteWeapon1.setPosition(x1 - alienBarbetteWeapon1.getScale().x / 2 + from.getScale().x / 2,
                 y1 - alienBarbetteWeapon1.getScale().y / 2 + from.getScale().y / 2);
+
 
         alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setTarget(target1);
         alienBarbetteWeapon1.getComponent(PhysicsMovementComponent.class).setMoving(true);
