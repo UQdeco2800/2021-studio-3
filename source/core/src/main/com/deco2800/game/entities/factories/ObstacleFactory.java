@@ -169,6 +169,7 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     robot.scaleHeight(1f);
+
     return robot;
   }
 

@@ -301,7 +301,7 @@ public class ForestGameArea extends GameArea {
     spawnDeathWall(1);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-    spawnRobots(this.ROBOT_SPAWNS);
+    //spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
@@ -342,8 +342,10 @@ public class ForestGameArea extends GameArea {
    * @param levelFile the file to read the level from.
    * */
   protected void spawnTerrain(TerrainType type, String levelFile, String floatFile) {
+
     // Background terrain
     terrain = terrainFactory.createTerrain(type);
+    logger.info("Tile size {}", terrain.getTileSize());
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
@@ -446,7 +448,7 @@ public class ForestGameArea extends GameArea {
    */
   float serpentLevelSpeed(int levelNumber){
     float movingSpeed = 0.2f;
-    switch (levelNumber){
+    switch (levelNumber) {
       case 1:
         movingSpeed = 0.4f;
         break;
