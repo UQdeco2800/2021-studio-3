@@ -183,8 +183,8 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the next level button after winning
      */
     public void onNextLevel() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
+//        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+//        buttonClickSound.play();
         switch (this.currentLevel) {
             case 1:
                 game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
