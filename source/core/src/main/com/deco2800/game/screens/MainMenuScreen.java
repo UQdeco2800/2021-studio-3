@@ -28,6 +28,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
   private static final String[] mainMenuClickSounds = {"sounds/click.mp3"};
   ResourceService resourceService;
+
   private static final String[] LoadingTextures = {"images/0percent.png",
           "images/10percent.png", "images/20percent.png", "images/30percent.png",
           "images/40percent.png", "images/50percent.png", "images/50percent.png",
