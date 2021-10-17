@@ -3,13 +3,10 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -171,11 +171,13 @@ public class AnimationRenderComponent extends RenderComponent {
     if (currentAnimation == null) {
       return;
     }
-    TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
-    Vector2 pos = entity.getPosition();
-    Vector2 scale = entity.getScale();
-    batch.draw(region, pos.x, pos.y, scale.x, scale.y);
-    animationPlayTime += timeSource.getDeltaTime();
+      TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
+      Vector2 pos = entity.getPosition();
+      Vector2 scale = entity.getScale();
+      batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+    if (this.enabled) {
+      animationPlayTime += timeSource.getDeltaTime();
+    }
   }
 
   @Override

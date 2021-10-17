@@ -1,12 +1,15 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelFourArea;
 import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * */
 public class PopupMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(PopupMenuActions.class);
-
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
 
@@ -29,6 +32,9 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea areaTwo = null;
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
+
+    /*Player savae file*/
+    private SaveData saveData;
 
     /* The current level */
     private int currentLevel;
@@ -43,18 +49,22 @@ public class PopupMenuActions extends Component {
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case TWO:
                 this.areaTwo = (LevelTwoArea) area;
                 this.currentLevel = 2;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case THREE:
                 this.areaThree = (LevelThreeArea) area;
                 this.currentLevel = 3;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case FOUR:
                 this.areaFour = (LevelFourArea) area;
                 this.currentLevel = 4;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
         }
     }
@@ -64,6 +74,8 @@ public class PopupMenuActions extends Component {
      * Changes the screen to be the main menu screen
      * */
     public void onHome() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
@@ -72,6 +84,8 @@ public class PopupMenuActions extends Component {
      * Refreshes the main game screen. Old screen is disposed of.
      * */
     public void onReplay() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         if (area != null) {
             if (area.getCheckPointStatus() == 1) {
                 game.setScreenType(GdxGame.ScreenType.CHECKPOINT_REPLAY);
@@ -92,6 +106,8 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         if (area != null) {
             logger.info("Player has lost and is now replaying level 1");
                 if (area.getCheckPointStatus() == 1) {
@@ -116,6 +132,8 @@ public class PopupMenuActions extends Component {
      * lives left.
      */
     public void onReplayLossFinal() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         if (area != null) {
             area.getPlayer().getComponent(LivesComponent.class).setLives(3);
            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
@@ -132,6 +150,7 @@ public class PopupMenuActions extends Component {
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
 
+
     }
 
 
@@ -139,6 +158,8 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after winning
      */
     public void onReplayWin() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         switch (this.currentLevel) {
             case 1:
                 game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
@@ -153,13 +174,17 @@ public class PopupMenuActions extends Component {
                 game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
                 break;
         }
-            game.setScreen(GdxGame.ScreenType.LOADING);
+
+        game.setScreen(GdxGame.ScreenType.LOADING);
+        saveData.savePlayerData();
     }
 
     /**
      * Method actives when user clicks the next level button after winning
      */
     public void onNextLevel() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         switch (this.currentLevel) {
             case 1:
                 game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
@@ -178,7 +203,8 @@ public class PopupMenuActions extends Component {
                 onHome();
                 break;
         }
-
+        //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        saveData.savePlayerData();
     }
 
     /**
