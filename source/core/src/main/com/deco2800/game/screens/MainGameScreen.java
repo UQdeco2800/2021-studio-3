@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.*;
 import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.LevelFourArea;
+import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.areas.LevelTwoArea;
-import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -30,7 +31,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -308,7 +308,7 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
+    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f);
 
     renderer.render();
   }
