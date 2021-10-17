@@ -1,6 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -8,11 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public class PauseGameActions extends Component {
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
     private static final Logger logger =
             LoggerFactory.getLogger(PauseGameActions.class);
     private GdxGame game;
@@ -41,6 +44,8 @@ public class PauseGameActions extends Component {
      * Removes the pop up menu and resumed the game
      */
     public void onResume() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         logger.info("resuming game");
         if (game.getState() == GdxGame.GameState.PAUSED) {
             game.setState(GdxGame.GameState.RUNNING);

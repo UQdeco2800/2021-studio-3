@@ -26,7 +26,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
-
+  private static final String[] mainMenuClickSounds = {"sounds/click.mp3"};
   private static final String[] LoadingTextures = {"images/0percent.png",
           "images/10percent.png", "images/20percent.png", "images/30percent.png",
           "images/40percent.png", "images/50percent.png", "images/50percent.png",
@@ -88,6 +88,7 @@ public class MainMenuScreen extends ScreenAdapter {
     resourceService.loadTextures(mainMenuTextures);
     resourceService.loadMusic(mainMenuMusic);
     resourceService.loadTextures(LoadingTextures);
+    resourceService.loadSounds(mainMenuClickSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
