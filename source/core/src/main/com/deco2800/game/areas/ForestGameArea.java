@@ -304,6 +304,7 @@ public class ForestGameArea extends GameArea {
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
+    spawnMovingPlatform(this);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
     playMusic(backgroundMusic);
@@ -587,6 +588,18 @@ public class ForestGameArea extends GameArea {
               pos, true, true);
     }
   }
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnMovingPlatform(GameArea area) {
+      GridPoint2 pos = new GridPoint2(40,13);
+      spawnEntityAt(ObstacleFactory.createMovingPlatform(),
+              pos, true, true);
+
+  }
+
 
   public boolean isDead() {
     return hasDied;

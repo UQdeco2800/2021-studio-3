@@ -358,11 +358,11 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a platform entity.
+   * Creates a moving platform entity which moves in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createPlatform3() {
+  public static Entity createMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new PlatformTask(3f,1));
