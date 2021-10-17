@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /** Game area for level four */
 public class LevelFourArea extends ForestGameArea {
     private static final Logger logger = LoggerFactory.getLogger(LevelFourArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 12);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(8, 11);
 
     private ArrayList<GridPoint2> PLATFORM_ONE_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> PLATFORM_TWO_SPAWNS = new ArrayList<>();
@@ -26,6 +26,7 @@ public class LevelFourArea extends ForestGameArea {
     private ArrayList<GridPoint2> ROBOT_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> ALIEN_BOSS_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
+    private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
 
     // Placeholder music
     private static final String backgroundMusic = "sounds/level3.mp3";
@@ -36,42 +37,62 @@ public class LevelFourArea extends ForestGameArea {
         setupSpawns();
     }
 
+    /**
+     * Instantiates the spawn locations for all entities on this level.
+     * */
     private void setupSpawns() {
-        setupPlatformSpawns();
-        setupAsteroidSpawns();
         setupAsteroidFireSpawns();
-        setupRobotSpawns();
-        setupCheckpointSpawns();
+        setupUFOSpawns();
     }
 
     /**
-     * Defines the platform spawns for this level.
+     * Defines the UFO spawn locations for this level.
      * */
-    private void setupPlatformSpawns() {
-        this.PLATFORM_ONE_SPAWNS.add(new GridPoint2(7,14));
-        this.PLATFORM_ONE_SPAWNS.add(new GridPoint2(22, 15));
-        this.PLATFORM_ONE_SPAWNS.add(new GridPoint2(70, 18));
-    }
+    private void setupUFOSpawns() {
+        this.UFO_SPAWNS.add(new GridPoint2(15,20));
 
-    /**
-     * Defines the asteroid spawns for this level.
-     * */
-    private void setupAsteroidSpawns() {
-        this.ASTEROID_SPAWNS.add(new GridPoint2(60, 13));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(9, 10));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(45, 10));
+        this.UFO_SPAWNS.add(new GridPoint2(119,20));
+
+        this.UFO_SPAWNS.add(new GridPoint2(154,13));
     }
 
     /**
      * Defines the asteroid fire spawns for this level.
      * */
     private void setupAsteroidFireSpawns() {
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(5,10));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(15,11));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(22,8));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(36,10));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(48,10));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(55,13));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(67,16));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(68,16));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(69,16));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(70,16));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(71,16));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(72,16));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(112,8));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(113,8));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(114,8));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(115,8));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(116,8));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(117,8));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(152,19));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(153,19));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(156,19));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(157,19));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(160,19));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(161,19));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(164,19));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(165,19));
+
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(190,4));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(191,4));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(192,4));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(193,4));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(194,4));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(195,4));
+
     }
 
     /**
@@ -95,17 +116,14 @@ public class LevelFourArea extends ForestGameArea {
         displayUI("Level Four");
 
         // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelOneFloat.txt");
+        spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelFourFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
         spawnDeathWall(4);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-        spawnRobots(this.ROBOT_SPAWNS);
         spawnPlatformsTypeTwo(this.PLATFORM_TWO_SPAWNS);
         spawnPlatformsTypeOne(this.PLATFORM_ONE_SPAWNS);
-        spawnUFO();
-        spawnAlienBosses(this.ALIEN_BOSS_SPAWNS, this);
-        // createCheckpoints(this.CHECKPOINT_SPAWNS, this); // No checkpoints
+        spawnUFOs(this.UFO_SPAWNS);
 
         // Music
         playMusic(backgroundMusic);

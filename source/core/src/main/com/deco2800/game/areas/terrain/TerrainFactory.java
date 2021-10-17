@@ -288,6 +288,7 @@ public class TerrainFactory {
     // parses the level files
     addSkyTiles(layer, sky, star, "level-floors/levelTwoSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelTwoGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelTwoFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -299,6 +300,7 @@ public class TerrainFactory {
     // parses the level files
     addSkyTiles(layer, sky, star, "level-floors/levelThreeSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelThreeGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelThreeFloat.txt");
     tiledMap.getLayers().add(layer);
 
     return tiledMap;
@@ -325,6 +327,7 @@ public class TerrainFactory {
     // Create the terrain and sky
     addSkyTiles(layer, sky, star, "level-floors/levelFourSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelFourGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelFourFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
