@@ -17,6 +17,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 
 
 import com.deco2800.game.components.tasks.MovingTask;
+import com.deco2800.game.components.tasks.PlatformTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -55,6 +56,42 @@ public class ObstacleFactory {
     tree.scaleHeight(2.5f);
     PhysicsUtils.setScaledCollider(tree, 0.5f, 1f);
     return tree;
+  }
+
+  /**
+   * Creates a portal entity.
+   * @return entity
+   */
+  public static Entity createPortal() {
+    Entity portal =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/portal.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    portal.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
+    return portal;
+  }
+
+  /**
+   * Creates a spaceship entity.
+   * @return entity
+   */
+  public static Entity createSpaceship() {
+    Entity portal =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Spaceship.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    portal.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
+    return portal;
   }
 
   /**
@@ -357,18 +394,26 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a platform entity.
+   * Creates a moving platform entity which moves in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createPlatform3() {
+  public static Entity createMovingPlatform() {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new PlatformTask(3f,1));
+
     Entity platform3 =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/platform3.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(aiComponent);
 
-    platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+
+
+    platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform3.getComponent(TextureRenderComponent.class).scaleEntity();
     platform3.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(platform3, 0.5f, 0.3f);
@@ -489,9 +534,10 @@ public class ObstacleFactory {
    * @param target the target that the death wall toward with.
    *               Normally the target should be the right air wall of
    *               the game
+   * @param speed the speed that a death wall should move
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(Vector2 target) {
+  public static Entity createDeathWall(Vector2 target, float speed) {
     DeathWallConfig config = configs.deathWall;
 
     AnimationRenderComponent animator =
@@ -501,10 +547,9 @@ public class ObstacleFactory {
     animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
     animator.startAnimation("Serpent1.1");
 
-
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new MovingTask(target));
+                    .addTask(new MovingTask(target, speed));
 
     return new Entity()
             .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
@@ -514,7 +559,7 @@ public class ObstacleFactory {
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
             .addComponent(new CombatStatsComponent(config.health, 100))
             .addComponent(aiComponent)
-                    .addComponent(animator);
+            .addComponent(animator);
   }
 
   /**

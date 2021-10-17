@@ -116,19 +116,19 @@ public class LevelTwoArea extends ForestGameArea {
         displayUI("Level Two");
 
         // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwoGround.txt");
+        spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwoGround.txt", "level-floors/levelOneFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_TWO_TERRAIN, this.hasSave));
         if (this.hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
-        spawnDeathWall();
+        spawnPortal(MainGameScreen.Level.TWO);
+        spawnDeathWall(2);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
         spawnAlienMonsters(this.ALIEN_MONSTER_SPAWNS, this);
         spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
         // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints yet
-
         // Music
         playMusic(backgroundMusic);
     }

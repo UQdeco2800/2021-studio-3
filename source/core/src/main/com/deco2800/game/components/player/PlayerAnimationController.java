@@ -1,8 +1,11 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class listens to events relevant to a player entity's state and plays the animation when one
@@ -10,6 +13,7 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
  */
 public class PlayerAnimationController extends Component {
   AnimationRenderComponent animator;
+  private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
 
   @Override
   public void create() {

@@ -101,10 +101,15 @@ public class LoadingScreen extends ScreenAdapter {
             "images/lives_icon2.png",
             "images/instence_fall.png",
             "images/double_jump.png",
+
             "images/alien_wasp.png",
             "images/alien_wasp_weapon.png",
             "images/alien_squid.png",
-            "images/alien_squid_weapon.png"
+            "images/alien_squid_weapon.png",
+
+            "images/portal.png",
+            "images/Spaceship.png"
+
 
     };
 
@@ -131,7 +136,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
 
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
+    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds/level4_background_music_1.mp3"};
 
     private static final String[] loadingScreenMusic = {"sounds/loading_background_music_new.mp3"};
 

@@ -1,6 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelFourArea;
 import com.deco2800.game.areas.LevelTwoArea;
@@ -30,6 +31,9 @@ public class PopupMenuActions extends Component {
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
 
+    /*Player savae file*/
+    private SaveData saveData;
+
     /* The current level */
     private int currentLevel;
 
@@ -43,18 +47,22 @@ public class PopupMenuActions extends Component {
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case TWO:
                 this.areaTwo = (LevelTwoArea) area;
                 this.currentLevel = 2;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case THREE:
                 this.areaThree = (LevelThreeArea) area;
                 this.currentLevel = 3;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case FOUR:
                 this.areaFour = (LevelFourArea) area;
                 this.currentLevel = 4;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
         }
     }
@@ -132,6 +140,7 @@ public class PopupMenuActions extends Component {
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
 
+
     }
 
 
@@ -153,7 +162,9 @@ public class PopupMenuActions extends Component {
                 game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
                 break;
         }
-            game.setScreen(GdxGame.ScreenType.LOADING);
+
+        game.setScreen(GdxGame.ScreenType.LOADING);
+        saveData.savePlayerData();
     }
 
     /**
@@ -178,7 +189,8 @@ public class PopupMenuActions extends Component {
                 onHome();
                 break;
         }
-
+        //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        saveData.savePlayerData();
     }
 
     /**

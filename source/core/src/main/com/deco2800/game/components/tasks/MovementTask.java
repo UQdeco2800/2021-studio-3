@@ -89,6 +89,6 @@ public class MovementTask extends DefaultTask {
   }
 
   private boolean didMove() {
-    return owner.getEntity().getPosition().dst2(lastPos) > 0.001f;
+    return owner.getEntity().getPosition().dst2(lastPos) > 0.00001f;
   }
 }
