@@ -137,7 +137,8 @@ public class ForestGameArea extends GameArea {
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
   private static final String backgroundMusic = "sounds/maingame.mp3";
-  private static final String[] forestMusic = {backgroundMusic};
+  private static final String lossMusic = "sounds/loss.mp3";
+  private static final String[] forestMusic = {backgroundMusic,lossMusic};
 
   private final TerrainFactory terrainFactory;
 
@@ -821,7 +822,6 @@ public class ForestGameArea extends GameArea {
     music.setVolume(0.3f);
     music.play();
   }
-
   /**
    * reset the camera position when refresh every frame
    *

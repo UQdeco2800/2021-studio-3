@@ -9,7 +9,6 @@ import com.deco2800.game.areas.LevelTwoArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * */
 public class PopupMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(PopupMenuActions.class);
-    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
+    private static final String lossMusic = "sounds/loss.mp3";
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
 
@@ -102,8 +101,6 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after dying.
      */
     public void onReplayLoss() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         if (area != null) {
             logger.info("Player has lost and is now replaying level 1");
                 if (area.getCheckPointStatus() == 1) {
@@ -128,8 +125,6 @@ public class PopupMenuActions extends Component {
      * lives left.
      */
     public void onReplayLossFinal() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         if (area != null) {
             area.getPlayer().getComponent(LivesComponent.class).setLives(3);
            game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
@@ -154,8 +149,6 @@ public class PopupMenuActions extends Component {
      * Method actives when user clicks the replay button after winning
      */
     public void onReplayWin() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         switch (this.currentLevel) {
             case 1:
                 game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
