@@ -37,6 +37,7 @@ public abstract class GameArea implements Disposable {
     for (Entity entity : areaEntities) {
       entity.dispose();
     }
+
     if (player != null) {
       player.dispose();
     }
@@ -105,7 +106,8 @@ public abstract class GameArea implements Disposable {
           case "LIVES":
             newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
           case "HEALTH":
-            newPLayer.getComponent(CombatStatsComponent.class).setHealth(Integer.parseInt(values[1]));
+            player.getComponent(CombatStatsComponent.class).setFullHeal();
+
           case "SPRINT":
             newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":
@@ -115,8 +117,6 @@ public abstract class GameArea implements Disposable {
         }
         line = br.readLine();
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }

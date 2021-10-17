@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
@@ -126,12 +127,13 @@ public class LevelThreeArea extends ForestGameArea {
         displayUI("Level Three");
 
         // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_THREE_TERRAIN, "level-floors/levelThreeGround.txt");
+        spawnTerrain(TerrainType.LEVEL_THREE_TERRAIN, "level-floors/levelThreeGround.txt", "level-floors/levelOneFloat.txt");
         setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_THREE_TERRAIN, hasSave));
         if (hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
         spawnDeathWall(3);
+        spawnPortal(MainGameScreen.Level.THREE);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
