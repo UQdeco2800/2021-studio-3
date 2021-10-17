@@ -1,6 +1,5 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.utils.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +68,8 @@ public class SprintComponent extends Component {
      * @param sprint sprint to remove
      */
     public void removeSprint(int sprint) {
-        if (!this.stamina) {
+        if (!this.stamina && this.enabled) {
+            logger.info(String.valueOf(sprint));
             setSprint(this.sprint - sprint);
         }
     }

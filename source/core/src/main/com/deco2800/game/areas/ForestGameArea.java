@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -874,23 +871,17 @@ public class ForestGameArea extends GameArea {
    * @param state The game state
    */
   public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration) {
-    if (state != GdxGame.GameState.RUNNING) {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
-        }
+    boolean status = state == GdxGame.GameState.RUNNING;
+
+    for (Entity entity : areaEntities) {
+      if (entity.getComponent(AnimationRenderComponent.class) != null) {
+        entity.getComponent(AnimationRenderComponent.class).setEnabled(status);
       }
-    } else {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
-        }
+      if (entity.getComponent(PlayerAnimationController.class) != null) {
+        entity.getComponent(PlayerAnimationController.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+      }
+      if (entity.getComponent(SprintComponent.class) != null) {
+        entity.getComponent(SprintComponent.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
       }
     }
   }
