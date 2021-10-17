@@ -104,7 +104,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_wasp.png",
             "images/alien_wasp_weapon.png",
             "images/alien_squid.png",
-            "images/alien_squid_weapon.png"
+            "images/alien_squid_weapon.png",
 
     };
 
@@ -126,7 +126,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
             "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-            "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas"
+            "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas",
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
