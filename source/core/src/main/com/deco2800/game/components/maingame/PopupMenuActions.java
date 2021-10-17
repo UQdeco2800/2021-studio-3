@@ -74,8 +74,6 @@ public class PopupMenuActions extends Component {
      * Changes the screen to be the main menu screen
      * */
     public void onHome() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
@@ -84,8 +82,6 @@ public class PopupMenuActions extends Component {
      * Refreshes the main game screen. Old screen is disposed of.
      * */
     public void onReplay() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         if (area != null) {
             if (area.getCheckPointStatus() == 1) {
                 game.setScreenType(GdxGame.ScreenType.CHECKPOINT_REPLAY);

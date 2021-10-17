@@ -42,8 +42,6 @@ public class PauseGameActions extends Component {
      * Removes the pop up menu and resumed the game
      */
     public void onResume() {
-        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
-        buttonClickSound.play();
         logger.info("resuming game");
         if (game.getState() == GdxGame.GameState.PAUSED) {
             game.setState(GdxGame.GameState.RUNNING);
