@@ -1,0 +1,40 @@
+alien_squid_laser_animation.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+float
+  rotate: false
+  xy: 2, 2
+  size: 130, 850
+  orig: 130, 850
+  offset: 0, 0
+  index: 1
+float
+  rotate: false
+  xy: 134, 2
+  size: 130, 850
+  orig: 130, 850
+  offset: 0, 0
+  index: 6
+float
+  rotate: false
+  xy: 266, 2
+  size: 130, 850
+  orig: 130, 850
+  offset: 0, 0
+  index: 3
+float
+  rotate: false
+  xy: 398, 2
+  size: 130, 850
+  orig: 130, 850
+  offset: 0, 0
+  index: 5
+float
+  rotate: false
+  xy: 530, 2
+  size: 130, 850
+  orig: 130, 850
+  offset: 0, 0
+  index: 4

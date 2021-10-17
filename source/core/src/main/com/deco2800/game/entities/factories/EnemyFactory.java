@@ -422,12 +422,18 @@ public class EnemyFactory {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 1f, 1, 100f));
-                        //.addTask(new WanderTask(new Vector2(0f, 2f), 1f));
+                        .addTask(new WanderTask(new Vector2(0f, 0f), 0f))
+                        .addTask(new AttackTask(target, 1, 10, 20f));
+
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienWasp.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
 
         Entity alienBarbette =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_wasp.png"))
+                        //.addComponent(new TextureRenderComponent("images/alien_wasp.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -437,6 +443,9 @@ public class EnemyFactory {
                         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
                         .addComponent(aiComponent)
                         .addComponent(new AlienBarbetteAttackListener(target, gameArea));
+
+        alienBarbette.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
 
         PhysicsUtils.setScaledCollider(alienBarbette, 1f,1f);
         alienBarbette.scaleHeight(1.2f);
@@ -488,11 +497,17 @@ public class EnemyFactory {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 6f, 10, 100f));
+                        .addTask(new WanderTask(new Vector2(0f, 0f), 0f))
+                        .addTask(new AttackTask(target, 4, 10, 16f));
 
-        Entity alienBarbette =
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/alienSquid.atlas", TextureAtlas.class));
+        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
+
+        Entity alienSquid =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/alien_squid.png"))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
@@ -503,9 +518,12 @@ public class EnemyFactory {
                         .addComponent(aiComponent)
                         .addComponent(new AlienLaserAttackListener(target, gameArea));
 
-        PhysicsUtils.setScaledCollider(alienBarbette, 1f,1f);
-        alienBarbette.scaleHeight(1.5f);
-        return alienBarbette;
+        alienSquid.addComponent(animator)
+                .addComponent(new ObstacleAnimationController());
+
+        PhysicsUtils.setScaledCollider(alienSquid, 1f,1f);
+        alienSquid.scaleHeight(1.5f);
+        return alienSquid;
     }
 
     /**
@@ -518,15 +536,28 @@ public class EnemyFactory {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
 
-        Vector2 target1 = new Vector2(25, 0);
+        Vector2 target1 = new Vector2(25, -20);
+
+//        AITaskComponent aiComponent =
+//                new AITaskComponent()
+//                        .addTask(new WanderTask(new Vector2(0f, 0f), 0f));
+//
+//        AnimationRenderComponent animator =
+//                new AnimationRenderComponent(
+//                        ServiceLocator.getResourceService()
+//                                .getAsset("images/alienSquidLaser.atlas", TextureAtlas.class));
+//        animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
 
         Entity alienBarbetteWeapon1 =
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_squid_weapon.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(1f, 1f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(2f, 2f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
+
+//        alienBarbetteWeapon1.addComponent(animator)
+//                .addComponent(new ObstacleAnimationController());
 
         alienBarbetteWeapon1.getComponent(TextureRenderComponent.class).scaleEntity();
         alienBarbetteWeapon1.scaleHeight(5f);
