@@ -8,8 +8,7 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelFourArea;
 import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.areas.LevelTwoArea;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.extensions.GameExtension;
@@ -34,6 +33,9 @@ class PopupMenuActionsTest {
 
     private Entity player;
     private LivesComponent lives;
+    private ScoreComponent score;
+    private CombatStatsComponent combat;
+    private SprintComponent sprint;
 
     /**
      * Called before every test to instantiate the test environment
@@ -46,8 +48,14 @@ class PopupMenuActionsTest {
         levelFour = new LevelFourArea(terrainMock, 0, false);
 
         lives = new LivesComponent(0);
+        score = new ScoreComponent();
+        combat = new CombatStatsComponent(100,0);
+        sprint = new SprintComponent(1000);
 
-        player = new Entity().addComponent(lives);
+        player = new Entity().addComponent(lives)
+                .addComponent(score)
+                .addComponent(combat)
+                .addComponent(sprint);
 
         forest.setPlayer(player);
         levelTwo.setPlayer(player);
@@ -254,6 +262,7 @@ class PopupMenuActionsTest {
     void shouldReplayLevelOne() {
         /* Level One */
         PopupMenuActions popup = new PopupMenuActions(game, forest);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.MAIN_GAME);
         popup.onReplayWin();
 
         // Verify that the screen changed
@@ -268,6 +277,7 @@ class PopupMenuActionsTest {
     void shouldReplayLevelTwo() {
         /* Level Two */
         PopupMenuActions popup = new PopupMenuActions(game, levelTwo);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_TWO_GAME);
         popup.onReplayWin();
 
         // Verify that the screen changed
@@ -282,6 +292,7 @@ class PopupMenuActionsTest {
     void shouldReplayLevelThree() {
         /* Level Three */
         PopupMenuActions popup = new PopupMenuActions(game, levelThree);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_THREE_GAME);
         popup.onReplayWin();
 
         // Verify that the screen changed
@@ -296,6 +307,7 @@ class PopupMenuActionsTest {
     void shouldReplayLevelFour() {
         /* Level Four */
         PopupMenuActions popup = new PopupMenuActions(game, levelFour);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_FOUR_GAME);
         popup.onReplayWin();
 
         // Verify that the screen changed
@@ -310,6 +322,7 @@ class PopupMenuActionsTest {
     void shouldChangeToLevelTwo() {
         /* Level One */
         PopupMenuActions popup = new PopupMenuActions(game, forest);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.MAIN_GAME);
         popup.onNextLevel();
 
         // Verify that the screen changed
@@ -324,6 +337,7 @@ class PopupMenuActionsTest {
     void shouldChangeToLevelThree() {
         /* Level Two */
         PopupMenuActions popup = new PopupMenuActions(game, levelTwo);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_TWO_GAME);
         popup.onNextLevel();
 
         // Verify that the screen changed
@@ -338,6 +352,7 @@ class PopupMenuActionsTest {
     void shouldChangeToLevelFour() {
         /* Level Three */
         PopupMenuActions popup = new PopupMenuActions(game, levelThree);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_THREE_GAME);
         popup.onNextLevel();
 
         // Verify that the screen changed
@@ -354,6 +369,7 @@ class PopupMenuActionsTest {
     void shouldChangeToMainMenu() {
         /* Level Four */
         PopupMenuActions popup = new PopupMenuActions(game, levelFour);
+        when(game.getScreenType()).thenReturn(GdxGame.ScreenType.LEVEL_FOUR_GAME);
         popup.onNextLevel();
 
         // Verify that the screen changed
