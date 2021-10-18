@@ -101,6 +101,12 @@ public class TerrainFactory {
         TextureRegion starFour =
                 new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
         return createLevelFourTerrain(0.5f, surfaceFour, undergroundFour, skyFour, starFour);
+      case TUTORIAL_TERRAIN:
+        TextureRegion surfaceTutorial = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+        TextureRegion undergroundTutorial = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+        TextureRegion skyTutorial = new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion starTutorial = new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        return createTutorialTerrain(0.5f, surfaceTutorial, undergroundTutorial, skyTutorial, starTutorial);
       default:
         return null;
     }
@@ -111,6 +117,13 @@ public class TerrainFactory {
           float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
     GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
     TiledMap tiledMap = createSideScrollTiles(tilePixelSize, surface, underground, sky, tree);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
+
+  private TerrainComponent createTutorialTerrain(float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
+    TiledMap tiledMap = createTutorialTiles(tilePixelSize, surface, underground, sky, star);
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -166,7 +179,6 @@ public class TerrainFactory {
     TiledMap tiledMap = new TiledMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-
     // parses the level files
     addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
@@ -174,6 +186,19 @@ public class TerrainFactory {
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
+
+  //A new tile with side scroll-er
+  private TiledMap createTutorialTiles(
+          GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    TiledMap tiledMap = new TiledMap();
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+
+    addSkyTiles(layer, sky, star, "level-floors/TutorialSky.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/TutorialGround.txt");
+    tiledMap.getLayers().add(layer);
+    return tiledMap;
+  }
+
 
   /**
    * Adds the ground tiles to the map based on the values given inside the text file.
@@ -361,6 +386,8 @@ public class TerrainFactory {
       filename = "level-floors/levelThreeGround.txt";
     } else if (screenType == MainGameScreen.Level.FOUR) {
       filename = "level-floors/levelFourGround.txt";
+    } else if (screenType == MainGameScreen.Level.TUTORIAL) {
+      filename = "level-floors/TutorialGround.txt";
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
@@ -403,6 +430,7 @@ public class TerrainFactory {
     SIDE_SCROLL_ER,
     LEVEL_TWO_TERRAIN,
     LEVEL_THREE_TERRAIN,
-    LEVEL_FOUR_TERRAIN
+    LEVEL_FOUR_TERRAIN,
+    TUTORIAL_TERRAIN
   }
 }

@@ -1,6 +1,8 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelFourArea;
@@ -21,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * */
 public class PopupMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(PopupMenuActions.class);
-
+    private static final String lossMusic = "sounds/loss.mp3";
     /* Allows the pop-up menus to change the game state */
     private GdxGame game;
 
@@ -30,6 +32,7 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea areaTwo = null;
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
+    private TutorialArea areaTutorial = null;
 
     /*Player savae file*/
     private SaveData saveData;
@@ -44,6 +47,11 @@ public class PopupMenuActions extends Component {
     public PopupMenuActions(GdxGame game, ForestGameArea area) {
         this.game = game;
         switch (area.getAreaType()) {
+            case TUTORIAL:
+                this.areaTutorial = (TutorialArea) area;
+                this.currentLevel = 0;
+                saveData = new SaveData(game, area.getPlayer());
+                break;
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
@@ -178,7 +186,13 @@ public class PopupMenuActions extends Component {
      * Main Menu.
      */
     public void onNextLevel() {
+//        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+//        buttonClickSound.play();
         switch (this.currentLevel) {
+            case 0:
+                game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
             case 1:
                 game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
                 game.setScreen(GdxGame.ScreenType.LOADING);

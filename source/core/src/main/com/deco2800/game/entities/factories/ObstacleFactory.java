@@ -12,13 +12,10 @@ import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
 
 
-import com.deco2800.game.components.tasks.MovingTask;
-import com.deco2800.game.components.tasks.PlatformTask;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -151,7 +148,7 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/asteroidFire.atlas", TextureAtlas.class));
+                            .getAsset("images/asteroidFireNew.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
     Entity asteroidFire =
             new Entity()
@@ -165,8 +162,8 @@ public class ObstacleFactory {
             .addComponent(animator)
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-    asteroidFire.scaleHeight(1.2f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.2f));
+    asteroidFire.scaleHeight(1.5f);
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.5f));
 
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
@@ -214,7 +211,6 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                     .addTask(new ChaseTask(target, 2,2f,2.5f));
 
@@ -230,15 +226,15 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
-    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
+    animator.addAnimation("hit_ufo", 0.3f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 0.3f, Animation.PlayMode.LOOP);
 
     ufo.addComponent(animator);
     ufo.addComponent(new UfoAnimationController());
 
     ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-    ufo.scaleHeight(3f);
+    ufo.scaleHeight(2f);
     return ufo;
   }
 
@@ -290,7 +286,8 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent("images/rock4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
 
     rock4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     rock4.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -395,14 +392,15 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a moving platform entity which moves in a fixed area at a constant speed.
+   * Creates a moving platform entity which moves horizontally in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createMovingPlatform() {
+  public static Entity createHorizontalMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new PlatformTask(3f,1));
+                    .addTask(new Platform_x_Task(3f,1));
+                    //.addTask(new Platform_y_Task(3f,1));
 
     Entity platform3 =
             new Entity()
@@ -417,26 +415,32 @@ public class ObstacleFactory {
     platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform3.getComponent(TextureRenderComponent.class).scaleEntity();
     platform3.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform3, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform3, 0.7f, 0.5f);
     return platform3;
   }
 
   /**
-   * Creates a platform entity.
+   * Creates a moving platform entity which moves vertically in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createPlatform4() {
+  public static Entity createVerticalMovingPlatform() {
+
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new Platform_y_Task(3f,1));
+
     Entity platform4 =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/platform4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(aiComponent);
 
-    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform4.getComponent(TextureRenderComponent.class).scaleEntity();
     platform4.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform4, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform4, 0.7f, 0.5f);
     return platform4;
   }
 
@@ -479,6 +483,24 @@ public class ObstacleFactory {
 
   }
 
+  /**
+   * Creates a harmless egg.
+   *
+   * @return entity
+   */
+  public static Entity createDragonEgg() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/harmless_egg.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(1.5f);
+    PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
+    return egg;
+  }
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
