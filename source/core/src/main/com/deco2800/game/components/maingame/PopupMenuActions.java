@@ -2,6 +2,11 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.*;
+import com.deco2800.game.SaveData.SaveData;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.LevelFourArea;
+import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.LevelThreeArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.LivesComponent;
 import org.slf4j.Logger;
@@ -27,6 +32,10 @@ public class PopupMenuActions extends Component {
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
     private TutorialArea areaTutorial = null;
+
+    /*Player savae file*/
+    private SaveData saveData;
+
     /* The current level */
     private int currentLevel;
 
@@ -44,18 +53,22 @@ public class PopupMenuActions extends Component {
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case TWO:
                 this.areaTwo = (LevelTwoArea) area;
                 this.currentLevel = 2;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case THREE:
                 this.areaThree = (LevelThreeArea) area;
                 this.currentLevel = 3;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case FOUR:
                 this.areaFour = (LevelFourArea) area;
                 this.currentLevel = 4;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
         }
     }
@@ -133,11 +146,13 @@ public class PopupMenuActions extends Component {
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
 
+
     }
 
 
     /**
-     * Method actives when user clicks the replay button after winning
+     * Method actives when user clicks the replay button after winning. This
+     * method will return the player to the beginning of the same level.
      */
     public void onReplayWin() {
         switch (this.currentLevel) {
@@ -154,11 +169,19 @@ public class PopupMenuActions extends Component {
                 game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
                 break;
         }
-            game.setScreen(GdxGame.ScreenType.LOADING);
+
+        game.setScreen(GdxGame.ScreenType.LOADING);
+        saveData.savePlayerData();
     }
 
     /**
-     * Method actives when user clicks the next level button after winning
+     * Method actives when user clicks the next level button after winning.
+     *
+     * If the player is on levels 1-3, this method will change the screen to
+     * the next level.
+     *
+     * If the player is on level 4, this method will change the screen to the
+     * Main Menu.
      */
     public void onNextLevel() {
         switch (this.currentLevel) {
@@ -183,14 +206,38 @@ public class PopupMenuActions extends Component {
                 onHome();
                 break;
         }
-
+        //game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        saveData.savePlayerData();
     }
 
     /**
-     * Return the current level.
-     * @return int current level num
+     * Returns the current level.
+     *
+     * @return an integer between 1 to 4 inclusive representing the current
+     *         game level.
      */
     public int getCurrentLevel() {
-        return currentLevel;
+        return this.currentLevel;
+    }
+
+    /**
+     * Returns the current 'game' for this PopupMenuActions.
+     *
+     * @return the game associated with this PopupMenuActions.
+     * */
+    public GdxGame getGame() {
+        return this.game;
+    }
+
+    /**
+     * Returns the current area.
+     *
+     * @return the current game area.
+     * */
+    public ForestGameArea getCurrentArea() {
+        return (area != null) ? area
+                : (areaTwo != null) ? areaTwo
+                : (areaThree != null) ? areaThree
+                : areaFour;
     }
 }

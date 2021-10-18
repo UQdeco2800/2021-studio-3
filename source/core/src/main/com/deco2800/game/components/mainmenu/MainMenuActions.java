@@ -28,6 +28,7 @@ public class MainMenuActions extends Component {
   public void create() {
     entity.getEvents().addListener("start", this::onStart);
     entity.getEvents().addListener("load", this::onLoad);
+    entity.getEvents().addListener("loadData", this::loadData);
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
   }
@@ -43,31 +44,48 @@ public class MainMenuActions extends Component {
     //game.setScreen(GdxGame.ScreenType.LOADING);
   }
 
+  private void onLoad() {
+    game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+    game.setScreen(GdxGame.ScreenType.LOAD);
+  }
+
   /**
    * Intended for loading a saved game state.
    * Load functionality is not actually implemented.
    */
-  private void onLoad() {
-    GdxGame.ScreenType screenType = GdxGame.ScreenType.MAIN_GAME;;
+  private void loadData() {
+    GdxGame.ScreenType screenType = null;
     logger.info("Load game");
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
       String line = br.readLine();
-      String[] values = line.split(":");
-      if (values[1] == "levelOne") {
-        screenType = GdxGame.ScreenType.MAIN_GAME;
-      } else if (values[1] == "levelTwo") {
-        screenType = GdxGame.ScreenType.LEVEL_TWO_GAME;
-      } else if (values[1] == "levelThree") {
-        screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
+
+      if (br.readLine() == null) {
+        onStart();
+      } else {
+
+        String[] values = line.split(":");
+        switch (values[1]) {
+          default:
+          case "levelOne":
+            screenType = GdxGame.ScreenType.MAIN_GAME;
+            break;
+          case "levelTwo":
+            screenType = GdxGame.ScreenType.LEVEL_TWO_GAME;
+            break;
+          case "levelThree":
+            screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
+            break;
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+        game.setScreenType(screenType, "saves/saveOne.txt");
+        game.setScreen(GdxGame.ScreenType.LOADING);
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
-    game.setScreenType(screenType, "saves/saveOne.txt");
-    game.setScreen(GdxGame.ScreenType.LOADING);
+
   }
+
+
 
   /**
    * Exits the game.
