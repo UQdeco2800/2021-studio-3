@@ -36,6 +36,7 @@ class PopupMenuActionsTest {
     private ScoreComponent score;
     private CombatStatsComponent combat;
     private SprintComponent sprint;
+    private InformPlayerComponent inform;
 
     /**
      * Called before every test to instantiate the test environment
@@ -51,8 +52,10 @@ class PopupMenuActionsTest {
         score = new ScoreComponent();
         combat = new CombatStatsComponent(100,0);
         sprint = new SprintComponent(1000);
+        inform = new InformPlayerComponent();
 
         player = new Entity().addComponent(lives)
+                .addComponent(inform)
                 .addComponent(score)
                 .addComponent(combat)
                 .addComponent(sprint);

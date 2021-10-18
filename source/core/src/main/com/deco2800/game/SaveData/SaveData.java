@@ -63,6 +63,9 @@ public class SaveData {
                     fileWriter.write("Level:");
 
                     switch ((game.getScreenType().name())) {
+                        case "TUTORIAL":
+                            fileWriter.write("Tutorial");
+                            break;
                         case "MAIN_GAME":
                         case "RESPAWN1":
                             fileWriter.write("levelOne");

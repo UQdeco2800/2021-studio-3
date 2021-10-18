@@ -229,8 +229,6 @@ public class ForestGameArea extends GameArea {
    * Defines the platform spawns for this level.
    * */
   private void setupPlatformSpawns() {
-    this.PLATFORM_SPAWNS.add(new GridPoint2(52, 13));
-
     this.PLATFORM_SPAWNS.add(new GridPoint2(95,8));
     this.PLATFORM_SPAWNS.add(new GridPoint2(99, 10));
     this.PLATFORM_SPAWNS.add(new GridPoint2(95, 12));
@@ -332,26 +330,18 @@ public class ForestGameArea extends GameArea {
     spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+    spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
+
+    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
     spawnUFOs(this.UFO_SPAWNS);
 
     // Music
     playMusic(backgroundMusic);
-
-
-
-    //createCheckpoint();
-//    playMusic();
-
-    //spawnAttackObstacle();
-    //spawnAlienMonster();
-   // spawnAlienSoldier();
-   // spawnAlienBarbette();
-   // spawnAlienLaserHole();
-
-    spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnMovingPlatform(this);
+
     spawnAlienBarbette(this);
     spawnAlienSoldier(this);
+
 
   }
 
@@ -648,6 +638,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the egg to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnEgg(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY);
+    this.endPortal = ObstacleFactory.createDragonEgg();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the spaceship to finish the game
    *
    * @param currentLevel The current level the player is on
@@ -745,7 +748,7 @@ public class ForestGameArea extends GameArea {
    * @param area the game area
    */
   protected void spawnMovingPlatform(GameArea area) {
-      GridPoint2 pos = new GridPoint2(40,13);
+      GridPoint2 pos = new GridPoint2(52,13);
       spawnEntityAt(ObstacleFactory.createMovingPlatform(),
               pos, true, true);
 
@@ -802,7 +805,7 @@ public class ForestGameArea extends GameArea {
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
     newPlayer.addComponent(new LivesComponent(lives));
-
+    newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       lives -= 1;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
