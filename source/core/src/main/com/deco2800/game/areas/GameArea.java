@@ -85,6 +85,11 @@ public abstract class GameArea implements Disposable {
     spawnEntity(entity);
   }
 
+  /**
+   * Loads the player in save file if it exists.
+   * @param player player entity
+   * @param saveState location of the save file
+   */
   protected void loadSave(Entity player, String saveState) {
 
     Entity newPLayer;
@@ -107,7 +112,6 @@ public abstract class GameArea implements Disposable {
             newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
           case "HEALTH":
             player.getComponent(CombatStatsComponent.class).setFullHeal();
-
           case "SPRINT":
             newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":

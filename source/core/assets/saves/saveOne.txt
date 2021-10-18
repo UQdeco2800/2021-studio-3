@@ -1,7 +1,7 @@
-Level:levelOne
+Level:levelThree
 SCORE:1000
-LIVES:3
+LIVES:0
 HEALTH:100
 SPRINT:10000
-X:18
-Y:6
+X:5
+Y:11
