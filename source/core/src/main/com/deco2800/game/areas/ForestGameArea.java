@@ -349,7 +349,7 @@ public class ForestGameArea extends GameArea {
    // spawnAlienLaserHole();
 
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
-
+    spawnMovingPlatform(this);
 
   }
 
