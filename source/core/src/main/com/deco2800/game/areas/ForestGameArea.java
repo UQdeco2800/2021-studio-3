@@ -970,7 +970,7 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration) {
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration, GdxGame.ScreenType type) {
     boolean status = state == GdxGame.GameState.RUNNING;
 
     for (Entity entity : areaEntities) {
@@ -978,10 +978,12 @@ public class ForestGameArea extends GameArea {
         entity.getComponent(AnimationRenderComponent.class).setEnabled(status);
       }
       if (entity.getComponent(PlayerAnimationController.class) != null) {
-        entity.getComponent(PlayerAnimationController.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+        entity.getComponent(PlayerAnimationController.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
       }
       if (entity.getComponent(SprintComponent.class) != null) {
-        entity.getComponent(SprintComponent.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+        entity.getComponent(SprintComponent.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
       }
     }
   }
