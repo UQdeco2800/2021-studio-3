@@ -77,7 +77,8 @@ public class MainMenuActions extends Component {
           default:
             throw new IllegalStateException("Unexpected value: " + values[1]);
         }
-        game.setScreenType(screenType, "saves/saveOne.txt");
+        //game.setScreenType(screenType, "saves/saveOne.txt");
+        game.setScreenType(screenType);
         logger.info(screenType.toString());
         game.setScreen(GdxGame.ScreenType.LOADING);
       }
