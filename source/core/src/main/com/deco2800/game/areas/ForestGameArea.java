@@ -315,7 +315,7 @@ public class ForestGameArea extends GameArea {
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
-    spawnMovingPlatform(this);
+    //spawnMovingPlatform(this);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
     // Music

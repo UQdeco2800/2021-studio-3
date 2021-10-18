@@ -233,7 +233,7 @@ public class TerrainFactory {
       fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
     }
   }
-  
+
 
   /**
    * Adds the sky tiles to the map based on the values given inside the text file.
