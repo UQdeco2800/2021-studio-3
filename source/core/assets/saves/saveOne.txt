@@ -1,7 +1,7 @@
-Level:Tutorial
+Level:levelTwo
 SCORE:1000
-LIVES:2
+LIVES:1
 HEALTH:100
 SPRINT:10000
-X:12
-Y:6
+X:5
+Y:11
