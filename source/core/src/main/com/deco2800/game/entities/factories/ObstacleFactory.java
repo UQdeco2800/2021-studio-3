@@ -489,15 +489,13 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent("images/harmless_egg.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NPC))
-                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     egg.getComponent(TextureRenderComponent.class).scaleEntity();
     egg.scaleHeight(1.5f);
     PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
     return egg;
-
   }
   /**
    * Creates an invisible physics wall.

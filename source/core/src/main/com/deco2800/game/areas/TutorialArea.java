@@ -65,11 +65,6 @@ public class TutorialArea extends ForestGameArea {
     private void setupPlatformSpawns() {
         this.PLATFORM_SPAWNS.add(new GridPoint2(95,13));
         this.PLATFORM_SPAWNS.add(new GridPoint2(105, 13));
-        //GridPoint2 pos = new GridPoint2(20,5);
-
-//        this.PLATFORM_SPAWNS.add(new GridPoint2(24, 10));
-//        this.PLATFORM_SPAWNS.add(new GridPoint2(27, 12));
-//        this.PLATFORM_SPAWNS.add(new GridPoint2(34, 6));
     }
 
     /**
@@ -93,8 +88,6 @@ public class TutorialArea extends ForestGameArea {
     private void setupAsteroidFireSpawns() {
         this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(1,5));
         this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(3,5));
-        //this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(25,4));
-        //this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(40,5));
     }
 
     /**
@@ -124,7 +117,7 @@ public class TutorialArea extends ForestGameArea {
         // UI
         displayUI("Level Tutorial");
         fillTriggerMessages();
-        spawnTerrain(TerrainType.TUTORIAL_TERRAIN, "level-floors/TutorialGround.txt");
+        spawnTerrain(TerrainType.TUTORIAL_TERRAIN, "level-floors/TutorialGround.txt", "level-floors/TutorialFloat.txt");
         player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER, hasSave);
         player.getComponent(InformPlayerComponent.class).setInformation("Press A or D to move");
         player.getComponent(InformPlayerComponent.class).setTriggers(triggerPoints);
@@ -135,19 +128,19 @@ public class TutorialArea extends ForestGameArea {
         spawnRobots(this.ROBOT_SPAWNS);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-        Entity egg = ObstacleFactory.createDragonEgg();
-        spawnEntityAt(egg, new GridPoint2(200,5), true, true);
+        spawnEgg(MainGameScreen.Level.TUTORIAL);
         // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
         playMusic(backgroundMusic);
     }
 
+
     public void fillTriggerMessages() {
         triggerPoints.put(12, "Press Space to Jump");
         triggerPoints.put(19, "Press Space Midair to Double Jump");
         triggerPoints.put(23, "Watch Out For Pit Falls");
-        triggerPoints.put(35, "Avoid The friendly Aliens");
-        triggerPoints.put(48, "Press Q or R to Roll");
+        triggerPoints.put(35, "Avoid The Deadly Aliens");
+        triggerPoints.put(48, "Press Q or E to Roll");
         triggerPoints.put(60, "Press Shift to Sprint");
         triggerPoints.put(85, "CONGRATULATIONS!!! collect your prize");
     }

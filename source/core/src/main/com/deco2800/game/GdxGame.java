@@ -163,6 +163,9 @@ public class GdxGame extends Game {
       // parse file to load the floor
       String[] values = line.split(":");
       switch(values[1]) {
+        case "Tutorial":
+          setScreenType(ScreenType.TUTORIAL);
+          return new MainGameScreen(this,  resourceService, MainGameScreen.Level.TUTORIAL);
         case "levelOne":
           setScreenType(ScreenType.MAIN_GAME);
           return new MainGameScreen(this,  resourceService, MainGameScreen.Level.ONE);

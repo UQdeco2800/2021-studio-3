@@ -49,6 +49,7 @@ public class PopupMenuActions extends Component {
             case TUTORIAL:
                 this.areaTutorial = (TutorialArea) area;
                 this.currentLevel = 0;
+                saveData = new SaveData(game, area.getPlayer());
                 break;
             case ONE:
                 this.area = area;

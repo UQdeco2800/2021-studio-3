@@ -73,6 +73,22 @@ public class InformPlayerComponent extends Component {
     }
 
     /**
+     * Getter method for the position of player.
+     * @return the position
+     */
+    public float getPosition() {
+        return position;
+    }
+
+    /**
+     * Getter method for the triggers sent to player.
+     * @return the triggers
+     */
+    public Map<Integer, String> getTriggers() {
+        return triggers;
+    }
+
+    /**
      * Set's the new text on the UI once the updateInformation event has been triggered. This occurs
      * only if the entity has been created (i.e. it is not null)
      */

@@ -649,6 +649,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the egg to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnEgg(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY);
+    this.endPortal = ObstacleFactory.createDragonEgg();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the spaceship to finish the game
    *
    * @param currentLevel The current level the player is on

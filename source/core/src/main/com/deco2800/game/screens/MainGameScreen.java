@@ -7,10 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.SaveData.SaveData;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.LevelFourArea;
-import com.deco2800.game.areas.LevelThreeArea;
-import com.deco2800.game.areas.LevelTwoArea;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import com.deco2800.game.components.maingame.*;
@@ -310,7 +307,9 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f);
+    if (game.getScreenType() != GdxGame.ScreenType.TUTORIAL) {
+      this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f);
+    }
 
     renderer.render();
   }
