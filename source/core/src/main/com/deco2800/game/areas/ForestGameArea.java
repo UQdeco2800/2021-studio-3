@@ -145,9 +145,11 @@ public class ForestGameArea extends GameArea {
           "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", "images/Lv4SerpentAnimation.atlas"
   };
 
-  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
+          "/debuff.mp3","sounds/click.mp3"};
   private static final String backgroundMusic = "sounds/maingame.mp3";
-  private static final String[] forestMusic = {backgroundMusic};
+  private static final String lossMusic = "sounds/loss.mp3";
+  private static final String[] forestMusic = {backgroundMusic,lossMusic};
 
   private final TerrainFactory terrainFactory;
 
@@ -338,7 +340,8 @@ public class ForestGameArea extends GameArea {
 
     // Music
     playMusic(backgroundMusic);
-    spawnMovingPlatform(this);
+    spawnHorizontalMovingPlatform(this);
+    spawnVerticalMovingPlatform(this);
 
     spawnAlienBarbette(this);
     spawnAlienSoldier(this);
@@ -482,6 +485,7 @@ public class ForestGameArea extends GameArea {
    */
   float serpentLevelSpeed(int levelNumber){
     float movingSpeed = 0.2f;
+    logger.info(String.valueOf(levelNumber));
     switch (levelNumber){
       case 1:
         movingSpeed = 0.4f;
@@ -748,10 +752,21 @@ public class ForestGameArea extends GameArea {
    * Spawns the moving platform obstacle
    * @param area the game area
    */
-  protected void spawnMovingPlatform(GameArea area) {
+  protected void spawnHorizontalMovingPlatform(GameArea area) {
       GridPoint2 pos = new GridPoint2(52,13);
-      spawnEntityAt(ObstacleFactory.createMovingPlatform(),
+      spawnEntityAt(ObstacleFactory.createHorizontalMovingPlatform(),
               pos, true, true);
+
+  }
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnVerticalMovingPlatform(GameArea area) {
+    GridPoint2 pos = new GridPoint2(60,13);
+    spawnEntityAt(ObstacleFactory.createVerticalMovingPlatform(),
+            pos, true, true);
 
   }
 
@@ -907,7 +922,6 @@ public class ForestGameArea extends GameArea {
     music.setVolume(0.3f);
     music.play();
   }
-
   /**
    * reset the camera position when refresh every frame
    *
@@ -970,7 +984,7 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration) {
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration, GdxGame.ScreenType type) {
     boolean status = state == GdxGame.GameState.RUNNING;
 
     for (Entity entity : areaEntities) {
@@ -978,10 +992,12 @@ public class ForestGameArea extends GameArea {
         entity.getComponent(AnimationRenderComponent.class).setEnabled(status);
       }
       if (entity.getComponent(PlayerAnimationController.class) != null) {
-        entity.getComponent(PlayerAnimationController.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+        entity.getComponent(PlayerAnimationController.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
       }
       if (entity.getComponent(SprintComponent.class) != null) {
-        entity.getComponent(SprintComponent.class).setEnabled(status && gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000);
+        entity.getComponent(SprintComponent.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
       }
     }
   }

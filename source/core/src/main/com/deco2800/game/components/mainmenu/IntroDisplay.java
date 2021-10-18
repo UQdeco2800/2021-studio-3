@@ -2,6 +2,7 @@ package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,7 +36,7 @@ public class IntroDisplay extends UIComponent {
 
     /* Main menu intro music */
     private static final String MUSIC_FILE_PATH = "sounds/intro_story_background_music.mp3";
-
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
 
     /**
      * Constructor for the display of the game intro scenes. Takes the current
@@ -104,6 +105,8 @@ public class IntroDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("next button clicked");
+                        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+                        buttonClickSound.play();
                         entity.getEvents().trigger("next");
                     }
                 });
@@ -114,6 +117,7 @@ public class IntroDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("skip button clicked");
+
                         entity.getEvents().trigger("skip");
                     }
                 });
@@ -150,6 +154,8 @@ public class IntroDisplay extends UIComponent {
      * Method call actives the skip scene button, which immediately starts the game.
      */
     public void skipScene() {
+        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+        buttonClickSound.play();
         game.setScreen(GdxGame.ScreenType.LOADING);
     }
 
