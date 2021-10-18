@@ -52,7 +52,7 @@ class PlayerBuffsTest {
         when(player.getComponent(SprintComponent.class)).thenReturn(sprint);
         PlayerBuffs.setInfiniteStamina(player);
         player.getComponent(SprintComponent.class).removeSprint(20);
-        assertEquals(100, player.getComponent(SprintComponent.class).getSprint());
+        assertEquals(10000, player.getComponent(SprintComponent.class).getSprint());
     }
 
     @Test
@@ -81,15 +81,7 @@ class PlayerBuffsTest {
         player.getComponent(CombatStatsComponent.class).hit(combat);
         assertEquals(60, player.getComponent(CombatStatsComponent.class).getHealth());
     }
-
-    @Test
-    void setNoJumpingTest() {
-        KeyboardPlayerInputComponent keyboard = new KeyboardPlayerInputComponent();
-        when(player.getComponent(KeyboardPlayerInputComponent.class)).thenReturn(keyboard);
-        PlayerBuffs.noJumping(player);
-        player.getComponent(KeyboardPlayerInputComponent.class).keyDown(Input.Keys.SPACE);
-        assertEquals(false, player.getComponent(KeyboardPlayerInputComponent.class).getIsJumping());
-    }
+    
 
     @Test
     void removeInvincibilityTest() {
@@ -110,11 +102,11 @@ class PlayerBuffsTest {
         when(player.getComponent(SprintComponent.class)).thenReturn(sprint);
         PlayerBuffs.setInfiniteStamina(player);
         player.getComponent(SprintComponent.class).removeSprint(20);
-        assertEquals(100, player.getComponent(SprintComponent.class).getSprint());
+        assertEquals(10000, player.getComponent(SprintComponent.class).getSprint());
         when (buffInfo.getType()).thenReturn(BuffManager.BuffTypes.BT_INF_SPRINT);
         PlayerBuffs.removeTimedBuff(buffInfo, player);
         player.getComponent(SprintComponent.class).removeSprint(20);
-        assertEquals(80, player.getComponent(SprintComponent.class).getSprint());
+        assertEquals(9980, player.getComponent(SprintComponent.class).getSprint());
     }
 
 }

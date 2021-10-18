@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.components.LivesComponent;
-import com.deco2800.game.components.ProgressComponent;
-import com.deco2800.game.components.ScoreComponent;
+import com.deco2800.game.components.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.maingame.BuffManager;
 import com.deco2800.game.components.player.DoubleJumpComponent;
@@ -31,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +55,7 @@ public class ForestGameArea extends GameArea {
   private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_LASER_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_BARBETTE_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
 
 
   /**
@@ -124,9 +123,16 @@ public class ForestGameArea extends GameArea {
           "images/roll.png",
           "images/roll2.png",
           "images/roll3.png",
+
+          "images/alien_wasp.png",
+          "images/alien_wasp_weapon.png",
+          "images/alien_squid.png",
+          "images/alien_squid_weapon.png",
+
           "images/portal.png",
           "images/Spaceship.png",
           "images/PortalAnimation.png"
+
 
   };
 
@@ -136,12 +142,16 @@ public class ForestGameArea extends GameArea {
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
           , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-          "images/PortalAnimation.atlas"
+          "images/PortalAnimation.atlas", "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", 
+          "images/alienSquidLaser.atlas", "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", 
+          "images/Lv4SerpentAnimation.atlas"
   };
 
-  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
+          "/debuff.mp3","sounds/click.mp3"};
   private static final String backgroundMusic = "sounds/maingame.mp3";
-  private static final String[] forestMusic = {backgroundMusic};
+  private static final String lossMusic = "sounds/loss.mp3";
+  private static final String[] forestMusic = {backgroundMusic,lossMusic};
 
   private final TerrainFactory terrainFactory;
 
@@ -190,9 +200,18 @@ public class ForestGameArea extends GameArea {
    * */
   private void setupSpawns() {
     setupPlatformSpawns();
-    setupAlienBarbetteSpawns();
+    setupUFOSpawns();
     setupAsteroidFireSpawns();
     setupRobotSpawns();
+  }
+
+  /**
+   * Defines the UFO spawns for this level.
+   * */
+  private void setupUFOSpawns() {
+    this.UFO_SPAWNS.add(new GridPoint2(89, 16));
+
+    this.UFO_SPAWNS.add(new GridPoint2(150, 23));
   }
 
   /**
@@ -215,8 +234,6 @@ public class ForestGameArea extends GameArea {
    * Defines the platform spawns for this level.
    * */
   private void setupPlatformSpawns() {
-    this.PLATFORM_SPAWNS.add(new GridPoint2(52, 13));
-
     this.PLATFORM_SPAWNS.add(new GridPoint2(95,8));
     this.PLATFORM_SPAWNS.add(new GridPoint2(99, 10));
     this.PLATFORM_SPAWNS.add(new GridPoint2(95, 12));
@@ -306,7 +323,7 @@ public class ForestGameArea extends GameArea {
   public void create() {
     displayUI("Level One");
 
-    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOneGround.txt");
+    spawnTerrain(TerrainType.SIDE_SCROLL_ER, "level-floors/levelOneGround.txt", "level-floors/levelOneFloat.txt");
     player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER, hasSave);
     if (hasSave) {
       loadSave(player, this.saveState);
@@ -315,14 +332,21 @@ public class ForestGameArea extends GameArea {
     spawnPortal(MainGameScreen.Level.ONE);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-    spawnRobots(this.ROBOT_SPAWNS);
+    //spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
-    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
+
+    spawnUFOs(this.UFO_SPAWNS);
 
     // Music
     playMusic(backgroundMusic);
+    spawnHorizontalMovingPlatform(this);
+    spawnVerticalMovingPlatform(this);
+
+    spawnAlienBarbette(this);
+    spawnAlienSoldier(this);
   }
 
   /**
@@ -356,9 +380,11 @@ public class ForestGameArea extends GameArea {
    * @param type the type of terrain (terrain types differ between all levels)
    * @param levelFile the file to read the level from.
    * */
-  protected void spawnTerrain(TerrainType type, String levelFile) {
+  protected void spawnTerrain(TerrainType type, String levelFile, String floatFile) {
+
     // Background terrain
     terrain = terrainFactory.createTerrain(type);
+    logger.info("Tile size {}", terrain.getTileSize());
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
@@ -397,23 +423,15 @@ public class ForestGameArea extends GameArea {
         distanceY = (int) (Float.parseFloat(values[1]) * 2);
         x = Integer.parseInt(values[2]);
         y = Integer.parseInt(values[3]);
+        float height = Float.parseFloat(values[1]);
 
         // creates the floors wall
         spawnEntityAt(
-                ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
-        if (i != 0) {
-          // Create walls when floor level changes
-          //float height = (float) y/2;
-          float height = Float.parseFloat(values[1]);
-          //float endHeight = (float) (previousY - y)/2;
-          spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x, y), false, false);
-          spawnEntityAt(
-                  ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
-        }
-
+                ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
+                        distanceY * terrain.getTileSize()), new GridPoint2(x, y), false, false);
+        spawnFloatPlatform(floatFile);
         line = br.readLine();
-        i++;
+
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -425,24 +443,52 @@ public class ForestGameArea extends GameArea {
             new GridPoint2(0, -1), false, false);
   }
 
+  protected void spawnFloatPlatform(String floatFile) {
+    //float width, height;
+    int x, y, distanceX, distanceY;
+    try(BufferedReader br = new BufferedReader(new FileReader(floatFile))) {
+      String line = br.readLine();
+      // parse file to load the floor
+      while (line != null) {
+        String[] values = line.split(" ");
+        distanceX = Integer.parseInt(values[0]) * 2;
+        distanceY = (int) (Float.parseFloat(values[1]) * 2);
+        x = Integer.parseInt(values[2]);
+        y = Integer.parseInt(values[3]);
+        float height = Float.parseFloat(values[1]);
+        spawnEntityAt(
+                ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
+                        (terrain.getTileSize() * distanceY) + terrain.getTileSize()), new GridPoint2(x, y - 1), false, false);
+
+        line = br.readLine();
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+
   /**
    * @param levelNumber the current level
    * @return the serpent moving speed for each level
    */
   float serpentLevelSpeed(int levelNumber){
     float movingSpeed = 0.2f;
+    logger.info(String.valueOf(levelNumber));
     switch (levelNumber){
       case 1:
         movingSpeed = 0.4f;
         break;
       case 2:
-        movingSpeed = 0.85f;
+        movingSpeed = 0.65f;
         break;
       case 3:
-        movingSpeed = 1.1f;
+        movingSpeed = 0.75f;
         break;
       case 4:
-        movingSpeed = 1.2f;
+        movingSpeed = 1f;
         break;
     }
     return movingSpeed;
@@ -454,12 +500,24 @@ public class ForestGameArea extends GameArea {
   protected void spawnDeathWall(int levelNumber) {
     float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed, levelNumber);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
     int startX;
     startX = levelNumber == 1 ? -5 : -8;
     spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
+  }
+
+  /**
+   * Spawns UFO(s) at the given position(s).
+   *
+   * @param positions the position(s) to spawn the UFO(s) at.
+   * */
+  protected void spawnUFOs(ArrayList<GridPoint2> positions) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(ObstacleFactory.createUfo(getPlayer()), pos,
+              true, true);
+    }
   }
 
   /**
@@ -576,6 +634,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the egg to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnEgg(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY);
+    this.endPortal = ObstacleFactory.createDragonEgg();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the spaceship to finish the game
    *
    * @param currentLevel The current level the player is on
@@ -617,6 +688,43 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawn the alien barbette for the level one area
+   * @param area the game area - level one
+   */
+  protected void spawnAlienBarbette(GameArea area) {
+    GridPoint2 pos = new GridPoint2(170, 12);
+    spawnEntityAt(EnemyFactory.createALienBarbette(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien soldier for the level one area
+   * @param area the game area - level one
+   */
+  protected void spawnAlienSoldier(GameArea area) {
+    GridPoint2 pos = new GridPoint2(196, 18);
+    spawnEntityAt(EnemyFactory.createAlienSoldier(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien monster for the level two area
+   * @param area the game area - level two
+   */
+  protected void spawnAlienMonsterLevelTwo(GameArea area) {
+    GridPoint2 pos = new GridPoint2(185, 22);
+    spawnEntityAt(EnemyFactory.createAlienMonster(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien boss for the level three area
+   * @param area the game area - level three
+   */
+  protected void spawnAlienBossLevelThree(GameArea area) {
+    GridPoint2 pos = new GridPoint2(162, 24);
+    spawnEntityAt(EnemyFactory.createAlienBoss(player, area), pos, true, true);
+  }
+
+
+  /**
    * Spawns the Alien Laser Hole(s) as the given position(s).
    *
    * @param positions the position(s) to spawn the enemy at.
@@ -629,6 +737,30 @@ public class ForestGameArea extends GameArea {
               pos, true, true);
     }
   }
+
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnHorizontalMovingPlatform(GameArea area) {
+      GridPoint2 pos = new GridPoint2(52,13);
+      spawnEntityAt(ObstacleFactory.createHorizontalMovingPlatform(),
+              pos, true, true);
+
+  }
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnVerticalMovingPlatform(GameArea area) {
+    GridPoint2 pos = new GridPoint2(60,13);
+    spawnEntityAt(ObstacleFactory.createVerticalMovingPlatform(),
+            pos, true, true);
+
+  }
+
   public boolean isDead() {
     return hasDied;
   }
@@ -655,6 +787,7 @@ public class ForestGameArea extends GameArea {
     return false;
   }
 
+
   /**
    * Spawns the player on the current terrain
    *
@@ -673,12 +806,13 @@ public class ForestGameArea extends GameArea {
       newPlayer = PlayerFactory.createPlayer();
     }
     float tileSize = terrain.getTileSize();
+
     //Adds the progress component for a new created player
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
     newPlayer.addComponent(new LivesComponent(lives));
-
+    newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       lives -= 1;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
@@ -779,7 +913,6 @@ public class ForestGameArea extends GameArea {
     music.setVolume(0.3f);
     music.play();
   }
-
   /**
    * reset the camera position when refresh every frame
    *
@@ -842,24 +975,20 @@ public class ForestGameArea extends GameArea {
    * Check if the game is pause, and stop the animation playing
    * @param state The game state
    */
-  public void isPause(GdxGame.GameState state, List<Entity> areaEntities) {
-    if (state != GdxGame.GameState.RUNNING) {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(false);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(false);
-        }
+  public void isPause(GdxGame.GameState state, List<Entity> areaEntities, float duration, GdxGame.ScreenType type) {
+    boolean status = state == GdxGame.GameState.RUNNING;
+
+    for (Entity entity : areaEntities) {
+      if (entity.getComponent(AnimationRenderComponent.class) != null) {
+        entity.getComponent(AnimationRenderComponent.class).setEnabled(status);
       }
-    } else {
-      for (Entity entity : areaEntities) {
-        if (entity.getComponent(AnimationRenderComponent.class) != null) {
-          entity.getComponent(AnimationRenderComponent.class).setEnabled(true);
-        }
-        if (entity.getComponent(PlayerAnimationController.class) != null) {
-          entity.getComponent(PlayerAnimationController.class).setEnabled(true);
-        }
+      if (entity.getComponent(PlayerAnimationController.class) != null) {
+        entity.getComponent(PlayerAnimationController.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
+      }
+      if (entity.getComponent(SprintComponent.class) != null) {
+        entity.getComponent(SprintComponent.class)
+                .setEnabled(status && (gameTime.getTimeSince(CAM_START_TIME) >= 3500 + duration * 1000 || type != GdxGame.ScreenType.MAIN_GAME));
       }
     }
   }

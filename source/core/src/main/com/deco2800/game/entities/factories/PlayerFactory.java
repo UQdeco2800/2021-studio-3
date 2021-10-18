@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.SprintComponent;
 import com.deco2800.game.components.player.*;
@@ -106,7 +107,7 @@ public class PlayerFactory {
                     .addComponent(new ColliderComponent())
                     .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                     .addComponent(new PlayerActions())
-                    .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+                    .addComponent(new CombatStatsComponent(10000, stats.baseAttack))
                     .addComponent(new InventoryComponent(stats.gold))
                     .addComponent(new PlayerStateComponent())
                     .addComponent(inputComponent)
@@ -119,7 +120,10 @@ public class PlayerFactory {
 
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
+    //player.getComponent(ColliderComponent.class).setAsBox(new Vector2(0,0), player.getCenterPosition());
+
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+
     return player;
   }
 

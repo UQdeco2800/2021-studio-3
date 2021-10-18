@@ -106,9 +106,16 @@ public class LoadingScreen extends ScreenAdapter {
             "images/portal.png",
             "images/Spaceship.png",
             "images/PortalAnimation.png",
-            "images/PortalTransition1.png"
+            "images/PortalTransition1.png",
+            "images/harmless_egg.png",
 
-    };
+            "images/alien_wasp.png",
+            "images/alien_wasp_weapon.png",
+            "images/alien_squid.png",
+            "images/alien_squid_weapon.png",
+
+            "images/portal.png",
+            "images/Spaceship.png"};
 
     /* Textures only needed for level 2*/
     private static final String[] level2Textures = {"images/background_mars.png",
@@ -128,12 +135,18 @@ public class LoadingScreen extends ScreenAdapter {
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
             "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-            "images/PortalAnimation.atlas"
+            "images/PortalAnimation.atlas", "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", 
+            "images/alienSquidLaser.atlas", "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", 
+            "images/Lv4SerpentAnimation.atlas"
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
 
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3",};
+    private static final String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3",
+            "sounds" +
+            "/loss" +
+            ".mp3","sounds/win.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds" +
+            "/level4_background_music_1.mp3", "sounds/click.mp3"};
 
     private static final String[] loadingScreenMusic = {"sounds/loading_background_music_new.mp3"};
 
@@ -199,6 +212,10 @@ public class LoadingScreen extends ScreenAdapter {
                 case LEVEL_FOUR_GAME:
                     logger.info("Setting screen to LEVEL_FOUR_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+                    break;
+                case TUTORIAL:
+                    logger.info("Setting screen to TUTORIAL");
+                    this.game.setScreen(GdxGame.ScreenType.TUTORIAL);
                     break;
             }
         } else {

@@ -101,6 +101,12 @@ public class TerrainFactory {
         TextureRegion starFour =
                 new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
         return createLevelFourTerrain(0.5f, surfaceFour, undergroundFour, skyFour, starFour);
+      case TUTORIAL_TERRAIN:
+        TextureRegion surfaceTutorial = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+        TextureRegion undergroundTutorial = new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+        TextureRegion skyTutorial = new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+        TextureRegion starTutorial = new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+        return createTutorialTerrain(0.5f, surfaceTutorial, undergroundTutorial, skyTutorial, starTutorial);
       default:
         return null;
     }
@@ -111,6 +117,13 @@ public class TerrainFactory {
           float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion tree) {
     GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
     TiledMap tiledMap = createSideScrollTiles(tilePixelSize, surface, underground, sky, tree);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
+
+  private TerrainComponent createTutorialTerrain(float tileWorldSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    GridPoint2 tilePixelSize = new GridPoint2(surface.getRegionWidth(), surface.getRegionHeight());
+    TiledMap tiledMap = createTutorialTiles(tilePixelSize, surface, underground, sky, star);
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -166,61 +179,26 @@ public class TerrainFactory {
     TiledMap tiledMap = new TiledMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    // Create base grass
-
-    /*fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(57, 20), new GridPoint2(58, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(58, 20), new GridPoint2(98, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(98, 20), new GridPoint2(99, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(99, 20), new GridPoint2(100, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 21), new GridPoint2(100, 22), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 22), new GridPoint2(15, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(15, 22), new GridPoint2(16, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(16, 22), new GridPoint2(18, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(18, 22), new GridPoint2(19, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(19, 22), new GridPoint2(31, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(31, 22), new GridPoint2(32, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(32, 22), new GridPoint2(70, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(70, 22), new GridPoint2(72, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(72, 22), new GridPoint2(100, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 23), new GridPoint2(100, 24), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 24), new GridPoint2(5, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(5, 24), new GridPoint2(6, 25), starTile);
-    fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);*/
-
-    addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
-
     // parses the level files
-    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelOne.txt"))) {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
-      int x = 0, y = 0, width = 0, distance = 0, i = 0;
-      while (line != null) {
-        String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
-        distance = (width * 2) + x;
-        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
-        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
-        line = br.readLine();
-        i++;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }*/
+    addSkyTiles(layer, sky, star, "level-floors/levelOneSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelOneGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelOneFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
+
+  //A new tile with side scroll-er
+  private TiledMap createTutorialTiles(
+          GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
+    TiledMap tiledMap = new TiledMap();
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+
+    addSkyTiles(layer, sky, star, "level-floors/TutorialSky.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/TutorialGround.txt");
+    tiledMap.getLayers().add(layer);
+    return tiledMap;
+  }
+
 
   /**
    * Adds the ground tiles to the map based on the values given inside the text file.
@@ -246,11 +224,12 @@ public class TerrainFactory {
       distanceX = (int) (( width * 2) + x);
       distanceY = (int) (( height * 2) + y);
       // Fills underground tiles, leaves one layer on top for surface tiles
-      fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
+      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY - 1), undergroundTile);
       // Fills surface tiles
       fillTilesAt(layer, new GridPoint2(x, distanceY - 1), new GridPoint2(distanceX, distanceY), surfaceTile);
     }
   }
+
 
   /**
    * Adds the sky tiles to the map based on the values given inside the text file.
@@ -307,105 +286,24 @@ public class TerrainFactory {
 
   private TiledMap createLevelTwoTiles(GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     TiledMap tiledMap = new TiledMap();
-    TerrainTile surfaceTile = new TerrainTile(surface);
-    TerrainTile undergroundTile = new TerrainTile(underground);
-    TerrainTile skyTile = new TerrainTile(sky);
-    TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-
-    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
-    fillTilesAt(layer, new GridPoint2(25, 0), new GridPoint2(50, 10), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(57, 20), new GridPoint2(58, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(58, 20), new GridPoint2(98, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(98, 20), new GridPoint2(99, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(99, 20), new GridPoint2(100, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 21), new GridPoint2(100, 22), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 22), new GridPoint2(15, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(15, 22), new GridPoint2(16, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(16, 22), new GridPoint2(18, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(18, 22), new GridPoint2(19, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(19, 22), new GridPoint2(31, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(31, 22), new GridPoint2(32, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(32, 22), new GridPoint2(70, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(70, 22), new GridPoint2(72, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(72, 22), new GridPoint2(100, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 23), new GridPoint2(100, 24), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 24), new GridPoint2(5, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(5, 24), new GridPoint2(6, 25), starTile);
-    fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
     // parses the level files
-    /*try(BufferedReader br = new BufferedReader(new FileReader("level-floors/levelTwo.txt"))) {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
-      int x = 0, y = 0, width = 0, distance = 0, i = 0;
-      while (line != null) {
-        String[] values = line.split(" ");
-        width = Integer.parseInt(values[0]);
-        x = Integer.parseInt(values[1]);
-        y = Integer.parseInt(values[2]);
-        distance = (width * 2) + x;
-        fillTilesAt(layer, new GridPoint2(x, 0), new GridPoint2(distance, y - 1), undergroundTile);
-        fillTilesAt(layer, new GridPoint2(x, y - 1), new GridPoint2(distance, y), surfaceTile);
-        line = br.readLine();
-        i++;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }*/
+    addSkyTiles(layer, sky, star, "level-floors/levelTwoSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelTwoGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelTwoFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
 
   private TiledMap createLevelThreeTiles(GridPoint2 tileSize, TextureRegion surface, TextureRegion underground, TextureRegion sky, TextureRegion star) {
     TiledMap tiledMap = new TiledMap();
-    TerrainTile surfaceTile = new TerrainTile(surface);
-    TerrainTile undergroundTile = new TerrainTile(underground);
-    TerrainTile skyTile = new TerrainTile(sky);
-    TerrainTile starTile = new TerrainTile(star);
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    //fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 9), undergroundTile);
-    //fillTilesAt(layer, new GridPoint2(0, 9), new GridPoint2(100, 10), surfaceTile);
-    fillTilesAt(layer, new GridPoint2(0, 0), new GridPoint2(100, 20), skyTile);
-    fillTilesAt(layer, new GridPoint2(25, 0), new GridPoint2(50, 10), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 10), new GridPoint2(100, 20), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 20), new GridPoint2(10, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(10, 20), new GridPoint2(11, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(11, 20), new GridPoint2(57, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(57, 20), new GridPoint2(58, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(58, 20), new GridPoint2(98, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(98, 20), new GridPoint2(99, 21), starTile);
-    fillTilesAt(layer, new GridPoint2(99, 20), new GridPoint2(100, 21), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 21), new GridPoint2(100, 22), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 22), new GridPoint2(15, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(15, 22), new GridPoint2(16, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(16, 22), new GridPoint2(18, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(18, 22), new GridPoint2(19, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(19, 22), new GridPoint2(31, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(31, 22), new GridPoint2(32, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(32, 22), new GridPoint2(70, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(70, 22), new GridPoint2(72, 23), starTile);
-    fillTilesAt(layer, new GridPoint2(72, 22), new GridPoint2(100, 23), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 23), new GridPoint2(100, 24), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 24), new GridPoint2(5, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(5, 24), new GridPoint2(6, 25), starTile);
-    fillTilesAt(layer, new GridPoint2(6, 24), new GridPoint2(87, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(87, 24), new GridPoint2(88, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(88, 24), new GridPoint2(100, 25), skyTile);
-    fillTilesAt(layer, new GridPoint2(0, 25), new GridPoint2(100, 30), skyTile);
     // parses the level files
+    addSkyTiles(layer, sky, star, "level-floors/levelThreeSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelThreeGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelThreeFloat.txt");
     tiledMap.getLayers().add(layer);
 
     return tiledMap;
@@ -432,6 +330,7 @@ public class TerrainFactory {
     // Create the terrain and sky
     addSkyTiles(layer, sky, star, "level-floors/levelFourSky.txt");
     addGroundTiles(layer, underground, surface, "level-floors/levelFourGround.txt");
+    addGroundTiles(layer, underground, surface, "level-floors/levelFourFloat.txt");
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
@@ -487,6 +386,8 @@ public class TerrainFactory {
       filename = "level-floors/levelThreeGround.txt";
     } else if (screenType == MainGameScreen.Level.FOUR) {
       filename = "level-floors/levelFourGround.txt";
+    } else if (screenType == MainGameScreen.Level.TUTORIAL) {
+      filename = "level-floors/TutorialGround.txt";
     }
     try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String line = br.readLine();
@@ -529,6 +430,7 @@ public class TerrainFactory {
     SIDE_SCROLL_ER,
     LEVEL_TWO_TERRAIN,
     LEVEL_THREE_TERRAIN,
-    LEVEL_FOUR_TERRAIN
+    LEVEL_FOUR_TERRAIN,
+    TUTORIAL_TERRAIN
   }
 }

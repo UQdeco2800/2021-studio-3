@@ -20,6 +20,7 @@ public class PauseGameDisplay extends UIComponent {
     private Array<Image> screenElements = new Array<>();
     private PopupUIHandler handler;
     private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
     public PauseGameDisplay(PopupUIHandler handler) {
         this.handler = handler;
     }

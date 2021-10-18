@@ -47,19 +47,6 @@ class BuffInformationTest {
     }
 
     /**
-     * Test that the no jumping debuff is setup properly
-     * */
-    @Test
-    void testNoJumping() {
-        buffInfo = new BuffInformation(buff, BuffManager.BuffTypes.DT_NO_JUMP, 0);
-        assertEquals("No Jumping!", buffInfo.getBuffName());
-        assertEquals( 5000, buffInfo.getEffectTimeOut());
-        assertEquals(buff, buffInfo.getBuff());
-        assertEquals(0, buffInfo.getTimeOfCreation());
-        assertEquals(BuffManager.BuffTypes.DT_NO_JUMP, buffInfo.getType());
-    }
-
-    /**
      * Test that the infinite sprint buff is setup properly
      * */
     @Test

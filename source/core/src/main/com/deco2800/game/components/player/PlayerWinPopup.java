@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.GdxGame;
@@ -43,6 +44,7 @@ public class PlayerWinPopup extends UIComponent {
 
     /* Handler to set up the UI elements of the win menu */
     private PopupUIHandler handler;
+    private static final String lossMusic = "sounds/win.mp3";
 
     /**
      * Constructor for the PlayerWinPopup
@@ -105,6 +107,10 @@ public class PlayerWinPopup extends UIComponent {
         if (wall == this.getMapFixture()) {
             createUI();
             game.setState(GdxGame.GameState.OVER);
+            Music music = ServiceLocator.getResourceService().getAsset(lossMusic, Music.class);
+            music.setLooping(false);
+            music.setVolume(1f);
+            music.play();
         }
     }
 

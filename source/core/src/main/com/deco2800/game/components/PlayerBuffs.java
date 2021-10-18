@@ -49,7 +49,7 @@ public abstract class PlayerBuffs {
      * @param player the player
      * */
     public static void setInfiniteStamina(Entity player) {
-        player.getComponent(SprintComponent.class).setSprint(100);
+        player.getComponent(SprintComponent.class).setSprint(10000);
         player.getComponent(SprintComponent.class).setStamina(true);
     }
 
@@ -83,15 +83,6 @@ public abstract class PlayerBuffs {
     }
 
     /**
-     * Removes jumping abilities from the player.
-     *
-     * @param player the player
-     * */
-    public static void noJumping(Entity player) {
-        player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(true);
-    }
-
-    /**
      * Handler method for determining which buff to remove, depending on the
      * buffs type. The appropriate de/buff-removal function is called to remove
      * the de/buff effects from the player.
@@ -109,9 +100,6 @@ public abstract class PlayerBuffs {
                 break;
             case BT_INF_SPRINT:
                 makeStaminaFinite(player);
-                break;
-            case DT_NO_JUMP:
-                removeNoJumping(player);
                 break;
             case DT_DOUBLE_DMG:
                 removeDoubleHurt(player);
@@ -148,12 +136,4 @@ public abstract class PlayerBuffs {
         player.getComponent(SprintComponent.class).setStamina(false);
     }
 
-    /**
-     * Allows the player to jump again.
-     *
-     * @param player the player
-     * */
-    public static void removeNoJumping(Entity player) {
-        player.getComponent(KeyboardPlayerInputComponent.class).setNoJumping(false);
-    }
 }

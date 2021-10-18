@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.components.player.PlayerLossPopup;
 import com.deco2800.game.components.player.PlayerWinPopup;
@@ -26,7 +28,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,17 +81,19 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
   /* background and click effect */
   private static final String[] mainMenuMusic = {"sounds/background.mp3"};
+  private static final String[] mainMenuClickSounds = {"sounds/click.mp3"};
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   public static AssetManager manager =  new  AssetManager();
+  public SaveData saveData;
 
   private ForestGameArea currentMap;
   private final TerrainFactory terrainFactory;
   private Entity ui;
 
   public enum Level {
-    ONE, TWO, THREE, FOUR
+    TUTORIAL, ONE, TWO, THREE, FOUR
   }
 
   /* Manages buffs & debuffs in the game */
@@ -176,6 +179,7 @@ public class MainGameScreen extends ScreenAdapter {
     this.terrainFactory = new TerrainFactory(renderer.getCamera());
 
     setAreaAndUI(selectGameArea(terrainFactory, 0, hasDied, level));
+
   }
 
   /**
@@ -227,6 +231,8 @@ public class MainGameScreen extends ScreenAdapter {
   public ForestGameArea selectGameArea(TerrainFactory factory, int checkpoint,
           boolean hasDied, MainGameScreen.Level level) {
     switch (level) {
+      case TUTORIAL:
+        return new TutorialArea(factory, checkpoint, hasDied);
       case ONE:
         return new ForestGameArea(factory, checkpoint, hasDied);
       case TWO:
@@ -250,6 +256,8 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = area;
     createUI();
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
+    saveData = new SaveData(game, area.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -287,6 +295,9 @@ public class MainGameScreen extends ScreenAdapter {
     this.currentMap = forestGameArea;
     createUI();
     //forestGameArea.spawnBuffDebuff(this.buffManager);
+
+    saveData = new SaveData(game, forestGameArea.getPlayer());
+    saveData.savePlayerData();
   }
 
   @Override
@@ -297,7 +308,9 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities());
+    if (game.getScreenType() != GdxGame.ScreenType.TUTORIAL) {
+      this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f, game.getScreenType());
+    }
 
     renderer.render();
   }
@@ -347,6 +360,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(finalLossTextures);
     resourceService.loadTextures(buffsAndDebuffsTextures);
     resourceService.loadSounds(mainMenuMusic);
+    resourceService.loadSounds(mainMenuClickSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -360,6 +374,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(finalLossTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
+    resourceService.unloadAssets(mainMenuClickSounds);
   }
 
   /**
