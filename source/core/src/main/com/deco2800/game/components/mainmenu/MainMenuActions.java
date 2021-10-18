@@ -65,6 +65,9 @@ public class MainMenuActions extends Component {
 
         String[] values = line.split(":");
         switch (values[1]) {
+          case "Tutorial":
+            screenType = GdxGame.ScreenType.TUTORIAL;
+            break;
           case "levelOne":
             screenType = GdxGame.ScreenType.MAIN_GAME;
             break;
@@ -74,10 +77,12 @@ public class MainMenuActions extends Component {
           case "levelThree":
             screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
             break;
+          case "levelFour":
+            screenType = GdxGame.ScreenType.LEVEL_FOUR_GAME;
           default:
             throw new IllegalStateException("Unexpected value: " + values[1]);
         }
-        //game.setScreenType(screenType, "saves/saveOne.txt");
+
         game.setScreenType(screenType);
         logger.info(screenType.toString());
         game.setScreen(GdxGame.ScreenType.LOADING);

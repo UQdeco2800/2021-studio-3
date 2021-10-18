@@ -82,6 +82,12 @@ public class PopupMenuActions extends Component {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
+    public void continueOnHome() {
+
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+
+
     /**
      * Called when the user clicks on the Replay button on pop-up screens.
      * Refreshes the main game screen. Old screen is disposed of.
@@ -146,8 +152,6 @@ public class PopupMenuActions extends Component {
         }
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
-
-
     }
 
 
