@@ -136,7 +136,8 @@ public class PopupMenuActions extends Component {
 
 
     /**
-     * Method actives when user clicks the replay button after winning
+     * Method actives when user clicks the replay button after winning. This
+     * method will return the player to the beginning of the same level.
      */
     public void onReplayWin() {
         switch (this.currentLevel) {
@@ -157,7 +158,13 @@ public class PopupMenuActions extends Component {
     }
 
     /**
-     * Method actives when user clicks the next level button after winning
+     * Method actives when user clicks the next level button after winning.
+     *
+     * If the player is on levels 1-3, this method will change the screen to
+     * the next level.
+     *
+     * If the player is on level 4, this method will change the screen to the
+     * Main Menu.
      */
     public void onNextLevel() {
         switch (this.currentLevel) {
@@ -182,10 +189,33 @@ public class PopupMenuActions extends Component {
     }
 
     /**
-     * Return the current level.
-     * @return int current level num
+     * Returns the current level.
+     *
+     * @return an integer between 1 to 4 inclusive representing the current
+     *         game level.
      */
     public int getCurrentLevel() {
-        return currentLevel;
+        return this.currentLevel;
+    }
+
+    /**
+     * Returns the current 'game' for this PopupMenuActions.
+     *
+     * @return the game associated with this PopupMenuActions.
+     * */
+    public GdxGame getGame() {
+        return this.game;
+    }
+
+    /**
+     * Returns the current area.
+     *
+     * @return the current game area.
+     * */
+    public ForestGameArea getCurrentArea() {
+        return (area != null) ? area
+                : (areaTwo != null) ? areaTwo
+                : (areaThree != null) ? areaThree
+                : areaFour;
     }
 }
