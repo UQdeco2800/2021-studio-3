@@ -391,11 +391,11 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a moving platform entity which moves in a fixed area at a constant speed.
+   * Creates a moving platform entity which moves horizontally in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createMovingPlatform() {
+  public static Entity createHorizontalMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new Platform_x_Task(3f,1));
@@ -419,21 +419,27 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a platform entity.
+   * Creates a moving platform entity which moves vertically in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createPlatform4() {
+  public static Entity createVerticalMovingPlatform() {
+
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new Platform_y_Task(3f,1));
+
     Entity platform4 =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/platform4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(aiComponent);
 
-    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform4.getComponent(TextureRenderComponent.class).scaleEntity();
     platform4.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform4, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform4, 0.7f, 0.5f);
     return platform4;
   }
 
