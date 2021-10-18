@@ -192,6 +192,10 @@ public class LoadingScreen extends ScreenAdapter {
                     logger.info("Setting screen to RESPAWN3");
                     this.game.setScreen(GdxGame.ScreenType.RESPAWN3);
                     break;
+                case RESPAWN4:
+                    logger.info("Setting screen to RESPAWN4");
+                    this.game.setScreen(GdxGame.ScreenType.RESPAWN4);
+                    break;
                 case LEVEL_TWO_GAME:
                     logger.info("Setting screen to LEVEL_TWO_GAME");
                     this.game.setScreen(GdxGame.ScreenType.LEVEL_TWO_GAME);

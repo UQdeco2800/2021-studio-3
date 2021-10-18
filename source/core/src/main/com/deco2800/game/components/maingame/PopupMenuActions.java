@@ -127,7 +127,11 @@ public class PopupMenuActions extends Component {
         } else if (areaThree != null) {
             logger.info("Player has lost and is now replaying level3");
             game.setScreenType(GdxGame.ScreenType.RESPAWN3);
+        } else if (areaFour != null) {
+            logger.info("Player has lost and is now replaying level3");
+            game.setScreenType(GdxGame.ScreenType.RESPAWN4);
         }
+
 
         game.setScreen(GdxGame.ScreenType.LOADING);
     }
