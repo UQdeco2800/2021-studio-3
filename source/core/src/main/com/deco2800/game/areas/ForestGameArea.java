@@ -330,6 +330,9 @@ public class ForestGameArea extends GameArea {
     spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+    spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
+
+    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
     spawnUFOs(this.UFO_SPAWNS);
 
     // Music
@@ -630,6 +633,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns the egg to traverse to the next level
+   *
+   * @param currentLevel The current level the player is on
+   * */
+  protected void spawnEgg(MainGameScreen.Level currentLevel) {
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    int posY = terrainFactory.getYOfSurface(tileBounds.x - 2, currentLevel);
+    GridPoint2 pos1 = new GridPoint2(tileBounds.x - 2, posY);
+    this.endPortal = ObstacleFactory.createDragonEgg();
+    spawnEntityAt(this.endPortal, pos1, true, true);
+  }
+
+  /**
    * Spawns the spaceship to finish the game
    *
    * @param currentLevel The current level the player is on
@@ -747,7 +763,7 @@ public class ForestGameArea extends GameArea {
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
     newPlayer.addComponent(new LivesComponent(lives));
-
+    newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       lives -= 1;
         newPlayer.getComponent(LivesComponent.class).setLives(lives);

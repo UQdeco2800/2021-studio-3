@@ -289,7 +289,8 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent("images/rock4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
 
     rock4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     rock4.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -478,6 +479,24 @@ public class ObstacleFactory {
 
   }
 
+  /**
+   * Creates a harmless egg.
+   *
+   * @return entity
+   */
+  public static Entity createDragonEgg() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/harmless_egg.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(1.5f);
+    PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
+    return egg;
+  }
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units

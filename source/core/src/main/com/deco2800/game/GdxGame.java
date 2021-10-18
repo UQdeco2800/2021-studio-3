@@ -96,6 +96,8 @@ public class GdxGame extends Game {
   private Screen newScreen(ScreenType screenType) {
 
     switch (screenType) {
+      case TUTORIAL:
+        return new TutorialScreen(this, resourceService, MainGameScreen.Level.TUTORIAL);
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
@@ -161,6 +163,9 @@ public class GdxGame extends Game {
       // parse file to load the floor
       String[] values = line.split(":");
       switch(values[1]) {
+        case "Tutorial":
+          setScreenType(ScreenType.TUTORIAL);
+          return new MainGameScreen(this,  resourceService, MainGameScreen.Level.TUTORIAL);
         case "levelOne":
           setScreenType(ScreenType.MAIN_GAME);
           return new MainGameScreen(this,  resourceService, MainGameScreen.Level.ONE);
@@ -200,8 +205,7 @@ public class GdxGame extends Game {
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME, LEVEL_FOUR_GAME,
-    LOADING, INTRO, SAVE_STATE, LOAD
-
+    LOADING, INTRO, SAVE_STATE, TUTORIAL, LOAD
   }
 
   public enum GameState {
