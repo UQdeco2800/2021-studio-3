@@ -339,7 +339,8 @@ public class ForestGameArea extends GameArea {
 
     // Music
     playMusic(backgroundMusic);
-    spawnMovingPlatform(this);
+    spawnHorizontalMovingPlatform(this);
+    spawnVerticalMovingPlatform(this);
 
     spawnAlienBarbette(this);
     spawnAlienSoldier(this);
@@ -750,10 +751,21 @@ public class ForestGameArea extends GameArea {
    * Spawns the moving platform obstacle
    * @param area the game area
    */
-  protected void spawnMovingPlatform(GameArea area) {
+  protected void spawnHorizontalMovingPlatform(GameArea area) {
       GridPoint2 pos = new GridPoint2(52,13);
-      spawnEntityAt(ObstacleFactory.createMovingPlatform(),
+      spawnEntityAt(ObstacleFactory.createHorizontalMovingPlatform(),
               pos, true, true);
+
+  }
+
+  /**
+   * Spawns the moving platform obstacle
+   * @param area the game area
+   */
+  protected void spawnVerticalMovingPlatform(GameArea area) {
+    GridPoint2 pos = new GridPoint2(60,13);
+    spawnEntityAt(ObstacleFactory.createVerticalMovingPlatform(),
+            pos, true, true);
 
   }
 
