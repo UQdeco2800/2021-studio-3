@@ -213,7 +213,6 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                     .addTask(new ChaseTask(target, 2,2f,2.5f));
 
@@ -237,7 +236,7 @@ public class ObstacleFactory {
 
     ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-    ufo.scaleHeight(3f);
+    ufo.scaleHeight(2f);
     return ufo;
   }
 
