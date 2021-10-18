@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -103,7 +103,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="LevelFourArea.html" title="class in com.deco2800.game.areas">LevelFourArea</a></code>, <code><a href="LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></code>, <code><a href="LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></code></dd>
+<dd><code><a href="LevelFourArea.html" title="class in com.deco2800.game.areas">LevelFourArea</a></code>, <code><a href="LevelThreeArea.html" title="class in com.deco2800.game.areas">LevelThreeArea</a></code>, <code><a href="LevelTwoArea.html" title="class in com.deco2800.game.areas">LevelTwoArea</a></code>, <code><a href="TutorialArea.html" title="class in com.deco2800.game.areas">TutorialArea</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">ForestGameArea</span>
@@ -412,31 +412,38 @@ int&nbsp;lives)</code></th>
 </tr>
 <tr class="altColor" id="i28">
 <td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnEgg(com.deco2800.game.screens.MainGameScreen.Level)">spawnEgg</a></span>&#8203;(<a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;currentLevel)</code></th>
+<td class="colLast">
+<div class="block">Spawns the egg to traverse to the next level</div>
+</td>
+</tr>
+<tr class="rowColor" id="i29">
+<td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnFloatPlatform(java.lang.String)">spawnFloatPlatform</a></span>&#8203;(java.lang.String&nbsp;floatFile)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i29">
+<tr class="altColor" id="i30">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnMovingPlatform(com.deco2800.game.areas.GameArea)">spawnMovingPlatform</a></span>&#8203;(<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a>&nbsp;area)</code></th>
 <td class="colLast">
 <div class="block">Spawns the moving platform obstacle</div>
 </td>
 </tr>
-<tr class="altColor" id="i30">
+<tr class="rowColor" id="i31">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatformsTypeOne(java.util.ArrayList)">spawnPlatformsTypeOne</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
 <td class="colLast">
 <div class="block">Spawns the platforms for the level (type one)</div>
 </td>
 </tr>
-<tr class="rowColor" id="i31">
+<tr class="altColor" id="i32">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatformsTypeTwo(java.util.ArrayList)">spawnPlatformsTypeTwo</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
 <td class="colLast">
 <div class="block">Spawns the platforms for the level (type two)</div>
 </td>
 </tr>
-<tr class="altColor" id="i32">
+<tr class="rowColor" id="i33">
 <td class="colFirst"><code>protected <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlayer(com.badlogic.gdx.math.GridPoint2,com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,boolean)">spawnPlayer</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;playerSpawn,
 <a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;area,
@@ -445,28 +452,28 @@ boolean&nbsp;save)</code></th>
 <div class="block">Spawns the player on the current terrain</div>
 </td>
 </tr>
-<tr class="rowColor" id="i33">
+<tr class="altColor" id="i34">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPortal(com.deco2800.game.screens.MainGameScreen.Level)">spawnPortal</a></span>&#8203;(<a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;currentLevel)</code></th>
 <td class="colLast">
 <div class="block">Spawns the portals to traverse to the next level</div>
 </td>
 </tr>
-<tr class="altColor" id="i34">
+<tr class="rowColor" id="i35">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnRobots(java.util.ArrayList)">spawnRobots</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
 <td class="colLast">
 <div class="block">Spawns the robots for the level</div>
 </td>
 </tr>
-<tr class="rowColor" id="i35">
+<tr class="altColor" id="i36">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnSpaceship(com.deco2800.game.screens.MainGameScreen.Level)">spawnSpaceship</a></span>&#8203;(<a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;currentLevel)</code></th>
 <td class="colLast">
 <div class="block">Spawns the spaceship to finish the game</div>
 </td>
 </tr>
-<tr class="altColor" id="i36">
+<tr class="rowColor" id="i37">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnTerrain(com.deco2800.game.areas.terrain.TerrainFactory.TerrainType,java.lang.String,java.lang.String)">spawnTerrain</a></span>&#8203;(<a href="terrain/TerrainFactory.TerrainType.html" title="enum in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;type,
 java.lang.String&nbsp;levelFile,
@@ -475,21 +482,21 @@ java.lang.String&nbsp;floatFile)</code></th>
 <div class="block">Spawns the terrain for the current level.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i37">
+<tr class="altColor" id="i38">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnUFO()">spawnUFO</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Spawns a UFO in a random position on the map</div>
 </td>
 </tr>
-<tr class="altColor" id="i38">
+<tr class="rowColor" id="i39">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnUFOs(java.util.ArrayList)">spawnUFOs</a></span>&#8203;(java.util.ArrayList&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&gt;&nbsp;positions)</code></th>
 <td class="colLast">
 <div class="block">Spawns UFO(s) at the given position(s).</div>
 </td>
 </tr>
-<tr class="rowColor" id="i39">
+<tr class="altColor" id="i40">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unloadAssets()">unloadAssets</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -764,6 +771,17 @@ java.lang.String&nbsp;floatFile)</span></div>
 <h3><a id="spawnPortal(com.deco2800.game.screens.MainGameScreen.Level)">spawnPortal</a></h3>
 <div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPortal</span>&#8203;(<span class="arguments"><a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;currentLevel)</span></div>
 <div class="block">Spawns the portals to traverse to the next level</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>currentLevel</code> - The current level the player is on</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnEgg(com.deco2800.game.screens.MainGameScreen.Level)">spawnEgg</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnEgg</span>&#8203;(<span class="arguments"><a href="../screens/MainGameScreen.Level.html" title="enum in com.deco2800.game.screens">MainGameScreen.Level</a>&nbsp;currentLevel)</span></div>
+<div class="block">Spawns the egg to traverse to the next level</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>currentLevel</code> - The current level the player is on</dd>
