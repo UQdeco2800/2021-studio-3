@@ -416,7 +416,7 @@ public class ObstacleFactory {
     platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform3.getComponent(TextureRenderComponent.class).scaleEntity();
     platform3.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform3, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform3, 0.7f, 0.5f);
     return platform3;
   }
 
