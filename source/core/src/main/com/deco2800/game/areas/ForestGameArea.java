@@ -141,7 +141,8 @@ public class ForestGameArea extends GameArea {
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
           , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas"
+          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas",
+          "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", "images/Lv4SerpentAnimation.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
@@ -329,12 +330,12 @@ public class ForestGameArea extends GameArea {
     spawnPortal(MainGameScreen.Level.ONE);
     spawnAsteroids(this.ASTEROID_SPAWNS);
     spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-    spawnRobots(this.ROBOT_SPAWNS);
+    //spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
 
-    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
     spawnUFOs(this.UFO_SPAWNS);
 
     // Music
@@ -344,8 +345,6 @@ public class ForestGameArea extends GameArea {
 
     spawnAlienBarbette(this);
     spawnAlienSoldier(this);
-
-
   }
 
   /**
@@ -380,8 +379,10 @@ public class ForestGameArea extends GameArea {
    * @param levelFile the file to read the level from.
    * */
   protected void spawnTerrain(TerrainType type, String levelFile, String floatFile) {
+
     // Background terrain
     terrain = terrainFactory.createTerrain(type);
+    logger.info("Tile size {}", terrain.getTileSize());
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
@@ -423,20 +424,9 @@ public class ForestGameArea extends GameArea {
         float height = Float.parseFloat(values[1]);
 
         // creates the floors wall
-        //spawnEntityAt(
-                //ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
-        //if (i != 0) {
-          // Create walls when floor level changes
-          //float height = (float) y/2;
-
-          //float endHeight = (float) (previousY - y)/2;
         spawnEntityAt(
                 ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
                         distanceY * terrain.getTileSize()), new GridPoint2(x, y), false, false);
-          //spawnEntityAt(
-                  //ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
-        //}
-
         spawnFloatPlatform(floatFile);
         line = br.readLine();
 
@@ -496,7 +486,7 @@ public class ForestGameArea extends GameArea {
         movingSpeed = 0.75f;
         break;
       case 4:
-        movingSpeed = 0.85f;
+        movingSpeed = 1f;
         break;
     }
     return movingSpeed;
@@ -508,7 +498,7 @@ public class ForestGameArea extends GameArea {
   protected void spawnDeathWall(int levelNumber) {
     float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed, levelNumber);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
     int startX;
