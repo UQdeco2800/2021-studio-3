@@ -23,8 +23,6 @@ import java.util.*;
  * Checks buff-related information on each frame. Handles the creation,
  * spawning, despawning and activation of buffs and debuffs on the map.
  *
- * Currently, timed buffs do not stack.
- *
  * - Keeps track of the buffs currently spawned on the map
  * - Keeps track of the time-based buffs which are currently affecting the
  *   player.
@@ -33,8 +31,8 @@ import java.util.*;
  *   timer is up.
  * - Handles spawning new buffs periodically
  *
- * Read the documentation above BuffTypes or the wiki page for how to create
- * new buffs
+ * The documentation above BuffTypes and the wiki page gives information on how
+ * to create new buffs
  * */
 public class BuffManager extends Component {
     /* Debugging */
@@ -77,22 +75,21 @@ public class BuffManager extends Component {
      *
      * If a new buff is added, ensure you update:
      *  - getTexture() method: the filepath to the sprite for this new buff
-     *    type (this file must have been loaded by the MainGameScreen prior)
+     *    type (this file must have been loaded by the LoadingScreen)
      *  - selectBuffFunctionality() method: append the relevant switch
      *    statement to call the PlayerBuffs method which controls the behaviour
      *    of the buff
      *  - getBuffSound() method: add the buff or debuff into the buff / debuff
-     *    switch statement list so that the buff or debuff sound is applied to
-     *    the buff upon pickup.
+     *    switch statement list so that the correct sound is applied upon
+     *    pickup.
      *
      * When any new buff is added, the PlayerBuff class must have a method
-     * added to control that buff.
+     * added to define the behaviour of the buff.
      *
      * If a new timed buff is added, the PlayerBuff class must have a method
-     * added to control the removal of the effects of the buff
-     *
-     * If a new timed buff is added, the PlayerBuff's removeTimedBuff() method
-     * must also be updated to call the removal function.
+     * added to control the removal of the effects of the buff. The
+     * PlayerBuffs' removeTimedBuff() method must be updated to call the
+     * removal function.
      *
      * If a new timed buff is added, the BuffInformation constructor must
      * also be updated with the buff's UI name and effect time.
@@ -101,7 +98,7 @@ public class BuffManager extends Component {
         B_HP_UP, B_FULL_HEAL,
         D_HP_DOWN,
         BT_INVIN, BT_INF_SPRINT,
-        DT_NO_JUMP, DT_DOUBLE_DMG
+        DT_DOUBLE_DMG
     }
 
     public enum BuffPickup {
@@ -147,8 +144,8 @@ public class BuffManager extends Component {
      *
      * @param type the type of buff the texture is being returned for.
      * @return the filepath to the texture for this buff. This filepath
-     *         must be in the MainGameScreen's buffsAndDebuffs String[], or
-     *         otherwise loaded by the MainGameScreen, to work.
+     *         must be in the LoadingScreen's buffsAndDebuffs String[], or
+     *         otherwise loaded by the game to work.
      * */
     public String getTexture(BuffTypes type) {
         switch (type) {
@@ -158,8 +155,6 @@ public class BuffManager extends Component {
                 return "images/healthIncrease.png";
             case D_HP_DOWN:
                 return "images/healthDecrease.png";
-            case DT_NO_JUMP:
-                return "images/noJumping.png";
             case BT_INF_SPRINT:
                 return "images/infiniteSprint.png";
             case DT_DOUBLE_DMG:
@@ -175,8 +170,8 @@ public class BuffManager extends Component {
      *
      * @param pickup the type of pickup the player hit
      * @return the filepath to the texture for this pickup. This filepath must
-     * be in the MainGameScreens' buffsAndDebuffs String[], or otherwise loaded
-     * by the MainGameScreen, to work.
+     *         be in the LoadingScreens' buffsAndDebuffs String[], or otherwise
+     *         loaded by game to work.
      * */
     public String getPickupTexture(BuffPickup pickup) {
         switch (pickup) {
@@ -202,7 +197,6 @@ public class BuffManager extends Component {
      * */
     public void selectBuffFunctionality(BuffTypes type, Entity buff,
             BuffInformation buffInfo) {
-
         /* PlayerBuffs functions to call when there is a new instant buff */
         switch (type) {
             case B_HP_UP:
@@ -231,9 +225,6 @@ public class BuffManager extends Component {
         switch (type) {
             case BT_INVIN:
                 PlayerBuffs.applyInvincibility(this.player);
-                break;
-            case DT_NO_JUMP:
-                PlayerBuffs.noJumping(this.player);
                 break;
             case BT_INF_SPRINT:
                 PlayerBuffs.setInfiniteStamina(this.player);
@@ -311,7 +302,6 @@ public class BuffManager extends Component {
             case BT_INVIN:
                 return BUFF_SOUND_PATH;
             case D_HP_DOWN:
-            case DT_NO_JUMP:
             case DT_DOUBLE_DMG:
                 return DEBUFF_SOUND_PATH;
         }

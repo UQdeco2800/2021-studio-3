@@ -55,6 +55,7 @@ public class ForestGameArea extends GameArea {
   private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_LASER_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_BARBETTE_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
 
 
   /**
@@ -186,9 +187,18 @@ public class ForestGameArea extends GameArea {
    * */
   private void setupSpawns() {
     setupPlatformSpawns();
-    setupAlienBarbetteSpawns();
+    setupUFOSpawns();
     setupAsteroidFireSpawns();
     setupRobotSpawns();
+  }
+
+  /**
+   * Defines the UFO spawns for this level.
+   * */
+  private void setupUFOSpawns() {
+    this.UFO_SPAWNS.add(new GridPoint2(89, 16));
+
+    this.UFO_SPAWNS.add(new GridPoint2(150, 23));
   }
 
   /**
@@ -314,9 +324,11 @@ public class ForestGameArea extends GameArea {
     //spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
-    //spawnMovingPlatform(this);
-    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
+
+    spawnUFOs(this.UFO_SPAWNS);
+
 
     // Music
     playMusic(backgroundMusic);
@@ -399,20 +411,9 @@ public class ForestGameArea extends GameArea {
         float height = Float.parseFloat(values[1]);
 
         // creates the floors wall
-        //spawnEntityAt(
-                //ObstacleFactory.createWall(Integer.parseInt(values[0]), WALL_WIDTH), new GridPoint2(x, distanceY), false, false);
-        //if (i != 0) {
-          // Create walls when floor level changes
-          //float height = (float) y/2;
-
-          //float endHeight = (float) (previousY - y)/2;
         spawnEntityAt(
                 ObstacleFactory.createWall(terrain.getTileSize() * distanceX,
                         distanceY * terrain.getTileSize()), new GridPoint2(x, y), false, false);
-          //spawnEntityAt(
-                  //ObstacleFactory.createWall(WALL_WIDTH, height), new GridPoint2(x + distanceX, y), false, false);
-        //}
-
         spawnFloatPlatform(floatFile);
         line = br.readLine();
 
@@ -462,7 +463,7 @@ public class ForestGameArea extends GameArea {
     float movingSpeed = 0.2f;
     switch (levelNumber) {
       case 1:
-        movingSpeed = 4f;
+        movingSpeed = 0.4f;
         break;
       case 2:
         movingSpeed = 0.65f;
@@ -489,6 +490,18 @@ public class ForestGameArea extends GameArea {
     int startX;
     startX = levelNumber == 1 ? -5 : -8;
     spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
+  }
+
+  /**
+   * Spawns UFO(s) at the given position(s).
+   *
+   * @param positions the position(s) to spawn the UFO(s) at.
+   * */
+  protected void spawnUFOs(ArrayList<GridPoint2> positions) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(ObstacleFactory.createUfo(getPlayer()), pos,
+              true, true);
+    }
   }
 
   /**
