@@ -54,12 +54,12 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void loadData() {
-    GdxGame.ScreenType screenType = null;
+    GdxGame.ScreenType screenType;
     logger.info("Load game");
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
       String line = br.readLine();
 
-      if (br.readLine() == null) {
+      if (line == null) {
         onStart();
       } else {
 
