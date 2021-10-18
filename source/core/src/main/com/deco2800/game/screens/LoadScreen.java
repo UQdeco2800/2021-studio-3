@@ -20,7 +20,7 @@ public class LoadScreen extends ScreenAdapter {
     private final Renderer renderer;
     GdxGame game;
     ResourceService resourceService;
-    private static final String[] mainMenuMusic = {"sounds/background.mp3"};
+    private static final String[] mainMenuMusic = {"sounds/background.mp3","sounds/click.mp3"};
 
     public LoadScreen(GdxGame game, ResourceService resourceService) {
         this.game = game;
