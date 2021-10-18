@@ -42,7 +42,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   // Jumping
   private boolean isJumping = false; // true if player is jumping
-  private boolean noJumping = false; // true if player has picked up a no jump debuff
 
   // Rolling
   private boolean isRolling = false; // true if the player is rolling
@@ -127,14 +126,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   };
 
-  /**
-   * Sets whether or not the player is under the effects of a No Jumping debuff
-   *
-   * @param noJumping whether or not the player is able to jump.
-   * */
-  public void setNoJumping(boolean noJumping) {
-    this.noJumping = noJumping;
-  }
 
   /**
    * Sets the players 'rolling' status to the status passed in.
@@ -269,18 +260,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     return true;
   }
 
-  /*private boolean instantDrop() {
-    if (isJumping) {
-      logger.info("Dropped to the ground");
-      for (int i = 0; i < 8; i++) {
-        walkDirection.sub(Vector2Utils.UP);
-      }
-      for (int i = 0; i < 4; i++) {
-        walkDirection.add(Vector2Utils.UP);
-      }
-    }
-    return true;
-  }*/
 
   /**
    * After an input of 'A' or 'D' has been detected, decide to move left or
@@ -402,7 +381,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    * @return true if the player is able to jump, else false.
    * */
   private boolean canJump() {
-    return (!isJumping && !noJumping && !isRolling &&
+    return (!isJumping && !isRolling &&
             entity.getComponent(DoubleJumpComponent.class).notDoubleJumping());
   }
 
