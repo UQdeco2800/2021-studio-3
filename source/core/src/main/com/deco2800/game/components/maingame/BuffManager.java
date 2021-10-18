@@ -98,7 +98,7 @@ public class BuffManager extends Component {
         B_HP_UP, B_FULL_HEAL,
         D_HP_DOWN,
         BT_INVIN, BT_INF_SPRINT,
-        DT_NO_JUMP, DT_DOUBLE_DMG
+        DT_DOUBLE_DMG
     }
 
     public enum BuffPickup {
@@ -155,8 +155,6 @@ public class BuffManager extends Component {
                 return "images/healthIncrease.png";
             case D_HP_DOWN:
                 return "images/healthDecrease.png";
-            case DT_NO_JUMP:
-                return "images/noJumping.png";
             case BT_INF_SPRINT:
                 return "images/infiniteSprint.png";
             case DT_DOUBLE_DMG:
@@ -227,9 +225,6 @@ public class BuffManager extends Component {
         switch (type) {
             case BT_INVIN:
                 PlayerBuffs.applyInvincibility(this.player);
-                break;
-            case DT_NO_JUMP:
-                PlayerBuffs.noJumping(this.player);
                 break;
             case BT_INF_SPRINT:
                 PlayerBuffs.setInfiniteStamina(this.player);
@@ -307,7 +302,6 @@ public class BuffManager extends Component {
             case BT_INVIN:
                 return BUFF_SOUND_PATH;
             case D_HP_DOWN:
-            case DT_NO_JUMP:
             case DT_DOUBLE_DMG:
                 return DEBUFF_SOUND_PATH;
         }
