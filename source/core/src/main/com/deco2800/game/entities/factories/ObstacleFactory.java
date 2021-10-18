@@ -12,13 +12,10 @@ import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
 
 
-import com.deco2800.game.components.tasks.MovingTask;
-import com.deco2800.game.components.tasks.PlatformTask;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -400,7 +397,8 @@ public class ObstacleFactory {
   public static Entity createMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new PlatformTask(3f,1));
+                    .addTask(new Platform_x_Task(3f,1));
+                    //.addTask(new Platform_y_Task(3f,1));
 
     Entity platform3 =
             new Entity()
