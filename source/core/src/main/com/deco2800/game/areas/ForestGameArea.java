@@ -481,6 +481,7 @@ public class ForestGameArea extends GameArea {
    */
   float serpentLevelSpeed(int levelNumber){
     float movingSpeed = 0.2f;
+    logger.info(String.valueOf(levelNumber));
     switch (levelNumber){
       case 1:
         movingSpeed = 0.4f;

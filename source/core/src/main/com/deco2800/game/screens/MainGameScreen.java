@@ -308,7 +308,6 @@ public class MainGameScreen extends ScreenAdapter {
       ServiceLocator.getEntityService().update();
     }
     if (game.getScreenType() != GdxGame.ScreenType.TUTORIAL) {
-      System.out.println(game.getScreenType());
       this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f, game.getScreenType());
     }
 
