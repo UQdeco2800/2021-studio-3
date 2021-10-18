@@ -1,6 +1,7 @@
 package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.*;
 import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.LevelFourArea;
@@ -30,6 +31,7 @@ public class PopupMenuActions extends Component {
     private LevelTwoArea areaTwo = null;
     private LevelThreeArea areaThree = null;
     private LevelFourArea areaFour = null;
+    private TutorialArea areaTutorial = null;
 
     /*Player savae file*/
     private SaveData saveData;
@@ -44,6 +46,11 @@ public class PopupMenuActions extends Component {
     public PopupMenuActions(GdxGame game, ForestGameArea area) {
         this.game = game;
         switch (area.getAreaType()) {
+            case TUTORIAL:
+                this.areaTutorial = (TutorialArea) area;
+                this.currentLevel = 0;
+                saveData = new SaveData(game, area.getPlayer());
+                break;
             case ONE:
                 this.area = area;
                 this.currentLevel = 1;
@@ -145,7 +152,8 @@ public class PopupMenuActions extends Component {
 
 
     /**
-     * Method actives when user clicks the replay button after winning
+     * Method actives when user clicks the replay button after winning. This
+     * method will return the player to the beginning of the same level.
      */
     public void onReplayWin() {
         switch (this.currentLevel) {
@@ -168,10 +176,20 @@ public class PopupMenuActions extends Component {
     }
 
     /**
-     * Method actives when user clicks the next level button after winning
+     * Method actives when user clicks the next level button after winning.
+     *
+     * If the player is on levels 1-3, this method will change the screen to
+     * the next level.
+     *
+     * If the player is on level 4, this method will change the screen to the
+     * Main Menu.
      */
     public void onNextLevel() {
         switch (this.currentLevel) {
+            case 0:
+                game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
+                game.setScreen(GdxGame.ScreenType.LOADING);
+                break;
             case 1:
                 game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
                 game.setScreen(GdxGame.ScreenType.LOADING);
@@ -194,10 +212,33 @@ public class PopupMenuActions extends Component {
     }
 
     /**
-     * Return the current level.
-     * @return int current level num
+     * Returns the current level.
+     *
+     * @return an integer between 1 to 4 inclusive representing the current
+     *         game level.
      */
     public int getCurrentLevel() {
-        return currentLevel;
+        return this.currentLevel;
+    }
+
+    /**
+     * Returns the current 'game' for this PopupMenuActions.
+     *
+     * @return the game associated with this PopupMenuActions.
+     * */
+    public GdxGame getGame() {
+        return this.game;
+    }
+
+    /**
+     * Returns the current area.
+     *
+     * @return the current game area.
+     * */
+    public ForestGameArea getCurrentArea() {
+        return (area != null) ? area
+                : (areaTwo != null) ? areaTwo
+                : (areaThree != null) ? areaThree
+                : areaFour;
     }
 }

@@ -141,6 +141,7 @@ public class PlayerActions extends Component {
     if (walkDirection.x > 0) {
       entity.getComponent(ProgressComponent.class).updateProgress(entity.getPosition().x);
     }
+    entity.getComponent(InformPlayerComponent.class).setPosition(entity.getPosition().x);
   }
 
   /**

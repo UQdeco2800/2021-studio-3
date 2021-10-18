@@ -6,39 +6,44 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.InformPlayerComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EnemyFactory;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
 
-/** Game area for the level two */
-public class LevelTwoArea extends ForestGameArea {
+/** Game area for the tutorial */
+public class TutorialArea extends ForestGameArea {
     private static final Logger logger = LoggerFactory.getLogger(LevelTwoArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(5, 11);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(12, 6);
     private ArrayList<GridPoint2> PLATFORM_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> ASTEROID_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> ASTEROID_FIRE_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> ROBOT_SPAWNS = new ArrayList<>();
-    private ArrayList<GridPoint2> ALIEN_BOSS_SPAWNS = new ArrayList<>();
+    private ArrayList<GridPoint2> ALIEN_MONSTER_SPAWNS = new ArrayList<>();
     private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
-    private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
-
+    private Map<Integer, String> triggerPoints;
     private boolean hasSave;
     //private int lives = 5;
 
     /* Music specific to this level */
-    private static final String backgroundMusic = "sounds/level2.mp3";
+    private static final String backgroundMusic = "sounds/maingame.mp3";
 
-    public LevelTwoArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
+    public TutorialArea(TerrainFactory terrainFactory, int checkpoint, boolean hasDied) {
         super(terrainFactory, checkpoint, hasDied);
         this.hasSave = false;
+        triggerPoints = new HashMap<>();
         setupSpawns();
     }
 
-    public LevelTwoArea(TerrainFactory terrainFactory, String saveState) {
+    public TutorialArea(TerrainFactory terrainFactory, String saveState) {
         super(terrainFactory, saveState);
         this.hasSave = true;
+        triggerPoints = new HashMap<>();
         setupSpawns();
     }
 
@@ -47,83 +52,56 @@ public class LevelTwoArea extends ForestGameArea {
      * */
     private void setupSpawns() {
         setupPlatformSpawns();
+        setupAsteroidSpawns();
         setupAsteroidFireSpawns();
         setupRobotSpawns();
-        setupUFOSpawns();
+//        setupAlienMonsterSpawns();
+//        setupCheckPointSpawns();
     }
 
     /**
      * Sets up platform one spawn locations
      * */
     private void setupPlatformSpawns() {
-        this.PLATFORM_SPAWNS.add(new GridPoint2(12,12));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(16, 15));
-
-        this.PLATFORM_SPAWNS.add(new GridPoint2(40, 12));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(38, 15));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(43, 19));
-
-        this.PLATFORM_SPAWNS.add(new GridPoint2(92, 16));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(92, 12));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(99, 14));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(102, 9));
-
-        this.PLATFORM_SPAWNS.add(new GridPoint2(156, 18));
-
-        this.PLATFORM_SPAWNS.add(new GridPoint2(173, 16));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(173, 12));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(180, 14));
-        this.PLATFORM_SPAWNS.add(new GridPoint2(183, 9));
-    }
-
-    /**
-     * Sets up the UFO spawn locations
-     * */
-    private void setupUFOSpawns() {
-        this.UFO_SPAWNS.add(new GridPoint2(28, 20));
-
-        this.UFO_SPAWNS.add(new GridPoint2(68,15));
-
-        this.UFO_SPAWNS.add(new GridPoint2(123,17));
+        this.PLATFORM_SPAWNS.add(new GridPoint2(95,13));
+        this.PLATFORM_SPAWNS.add(new GridPoint2(105, 13));
     }
 
     /**
      * Sets up Asteroid spawn locations
      * */
     private void setupAsteroidSpawns() {
-        this.ASTEROID_SPAWNS.add(new GridPoint2(38, 5));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(38, 7));
         this.ASTEROID_SPAWNS.add(new GridPoint2(46, 7));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(55, 8));
-        this.ASTEROID_SPAWNS.add(new GridPoint2(87, 5));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(55, 14));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(87, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(104, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(112, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(132, 10));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(150, 8));
+        this.ASTEROID_SPAWNS.add(new GridPoint2(173, 6));
     }
 
     /**
      * Sets up Asteroid Fire spawn locations
      * */
     private void setupAsteroidFireSpawns() {
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(34,10));
-
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(66,6));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(67,6));
-
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(197,6));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(196,6));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(195,6));
-        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(194,6));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(1,5));
+        this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(3,5));
     }
 
     /**
      * Sets up robot spawn locations
      * */
     private void setupRobotSpawns() {
-        this.ROBOT_SPAWNS.add(new GridPoint2(28, 11));
+        this.ROBOT_SPAWNS.add(new GridPoint2(100, 8));
     }
 
     /**
-     * Sets up Alien Boss spawn locations
+     * Sets up Alien Monster spawn locations
      * */
-    private void setupAlienBossSpawns() {
-        this.ALIEN_BOSS_SPAWNS.add(new GridPoint2(45, 14));
+    private void setupAlienMonsterSpawns() {
+        this.ALIEN_MONSTER_SPAWNS.add(new GridPoint2(86, 20));
     }
 
     /**
@@ -137,25 +115,34 @@ public class LevelTwoArea extends ForestGameArea {
     @Override
     public void create() {
         // UI
-        displayUI("Level Two");
-
-        // Spawning Terrain and player
-        spawnTerrain(TerrainType.LEVEL_TWO_TERRAIN, "level-floors/levelTwoGround.txt", "level-floors/levelTwoFloat.txt");
-        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_TWO_TERRAIN, this.hasSave));
-        if (this.hasSave) {
-            loadSave(getPlayer(), this.saveState);
+        displayUI("Level Tutorial");
+        fillTriggerMessages();
+        spawnTerrain(TerrainType.TUTORIAL_TERRAIN, "level-floors/TutorialGround.txt", "level-floors/TutorialFloat.txt");
+        player = spawnPlayer(PLAYER_SPAWN, TerrainType.SIDE_SCROLL_ER, hasSave);
+        player.getComponent(InformPlayerComponent.class).setInformation("Press A or D to move");
+        player.getComponent(InformPlayerComponent.class).setTriggers(triggerPoints);
+        if (hasSave) {
+            loadSave(player, this.saveState);
         }
-        spawnPortal(MainGameScreen.Level.TWO);
-        spawnDeathWall(2);
+        spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
+        spawnRobots(this.ROBOT_SPAWNS);
         spawnAsteroids(this.ASTEROID_SPAWNS);
         spawnAsteroidFires(this.ASTEROID_FIRE_SPAWNS);
-        spawnRobots(this.ROBOT_SPAWNS);
-        spawnAlienBosses(this.ALIEN_BOSS_SPAWNS, this);
-        spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
-        spawnUFOs(this.UFO_SPAWNS);
+        spawnEgg(MainGameScreen.Level.TUTORIAL);
+        // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
 
-        // Music
         playMusic(backgroundMusic);
+    }
+
+
+    public void fillTriggerMessages() {
+        triggerPoints.put(12, "Press Space to Jump");
+        triggerPoints.put(19, "Press Space Midair to Double Jump");
+        triggerPoints.put(23, "Watch Out For Pit Falls");
+        triggerPoints.put(35, "Avoid The Deadly Aliens");
+        triggerPoints.put(48, "Press Q or E to Roll");
+        triggerPoints.put(60, "Press Shift to Sprint");
+        triggerPoints.put(85, "CONGRATULATIONS!!! collect your prize");
     }
 
     /**
@@ -170,7 +157,7 @@ public class LevelTwoArea extends ForestGameArea {
      * Method signature to ensure a call to the superclass isn't made
      * */
     public void introCam(Vector2 startPos, float distance, float duration,
-            CameraComponent camera) {
+                         CameraComponent camera) {
         // Do nothing
     }
 
@@ -187,6 +174,6 @@ public class LevelTwoArea extends ForestGameArea {
      * Allows for differentiation between the four areas.
      * */
     public MainGameScreen.Level getAreaType() {
-        return MainGameScreen.Level.TWO;
+        return MainGameScreen.Level.TUTORIAL;
     }
 }

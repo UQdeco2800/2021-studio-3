@@ -151,7 +151,7 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/asteroidFire.atlas", TextureAtlas.class));
+                            .getAsset("images/asteroidFireNew.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.2f, Animation.PlayMode.LOOP);
     Entity asteroidFire =
             new Entity()
@@ -165,8 +165,8 @@ public class ObstacleFactory {
             .addComponent(animator)
             .addComponent(new ObstacleAnimationController());
     asteroidFire.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
-    asteroidFire.scaleHeight(1.2f);
-    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.2f));
+    asteroidFire.scaleHeight(1.5f);
+    asteroidFire.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.3f, 1.5f));
 
     // Allows player to pass through fire while taking damage
     asteroidFire.getComponent(ColliderComponent.class).setSensor(true);
@@ -289,7 +289,8 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent("images/rock4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
 
     rock4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     rock4.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -416,7 +417,7 @@ public class ObstacleFactory {
     platform3.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform3.getComponent(TextureRenderComponent.class).scaleEntity();
     platform3.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform3, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform3, 0.7f, 0.5f);
     return platform3;
   }
 
@@ -478,6 +479,24 @@ public class ObstacleFactory {
 
   }
 
+  /**
+   * Creates a harmless egg.
+   *
+   * @return entity
+   */
+  public static Entity createDragonEgg() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/harmless_egg.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(1.5f);
+    PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
+    return egg;
+  }
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
