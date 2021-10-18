@@ -55,6 +55,7 @@ public class ForestGameArea extends GameArea {
   private ArrayList<GridPoint2> CHECKPOINT_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_LASER_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_BARBETTE_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
 
 
   /**
@@ -122,8 +123,15 @@ public class ForestGameArea extends GameArea {
           "images/roll.png",
           "images/roll2.png",
           "images/roll3.png",
+
+          "images/alien_wasp.png",
+          "images/alien_wasp_weapon.png",
+          "images/alien_squid.png",
+          "images/alien_squid_weapon.png",
+
           "images/portal.png",
           "images/Spaceship.png"
+
 
   };
 
@@ -132,7 +140,8 @@ public class ForestGameArea extends GameArea {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
-          , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
+          , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
+          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
@@ -186,9 +195,18 @@ public class ForestGameArea extends GameArea {
    * */
   private void setupSpawns() {
     setupPlatformSpawns();
-    setupAlienBarbetteSpawns();
+    setupUFOSpawns();
     setupAsteroidFireSpawns();
     setupRobotSpawns();
+  }
+
+  /**
+   * Defines the UFO spawns for this level.
+   * */
+  private void setupUFOSpawns() {
+    this.UFO_SPAWNS.add(new GridPoint2(89, 16));
+
+    this.UFO_SPAWNS.add(new GridPoint2(150, 23));
   }
 
   /**
@@ -314,12 +332,25 @@ public class ForestGameArea extends GameArea {
     spawnRobots(this.ROBOT_SPAWNS);
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
-    spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
-    spawnMovingPlatform(this);
-    // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
+    spawnUFOs(this.UFO_SPAWNS);
 
     // Music
     playMusic(backgroundMusic);
+
+
+
+    //createCheckpoint();
+//    playMusic();
+
+    //spawnAttackObstacle();
+    //spawnAlienMonster();
+   // spawnAlienSoldier();
+   // spawnAlienBarbette();
+   // spawnAlienLaserHole();
+
+    spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
+    spawnMovingPlatform(this);
+
   }
 
   /**
@@ -460,7 +491,7 @@ public class ForestGameArea extends GameArea {
     float movingSpeed = 0.2f;
     switch (levelNumber){
       case 1:
-        movingSpeed = 4f;
+        movingSpeed = 0.4f;
         break;
       case 2:
         movingSpeed = 0.65f;
@@ -487,6 +518,18 @@ public class ForestGameArea extends GameArea {
     int startX;
     startX = levelNumber == 1 ? -5 : -8;
     spawnEntityAt(deathWall, new GridPoint2(startX, 0), false, false);
+  }
+
+  /**
+   * Spawns UFO(s) at the given position(s).
+   *
+   * @param positions the position(s) to spawn the UFO(s) at.
+   * */
+  protected void spawnUFOs(ArrayList<GridPoint2> positions) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(ObstacleFactory.createUfo(getPlayer()), pos,
+              true, true);
+    }
   }
 
   /**
