@@ -350,6 +350,8 @@ public class ForestGameArea extends GameArea {
 
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnMovingPlatform(this);
+    spawnAlienBarbette(this);
+    spawnAlienSoldier(this);
 
   }
 
@@ -685,6 +687,43 @@ public class ForestGameArea extends GameArea {
               pos, true, true);
     }
   }
+
+  /**
+   * Spawn the alien barbette for the level one area
+   * @param area the game area - level one
+   */
+  protected void spawnAlienBarbette(GameArea area) {
+    GridPoint2 pos = new GridPoint2(170, 12);
+    spawnEntityAt(EnemyFactory.createALienBarbette(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien soldier for the level one area
+   * @param area the game area - level one
+   */
+  protected void spawnAlienSoldier(GameArea area) {
+    GridPoint2 pos = new GridPoint2(196, 18);
+    spawnEntityAt(EnemyFactory.createAlienSoldier(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien monster for the level two area
+   * @param area the game area - level two
+   */
+  protected void spawnAlienMonsterLevelTwo(GameArea area) {
+    GridPoint2 pos = new GridPoint2(185, 22);
+    spawnEntityAt(EnemyFactory.createAlienMonster(player, area), pos, true, true);
+  }
+
+  /**
+   * Spawn the alien boss for the level three area
+   * @param area the game area - level three
+   */
+  protected void spawnAlienBossLevelThree(GameArea area) {
+    GridPoint2 pos = new GridPoint2(162, 24);
+    spawnEntityAt(EnemyFactory.createAlienBoss(player, area), pos, true, true);
+  }
+
 
   /**
    * Spawns the Alien Laser Hole(s) as the given position(s).

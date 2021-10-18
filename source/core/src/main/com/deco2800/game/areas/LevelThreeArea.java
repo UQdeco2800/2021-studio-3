@@ -63,7 +63,7 @@ public class LevelThreeArea extends ForestGameArea {
         this.UFO_SPAWNS.add(new GridPoint2(48, 17));
         this.UFO_SPAWNS.add(new GridPoint2(90, 22));
         this.UFO_SPAWNS.add(new GridPoint2(115, 20));
-        this.UFO_SPAWNS.add(new GridPoint2(162, 20));
+       // this.UFO_SPAWNS.add(new GridPoint2(162, 20));
     }
 
     /**
@@ -164,6 +164,8 @@ public class LevelThreeArea extends ForestGameArea {
 
         // Music
         playMusic(backgroundMusic);
+
+        spawnAlienBossLevelThree(this);
     }
 
     /**
