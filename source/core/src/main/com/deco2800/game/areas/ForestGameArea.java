@@ -755,6 +755,7 @@ public class ForestGameArea extends GameArea {
       newPlayer = player;
     } else {
       newPlayer = PlayerFactory.createPlayer();
+      newPlayer.addComponent(new LivesComponent(lives));
     }
     float tileSize = terrain.getTileSize();
 
@@ -762,7 +763,7 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
-    newPlayer.addComponent(new LivesComponent(lives));
+
     newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       lives -= 1;
