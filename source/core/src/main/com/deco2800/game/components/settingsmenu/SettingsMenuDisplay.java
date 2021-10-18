@@ -3,11 +3,15 @@ package com.deco2800.game.components.settingsmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Graphics.Monitor;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
@@ -33,6 +37,7 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
+  private static final String MUSIC_FILE_PATH = "sounds/background.mp3";
 
   public SettingsMenuDisplay(GdxGame game) {
     super();
@@ -49,9 +54,12 @@ public class SettingsMenuDisplay extends UIComponent {
     Label title = new Label("Settings", skin, "title");
     Table settingsTable = makeSettingsTable();
     Table menuBtns = makeMenuBtns();
+    playBackgroundMusic();
 
     rootTable = new Table();
     rootTable.setFillParent(true);
+    rootTable.setBackground(new TextureRegionDrawable(
+            new Texture(Gdx.files.internal("images/settingsScreen.png"))));
 
     rootTable.add(title).expandX().top().padTop(20f);
 
@@ -119,11 +127,11 @@ public class SettingsMenuDisplay extends UIComponent {
 
     // Events on inputs
     uiScaleSlider.addListener(
-        (Event event) -> {
-          float value = uiScaleSlider.getValue();
-          uiScaleValue.setText(String.format("%.2fx", value));
-          return true;
-        });
+            (Event event) -> {
+              float value = uiScaleSlider.getValue();
+              uiScaleValue.setText(String.format("%.2fx", value));
+              return true;
+            });
 
     return table;
   }
@@ -134,8 +142,8 @@ public class SettingsMenuDisplay extends UIComponent {
     for (StringDecorator<DisplayMode> stringMode : modes) {
       DisplayMode mode = stringMode.object;
       if (active.width == mode.width
-          && active.height == mode.height
-          && active.refreshRate == mode.refreshRate) {
+              && active.height == mode.height
+              && active.refreshRate == mode.refreshRate) {
         return stringMode;
       }
     }
@@ -162,22 +170,22 @@ public class SettingsMenuDisplay extends UIComponent {
     TextButton applyBtn = new TextButton("Apply", skin);
 
     exitBtn.addListener(
-        new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Exit button clicked");
-            exitMenu();
-          }
-        });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Exit button clicked");
+                exitMenu();
+              }
+            });
 
     applyBtn.addListener(
-        new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Apply button clicked");
-            applyChanges();
-          }
-        });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Apply button clicked");
+                applyChanges();
+              }
+            });
 
     Table table = new Table();
     table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
@@ -212,6 +220,13 @@ public class SettingsMenuDisplay extends UIComponent {
     }
   }
 
+  private void playBackgroundMusic() {
+    Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
+    menuSong.setLooping(true);
+    menuSong.setVolume(0.5f);
+    menuSong.play();
+  }
+
   @Override
   protected void draw(SpriteBatch batch) {
     // draw is handled by the stage
@@ -224,6 +239,7 @@ public class SettingsMenuDisplay extends UIComponent {
 
   @Override
   public void dispose() {
+    ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class).stop();
     rootTable.clear();
     super.dispose();
   }
