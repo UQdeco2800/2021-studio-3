@@ -123,6 +123,9 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_europa_surface.png",
             "images/background_europa_star.png"};
 
+    private static final String[] level4Textures = {"images/level4sky.png",
+            "images/level4star.png", "images/level4surface.png", "images/level4underground.png"};
+
     private static final String[] forestTextureAtlases = {
 
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
@@ -264,6 +267,9 @@ public class LoadingScreen extends ScreenAdapter {
                 || game.getScreenType() == GdxGame.ScreenType.RESPAWN3) {
             logger.info("loading level3 assets");
             resourceService.loadTextures(level3Textures);
+        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_FOUR_GAME) {
+            logger.info("loading level4 assets");
+            resourceService.loadTextures(level4Textures);
         }
     }
 

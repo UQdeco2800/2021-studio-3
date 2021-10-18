@@ -201,9 +201,9 @@ class RollComponentTest {
         // Say that 2ms has passed from 'anything'
         when(time.getTimeSince(anyLong())).thenReturn(2000L);
 
-        // The player's cool-down is 4ms (4000)
-        // If we are 2ms (2000) since then, the time remaining should be 2000
-        assertEquals(2000, rollComponent.getCoolDownRemaining());
+        // The player's cool-down is 2ms (2000)
+        // If we are 2ms (2000) since then, the time remaining should be 0
+        assertEquals(0, rollComponent.getCoolDownRemaining());
     }
 
 }

@@ -93,13 +93,13 @@ public class TerrainFactory {
       case LEVEL_FOUR_TERRAIN:
         // Placeholder : uses Level 1 Terrain and Layout.
         TextureRegion surfaceFour =
-                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4surface.png", Texture.class));
         TextureRegion undergroundFour =
-                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4underground.png", Texture.class));
         TextureRegion skyFour =
-                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4sky.png", Texture.class));
         TextureRegion starFour =
-                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4star.png", Texture.class));
         return createLevelFourTerrain(0.5f, surfaceFour, undergroundFour, skyFour, starFour);
       case TUTORIAL_TERRAIN:
         TextureRegion surfaceTutorial = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
