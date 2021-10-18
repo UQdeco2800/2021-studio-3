@@ -135,7 +135,8 @@ public class ForestGameArea extends GameArea {
           , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas"
   };
 
-  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
+          "/debuff.mp3","sounds/click.mp3"};
   private static final String backgroundMusic = "sounds/maingame.mp3";
   private static final String lossMusic = "sounds/loss.mp3";
   private static final String[] forestMusic = {backgroundMusic,lossMusic};

@@ -99,6 +99,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
     resourceService.unloadAssets(mainMenuMusic);
+    resourceService.unloadAssets(mainMenuClickSounds);
   }
 
   /**

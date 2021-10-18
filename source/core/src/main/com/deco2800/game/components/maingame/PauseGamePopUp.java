@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * Class controlling the pop-up menu which is triggered upon the pressing pause
  * */
 public class PauseGamePopUp extends UIComponent {
+    private static final String CLICK_SOUND_FILE_PATH = "sounds/click.mp3";
     private static final Logger logger =
             LoggerFactory.getLogger(PauseGamePopUp.class);
 
@@ -43,6 +45,8 @@ public class PauseGamePopUp extends UIComponent {
      * */
     public void onPause() {
         logger.info("pausing game");
+//        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+//        buttonClickSound.play();
         if (game.getState() == GdxGame.GameState.RUNNING) {
             game.setState(GdxGame.GameState.PAUSED);
         }

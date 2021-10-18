@@ -373,6 +373,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(finalLossTextures);
     resourceService.unloadAssets(buffsAndDebuffsTextures);
     resourceService.unloadAssets(mainMenuMusic);
+    resourceService.unloadAssets(mainMenuClickSounds);
   }
 
   /**
