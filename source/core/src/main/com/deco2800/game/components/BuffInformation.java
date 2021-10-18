@@ -60,10 +60,6 @@ public class BuffInformation extends Component {
                 this.buffName = "Invincibility!";
                 setEffectTimeout(5 * SECONDS);
                 break;
-            case DT_NO_JUMP:
-                this.buffName = "No Jumping!";
-                this.setEffectTimeout(5 * SECONDS);
-                break;
             case BT_INF_SPRINT:
                 this.buffName = "Infinite Sprint!";
                 this.setEffectTimeout(5 * SECONDS);
