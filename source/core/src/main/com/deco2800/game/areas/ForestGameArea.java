@@ -229,8 +229,6 @@ public class ForestGameArea extends GameArea {
    * Defines the platform spawns for this level.
    * */
   private void setupPlatformSpawns() {
-    this.PLATFORM_SPAWNS.add(new GridPoint2(52, 13));
-
     this.PLATFORM_SPAWNS.add(new GridPoint2(95,8));
     this.PLATFORM_SPAWNS.add(new GridPoint2(99, 10));
     this.PLATFORM_SPAWNS.add(new GridPoint2(95, 12));
@@ -336,21 +334,7 @@ public class ForestGameArea extends GameArea {
 
     // Music
     playMusic(backgroundMusic);
-
-
-
-    //createCheckpoint();
-//    playMusic();
-
-    //spawnAttackObstacle();
-    //spawnAlienMonster();
-   // spawnAlienSoldier();
-   // spawnAlienBarbette();
-   // spawnAlienLaserHole();
-
-    spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnMovingPlatform(this);
-
   }
 
   /**
@@ -706,7 +690,7 @@ public class ForestGameArea extends GameArea {
    * @param area the game area
    */
   protected void spawnMovingPlatform(GameArea area) {
-      GridPoint2 pos = new GridPoint2(40,13);
+      GridPoint2 pos = new GridPoint2(52,13);
       spawnEntityAt(ObstacleFactory.createMovingPlatform(),
               pos, true, true);
 
