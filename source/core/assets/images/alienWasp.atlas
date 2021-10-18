@@ -1,0 +1,47 @@
+alien_wasp_animation.png
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+float
+  rotate: false
+  xy: 2, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 4
+float
+  rotate: false
+  xy: 284, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 1
+float
+  rotate: false
+  xy: 566, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 6
+float
+  rotate: false
+  xy: 848, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 3
+float
+  rotate: false
+  xy: 1130, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 5
+float
+  rotate: false
+  xy: 1412, 2
+  size: 280, 190
+  orig: 280, 190
+  offset: 0, 0
+  index: 2

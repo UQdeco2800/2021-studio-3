@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -8,6 +9,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.ProgressComponent;
 import com.deco2800.game.components.ScoreComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,7 @@ public class PlayerLossDisplay extends UIComponent {
     private int progress;
     private int steps;
     private int health;
+    private static final String lossMusic = "sounds/loss.mp3";
 
     public PlayerLossDisplay(PopupUIHandler handler, Entity player) {
         this.handler = handler;
@@ -38,6 +41,10 @@ public class PlayerLossDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+        Music music = ServiceLocator.getResourceService().getAsset(lossMusic, Music.class);
+        music.setLooping(false);
+        music.setVolume(1f);
+        music.play();
     }
 
     /**
