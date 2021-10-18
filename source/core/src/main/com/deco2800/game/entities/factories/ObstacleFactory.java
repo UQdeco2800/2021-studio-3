@@ -225,8 +225,8 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-    animator.addAnimation("hit_ufo", 0.3f, Animation.PlayMode.LOOP_REVERSED);
-    animator.addAnimation("ufo", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("hit_ufo", 1f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 1f, Animation.PlayMode.LOOP);
 
     ufo.addComponent(animator);
     ufo.addComponent(new UfoAnimationController());
