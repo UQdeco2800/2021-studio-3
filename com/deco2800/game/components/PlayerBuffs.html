@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
+<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -174,40 +174,26 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#noJumping(com.deco2800.game.entities.Entity)">noJumping</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
-<td class="colLast">
-<div class="block">Removes jumping abilities from the player.</div>
-</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reducePlayerHP(com.deco2800.game.entities.Entity)">reducePlayerHP</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Reduces the players health by 20.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeDoubleHurt(com.deco2800.game.entities.Entity)">removeDoubleHurt</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Sets all damage inflicted on the player back to it's normal amount.</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeInvincibility(com.deco2800.game.entities.Entity)">removeInvincibility</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Removes invincibility from the player.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeNoJumping(com.deco2800.game.entities.Entity)">removeNoJumping</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
-<td class="colLast">
-<div class="block">Allows the player to jump again.</div>
-</td>
-</tr>
-<tr class="altColor" id="i8">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeTimedBuff(com.deco2800.game.components.BuffInformation,com.deco2800.game.entities.Entity)">removeTimedBuff</a></span>&#8203;(<a href="BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&nbsp;buffInfo,
 <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
@@ -216,21 +202,21 @@ extends java.lang.Object</pre>
  buffs type.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDoubleHurt(com.deco2800.game.entities.Entity)">setDoubleHurt</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Causes any damage inflicted on the player to be doubled.</div>
 </td>
 </tr>
-<tr class="altColor" id="i10">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHealthFull(com.deco2800.game.entities.Entity)">setHealthFull</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Sets the player's health to the max value.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i11">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInfiniteStamina(com.deco2800.game.entities.Entity)">setInfiniteStamina</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">
@@ -343,17 +329,6 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="noJumping(com.deco2800.game.entities.Entity)">noJumping</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">noJumping</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
-<div class="block">Removes jumping abilities from the player.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>player</code> - the player</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="removeTimedBuff(com.deco2800.game.components.BuffInformation,com.deco2800.game.entities.Entity)">removeTimedBuff</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">removeTimedBuff</span>&#8203;(<span class="arguments"><a href="BuffInformation.html" title="class in com.deco2800.game.components">BuffInformation</a>&nbsp;buffInfo,
 <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
@@ -396,17 +371,6 @@ extends java.lang.Object</pre>
 <h3><a id="makeStaminaFinite(com.deco2800.game.entities.Entity)">makeStaminaFinite</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">makeStaminaFinite</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
 <div class="block">Removes infinite stamina from the player</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>player</code> - the player</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="removeNoJumping(com.deco2800.game.entities.Entity)">removeNoJumping</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">removeNoJumping</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
-<div class="block">Allows the player to jump again.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>player</code> - the player</dd>
