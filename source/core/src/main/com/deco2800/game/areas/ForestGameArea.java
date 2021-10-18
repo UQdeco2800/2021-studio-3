@@ -141,7 +141,8 @@ public class ForestGameArea extends GameArea {
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
           , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas"
+          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas",
+          "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", "images/Lv4SerpentAnimation.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
@@ -485,7 +486,7 @@ public class ForestGameArea extends GameArea {
         movingSpeed = 0.75f;
         break;
       case 4:
-        movingSpeed = 0.85f;
+        movingSpeed = 1f;
         break;
     }
     return movingSpeed;
@@ -497,7 +498,7 @@ public class ForestGameArea extends GameArea {
   protected void spawnDeathWall(int levelNumber) {
     float movingSpeed = serpentLevelSpeed(levelNumber);
     Vector2 deathWallEndPos = new Vector2(this.endOfMap.getPosition().x, this.endOfMap.getPosition().y);
-    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed);
+    Entity deathWall = ObstacleFactory.createDeathWall(deathWallEndPos, movingSpeed, levelNumber);
     deathWall.getComponent(AnimationRenderComponent.class).scaleEntity();
     deathWall.setScale(3f, terrain.getMapBounds(0).y * terrain.getTileSize());
     int startX;
