@@ -54,7 +54,7 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void loadData() {
-    GdxGame.ScreenType screenType;
+    GdxGame.ScreenType screenType = null;
     logger.info("Load game");
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
       String line = br.readLine();
@@ -79,11 +79,10 @@ public class MainMenuActions extends Component {
             break;
           case "levelFour":
             screenType = GdxGame.ScreenType.LEVEL_FOUR_GAME;
-          default:
-            throw new IllegalStateException("Unexpected value: " + values[1]);
         }
 
         game.setScreenType(screenType);
+        assert screenType != null;
         logger.info(screenType.toString());
         game.setScreen(GdxGame.ScreenType.LOADING);
       }

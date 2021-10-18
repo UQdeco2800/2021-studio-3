@@ -256,7 +256,6 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
     saveData = new SaveData(game, area.getPlayer());
-    saveData.savePlayerData();
   }
 
   /**

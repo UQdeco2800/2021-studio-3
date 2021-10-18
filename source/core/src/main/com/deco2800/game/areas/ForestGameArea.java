@@ -749,11 +749,21 @@ public class ForestGameArea extends GameArea {
    * */
   protected Entity spawnPlayer(GridPoint2 playerSpawn, TerrainType area,
           boolean save) {
+    //Handles negative lives case
+    if (lives < 0) {
+      lives = 3;
+    } else {
+      logger.info(String.format("The lives are %d", lives));
+    }
+
     //need to change it to the horizon view
     Entity newPlayer;
     if (player != null) {
+      logger.info("Continuing off the pre-existing player");
       newPlayer = player;
+      lives = player.getComponent(LivesComponent.class).getLives();
     } else {
+      logger.info("New player created");
       newPlayer = PlayerFactory.createPlayer();
       newPlayer.addComponent(new LivesComponent(lives));
     }
@@ -763,10 +773,14 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new ProgressComponent(0,
             (terrain.getMapBounds(0).x)* tileSize));
     newPlayer.addComponent(new ScoreComponent());
-
+    newPlayer.addComponent(new LivesComponent(lives));
     newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
-      lives -= 1;
+      if (lives < 0) {
+        lives = 3;
+      } else {
+        lives -= 1;
+      }
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
     } else {
       if(livesCondition(area, lives) && !isDead()) {
@@ -784,6 +798,7 @@ public class ForestGameArea extends GameArea {
 
     /* Inform the player about the map fixtures */
     newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
+    player = newPlayer;
     return newPlayer;
   }
 
