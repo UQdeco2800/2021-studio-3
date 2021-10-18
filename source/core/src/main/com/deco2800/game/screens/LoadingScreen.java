@@ -24,10 +24,12 @@ public class LoadingScreen extends ScreenAdapter {
     private ResourceService resourceService;
 
     /* Textures of loading screen background and loading bar */
-    private static final String[] LoadingTextures = {"images/bar1.png",
-            "images/bar2.png", "images/bar3.png", "images/bar4.png",
-            "images/bar5.png", "images/bar6.png", "images/bar7.png",
-            "images/bar8.png", "images/bar9.png", "images/bar10.png"};
+    private static final String[] LoadingTextures = {
+            "images/PortalTransition1.png", "images/PortalTransition2.png",
+            "images/PortalTransition3.png", "images/PortalTransition4.png",
+            "images/PortalTransition5.png", "images/PortalTransition6.png",
+            "images/PortalTransition7.png", "images/PortalTransition8.png",
+            "images/PortalTransition9.png", "images/PortalTransition10.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -103,7 +105,8 @@ public class LoadingScreen extends ScreenAdapter {
             "images/double_jump.png",
             "images/portal.png",
             "images/Spaceship.png",
-            "images/PortalAnimation.png"
+            "images/PortalAnimation.png",
+            "images/PortalTransition1.png"
 
     };
 
