@@ -104,8 +104,6 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
  Checks buff-related information on each frame. Handles the creation,
  spawning, despawning and activation of buffs and debuffs on the map.
 
- Currently, timed buffs do not stack.
-
  - Keeps track of the buffs currently spawned on the map
  - Keeps track of the time-based buffs which are currently affecting the
    player.
@@ -114,8 +112,8 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
    timer is up.
  - Handles spawning new buffs periodically
 
- Read the documentation above BuffTypes or the wiki page for how to create
- new buffs</div>
+ The documentation above BuffTypes and the wiki page gives information on how
+ to create new buffs</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -358,8 +356,8 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <dd><code>type</code> - the type of buff the texture is being returned for.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the filepath to the texture for this buff. This filepath
-         must be in the MainGameScreen's buffsAndDebuffs String[], or
-         otherwise loaded by the MainGameScreen, to work.</dd>
+         must be in the LoadingScreen's buffsAndDebuffs String[], or
+         otherwise loaded by the game to work.</dd>
 </dl>
 </section>
 </li>
@@ -373,8 +371,8 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <dd><code>pickup</code> - the type of pickup the player hit</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the filepath to the texture for this pickup. This filepath must
- be in the MainGameScreens' buffsAndDebuffs String[], or otherwise loaded
- by the MainGameScreen, to work.</dd>
+         be in the LoadingScreens' buffsAndDebuffs String[], or otherwise
+         loaded by game to work.</dd>
 </dl>
 </section>
 </li>

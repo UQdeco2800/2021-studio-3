@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -170,41 +170,55 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentLevel()">getCurrentLevel</a></span>()</code></th>
+<td class="colFirst"><code><a href="../../areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentArea()">getCurrentArea</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Return the current level.</div>
+<div class="block">Returns the current area.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentLevel()">getCurrentLevel</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the current level.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code><a href="../../GdxGame.html" title="class in com.deco2800.game">GdxGame</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGame()">getGame</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the current 'game' for this PopupMenuActions.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onHome()">onHome</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when a user clicks on the Main Menu button on pop-up screens.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onNextLevel()">onNextLevel</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Method actives when user clicks the next level button after winning</div>
+<div class="block">Method actives when user clicks the next level button after winning.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onReplay()">onReplay</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the user clicks on the Replay button on pop-up screens.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onReplayLoss()">onReplayLoss</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Method actives when user clicks the replay button after dying.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onReplayLossFinal()">onReplayLossFinal</a></span>()</code></th>
 <td class="colLast">
@@ -212,11 +226,11 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
  lives left.</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onReplayWin()">onReplayWin</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Method actives when user clicks the replay button after winning</div>
+<div class="block">Method actives when user clicks the replay button after winning.</div>
 </td>
 </tr>
 </tbody>
@@ -304,24 +318,54 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <section class="detail">
 <h3><a id="onReplayWin()">onReplayWin</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onReplayWin</span>()</div>
-<div class="block">Method actives when user clicks the replay button after winning</div>
+<div class="block">Method actives when user clicks the replay button after winning. This
+ method will return the player to the beginning of the same level.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="onNextLevel()">onNextLevel</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onNextLevel</span>()</div>
-<div class="block">Method actives when user clicks the next level button after winning</div>
+<div class="block">Method actives when user clicks the next level button after winning.
+
+ If the player is on levels 1-3, this method will change the screen to
+ the next level.
+
+ If the player is on level 4, this method will change the screen to the
+ Main Menu.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getCurrentLevel()">getCurrentLevel</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getCurrentLevel</span>()</div>
-<div class="block">Return the current level.</div>
+<div class="block">Returns the current level.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>int current level num</dd>
+<dd>an integer between 1 to 4 inclusive representing the current
+         game level.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getGame()">getGame</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../GdxGame.html" title="class in com.deco2800.game">GdxGame</a></span>&nbsp;<span class="memberName">getGame</span>()</div>
+<div class="block">Returns the current 'game' for this PopupMenuActions.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the game associated with this PopupMenuActions.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getCurrentArea()">getCurrentArea</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></span>&nbsp;<span class="memberName">getCurrentArea</span>()</div>
+<div class="block">Returns the current area.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the current game area.</dd>
 </dl>
 </section>
 </li>
