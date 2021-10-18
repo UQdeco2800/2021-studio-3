@@ -109,7 +109,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public Timer.Task removeSprint = new Timer.Task() {
     @Override
     public void run() {
-      entity.getComponent(SprintComponent.class).removeSprint(1);
+      if (!isStationary) {
+        entity.getComponent(SprintComponent.class).removeSprint(1);
+      }
       if (entity.getComponent(SprintComponent.class).getSprint() == 0) {
         //if sprint has fully depleted
         if (walkDirection.x > 1) {
