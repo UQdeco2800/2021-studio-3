@@ -556,15 +556,37 @@ public class ObstacleFactory {
    * @param speed the speed that a death wall should move
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(Vector2 target, float speed) {
+  public static Entity createDeathWall(Vector2 target, float speed, int levelNumber) {
     DeathWallConfig config = configs.deathWall;
+    String atlas = "";
+    String animation = "";
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
+    switch (levelNumber){
+      case 1:
+        atlas = "images/SerpentLevel1.atlas";
+        animation = "Serpent1.1";
+        break;
+      case 2:
+        atlas = "images/Lv2SerpentAnimation.atlas";
+        animation = "Serpent2.1";
+        break;
+      case 3:
+        atlas = "images/Lv3SerpentAnimation.atlas";
+        animation = "Serpent3.1";
+        break;
+      case 4:
+        atlas = "images/Lv4SerpentAnimation.atlas";
+        animation = "Serpent4.1";
+        break;
+    }
+
+    AnimationRenderComponent animator;
+
+    animator = new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset(atlas,
                             TextureAtlas.class));
-    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
-    animator.startAnimation("Serpent1.1");
+    animator.addAnimation(animation, 0.15f, Animation.PlayMode.LOOP);
+    animator.startAnimation(animation);
 
     AITaskComponent aiComponent =
             new AITaskComponent()
