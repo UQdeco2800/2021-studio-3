@@ -109,10 +109,7 @@ public class LoadingScreen extends ScreenAdapter {
             "images/alien_squid_weapon.png",
 
             "images/portal.png",
-            "images/Spaceship.png"
-
-
-    };
+            "images/Spaceship.png"};
 
     /* Textures only needed for level 2*/
     private static final String[] level2Textures = {"images/background_mars.png",
@@ -137,7 +134,11 @@ public class LoadingScreen extends ScreenAdapter {
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
 
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds/level4_background_music_1.mp3"};
+    private static final String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3",
+            "sounds" +
+            "/loss" +
+            ".mp3","sounds/win.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds" +
+            "/level4_background_music_1.mp3", "sounds/click.mp3"};
 
     private static final String[] loadingScreenMusic = {"sounds/loading_background_music_new.mp3"};
 
