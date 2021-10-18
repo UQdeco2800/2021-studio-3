@@ -12,13 +12,10 @@ import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
 
 
-import com.deco2800.game.components.tasks.MovingTask;
-import com.deco2800.game.components.tasks.PlatformTask;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -213,7 +210,6 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                     .addTask(new ChaseTask(target, 2,2f,2.5f));
 
@@ -229,15 +225,15 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
-    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
+    animator.addAnimation("hit_ufo", 0.3f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 0.3f, Animation.PlayMode.LOOP);
 
     ufo.addComponent(animator);
     ufo.addComponent(new UfoAnimationController());
 
     ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-    ufo.scaleHeight(3f);
+    ufo.scaleHeight(2f);
     return ufo;
   }
 
@@ -402,7 +398,8 @@ public class ObstacleFactory {
   public static Entity createMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new PlatformTask(3f,1));
+                    .addTask(new Platform_x_Task(3f,1));
+                    //.addTask(new Platform_y_Task(3f,1));
 
     Entity platform3 =
             new Entity()
