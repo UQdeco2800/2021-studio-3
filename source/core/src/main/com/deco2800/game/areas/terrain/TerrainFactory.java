@@ -93,13 +93,13 @@ public class TerrainFactory {
       case LEVEL_FOUR_TERRAIN:
         // Placeholder : uses Level 1 Terrain and Layout.
         TextureRegion surfaceFour =
-                new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4surface.png", Texture.class));
         TextureRegion undergroundFour =
-                new TextureRegion(resourceService.getAsset("images/background_rock.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4underground.png", Texture.class));
         TextureRegion skyFour =
-                new TextureRegion(resourceService.getAsset("images/background_sky.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4sky.png", Texture.class));
         TextureRegion starFour =
-                new TextureRegion(resourceService.getAsset("images/background_star.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/level4star.png", Texture.class));
         return createLevelFourTerrain(0.5f, surfaceFour, undergroundFour, skyFour, starFour);
       case TUTORIAL_TERRAIN:
         TextureRegion surfaceTutorial = new TextureRegion(resourceService.getAsset("images/background_surface.png", Texture.class));
@@ -230,28 +230,6 @@ public class TerrainFactory {
     }
   }
 
-  private void addFloatTiles(TiledMapTileLayer layer, TextureRegion underground,
-                           TextureRegion surface, String filename) {
-    TerrainTile undergroundTile = new TerrainTile(underground);
-    TerrainTile surfaceTile = new TerrainTile(surface);
-    ArrayList<String> terrainLayout = readFile(filename);
-
-    float width, height;
-    int x, y, distanceX, distanceY;
-    for (String s : terrainLayout) {
-      String[] values = s.split(" ");
-      width = Float.parseFloat(values[0]);
-      height = Float.parseFloat(values[1]);
-      x = Integer.parseInt(values[2]);
-      y = Integer.parseInt(values[3]);
-      distanceX = (int) (( width * 2) + x);
-      distanceY = (int) (( height * 2) + y);
-
-      fillTilesAt(layer, new GridPoint2(x, y), new GridPoint2(distanceX, distanceY), undergroundTile);
-      fillTilesAt(layer, new GridPoint2(x, distanceY), new GridPoint2(distanceX, distanceY + 1), surfaceTile);
-
-    }
-  }
 
   /**
    * Adds the sky tiles to the map based on the values given inside the text file.

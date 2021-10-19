@@ -12,13 +12,10 @@ import com.deco2800.game.components.CheckPointComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.obstacle.ObstacleAnimationController;
 import com.deco2800.game.components.obstacle.UfoAnimationController;
-import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.components.CombatStatsComponent;
 
 
-import com.deco2800.game.components.tasks.MovingTask;
-import com.deco2800.game.components.tasks.PlatformTask;
-import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -63,14 +60,22 @@ public class ObstacleFactory {
    * @return entity
    */
   public static Entity createPortal() {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/PortalAnimation.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Portal", 0.2f, Animation.PlayMode.LOOP);
+    // Starts the idle animation
+    animator.startAnimation("Portal");
     Entity portal =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/portal.png"))
+                    //.addComponent(new TextureRenderComponent("images/portal.png"))
+                    .addComponent(animator)
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    //portal.getComponent(TextureRenderComponent.class).scaleEntity();
     portal.scaleHeight(2.5f);
     PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
     return portal;
@@ -206,6 +211,7 @@ public class ObstacleFactory {
             .addComponent(new ObstacleAnimationController());
     robot.getComponent(PhysicsComponent.class).setBodyType(BodyType.DynamicBody);
     robot.scaleHeight(1f);
+
     return robot;
   }
 
@@ -213,7 +219,6 @@ public class ObstacleFactory {
     UfoConfig config = configs.ufo;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    //.addTask(new FallTask(5f));
                     .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
                     .addTask(new ChaseTask(target, 2,2f,2.5f));
 
@@ -229,15 +234,15 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-    animator.addAnimation("hit_ufo", 0.5f, Animation.PlayMode.LOOP_REVERSED);
-    animator.addAnimation("ufo", 0.5f, Animation.PlayMode.LOOP);
+    animator.addAnimation("hit_ufo", 1f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 1f, Animation.PlayMode.LOOP);
 
     ufo.addComponent(animator);
     ufo.addComponent(new UfoAnimationController());
 
     ufo.getComponent(AnimationRenderComponent.class).scaleEntity();
     PhysicsUtils.setScaledCollider(ufo, 0.5f,0.3f);
-    ufo.scaleHeight(3f);
+    ufo.scaleHeight(2f);
     return ufo;
   }
 
@@ -395,14 +400,15 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a moving platform entity which moves in a fixed area at a constant speed.
+   * Creates a moving platform entity which moves horizontally in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createMovingPlatform() {
+  public static Entity createHorizontalMovingPlatform() {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new PlatformTask(3f,1));
+                    .addTask(new Platform_x_Task(3f,1));
+                    //.addTask(new Platform_y_Task(3f,1));
 
     Entity platform3 =
             new Entity()
@@ -422,21 +428,27 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a platform entity.
+   * Creates a moving platform entity which moves vertically in a fixed area at a constant speed.
    *
    * @return entity
    */
-  public static Entity createPlatform4() {
+  public static Entity createVerticalMovingPlatform() {
+
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new Platform_y_Task(3f,1));
+
     Entity platform4 =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/platform4.png"))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(aiComponent);
 
-    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    platform4.getComponent(PhysicsComponent.class).setBodyType(BodyType.KinematicBody);
     platform4.getComponent(TextureRenderComponent.class).scaleEntity();
     platform4.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(platform4, 0.5f, 0.3f);
+    PhysicsUtils.setScaledCollider(platform4, 0.7f, 0.5f);
     return platform4;
   }
 
@@ -497,6 +509,43 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
     return egg;
   }
+
+  /**
+   * Creates the empty nest.
+   *
+   * @return entity
+   */
+  public static Entity createEmptyNest() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/empty_nest.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(0.75f);
+    return egg;
+  }
+
+  /**
+   * Creates a table of information for the buffs and debuffs.
+   *
+   * @return entity
+   */
+  public static Entity createBuffDebuffInformation() {
+    Entity info =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/buff_debuff_info.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE));
+
+    info.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    info.getComponent(TextureRenderComponent.class).scaleEntity();
+    info.scaleHeight(6f);
+    return info;
+  }
+
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
@@ -556,15 +605,37 @@ public class ObstacleFactory {
    * @param speed the speed that a death wall should move
    * @return A new Entity death wall
    */
-  public static Entity createDeathWall(Vector2 target, float speed) {
+  public static Entity createDeathWall(Vector2 target, float speed, int levelNumber) {
     DeathWallConfig config = configs.deathWall;
+    String atlas = "";
+    String animation = "";
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/SerpentLevel1.atlas",
+    switch (levelNumber){
+      case 1:
+        atlas = "images/SerpentLevel1.atlas";
+        animation = "Serpent1.1";
+        break;
+      case 2:
+        atlas = "images/Lv2SerpentAnimation.atlas";
+        animation = "Serpent2.1";
+        break;
+      case 3:
+        atlas = "images/Lv3SerpentAnimation.atlas";
+        animation = "Serpent3.1";
+        break;
+      case 4:
+        atlas = "images/Lv4SerpentAnimation.atlas";
+        animation = "Serpent4.1";
+        break;
+    }
+
+    AnimationRenderComponent animator;
+
+    animator = new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset(atlas,
                             TextureAtlas.class));
-    animator.addAnimation("Serpent1.1", 0.15f, Animation.PlayMode.LOOP_REVERSED);
-    animator.startAnimation("Serpent1.1");
+    animator.addAnimation(animation, 0.15f, Animation.PlayMode.LOOP);
+    animator.startAnimation(animation);
 
     AITaskComponent aiComponent =
             new AITaskComponent()

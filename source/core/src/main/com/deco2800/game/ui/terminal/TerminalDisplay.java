@@ -59,16 +59,13 @@ public class TerminalDisplay extends UIComponent {
     float i = 0f;
     for (BuffInformation buff:buffs) {
       if(Objects.equals(buff.getType().toString(), "BT_INVIN")){
-        batch.draw(manager.get("images/invincible.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
-      }
-      if (Objects.equals(buff.getType().toString(), "DT_NO_JUMP")){
-        batch.draw(manager.get("images/noJumping.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
+        batch.draw(manager.get("images/Invincibility.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       if (Objects.equals(buff.getType().toString(), "BT_INF_SPRINT")){
-        batch.draw(manager.get("images/infiniteSprint.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
+        batch.draw(manager.get("images/sprint (1).png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       if (Objects.equals(buff.getType().toString(), "DT_DOUBLE_DMG")){
-        batch.draw(manager.get("images/doubleHurt.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
+        batch.draw(manager.get("images/Double Hurt.png", Texture.class),player.getPosition().x+1.2f-i, player.getPosition().y+1.7f,0.4f,0.4f);
       }
       i+=0.4f;
     }

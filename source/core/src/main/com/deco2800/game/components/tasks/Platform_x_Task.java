@@ -3,13 +3,12 @@ package com.deco2800.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
-import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
 
-public class PlatformTask extends DefaultTask implements PriorityTask {
+/**
+ * A class that makes obstacles move horizontally in a constant speed.
+ */
+public class Platform_x_Task extends DefaultTask implements PriorityTask {
     private final int priority;
     private final float x;
     private float p_x = 0;
@@ -18,7 +17,7 @@ public class PlatformTask extends DefaultTask implements PriorityTask {
     /**
      * @param priority Task priority when chasing (0 when not chasing).
      */
-    public PlatformTask(float x, int priority) {
+    public Platform_x_Task(float x, int priority) {
         this.x = x;
         this.priority = priority;
     }
@@ -29,6 +28,9 @@ public class PlatformTask extends DefaultTask implements PriorityTask {
         p_x = this.owner.getEntity().getPosition().x;
     }
 
+    /**
+     * When the obstacle reaches the boundary of the moving track, then moves in the opposite direction.
+     */
     @Override
     public void update() {
         float position_x = this.owner.getEntity().getPosition().x;

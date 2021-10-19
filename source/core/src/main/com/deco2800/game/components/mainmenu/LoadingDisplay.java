@@ -57,14 +57,14 @@ public class LoadingDisplay extends UIComponent {
 
         Label loadingLabel = new Label("Loading...", skin, "font_large", "black");
         loadingLabel.setFontScale(4,4);
-        background.add(loadingLabel).padBottom(275);
+        background.add(loadingLabel).padBottom(100);
 
         loadTable = new Table();
-        loadTable.center();
+        loadTable.bottom();
         loadTable.setFillParent(true);
-        Texture loadingStart = resourceService.getAsset("images/bar1.png", Texture.class);
+        Texture loadingStart = resourceService.getAsset("images/PortalTransition1.png", Texture.class);
         loadingStatus = new Image(loadingStart);
-        loadTable.add(loadingStatus).width(2500).height(1250);
+        loadTable.add(loadingStatus).width((int)(Gdx.graphics.getWidth()/2)).height((int)(Gdx.graphics.getHeight()/2));
 
         stage.addActor(background);
         stage.addActor(loadTable);
@@ -80,42 +80,42 @@ public class LoadingDisplay extends UIComponent {
         switch (currentLoad) {
             case 0:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar1.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition1.png", Texture.class))));
             case 10:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar2.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition2.png", Texture.class))));
                 break;
             case 20:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar3.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition3.png", Texture.class))));
                 break;
             case 30:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar4.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition4.png", Texture.class))));
                 break;
             case 40:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar5.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition5.png", Texture.class))));
                 break;
             case 50:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar6.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition6.png", Texture.class))));
                 break;
             case 60:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar7.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition7.png", Texture.class))));
                 break;
             case 70:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar8.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition8.png", Texture.class))));
                 break;
             case 80:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar9.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition9.png", Texture.class))));
                 break;
             case 90:
                 loadingStatus.setDrawable(new SpriteDrawable
-                        (new Sprite(resourceService.getAsset("images/bar10.png", Texture.class))));
+                        (new Sprite(resourceService.getAsset("images/PortalTransition10.png", Texture.class))));
                 break;
             }
     }
