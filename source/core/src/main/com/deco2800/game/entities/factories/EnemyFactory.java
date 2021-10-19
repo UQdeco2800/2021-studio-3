@@ -541,7 +541,7 @@ public class EnemyFactory {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
 
-        Vector2 target1 = new Vector2(25, -20);
+        Vector2 target1 = new Vector2(93, -20);
 
 //        AITaskComponent aiComponent =
 //                new AITaskComponent()
