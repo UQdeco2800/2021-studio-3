@@ -309,7 +309,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     if (game.getScreenType() == GdxGame.ScreenType.MAIN_GAME ||
             game.getScreenType() == GdxGame.ScreenType.RESPAWN1){
-      this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f);
+      this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f, game.getScreenType());
 
     }
 
