@@ -164,12 +164,16 @@ public class IntroDisplay extends UIComponent {
         return Z_INDEX;
     }
 
+    /**
+     * Add the background sound effects for the intro screen.
+     */
     private void playBackgroundMusic() {
         Music menuSong = ServiceLocator.getResourceService().getAsset(MUSIC_FILE_PATH, Music.class);
         menuSong.setLooping(true);
         menuSong.setVolume(0.5f);
         menuSong.play();
     }
+
     @Override
     public void dispose() {
         background.clear();

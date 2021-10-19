@@ -56,6 +56,8 @@ public class ForestGameArea extends GameArea {
   private ArrayList<GridPoint2> ALIEN_LASER_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> ALIEN_BARBETTE_SPAWNS = new ArrayList<>();
   private ArrayList<GridPoint2> UFO_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> HORIZONTAL_MOVING_PLATFORM_SPAWNS = new ArrayList<>();
+  private ArrayList<GridPoint2> VERTICAL_MOVING_PLATFORM_SPAWNS = new ArrayList<>();
 
 
   /**
@@ -130,7 +132,8 @@ public class ForestGameArea extends GameArea {
           "images/alien_squid_weapon.png",
 
           "images/portal.png",
-          "images/Spaceship.png"
+          "images/Spaceship.png",
+          "images/PortalAnimation.png"
 
 
   };
@@ -141,8 +144,9 @@ public class ForestGameArea extends GameArea {
           "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
           "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas","images/roll.atlas"
           , "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-          "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas",
-          "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", "images/Lv4SerpentAnimation.atlas"
+          "images/PortalAnimation.atlas", "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", 
+          "images/alienSquidLaser.atlas", "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", 
+          "images/Lv4SerpentAnimation.atlas"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds" +
@@ -201,6 +205,8 @@ public class ForestGameArea extends GameArea {
     setupUFOSpawns();
     setupAsteroidFireSpawns();
     setupRobotSpawns();
+    setupHorizontalMovingPlatformSpawns();
+    setupVerticalMovingPlatformSpawns();
   }
 
   /**
@@ -236,11 +242,11 @@ public class ForestGameArea extends GameArea {
     this.PLATFORM_SPAWNS.add(new GridPoint2(99, 10));
     this.PLATFORM_SPAWNS.add(new GridPoint2(95, 12));
     this.PLATFORM_SPAWNS.add(new GridPoint2(99, 14));
-    this.PLATFORM_SPAWNS.add(new GridPoint2(104, 17));
+    //this.PLATFORM_SPAWNS.add(new GridPoint2(104, 17));
 
     this.PLATFORM_SPAWNS.add(new GridPoint2(155, 8));
     this.PLATFORM_SPAWNS.add(new GridPoint2(162, 7));
-    this.PLATFORM_SPAWNS.add(new GridPoint2(157, 4));
+//    this.PLATFORM_SPAWNS.add(new GridPoint2(157, 4));
   }
 
   /**
@@ -264,6 +270,22 @@ public class ForestGameArea extends GameArea {
     this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(53,6));
 
     this.ASTEROID_FIRE_SPAWNS.add(new GridPoint2(194,7));
+  }
+
+  /**
+   * Defines the horizontal moving platform spawns for this level.
+   * */
+  private void setupHorizontalMovingPlatformSpawns() {
+//    this.HORIZONTAL_MOVING_PLATFORM_SPAWNS.add(new GridPoint2(155, 8));
+//    this.HORIZONTAL_MOVING_PLATFORM_SPAWNS.add(new GridPoint2(162, 7));
+    this.HORIZONTAL_MOVING_PLATFORM_SPAWNS.add(new GridPoint2(157, 4));
+  }
+
+  /**
+   * Defines the vertical moving platform spawns for this level.
+   * */
+  private void setupVerticalMovingPlatformSpawns() {
+    this.HORIZONTAL_MOVING_PLATFORM_SPAWNS.add(new GridPoint2(104, 17));
   }
 
   /**
@@ -337,6 +359,8 @@ public class ForestGameArea extends GameArea {
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
 
     spawnUFOs(this.UFO_SPAWNS);
+    spawnHorizontalMovingPlatforms(this.HORIZONTAL_MOVING_PLATFORM_SPAWNS);
+    spawnVerticalMovingPlatforms(this.VERTICAL_MOVING_PLATFORM_SPAWNS);
 
     // Music
     playMusic(backgroundMusic);
@@ -721,6 +745,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(EnemyFactory.createAlienBoss(player, area), pos, true, true);
   }
 
+  /**
+   * Spawn the alien laser hole for the level four area
+   * @param area the game area - level four
+   */
+  protected void spawnAlienLaserHoleLevelFour(GameArea area) {
+    GridPoint2 pos = new GridPoint2(185, 15);
+    spawnEntityAt(EnemyFactory.createAlienLaserHole(player, area), pos, true, true);
+  }
 
   /**
    * Spawns the Alien Laser Hole(s) as the given position(s).
@@ -736,6 +768,29 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawns the horizontal moving platform (s) for the level.
+   *
+   * @param positions the position(s) to spawn the horizontal moving platform (s) at.
+   * */
+  protected void spawnHorizontalMovingPlatforms(ArrayList<GridPoint2> positions) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(ObstacleFactory.createHorizontalMovingPlatform(),
+              pos, true, true);
+    }
+  }
+
+  /**
+   * Spawns the vertical moving platform (s) for the level.
+   *
+   * @param positions the position(s) to spawn the vertical moving platform (s) at.
+   * */
+  protected void spawnVerticalMovingPlatforms(ArrayList<GridPoint2> positions) {
+    for (GridPoint2 pos : positions) {
+      spawnEntityAt(ObstacleFactory.createVerticalMovingPlatform(),
+              pos, true, true);
+    }
+  }
 
   /**
    * Spawns the moving platform obstacle
