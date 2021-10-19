@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class LevelThreeArea extends ForestGameArea {
         this.UFO_SPAWNS.add(new GridPoint2(48, 17));
         this.UFO_SPAWNS.add(new GridPoint2(90, 22));
         this.UFO_SPAWNS.add(new GridPoint2(115, 20));
-        this.UFO_SPAWNS.add(new GridPoint2(162, 20));
+       // this.UFO_SPAWNS.add(new GridPoint2(162, 20));
     }
 
     /**
@@ -164,8 +165,9 @@ public class LevelThreeArea extends ForestGameArea {
 
         // Music
         playMusic(backgroundMusic);
-    }
 
+        spawnAlienBossLevelThree(this);
+    }
     /**
      * reset the camera position when refresh every frame
      * @param camera the CameraComponent of the map

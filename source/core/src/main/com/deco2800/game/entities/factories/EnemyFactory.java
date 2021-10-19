@@ -50,7 +50,7 @@ public class EnemyFactory {
         AITaskComponent aiComponent =
                 new AITaskComponent()
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-                        .addTask(new AttackTask(target, 2, 10, 6f));
+                        .addTask(new AttackTask(target, 2, 10, 10f));
 
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
@@ -101,7 +101,8 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_monster_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent())
+                        //.addComponent(new PhysicsMovementComponent())
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -128,7 +129,7 @@ public class EnemyFactory {
         AlienSoldierConfig config = configs.alienSolider;
         AITaskComponent aiComponent =
                 new AITaskComponent()
-                        .addTask(new AttackTask(target, 3, 10, 6f))
+                        .addTask(new AttackTask(target, 3, 10, 10f))
                         .addTask(new WanderTask(new Vector2(0f, 0f), 0f));
 
         AnimationRenderComponent animator =
@@ -153,6 +154,7 @@ public class EnemyFactory {
         alienSoldier.addComponent(animator)
                 .addComponent(new ObstacleAnimationController());
 
+        alienSoldier.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         PhysicsUtils.setScaledCollider(alienSoldier, 1f,1f);
         alienSoldier.scaleHeight(1.5f);
         return alienSoldier;
@@ -178,7 +180,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -186,7 +188,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -194,7 +196,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -202,7 +204,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -210,7 +212,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_solider_weapon_02.png"))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(5f, 5f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -287,7 +289,7 @@ public class EnemyFactory {
         AITaskComponent aiComponent =
                 new AITaskComponent()
                         .addTask(new WanderTask(new Vector2(3f, 2f), 0f))
-                        .addTask(new AttackTask(target, 1, 10, 6f));
+                        .addTask(new AttackTask(target, 2, 10, 8f));
 
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
@@ -355,7 +357,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotation))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(4f,4f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -363,7 +365,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationUp))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(4f, 4f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -371,7 +373,7 @@ public class EnemyFactory {
                 new Entity()
                         .addComponent(new TextureRenderComponent("images/alien_boss_weapon_01.png", rotationDown))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new PhysicsMovementComponent(new Vector2(10f, 10f)))
+                        .addComponent(new PhysicsMovementComponent(new Vector2(4f, 4f)))
                         .addComponent(new ColliderComponent())
                         .addComponent(new BulletHitPlayer(target, gameArea));
 
@@ -424,7 +426,7 @@ public class EnemyFactory {
         AITaskComponent aiComponent =
                 new AITaskComponent()
                         .addTask(new WanderTask(new Vector2(0f, 0f), 0f))
-                        .addTask(new AttackTask(target, 1, 10, 20f));
+                        .addTask(new AttackTask(target, 1, 10, 12f));
 
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
@@ -465,7 +467,7 @@ public class EnemyFactory {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
 
-        Vector2 target1 = new Vector2(0, 10);
+        Vector2 target1 = new Vector2(0, 8);
 
         Entity alienBarbetteWeapon1 =
                 new Entity()
@@ -539,7 +541,7 @@ public class EnemyFactory {
         float x1 = from.getPosition().x;
         float y1 = from.getPosition().y;
 
-        Vector2 target1 = new Vector2(25, -20);
+        Vector2 target1 = new Vector2(93, -20);
 
 //        AITaskComponent aiComponent =
 //                new AITaskComponent()

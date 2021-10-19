@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.entities.factories.EnemyFactory;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -80,9 +81,9 @@ public class LevelTwoArea extends ForestGameArea {
      * Sets up the UFO spawn locations
      * */
     private void setupUFOSpawns() {
-        this.UFO_SPAWNS.add(new GridPoint2(28, 20));
+       // this.UFO_SPAWNS.add(new GridPoint2(28, 20));
 
-        this.UFO_SPAWNS.add(new GridPoint2(68,15));
+        this.UFO_SPAWNS.add(new GridPoint2(68,20));
 
         this.UFO_SPAWNS.add(new GridPoint2(123,17));
     }
@@ -126,6 +127,8 @@ public class LevelTwoArea extends ForestGameArea {
         this.ALIEN_BOSS_SPAWNS.add(new GridPoint2(45, 14));
     }
 
+
+
     /**
      * Sets up checkpoint spawn locations
      * */
@@ -156,7 +159,10 @@ public class LevelTwoArea extends ForestGameArea {
 
         // Music
         playMusic(backgroundMusic);
+
+        spawnAlienMonsterLevelTwo(this);
     }
+
 
     /**
      * reset the camera position when refresh every frame

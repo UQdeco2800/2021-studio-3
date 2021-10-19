@@ -35,6 +35,16 @@ public class ColliderComponent extends Component {
     fixture = physBody.createFixture(fixtureDef);
   }
 
+  public void setBoundingBox() {
+    PolygonShape bbox = new PolygonShape();
+    Vector2 center = entity.getScale().scl(0f);
+    bbox.setAsBox(center.x, center.y, center, 0f);
+    fixtureDef.shape = bbox;
+    //Body physBody = entity.getComponent(PhysicsComponent.class).getBody();
+    //physBody.destroyFixture(fixture);
+    //fixture = physBody.createFixture(fixtureDef);
+  }
+
   /**
    * Set physics as a box with a given size. Box is centered around the entity.
    *

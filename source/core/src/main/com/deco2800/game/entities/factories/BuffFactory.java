@@ -52,7 +52,9 @@ public class BuffFactory {
         Entity buff = new Entity().addComponent(new TextureRenderComponent(texture))
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody));
-
+        //buff.scaleWidth(1f);
+        //buff.scaleHeight(1f);
+        buff.setScale(1f, 1f);
         /* Create the BuffInformation for the buff */
         BuffInformation buffInfo = new BuffInformation(buff, type,
                 ServiceLocator.getTimeSource().getTime());

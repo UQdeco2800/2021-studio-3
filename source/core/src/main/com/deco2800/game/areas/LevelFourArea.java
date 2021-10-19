@@ -128,6 +128,8 @@ public class LevelFourArea extends ForestGameArea {
 
         // Music
         playMusic(backgroundMusic);
+
+        spawnAlienLaserHoleLevelFour(this);
     }
 
     /**
