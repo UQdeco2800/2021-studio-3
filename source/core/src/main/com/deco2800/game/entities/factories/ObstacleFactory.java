@@ -509,6 +509,43 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
     return egg;
   }
+
+  /**
+   * Creates the empty nest.
+   *
+   * @return entity
+   */
+  public static Entity createEmptyNest() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/empty_nest.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(0.75f);
+    return egg;
+  }
+
+  /**
+   * Creates a table of information for the buffs and debuffs.
+   *
+   * @return entity
+   */
+  public static Entity createBuffDebuffInformation() {
+    Entity info =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/buff_debuff_info.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE));
+
+    info.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    info.getComponent(TextureRenderComponent.class).scaleEntity();
+    info.scaleHeight(6f);
+    return info;
+  }
+
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
