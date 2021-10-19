@@ -224,6 +224,7 @@ class ResourceServiceTest {
     verify(assetManager).load(asset1, Music.class);
     verify(assetManager).load(asset2, Music.class);
   }
+
   @Test
   void shouldLoadClickSound() {
     String asset1 = "test/files/click.mp3";
@@ -234,5 +235,24 @@ class ResourceServiceTest {
 
     resourceService.loadMusic(textures);
     verify(assetManager).load(asset1, Music.class);
+  }
+
+  /**
+   * Test whether the background music for the loading screens, intro screen and level four area can be successfully loaded.
+   */
+  @Test
+  void shouldLoadBackgroundMusic() {
+    String asset1 = "sounds/loading_background_music.mp3";
+    String asset2 = "sounds/intro_story_background_music.mp3";
+    String asset3 = "sounds/level4_background_music_1.mp3";
+    String[] textures = {asset1, asset2, asset3};
+
+    AssetManager assetManager = spy(AssetManager.class);
+    ResourceService resourceService = new ResourceService(assetManager);
+
+    resourceService.loadMusic(textures);
+    verify(assetManager).load(asset1, Music.class);
+    verify(assetManager).load(asset2, Music.class);
+    verify(assetManager).load(asset3, Music.class);
   }
 }
