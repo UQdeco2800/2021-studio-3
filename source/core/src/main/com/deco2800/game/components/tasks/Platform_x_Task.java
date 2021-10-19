@@ -5,6 +5,9 @@ import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.physics.components.PhysicsComponent;
 
+/**
+ * A class that makes obstacles move horizontally in a constant speed.
+ */
 public class Platform_x_Task extends DefaultTask implements PriorityTask {
     private final int priority;
     private final float x;
@@ -25,6 +28,9 @@ public class Platform_x_Task extends DefaultTask implements PriorityTask {
         p_x = this.owner.getEntity().getPosition().x;
     }
 
+    /**
+     * When the obstacle reaches the boundary of the moving track, then moves in the opposite direction.
+     */
     @Override
     public void update() {
         float position_x = this.owner.getEntity().getPosition().x;

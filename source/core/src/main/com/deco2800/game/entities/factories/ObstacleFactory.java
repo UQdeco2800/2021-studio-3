@@ -60,14 +60,22 @@ public class ObstacleFactory {
    * @return entity
    */
   public static Entity createPortal() {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/PortalAnimation.atlas",
+                            TextureAtlas.class));
+    animator.addAnimation("Portal", 0.2f, Animation.PlayMode.LOOP);
+    // Starts the idle animation
+    animator.startAnimation("Portal");
     Entity portal =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/portal.png"))
+                    //.addComponent(new TextureRenderComponent("images/portal.png"))
+                    .addComponent(animator)
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     portal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    portal.getComponent(TextureRenderComponent.class).scaleEntity();
+    //portal.getComponent(TextureRenderComponent.class).scaleEntity();
     portal.scaleHeight(2.5f);
     PhysicsUtils.setScaledCollider(portal, 0.5f, 1f);
     return portal;
@@ -226,8 +234,8 @@ public class ObstacleFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ufo_animation.atlas", TextureAtlas.class));
-    animator.addAnimation("hit_ufo", 0.3f, Animation.PlayMode.LOOP_REVERSED);
-    animator.addAnimation("ufo", 0.3f, Animation.PlayMode.LOOP);
+    animator.addAnimation("hit_ufo", 1f, Animation.PlayMode.LOOP_REVERSED);
+    animator.addAnimation("ufo", 1f, Animation.PlayMode.LOOP);
 
     ufo.addComponent(animator);
     ufo.addComponent(new UfoAnimationController());
@@ -501,6 +509,43 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(egg, 0.5f, 0.9f);
     return egg;
   }
+
+  /**
+   * Creates the empty nest.
+   *
+   * @return entity
+   */
+  public static Entity createEmptyNest() {
+    Entity egg =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/empty_nest.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    egg.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    egg.getComponent(TextureRenderComponent.class).scaleEntity();
+    egg.scaleHeight(0.75f);
+    return egg;
+  }
+
+  /**
+   * Creates a table of information for the buffs and debuffs.
+   *
+   * @return entity
+   */
+  public static Entity createBuffDebuffInformation() {
+    Entity info =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/buff_debuff_info.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE));
+
+    info.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    info.getComponent(TextureRenderComponent.class).scaleEntity();
+    info.scaleHeight(6f);
+    return info;
+  }
+
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units

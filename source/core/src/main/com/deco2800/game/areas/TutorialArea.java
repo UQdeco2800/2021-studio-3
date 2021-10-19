@@ -124,6 +124,8 @@ public class TutorialArea extends ForestGameArea {
         if (hasSave) {
             loadSave(player, this.saveState);
         }
+        GridPoint2 pos = new GridPoint2(20, 18);
+        spawnEntityAt(ObstacleFactory.createBuffDebuffInformation(), pos, true, true);
         spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
         spawnRobots(this.ROBOT_SPAWNS);
         spawnAsteroids(this.ASTEROID_SPAWNS);
@@ -133,7 +135,6 @@ public class TutorialArea extends ForestGameArea {
 
         playMusic(backgroundMusic);
     }
-
 
     public void fillTriggerMessages() {
         triggerPoints.put(12, "Press Space to Jump");

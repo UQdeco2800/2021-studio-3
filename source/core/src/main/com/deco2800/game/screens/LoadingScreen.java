@@ -24,10 +24,12 @@ public class LoadingScreen extends ScreenAdapter {
     private ResourceService resourceService;
 
     /* Textures of loading screen background and loading bar */
-    private static final String[] LoadingTextures = {"images/bar1.png",
-            "images/bar2.png", "images/bar3.png", "images/bar4.png",
-            "images/bar5.png", "images/bar6.png", "images/bar7.png",
-            "images/bar8.png", "images/bar9.png", "images/bar10.png"};
+    private static final String[] LoadingTextures = {
+            "images/PortalTransition1.png", "images/PortalTransition2.png",
+            "images/PortalTransition3.png", "images/PortalTransition4.png",
+            "images/PortalTransition5.png", "images/PortalTransition6.png",
+            "images/PortalTransition7.png", "images/PortalTransition8.png",
+            "images/PortalTransition9.png", "images/PortalTransition10.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -101,8 +103,13 @@ public class LoadingScreen extends ScreenAdapter {
             "images/lives_icon2.png",
             "images/instence_fall.png",
             "images/double_jump.png",
+            "images/portal.png",
+            "images/Spaceship.png",
+            "images/PortalAnimation.png",
+            "images/PortalTransition1.png",
             "images/harmless_egg.png",
-
+            "images/buff_debuff_info.png",
+            "images/empty_nest.png",
             "images/alien_wasp.png",
             "images/alien_wasp_weapon.png",
             "images/alien_squid.png",
@@ -132,8 +139,9 @@ public class LoadingScreen extends ScreenAdapter {
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
             "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-            "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas",
-            "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", "images/Lv4SerpentAnimation.atlas"
+            "images/PortalAnimation.atlas", "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", 
+            "images/alienSquidLaser.atlas", "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", 
+            "images/Lv4SerpentAnimation.atlas"
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
