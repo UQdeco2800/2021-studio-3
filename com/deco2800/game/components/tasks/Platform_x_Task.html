@@ -105,6 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">Platform_x_Task</span>
 extends <a href="../../ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a>
 implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></pre>
+<div class="block">A class that makes obstacles move horizontally in a constant speed.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -201,7 +202,7 @@ int&nbsp;priority)</code></th>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Run one frame of the task.</div>
+<div class="block">When the obstacle reaches the boundary of the moving track, then moves in the opposite direction.</div>
 </td>
 </tr>
 </tbody>
@@ -275,8 +276,7 @@ int&nbsp;priority)</span></div>
 <section class="detail">
 <h3><a id="update()">update</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">update</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../ai/tasks/Task.html#update()">Task</a></code></span></div>
-<div class="block">Run one frame of the task. Similar to the update() in Components.</div>
+<div class="block">When the obstacle reaches the boundary of the moving track, then moves in the opposite direction.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../ai/tasks/Task.html#update()">update</a></code>&nbsp;in interface&nbsp;<code><a href="../../ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a></code></dd>
