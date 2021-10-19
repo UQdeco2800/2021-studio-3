@@ -24,10 +24,12 @@ public class LoadingScreen extends ScreenAdapter {
     private ResourceService resourceService;
 
     /* Textures of loading screen background and loading bar */
-    private static final String[] LoadingTextures = {"images/bar1.png",
-            "images/bar2.png", "images/bar3.png", "images/bar4.png",
-            "images/bar5.png", "images/bar6.png", "images/bar7.png",
-            "images/bar8.png", "images/bar9.png", "images/bar10.png"};
+    private static final String[] LoadingTextures = {
+            "images/PortalTransition1.png", "images/PortalTransition2.png",
+            "images/PortalTransition3.png", "images/PortalTransition4.png",
+            "images/PortalTransition5.png", "images/PortalTransition6.png",
+            "images/PortalTransition7.png", "images/PortalTransition8.png",
+            "images/PortalTransition9.png", "images/PortalTransition10.png"};
 
     private static final String[] forestTextures = {
             "images/box_boy_leaf.png",
@@ -101,18 +103,20 @@ public class LoadingScreen extends ScreenAdapter {
             "images/lives_icon2.png",
             "images/instence_fall.png",
             "images/double_jump.png",
+            "images/portal.png",
+            "images/Spaceship.png",
+            "images/PortalAnimation.png",
+            "images/PortalTransition1.png",
             "images/harmless_egg.png",
-
+            "images/buff_debuff_info.png",
+            "images/empty_nest.png",
             "images/alien_wasp.png",
             "images/alien_wasp_weapon.png",
             "images/alien_squid.png",
             "images/alien_squid_weapon.png",
 
             "images/portal.png",
-            "images/Spaceship.png"
-
-
-    };
+            "images/Spaceship.png"};
 
     /* Textures only needed for level 2*/
     private static final String[] level2Textures = {"images/background_mars.png",
@@ -126,18 +130,27 @@ public class LoadingScreen extends ScreenAdapter {
             "images/background_europa_surface.png",
             "images/background_europa_star.png"};
 
+    private static final String[] level4Textures = {"images/level4sky.png",
+            "images/level4star.png", "images/level4surface.png", "images/level4underground.png"};
+
     private static final String[] forestTextureAtlases = {
 
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas",
             "images/boxBoy.atlas", "images/robot.atlas", "images/asteroidFire.atlas",
             "images/ufo_animation.atlas", "images/PlayerMovementAnimations.atlas",
             "images/SerpentLevel1.atlas", "images/alienBoss.atlas", "images/alienSoldier.atlas", "images/alienMonster.atlas",
-            "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", "images/alienSquidLaser.atlas"
+            "images/PortalAnimation.atlas", "images/asteroidFireNew.atlas", "images/alienSquid.atlas", "images/alienWasp.atlas", 
+            "images/alienSquidLaser.atlas", "images/Lv2SerpentAnimation.atlas", "images/Lv3SerpentAnimation.atlas", 
+            "images/Lv4SerpentAnimation.atlas"
     };
 
     private static final String[] forestSounds = {"sounds/Impact4.ogg","sounds/buff.mp3","sounds/debuff.mp3"};
 
-    private static String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds/level4_background_music_1.mp3"};
+    private static final String[] forestMusic = {"sounds/maingame.mp3", "sounds/level2.mp3",
+            "sounds" +
+            "/loss" +
+            ".mp3","sounds/win.mp3", "sounds/BGM_03_mp3.mp3","sounds/level3.mp3", "sounds" +
+            "/level4_background_music_1.mp3", "sounds/click.mp3"};
 
     private static final String[] loadingScreenMusic = {"sounds/loading_background_music_new.mp3"};
 
@@ -267,6 +280,9 @@ public class LoadingScreen extends ScreenAdapter {
                 || game.getScreenType() == GdxGame.ScreenType.RESPAWN3) {
             logger.info("loading level3 assets");
             resourceService.loadTextures(level3Textures);
+        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_FOUR_GAME) {
+            logger.info("loading level4 assets");
+            resourceService.loadTextures(level4Textures);
         }
     }
 

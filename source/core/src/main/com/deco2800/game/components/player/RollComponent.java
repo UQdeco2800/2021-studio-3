@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
@@ -26,7 +27,7 @@ public class RollComponent extends Component {
     private boolean rollOnCoolDown;
 
     /* Defines how long the player must wait between rolls */
-    public long ROLL_COOL_DOWN = 4 * SECONDS;
+    public long ROLL_COOL_DOWN = 2 * SECONDS;
 
     /* Defines how far the player will roll. */
     public int ROLL_LENGTH = 3;

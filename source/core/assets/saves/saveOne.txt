@@ -1,7 +1,1 @@
-Level:levelFour
-SCORE:1000
-LIVES:0
-HEALTH:100
-SPRINT:1000
-X:1
-Y:1
+

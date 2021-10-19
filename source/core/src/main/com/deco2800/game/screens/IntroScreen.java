@@ -24,8 +24,8 @@ public class IntroScreen extends ScreenAdapter {
             "images/screen2.png",
             "images/screen3.png",
             "images/screen4.png",
-            "images/screen5.png"
-    };
+            "images/screen5.png"};
+    private static final String[] mainMenuClickSounds = {"sounds/click.mp3"};
 
     /**
      * Constructor for the intro screen. Takes the current GdxGame
@@ -79,7 +79,7 @@ public class IntroScreen extends ScreenAdapter {
         resourceService.loadMusic(introScreenMusic);
 
         resourceService.loadTextures(screenTextures);
-
+        resourceService.loadSounds(mainMenuClickSounds);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -91,6 +91,7 @@ public class IntroScreen extends ScreenAdapter {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(screenTextures);
         resourceService.unloadAssets(introScreenMusic);
+        resourceService.unloadAssets(mainMenuClickSounds);
     }
 
     /**

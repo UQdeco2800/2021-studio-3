@@ -81,15 +81,7 @@ class PlayerBuffsTest {
         player.getComponent(CombatStatsComponent.class).hit(combat);
         assertEquals(60, player.getComponent(CombatStatsComponent.class).getHealth());
     }
-
-    @Test
-    void setNoJumpingTest() {
-        KeyboardPlayerInputComponent keyboard = new KeyboardPlayerInputComponent();
-        when(player.getComponent(KeyboardPlayerInputComponent.class)).thenReturn(keyboard);
-        PlayerBuffs.noJumping(player);
-        player.getComponent(KeyboardPlayerInputComponent.class).keyDown(Input.Keys.SPACE);
-        assertEquals(false, player.getComponent(KeyboardPlayerInputComponent.class).getIsJumping());
-    }
+    
 
     @Test
     void removeInvincibilityTest() {
