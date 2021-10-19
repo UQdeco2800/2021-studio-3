@@ -280,7 +280,8 @@ public class LoadingScreen extends ScreenAdapter {
                 || game.getScreenType() == GdxGame.ScreenType.RESPAWN3) {
             logger.info("loading level3 assets");
             resourceService.loadTextures(level3Textures);
-        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_FOUR_GAME) {
+        } else if (game.getScreenType() == GdxGame.ScreenType.LEVEL_FOUR_GAME
+                || game.getScreenType() == GdxGame.ScreenType.RESPAWN4) {
             logger.info("loading level4 assets");
             resourceService.loadTextures(level4Textures);
         }
