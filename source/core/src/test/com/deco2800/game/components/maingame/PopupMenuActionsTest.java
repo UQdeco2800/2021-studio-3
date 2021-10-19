@@ -208,7 +208,7 @@ class PopupMenuActionsTest {
         popup.onReplayLossFinal();
 
         // Verify that the screen changed
-        verify(game).setScreenType(GdxGame.ScreenType.MAIN_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.RESPAWN1);
         verify(game).setScreen(GdxGame.ScreenType.LOADING);
         assertEquals( 3, forest.getPlayer().getComponent(LivesComponent.class).getLives());
     }
@@ -223,7 +223,7 @@ class PopupMenuActionsTest {
         popup.onReplayLossFinal();
 
         // Verify that the screen changed
-        verify(game).setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.RESPAWN2);
         verify(game).setScreen(GdxGame.ScreenType.LOADING);
         assertEquals( 3, levelTwo.getPlayer().getComponent(LivesComponent.class).getLives());
     }
@@ -238,7 +238,7 @@ class PopupMenuActionsTest {
         popup.onReplayLossFinal();
 
         // Verify that the screen changed
-        verify(game).setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.RESPAWN3);
         verify(game).setScreen(GdxGame.ScreenType.LOADING);
         assertEquals( 3, levelThree.getPlayer().getComponent(LivesComponent.class).getLives());
     }
@@ -253,7 +253,7 @@ class PopupMenuActionsTest {
         popup.onReplayLossFinal();
 
         // Verify that the screen changed
-        verify(game).setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+        verify(game).setScreenType(GdxGame.ScreenType.RESPAWN4);
         verify(game).setScreen(GdxGame.ScreenType.LOADING);
         assertEquals( 3, levelFour.getPlayer().getComponent(LivesComponent.class).getLives());
     }
