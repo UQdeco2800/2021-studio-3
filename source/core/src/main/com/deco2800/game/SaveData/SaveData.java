@@ -24,7 +24,7 @@ public class SaveData {
     public SaveData(GdxGame game, Entity player, int saveFileNumber) {
         this.game = game;
         this.player = player;
-        saveFile = new File(String.format("save/File %d.txt", saveFileNumber));
+        saveFile = new File(String.format("savesave/File %d.txt", saveFileNumber));
         //savePlayerData(player);
     }
 
