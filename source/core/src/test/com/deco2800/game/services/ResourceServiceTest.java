@@ -211,4 +211,28 @@ class ResourceServiceTest {
     verify(assetManager).load(asset2, Music.class);
   }
 
+  @Test
+  void shouldLoadSound() {
+    String asset1 = "test/files/win.mp3";
+    String asset2 = "test/files/lose.mp3";
+    String[] textures = {asset1, asset2};
+
+    AssetManager assetManager = spy(AssetManager.class);
+    ResourceService resourceService = new ResourceService(assetManager);
+
+    resourceService.loadMusic(textures);
+    verify(assetManager).load(asset1, Music.class);
+    verify(assetManager).load(asset2, Music.class);
+  }
+  @Test
+  void shouldLoadClickSound() {
+    String asset1 = "test/files/click.mp3";
+    String[] textures = {asset1};
+
+    AssetManager assetManager = spy(AssetManager.class);
+    ResourceService resourceService = new ResourceService(assetManager);
+
+    resourceService.loadMusic(textures);
+    verify(assetManager).load(asset1, Music.class);
+  }
 }
