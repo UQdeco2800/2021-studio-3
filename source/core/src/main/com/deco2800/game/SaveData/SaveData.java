@@ -78,6 +78,10 @@ public class SaveData {
                         case "RESPAWN3":
                             fileWriter.write("levelThree");
                             break;
+                        case "LEVEL_FOUR_GAME":
+                        case "RESPAWN4":
+                            fileWriter.write("levelFour");
+                            break;
                     }
                     fileWriter.write("\nSCORE:");
                     fileWriter.write(String.valueOf(player.getComponent(ScoreComponent.class).getScore()));

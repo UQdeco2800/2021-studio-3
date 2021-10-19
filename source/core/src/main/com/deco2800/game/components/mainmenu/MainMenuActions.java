@@ -59,13 +59,15 @@ public class MainMenuActions extends Component {
     try(BufferedReader br = new BufferedReader(new FileReader("saves/saveOne.txt"))) {
       String line = br.readLine();
 
-      if (br.readLine() == null) {
+      if (line == null) {
         onStart();
       } else {
 
         String[] values = line.split(":");
         switch (values[1]) {
-          default:
+          case "Tutorial":
+            screenType = GdxGame.ScreenType.TUTORIAL;
+            break;
           case "levelOne":
             screenType = GdxGame.ScreenType.MAIN_GAME;
             break;
@@ -75,8 +77,15 @@ public class MainMenuActions extends Component {
           case "levelThree":
             screenType = GdxGame.ScreenType.LEVEL_THREE_GAME;
             break;
-      }
-        game.setScreenType(screenType, "saves/saveOne.txt");
+          case "levelFour":
+            screenType = GdxGame.ScreenType.LEVEL_FOUR_GAME;
+          default:
+            onStart();
+        }
+
+        game.setScreenType(screenType);
+        assert screenType != null;
+        logger.info(screenType.toString());
         game.setScreen(GdxGame.ScreenType.LOADING);
       }
     } catch (IOException e) {

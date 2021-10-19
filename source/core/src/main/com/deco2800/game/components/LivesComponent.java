@@ -32,8 +32,11 @@ public class LivesComponent extends Component {
      * @param lives new number of lives left.
      */
     public void setLives(int lives) {
-        this.lives = lives;
-
+        if (lives >= 0) {
+            this.lives = lives;
+        } else {
+            this.lives = 3;
+        }
         if (entity != null) {
             entity.getEvents().trigger("updateLives", lives);
         }
@@ -44,11 +47,7 @@ public class LivesComponent extends Component {
      * @param lives lives to add to the players total.
      */
     public void addLives(int lives) {
-        if (this.lives + lives < 0) {
-        //Enact losing screen for all lives lost
-        } else {
-            setLives(this.lives += lives);
-        }
+        setLives(this.lives += lives);
     }
 
 }

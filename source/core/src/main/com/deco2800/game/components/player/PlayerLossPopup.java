@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SaveData.SaveData;
 import com.deco2800.game.components.LivesComponent;
 import com.deco2800.game.components.maingame.*;
 import com.deco2800.game.entities.Entity;
@@ -27,6 +28,9 @@ public class PlayerLossPopup extends UIComponent {
 
     /* Handler to set up the UI elements of the loss screen */
     private PopupUIHandler handler;
+
+    /* Saves Player Data */
+    private SaveData saveData;
 
     /**
      * Constructor for the PlayerLossPopup
@@ -59,9 +63,12 @@ public class PlayerLossPopup extends UIComponent {
      * */
     public void onDeath() {
         createUI();
-        game.setState(GdxGame.GameState.OVER);
-    }
+        if (player.getComponent(LivesComponent.class).getLives() > 0) {
+            player.getComponent(LivesComponent.class).addLives(-1);
+        }
 
+            game.setState(GdxGame.GameState.OVER);
+    }
     /**
      * Creates the UI for the PlayerLossPopup menu.
      * */

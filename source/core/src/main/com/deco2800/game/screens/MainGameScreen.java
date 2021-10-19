@@ -306,8 +306,11 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    if (game.getScreenType() != GdxGame.ScreenType.TUTORIAL) {
+
+    if (game.getScreenType() == GdxGame.ScreenType.MAIN_GAME ||
+            game.getScreenType() == GdxGame.ScreenType.RESPAWN1){
       this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f, game.getScreenType());
+
     }
 
     renderer.render();

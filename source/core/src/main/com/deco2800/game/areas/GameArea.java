@@ -28,6 +28,7 @@ public abstract class GameArea implements Disposable {
     areaEntities = new ArrayList<>();
   }
   protected Entity player;
+  protected static int lives;
 
   /** Create the game area in the world. */
   public abstract void create();
@@ -85,6 +86,11 @@ public abstract class GameArea implements Disposable {
     spawnEntity(entity);
   }
 
+  /**
+   * Loads the player in save file if it exists.
+   * @param player player entity
+   * @param saveState location of the save file
+   */
   protected void loadSave(Entity player, String saveState) {
 
     Entity newPLayer;
@@ -104,10 +110,14 @@ public abstract class GameArea implements Disposable {
           case "SCORE":
             newPLayer.getComponent(ScoreComponent.class).setScore(Integer.parseInt(values[1]));
           case "LIVES":
-            newPLayer.getComponent(LivesComponent.class).setLives(Integer.parseInt(values[1]));
+            lives = Integer.parseInt(values[1]);
+            if (lives<0) {
+              newPLayer.getComponent(LivesComponent.class).setLives(3);
+            } else {
+              newPLayer.getComponent(LivesComponent.class).setLives(lives);
+            }
           case "HEALTH":
             player.getComponent(CombatStatsComponent.class).setFullHeal();
-
           case "SPRINT":
             newPLayer.getComponent(SprintComponent.class).setSprint(Integer.parseInt(values[1]));
           case "X":

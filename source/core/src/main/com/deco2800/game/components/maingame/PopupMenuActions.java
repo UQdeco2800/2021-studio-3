@@ -83,6 +83,12 @@ public class PopupMenuActions extends Component {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
+    public void continueOnHome() {
+
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+
+
     /**
      * Called when the user clicks on the Replay button on pop-up screens.
      * Refreshes the main game screen. Old screen is disposed of.
@@ -122,7 +128,11 @@ public class PopupMenuActions extends Component {
         } else if (areaThree != null) {
             logger.info("Player has lost and is now replaying level3");
             game.setScreenType(GdxGame.ScreenType.RESPAWN3);
+        } else if (areaFour != null) {
+            logger.info("Player has lost and is now replaying level4");
+            game.setScreenType(GdxGame.ScreenType.RESPAWN4);
         }
+
 
         game.setScreen(GdxGame.ScreenType.LOADING);
     }
@@ -132,23 +142,21 @@ public class PopupMenuActions extends Component {
      * lives left.
      */
     public void onReplayLossFinal() {
-        if (area != null) {
+        if (area != null && area.getPlayer() != null) {
             area.getPlayer().getComponent(LivesComponent.class).setLives(3);
-           game.setScreenType(GdxGame.ScreenType.MAIN_GAME);
-        } else if (areaTwo != null) {
+           game.setScreenType(GdxGame.ScreenType.RESPAWN1);
+        } else if (areaTwo != null && areaTwo.getPlayer() != null) {
             areaTwo.getPlayer().getComponent(LivesComponent.class).setLives(3);
-          game.setScreenType(GdxGame.ScreenType.LEVEL_TWO_GAME);
-        } else if (areaThree != null) {
+          game.setScreenType(GdxGame.ScreenType.RESPAWN2);
+        } else if (areaThree != null && areaThree.getPlayer() != null) {
             areaThree.getPlayer().getComponent(LivesComponent.class).setLives(3);
-            game.setScreenType(GdxGame.ScreenType.LEVEL_THREE_GAME);
-        } else if (areaFour != null) {
+            game.setScreenType(GdxGame.ScreenType.RESPAWN3);
+        } else if (areaFour != null && areaFour.getPlayer() != null) {
             areaFour.getPlayer().getComponent(LivesComponent.class).setLives(3);
-            game.setScreenType(GdxGame.ScreenType.LEVEL_FOUR_GAME);
+            game.setScreenType(GdxGame.ScreenType.RESPAWN4);
         }
         logger.info("Player lives reset");
         game.setScreen(GdxGame.ScreenType.LOADING);
-
-
     }
 
 

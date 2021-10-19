@@ -39,7 +39,6 @@ import java.util.Random;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  protected static int lives = 2;
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 6);
@@ -842,6 +841,10 @@ public class ForestGameArea extends GameArea {
     return false;
   }
 
+  public void resetLives() {
+    lives = 3;
+  }
+
 
   /**
    * Spawns the player on the current terrain
@@ -853,12 +856,23 @@ public class ForestGameArea extends GameArea {
    * */
   protected Entity spawnPlayer(GridPoint2 playerSpawn, TerrainType area,
           boolean save) {
+    //Handles negative lives case
+    if (lives < 0) {
+      resetLives();
+    } else {
+      logger.info(String.format("The lives are %d", lives));
+    }
+
     //need to change it to the horizon view
     Entity newPlayer;
     if (player != null) {
+      logger.info("Continuing off the pre-existing player");
       newPlayer = player;
+      lives = player.getComponent(LivesComponent.class).getLives();
     } else {
+      logger.info("New player created");
       newPlayer = PlayerFactory.createPlayer();
+      newPlayer.addComponent(new LivesComponent(lives));
     }
     float tileSize = terrain.getTileSize();
 
@@ -869,13 +883,18 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new LivesComponent(lives));
     newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
-      lives -= 1;
+      if (lives < 0) {
+        resetLives();
+      } else {
+        lives -= 1;
+      }
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
     } else {
       if(livesCondition(area, lives) && !isDead()) {
-        lives = 3;
+        resetLives();
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
+      logger.info(String.format("The lives are %d", lives));
     }
 
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
@@ -887,6 +906,7 @@ public class ForestGameArea extends GameArea {
 
     /* Inform the player about the map fixtures */
     newPlayer.getComponent(DoubleJumpComponent.class).setMapEdges(this.mapFixtures);
+    player = newPlayer;
     return newPlayer;
   }
 

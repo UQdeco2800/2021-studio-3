@@ -122,13 +122,20 @@ public class GdxGame extends Game {
           return new LevelThreeScreen(this, resourceService, MainGameScreen.Level.THREE);
         }
       case LEVEL_FOUR_GAME:
-        return new LevelFourScreen(this, resourceService, MainGameScreen.Level.FOUR);
+        if (loadState) {
+          loadState = false;
+          return new LevelFourScreen(this, saveState, resourceService);
+        } else {
+          return new LevelFourScreen(this, resourceService, MainGameScreen.Level.FOUR);
+        }
       case RESPAWN1:
         return new MainGameScreen(this, true, resourceService, MainGameScreen.Level.ONE);
       case RESPAWN2:
         return new LevelTwoScreen(this, true, resourceService, MainGameScreen.Level.TWO);
       case RESPAWN3:
         return new LevelThreeScreen(this, true, resourceService, MainGameScreen.Level.THREE);
+      case RESPAWN4:
+        return new LevelFourScreen(this, true, resourceService, MainGameScreen.Level.FOUR);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOADING:
@@ -144,40 +151,6 @@ public class GdxGame extends Game {
         default:
         return null;
     }
-  }
-
-  /**
-   * Create a new screen of the provided saveState.
-   * @param saveState save file
-   * @return new screen
-   */
-  private Screen loadState(String saveState) {
-    Screen currentScreen = getScreen();
-    if (currentScreen != null) {
-      currentScreen.dispose();
-    }
-    setScreen(newScreen(ScreenType.MAIN_GAME));
-
-    try(BufferedReader br = new BufferedReader(new FileReader(saveState))) {
-      String line = br.readLine();
-      // parse file to load the floor
-      String[] values = line.split(":");
-      switch(values[1]) {
-        case "Tutorial":
-          setScreenType(ScreenType.TUTORIAL);
-          return new MainGameScreen(this,  resourceService, MainGameScreen.Level.TUTORIAL);
-        case "levelOne":
-          setScreenType(ScreenType.MAIN_GAME);
-          return new MainGameScreen(this,  resourceService, MainGameScreen.Level.ONE);
-        case "levelTwo":
-          //return new LevelTwoScreen(this, saveState, resourceService);
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 
   public void setScreenType(ScreenType screenType) {
@@ -203,7 +176,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, SETTINGS, CHECKPOINT,
+    MAIN_MENU, MAIN_GAME, RESPAWN1, RESPAWN2, RESPAWN3, RESPAWN4, SETTINGS, CHECKPOINT,
     CHECKPOINT_REPLAY, LEVEL_TWO_GAME, LEVEL_THREE_GAME, LEVEL_FOUR_GAME,
     LOADING, INTRO, SAVE_STATE, TUTORIAL, LOAD
   }
