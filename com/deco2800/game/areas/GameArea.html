@@ -137,11 +137,16 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>protected static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lives">lives</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#player">player</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected <a href="terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#terrain">terrain</a></span></code></th>
 <td class="colLast">&nbsp;</td>
@@ -221,7 +226,9 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadSave(com.deco2800.game.entities.Entity,java.lang.String)">loadSave</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
 java.lang.String&nbsp;saveState)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Loads the player in save file if it exists.</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
@@ -286,6 +293,12 @@ boolean&nbsp;centerY)</code></th>
 <section class="detail">
 <h3><a id="player">player</a></h3>
 <div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">player</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="lives">lives</a></h3>
+<div class="memberSignature"><span class="modifiers">protected static</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">lives</span></div>
 </section>
 </li>
 </ul>
@@ -376,6 +389,12 @@ boolean&nbsp;centerY)</span></div>
 <h3><a id="loadSave(com.deco2800.game.entities.Entity,java.lang.String)">loadSave</a></h3>
 <div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadSave</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
 java.lang.String&nbsp;saveState)</span></div>
+<div class="block">Loads the player in save file if it exists.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>player</code> - player entity</dd>
+<dd><code>saveState</code> - location of the save file</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
