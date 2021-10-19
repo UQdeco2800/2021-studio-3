@@ -150,15 +150,15 @@ public class BuffManager extends Component {
     public String getTexture(BuffTypes type) {
         switch (type) {
             case BT_INVIN:
-                return "images/invincible.png";
+                return "images/Invincibility.png";
             case B_HP_UP:
-                return "images/healthIncrease.png";
+                return "images/oxygen .png";
             case D_HP_DOWN:
-                return "images/healthDecrease.png";
+                return "images/decreaseHealth.png";
             case BT_INF_SPRINT:
-                return "images/infiniteSprint.png";
+                return "images/sprint (1).png";
             case DT_DOUBLE_DMG:
-                return "images/doubleHurt.png";
+                return "images/Double Hurt.png";
             case B_FULL_HEAL:
                 return "images/heart.png";
         }

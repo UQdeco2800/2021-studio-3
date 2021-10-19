@@ -27,7 +27,7 @@ public class RollComponent extends Component {
     private boolean rollOnCoolDown;
 
     /* Defines how long the player must wait between rolls */
-    public long ROLL_COOL_DOWN = 4 * SECONDS;
+    public long ROLL_COOL_DOWN = 2 * SECONDS;
 
     /* Defines how far the player will roll. */
     public int ROLL_LENGTH = 3;

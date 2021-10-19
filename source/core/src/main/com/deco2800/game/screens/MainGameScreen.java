@@ -69,14 +69,13 @@ public class MainGameScreen extends ScreenAdapter {
 
   /* Textures for the buffs and debuffs */
   private static final String[] buffsAndDebuffsTextures =
-          {"images/invincible.png",
-                  "images/healthDecrease.png",
-                  "images/doubleHurt.png",
+          {"images/Invincibility.png",
+                  "images/decreaseHealth.png",
+                  "images/Double Hurt.png",
                   "images/decrease20Pickup.png",
                   "images/increase20Pickup.png",
-                  "images/healthIncrease.png",
-                  "images/noJumping.png",
-                  "images/infiniteSprint.png"};
+                  "images/oxygen .png",
+                  "images/sprint (1).png"};
 
   private static final Vector2 CAMERA_POSITION = new Vector2(10f, 7.5f);
   /* background and click effect */
@@ -135,14 +134,13 @@ public class MainGameScreen extends ScreenAdapter {
 
   public static AssetManager load(){
 
-    manager.load("images/invincible.png", Texture.class);
+    manager.load("images/Invincibility.png", Texture.class);
     manager.load("images/winReplay.png", Texture.class);
     manager.load("images/winMainMenu.png", Texture.class);
     manager.load("images/winContinue.png", Texture.class);
-    manager.load("images/doubleHurt.png", Texture.class);
-    manager.load("images/infiniteSprint.png", Texture.class);
+    manager.load("images/Double Hurt.png", Texture.class);
+    manager.load("images/sprint (1).png", Texture.class);
     manager.load("images/heart.png", Texture.class);
-    manager.load("images/noJumping.png", Texture.class);
     manager.load("images/lives_icon2.png", Texture.class);
     manager.finishLoading();
     return manager;
