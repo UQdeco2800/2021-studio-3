@@ -117,7 +117,8 @@ public class IntroDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("skip button clicked");
-
+                        Sound buttonClickSound = ServiceLocator.getResourceService().getAsset(CLICK_SOUND_FILE_PATH, Sound.class);
+                        buttonClickSound.play();
                         entity.getEvents().trigger("skip");
                     }
                 });
