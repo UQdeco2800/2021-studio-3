@@ -333,7 +333,8 @@ public class ForestGameArea extends GameArea {
     spawnPlatformsTypeTwo(this.PLATFORM_SPAWNS);
     spawnAlienSoldiers(this.ALIEN_SOLDIER_SPAWNS, this);
     spawnAlienBarbettes(this.ALIEN_BARBETTE_SPAWNS, this);
-
+    GridPoint2 pos = new GridPoint2(0, 5);
+    spawnEntityAt(ObstacleFactory.createEmptyNest(), pos, true, true);
     // createCheckpoints(this.CHECKPOINT_SPAWNS, this); No checkpoints on this map
     spawnUFOs(this.UFO_SPAWNS);
 
