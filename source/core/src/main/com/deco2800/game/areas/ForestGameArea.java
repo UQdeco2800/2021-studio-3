@@ -39,7 +39,6 @@ import java.util.Random;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  protected static int lives = 2;
   private static final GameTime gameTime = new GameTime();
   private long CAM_START_TIME;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(18, 6);
@@ -738,6 +737,10 @@ public class ForestGameArea extends GameArea {
     return false;
   }
 
+  public void resetLives() {
+    lives = 3;
+  }
+
 
   /**
    * Spawns the player on the current terrain
@@ -751,7 +754,7 @@ public class ForestGameArea extends GameArea {
           boolean save) {
     //Handles negative lives case
     if (lives < 0) {
-      lives = 3;
+      resetLives();
     } else {
       logger.info(String.format("The lives are %d", lives));
     }
@@ -777,16 +780,17 @@ public class ForestGameArea extends GameArea {
     newPlayer.addComponent(new InformPlayerComponent());
     if (isDead()) {
       if (lives < 0) {
-        lives = 3;
+        resetLives();
       } else {
         lives -= 1;
       }
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
     } else {
       if(livesCondition(area, lives) && !isDead()) {
-        lives = 3;
+        resetLives();
         newPlayer.getComponent(LivesComponent.class).setLives(lives);
       }
+      logger.info(String.format("The lives are %d", lives));
     }
 
     //spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);

@@ -31,9 +31,18 @@ public class LevelFourArea extends ForestGameArea {
     // Placeholder music
     private static final String backgroundMusic = "sounds/level4_background_music_1.mp3";
 
+    private final boolean hasSave;
+
     public LevelFourArea(TerrainFactory terrainFactory, int checkpoint,
             boolean hasDied) {
         super(terrainFactory, checkpoint, hasDied);
+        this.hasSave = false;
+        setupSpawns();
+    }
+
+    public LevelFourArea(TerrainFactory terrainFactory, String saveState) {
+        super(terrainFactory, saveState);
+        this.hasSave = true;
         setupSpawns();
     }
 
@@ -114,10 +123,17 @@ public class LevelFourArea extends ForestGameArea {
     public void create() {
         // UI
         displayUI("Level Four");
+        // Spawning Terrain and player
+        spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelFourFloat.txt");
+
 
         // Spawning Terrain and player
         spawnTerrain(TerrainType.LEVEL_FOUR_TERRAIN, "level-floors/levelFourGround.txt", "level-floors/levelFourFloat.txt");
-        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
+        //setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, false)); // Placeholder save
+        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_FOUR_TERRAIN, hasSave));
+        if (hasSave) {
+            loadSave(getPlayer(), this.saveState);
+        }
         spawnDeathWall(4);
         spawnSpaceship(MainGameScreen.Level.FOUR);
         spawnAsteroids(this.ASTEROID_SPAWNS);

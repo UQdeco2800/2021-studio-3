@@ -142,16 +142,12 @@ public class PopupMenuActions extends Component {
      */
     public void onReplayLossFinal() {
         if (area != null && area.getPlayer() != null) {
-            area.getPlayer().getComponent(LivesComponent.class).setLives(3);
            game.setScreenType(GdxGame.ScreenType.RESPAWN1);
         } else if (areaTwo != null && areaTwo.getPlayer() != null) {
-            areaTwo.getPlayer().getComponent(LivesComponent.class).setLives(3);
           game.setScreenType(GdxGame.ScreenType.RESPAWN2);
         } else if (areaThree != null && areaThree.getPlayer() != null) {
-            areaThree.getPlayer().getComponent(LivesComponent.class).setLives(3);
             game.setScreenType(GdxGame.ScreenType.RESPAWN3);
         } else if (areaFour != null && areaFour.getPlayer() != null) {
-            areaFour.getPlayer().getComponent(LivesComponent.class).setLives(3);
             game.setScreenType(GdxGame.ScreenType.RESPAWN4);
         }
         logger.info("Player lives reset");

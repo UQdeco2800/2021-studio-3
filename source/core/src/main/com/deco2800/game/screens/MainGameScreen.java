@@ -256,6 +256,7 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
     area.spawnBuffDebuff(this.buffManager, area.getAreaType());
     saveData = new SaveData(game, area.getPlayer());
+    saveData.savePlayerData();
   }
 
   /**
@@ -306,7 +307,9 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    if (game.getScreenType() != GdxGame.ScreenType.TUTORIAL) {
+
+    if (game.getScreenType() == GdxGame.ScreenType.MAIN_GAME ||
+            game.getScreenType() == GdxGame.ScreenType.RESPAWN1){
       this.currentMap.isPause(game.getState(), this.currentMap.getAllEntities(), 2.5f);
     }
 

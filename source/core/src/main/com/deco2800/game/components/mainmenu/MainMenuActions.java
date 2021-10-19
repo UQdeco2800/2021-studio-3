@@ -79,6 +79,8 @@ public class MainMenuActions extends Component {
             break;
           case "levelFour":
             screenType = GdxGame.ScreenType.LEVEL_FOUR_GAME;
+          default:
+            onStart();
         }
 
         game.setScreenType(screenType);

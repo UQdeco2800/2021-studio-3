@@ -148,7 +148,8 @@ public class LevelThreeArea extends ForestGameArea {
 
         // Spawning Terrain and player
         spawnTerrain(TerrainType.LEVEL_THREE_TERRAIN, "level-floors/levelThreeGround.txt", "level-floors/levelThreeFloat.txt");
-        setPlayer(spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_THREE_TERRAIN, hasSave));
+        player = spawnPlayer(PLAYER_SPAWN, TerrainType.LEVEL_THREE_TERRAIN, hasSave);
+        setPlayer(player);
         if (hasSave) {
             loadSave(getPlayer(), this.saveState);
         }
