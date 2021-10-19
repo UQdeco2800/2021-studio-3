@@ -213,8 +213,8 @@ class ResourceServiceTest {
 
   @Test
   void shouldLoadSound() {
-    String asset1 = "test/files/win.mp3";
-    String asset2 = "test/files/lose.mp3";
+    String asset1 = "sounds/win.mp3";
+    String asset2 = "sounds/lose.mp3";
     String[] textures = {asset1, asset2};
 
     AssetManager assetManager = spy(AssetManager.class);
@@ -226,7 +226,7 @@ class ResourceServiceTest {
   }
   @Test
   void shouldLoadClickSound() {
-    String asset1 = "test/files/click.mp3";
+    String asset1 = "sounds/click.mp3";
     String[] textures = {asset1};
 
     AssetManager assetManager = spy(AssetManager.class);
